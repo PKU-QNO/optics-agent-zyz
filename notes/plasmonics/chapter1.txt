@@ -1,0 +1,1073 @@
+古英 简历
+1970年出生于新疆石河子
+88.09–92.07, 南开大学物理系, 本科
+92.09–95.07, 北京大学物理系, 硕士
+95.10–01.08, 香港中文大学物理系, 博士
+01.10–03.08, 北京大学物理学院, 博士后
+03.09–04.07, 北京大学物理学院, 讲师
+04.08 –17.07, 北京大学物理学院, 副教授
+17.08 –至今, 北京大学物理学院, 博雅特聘教授
+   2015年, 获得国家杰出青年基金
+              研究概况
+
+ 量子光学
+              量子微纳光子学
+ 微纳光学
+                      微纳米或亚波长尺度
+
+量子光场    调控     可逆     复合体系   量子信息
+ 调控    自发辐射   相互作用    量子干涉    研究
+
+
+        场量子化          量子体系结合
+
+其它新兴           手性光子            拓扑光子
+       光子晶体            超材料
+ 材料             材料              结构
+3
+研究方向：微纳尺度量子光学与量子信息
+
+致力于微纳光子学、量子光学和量子信息及其交叉领域的基
+础研究。
+
+研究多种微纳光子结构及其组合中的光学模式，进而研究这
+些结构中的量子光场及其和量子体系的耦合、腔量子电动力
+学、量子干涉及量子信息等，揭示了微纳尺度光和量子体系
+相互作用的诸多新现象新效应，为芯片上量子光学和量子信
+息提供了新原理新思路。
+
+在Nature nanotechnology、PRL、light、Chem.、nano letters、
+《物理》等高水平杂志发表论文100多篇，在国内外学术界产
+生一定的影响。
+            超材料光学
+     Photonics for Metamaterials
+
+   古   英    email: ygu@pku.edu.cn
+   Tel: 62752882    物理楼 西406
+
+   基础: 光学、电动力学、一点量子光学
+
+参数（介电常数、磁导率）在正常或异常区域（零、负
+数）的材料及其微纳结构的光学（可见光）性质及应用
+（ 提问：optics和 photonics的区别和联系？）
+
+                                        5
+    PPT是原创、内容整理来自文献        2026年3月24日
+ 介电常数和磁导率示意图
+
+
+                      蓝色区域：常规材料
+                      绿色区域：表面等离激元
+
+
+                      黄粉色区域：零折射率材料
+                      灰色区域：磁导率为负
+
+
+
+
+整个微纳光学的理论基础就是Maxwell方程
+图改自“罗杰，赖耘，零折射率材料的物理与应用，物理， 48卷7 期，426 （2019）”
+                                            6
+为什么要研究微纳光学（重要性）：
+
+光学本身就是实用性很强的学科：现实生活、工业生产、军事
+诺贝奖：激光、全息、光纤、蓝光LED、STED等
+
+                r r               r         r r                     r
+微纳尺度上操控光 → 实用   E ( r , t ) = A ( r )  cos(k  r +   t + 1 )  e1
+                r r               r         r r                     r
+操控光的什么性质呢？      B ( r , t ) = B ( r )  cos(k  r +   t +  2 )  e2
+
+传输、局域（增强）、聚焦、分束、存储等
+如何操控？
+材料设计、结构设计，或者两者结合
+
+
+微纳光学，尤其是其中的超材料光学
+就是在微纳尺度（亚波长）上操控（经典或量子）光场及其应用
+                                                                         7
+课程简介和章节设置
+第一章 表面等离激元基础
+1.1 特鲁德模型（Drude model）
+1.2 金属界面的表面等离激元
+1.3 平面表面等离激元波导
+1.4 Mie 理论
+1.5 金属纳米球壳的Mie共振
+
+第二章 表面等离激元前沿及应用
+2.1 表面等离激元前沿
+2.2 表面等离激元的应用
+
+第三章 微纳光学理论方法
+
+
+                         8
+章节设置
+第四章 超表面及零折射率材料
+4.1 零折射率材料及其应用
+4.2 超表面及其应用
+
+第五章 量子微纳光学
+5.1 分子荧光
+5.2 纳米结构近场区域偶极子弛豫系数
+5.3 SPP增强分子荧光的前沿进展
+5.4 SPP 的量子性
+5.5 基于超表面的量子性质
+5.6 基于拓扑光子结构的量子性质
+5.7 微纳尺度腔量子电动力学及应用
+
+                      9
+作业及考试：
+
+30分作业（见39页，选其一做） + 70分闭卷笔试
+其中：《超材料光学》占1/3
+Report：10分
+阅读 20 篇以上文献后，亲自总结的5～8页的完整综述
+完整：
+题目、摘要、章节（层状）、结论与展望、参考文献
+要求：
+独立撰写、交作业时间（5月20日左右完成）
+邮件发给：ygu@pku.edu.cn
+                              10
+第一章 表面等离激元基础
+1.1 特鲁德模型（Drude model）
+1.2 金属界面的表面等离激元
+1.3 平面表面等离激元波导
+1.4 Mie 理论
+1.5 金属纳米球壳的Mie共振
+
+
+                         11
+     最早的表面等离激元现象
+
+
+
+
+                                                                                     12
+Plasmonics: Localization and guiding of electromagnetic energy in metal/dielectric
+Stefan A. Maier and Harry A. Atwater, JOURNAL OF APPLIED PHYSICS 98, 011101 2005
+表面等离激元 plasmonics
+
+研究： 金属和介质表面以及纳米金属颗粒
+    的光学性质或光学响应
+
+解读： Surface plasmon polariton （SPP)
+Surface: 金属和介质的界面
+Plasmon: 金属界面自由电子的集体振荡，
+           借用等离子的概念
+Polariton: 模式
+
+属于： Mesoscopic optics, nano optics,
+       nano photonics, near field optics
+
+                                           13
+模式
+模式的概念
+弹性模式
+
+电磁模式
+
+
+
+对金属来说，通常有
+
+
+
+            14
+   模式的概念
+                         *弦振动问题
+         弹性模式
+         模式              modes 𝜑𝑖
+
+                          𝜓1 = ෍ 𝑝𝑖 𝜑𝑖
+                                𝑖            弹性方程+边界条件
+                          𝜓2 = ෍ 𝑞𝑖 𝜑𝑖   modes 𝜑𝑖 无论是否激发，都存在
+                                𝑖
+
+
+         电磁模式            *电磁问题(光传播问题)       Modes 𝐸𝑖0
+
+                          介观光子的求解 ：      Maxwell equations+边界条件
+
+对金属来说，通常有
+                          *电磁modes 𝐸𝑖0 也一样，无论是否激发都存在
+𝜀 𝜔 = 𝑛2 ，𝑛 = 𝑛1 + i𝑛2
+通常：n1 < 0, 𝑛2 > 0 ⟹       *对于表面等离激元光导来说，纳米金属的modes→
+Re 𝜀 𝜔   <0                纳米金属对光场的响应→ 表面等离激元→光子
+                                                             15
+Difference between surface plasmon (SP)
+  and surface plasmon polaritons (SPP)
+
+
+
+
+                                          16
+1.1 特鲁德模型 （Drude model）
+A. Dielectric constant ()
+Frequency dependent, Drude free electrons model
+Plasma: a medium with equal contribution of positive and
+negative charges, of which at least one charge type is mobile
+     ur ur it
+加上电场 E = Ee 后，其振幅分量在金属表面上
+               2r
+                 d x    ur
+电子受力（ x  l自 ） m 2 = −eE                                                     dielectric
+                 dt
+                                                                    E
+由于电子随
+   r    EM field 以  振荡，
+                                                                                    metal
+可令 x = xeit
+则      − 2 mx = −eE   x = eE / m 2
+那么 dipole moment of one electron P1  = − ex = − e 2
+                                                    E / m 2
+
+                                                                                            17
+Introduction to solid state physics, Chapter 10, Charles Kittel, Seventh Edition.
+若电子密度是n，则                         P( ) = nP1 = −ne2 E / m 2
+目的是求  m ( )                   Drude model of free electron
+
+           D( ) E ( ) + 4 P( )      4 ne2
+ m ( ) =        =                = 1−
+           E ( )      E ( )            m 2
+
+随变化， m ( ) 可正可负
+ m ( ) = 0 时的
+叫做 plasma frequency
+        4 ne 2
+  p2 =
+          m
+p 主要和电子密度n 相关
+                                                                                     18
+ Introduction to solid state physics, Chapter 10, Charles Kittel, Seventh Edition.
+B.金属中的色散关系
+                                                         p2
+由Drude model 可知                    m ( ) =  m ()[1 − 2 ]
+                                                        
+                              考虑到电子不是free，而做的一个修正
+                                                         p2
+考虑到损耗写成：                          m ( ) =  m ()[1 − 2      ]
+                                                        + i
+  
+   D =    (     ) E             2
+                                      D
+将 
+          m
+                           代入传播方程       = c  
+                                            2 2
+                                                E
+  
+   E = E 0 e ik z z + it
+                                  t  2
+
+
+
+无损耗时，得到
+
+ ()[ −  ] = c kz
+                                                                                     ik z z
+                                               又知道传播因子是 e
+               2        2          2     2
+                        p
+
+ Introduction to solid state physics, Chapter 10, Charles Kittel, Seventh Edition.            19
+ ()[ 2 − p2 ] = c2kz 2
+当kz是实数时，光传过去了，
+>p => m>0，等离子体频率以上
+
+
+
+
+当kz是复数时，传不过去，趋肤效应
+<p => m<0，等离子体频率以下
+
+Introduction to solid state physics, Chapter 10, Charles Kittel, Seventh Edition.
+
+
+                                                                                    20
+                                                                       1
+当amplitude of E 衰减到e-1时，skin depth:                               =
+                                                                     | kz |
+其中，越小，衰减越快，越薄
+
+
+
+
+有了以上的准备工作后，可以讨论surface plasmon了，
+以下的研究关注metal 的m<0的区域
+
+
+
+Introduction to solid state physics, Chapter 10, Charles Kittel, Seventh Edition.
+
+                                                                                    21
+                                 金和银的介电常数值
+
+                                                         7
+                            0
+                                                         6
+
+
+
+
+                                                                                           Imaginay dielectric constant)
+                                                                               gold
+Real dielectric constant
+
+
+
+
+                           -10                           5                     silver
+
+
+                           -20                           4
+
+                                      Gold               3
+                           -30        Silver
+                                                         2
+                           -40
+                                                         1
+
+                           -50                           0
+                              200   400   600   800   1000200     400  600   800        1000
+                                      wavelength                    wavelength
+
+
+
+                                                        PRB, 6, 4370 (1972).
+
+
+                                                                                                                           22
+23
+1.2 金属界面的表面等离激元
+Surface plasmon polariton (SPP)：P-polarized EM field 以
+角入射到metal和dielectric界面上时，出现metal表面自由电
+子的集体oscillation, 通常, 这种oscillation或由oscillation引起的
+EM field mode,叫SPP;在x方向以表面波形式传播，在z方向指
+数衰减。
+ 以下关注SPP出现的条件：
+                                    E
+ • S光还是P光 ？                                 dielectric
+ • 角表示kz和kx同时存在，它们间的                                   z
+                                  ---＋＋＋---＋＋＋
+ 关联和作用 ？                                                   x
+                                              metal
+ • d和m间的关系如何？
+ • SPP的色散关系是怎样的 ？
+ • SPP的传播长度 ?
+                                                      24
+ • SPP在金属和介质中的倏逝行为？
+以上问题是在maxwell方程的框架下并结合金属性质而解决的
+Surface plasmons on smooth and rough surfaces and on gratings, Chapter 2, Heins Raether, 1988.
+   A. Dispersion relations of SPP
+       Model setup                                                               2
+    P-polarized EM wave入射到金属
+    和介质表面上，介质是2，金属是1
+
+                                                                                      1
+                                             i ( k x2 x + k z2 z −t )
+      z  0, H 2 = (0, H y 2 , 0)e
+                                             i ( k x2 x + k z2 z −t )
+              E2 = ( Ex2 , 0, Ez 2 )e
+                                             i ( k x1 x − k z1 z −t )
+      z  0, H1 = (0, H y 1 , 0)e
+                                            i ( k x1 x − k z1 z −t )
+              E1 = ( Ex1 , 0, Ez 1 )e
+                                                                                      25
+Surface plasmons on smooth and rough surfaces and on gratings, Chapter 2, Heins Raether, 1988.
+Surface plasmon subwavelength optics，T. W. Ebbesen et al, NATURE | VOL 424 | 824| 2003
+   求解过程：
+     由Maxwell 方程得
+
+                   i Ei
+       H    i =                                       
+                   c t                       k   H    =   1 Ex1
+                                             z1 y1      c                      （1）
+      E = − 1 H i                        
+            i                               k H = −   E
+                    c t                    
+                                             
+                                                 z2  y2
+                                                            c
+                                                                2  x2
+
+
+      ( i Ei ) = 0                                                  𝜔
+      H = 0                                − 𝑘𝑥2 𝐸𝑧2 − 𝑘𝑧2 𝐸𝑥2      = 𝐻𝑦2
+           i                                                           𝑐   （2）
+                                                                        𝜔
+                                              − 𝑘𝑥1 𝐸𝑧1 + 𝑘𝑧1 𝐸𝑥1      = 𝐻𝑦1
+                                                                        𝑐
+     补充：
+                                              E x1 = E x 2
+                                                                                （3）
+       由边条件                                   H y1 = H y 2
+                                             
+                                              1 E z1 =  2 E z 2
+                                                                                    26
+
+
+Surface plasmons on smooth and rough surfaces and on gratings, Chapter 2, Heins Raether, 1988.
+                   k x1 = k x 2 = k x （A）
+    由（1）（2）（3）可得： 
+                   k z1   kz 2
+                    +  = 0 （B）
+                   1         2
+
+
+      由传播方程：
+
+      2 D                                              2
+           = c 2
+                  2
+                     E                          i (       ) = k x 2 + k zi 2 （C）
+      t 2                                             c
+
+      由以上（A），（B）和（C），化简可得：
+          dispersion relation
+
+                          1 2 1/ 2
+                             
+                  kx =  (         )
+                       c 1 +  2
+                                                                                           27
+Surface plasmons on smooth and rough surfaces and on gratings, Chapter 2, Heins Raether, 1988.
+ 知道了dispersion realtion                                  1 2 1/ 2
+                                                            
+                                                 kx =  (         )
+                                                      c 1 +  2
+
+ 讨论SPP出现的条件
+
+   
+ 令 1 =   '
+            + i "                                                                2
+         1       1            则 kx = k       '
+                                             x   + ik   "
+                                                        x
+ 2和 都是实的
+
+                                                                                   1
+ 我们有 k ' = k                            '
+
+                     sp =
+                                                     1/ 2
+               x               ( '    ) （★）1 2
+
+                           c 1 +  2
+              
+                          '
+                              
+              k " = ( 1 2 )3/ 2        "
+                                         1
+                                              （推导繁琐）
+              
+              
+                 x
+                    c 1 +  2
+                          '
+                                    2(1 )' 2
+
+                                                                                           28
+Surface plasmons on smooth and rough surfaces and on gratings, Chapter 2, Heins Raether, 1988.
+  由于kx’ 是实数，可以得到  1  0,|  1 |  2
+                                              '            '
+                                                                             SP出现的条件
+
+
+
+    在以上条件下，由（★）可得下图
+
+
+
+                                                   可以看到：SP的波失大于光
+                                                   在介质中波失，直接用光不能
+                                                   激发出表面等离激元。
+
+
+
+     最后，将kx’ kx”代入以上（C），得到 k zi 2  0 （自己推
+     一下），即z方向是倏逝波
+                                                                                         29
+Surface plasmons on smooth and rough surfaces and on gratings, Chapter 2, Heins Raether, 1988.
+Surface plasmon subwavelength optics，T. W. Ebbesen et al, NATURE | VOL 424 | 824| 2003
+   B. Properties of SPP
+  Spatial extension of SPP fields
+  Here kz1 and kz2 are imaginary, skin effect in dielectric and metal
+  can be calculated.
+                                                1
+                          z =
+  When E decays into Ee-1, i                 | k zi |
+                                            1/ 2
+                              + 2
+                                   '
+  In metal          z1 =           1
+
+                           2   1' 2
+                                              1/ 2
+  In dielectric                1' +  2
+                       z2 =
+                            2      22
+  For example, =600nm, for silver, z1= 23 nm, z2= 371 nm
+                         for gold, z1= 29 nm, z2= 281 nm
+
+  For example, =1000nm, for silver, z1= 22 nm, z2= 1122 nm
+                           for gold, z1= 24 nm, z2= 1020 nm                              30
+Surface plasmons on smooth and rough surfaces and on gratings, Chapter 2, Heins Raether, 1988.
+Numerical calculations By L. J. Wang
+Propagation length of SPP
+                                                                                  −2 k x" x
+Along a smooth surface, SP’s intensity decreases as                           e
+                                                                      1
+The propagation is defined as Li →E2e-1,                        Li =    "
+                                                                     2k x
+
+For examples, =600nm, for silver, Li = 50.7 um
+                        for gold, Li = 4.9 um
+
+
+For examples, =1000nm, for silver, Li = 698.1 um
+                        for gold, Li = 91.7 um
+
+                                                                                         31
+Surface plasmons on smooth and rough surfaces and on gratings, Chapter 2, Heins Raether, 1988.
+Numerical calculations By L. J. Wang
+  S-polarized wave (TE) 不能产生 SPP
+  For x3 > 0
+
+
+
+
+  For x3 < 0
+
+
+
+
+  When x3 = 0, E2连续                           A=B
+                     H1连续                      c (1)       c (m)
+                                            A    k3 = − B    k3
+                                              i          i
+            要求 k3(1)  0, k3( m )  0                       A = B = 0 无解
+                                                                                               32
+Nano-optics of surface plasmon polaritons, A.V. Zayats et al, Physics Reports 408 (2005) 131–314
+  1.3 平面表面等离激元波导
+   IMI (insulator-metal-insulator) waveguide
+   This geometry offers good propagation results for a SP waveguide.
+
+   Dispersion relation:
+   Metal slab thickness: d             作业之一：推导三层金属波导的 SPP
+
+
+
+    Symmetric structure
+
+      ε1 = ε s= 1
+
+
+     even mode
+
+     odd mode
+
+                                                                                               33
+Nano-optics of surface plasmon polaritons, A.V. Zayats et al, Physics Reports 408 (2005) 131–314
+air/Ag/air, =600nm
+
+
+
+
+Case 1: d=30nm, L0=50um   Explanation:
+LS=11.1 um, LL=476.3 um   Coupling of SPs
+                          split into the short range SP
+Case 2: d=50nm            (even mode) and the long range
+LS=22.6 um, LL=143.3 um   SP (odd mode).
+                                                                 34
+                          Numerical calculations By L. J. Wang
+Asymmetric IMI waveguide
+
+Range extension:
+The propagation length of LRSP
+can be highly increased.
+Results:
+Cutoff
+Bound mode: the field envelope is
+exponentially damped .
+Leaky mode: the field is away from the
+interface.
+
+
+
+
+                                                                  632 nm,silver
+                                                                  n1=2.0, n3=1.9,
+                                                                  εm= -19+0.53i     35
+Surface-polariton-like waves guided by thin, lossy metal films,
+J.J. Burke, G. I. Stegeman, Phys. Rev. B 33 (1986) 5186
+MIM (metal-insulator-metal) waveguide
+Nano-scale light confinement
+
+
+
+
+Explanation:
+Two coupled
+SPPs mediated
+by dielectric layer.
+
+
+
+The transverse modal dimension is determined by
+the gap thickness.                                                         H field profile
+                                                                           =1550nm
+                                                                                    36
+          Modeling of complementary (void) plasmon waveguiding,
+          E. Feigenbaum, M. Orenstein, J. Lightwave Tech. 25 (2007) 2547
+Planar heterostructures
+ To support the long-range SPs in asymmetric environment.
+
+ Results:
+ LRSP in an asymmetric structure
+ Nonsymmetrical structure
+
+
+ cover water (n=1.33)
+
+ film Si2N4 (n=2) 53.9nm
+ copper 10nm
+ substrate glass (n=1.5)
+
+
+ Explanation:
+ Use the multilayer structures to yield the lowest loss.
+
+                                                                                               37
+Identity of long-range surface plasmons along asymmetric structures and their potential for,
+refractometric sensors, F. Pigeon, J. Appl. Phys 90 (2001) 852
+Planar heterostructures
+Sub-wavelength SP mode
+Conductor-gap-dielectric system:
+metal Au
+nanoscale gap SiO2, ng =1.44
+high-index dielectric Ge, nd=4.26
+(waveguide 250nm)
+
+Results:
+The ultrasmall
+loss guided
+mode exists
+below the cutoff
+thickness.
+Explanation:
+SPPs at the conductor-dielectric interface modified by the
+presence of an ultrathin, low-index gap layer are an intrinsic
+property of the gap.
+Sub-wavvelength plasmonic modes in a conductor-gap-dielectric system with a nanoscale   38
+gap,I. Avrutsky, et al, Opt. Express 18 (2010) 348
+Planar heterostructures
+Ultra-long range SP mode
+
+
+
+
+waveguide:
+metal thickness Au 20nm
+low-index inner dielectric d, n1
+high-index cladding n2
+
+Results:
+cutoff
+attenuation
+Explanation:
+Achieved by placing low-index
+dielectric layers next to the metal film.
+
+Characteristics of ultra-long range surface plasmon waves at optical frequencies
+                                                                                   39
+R. Adato, J.P. Guo, Opt. Express 15 (2007) 5008
+作业（任选其一）：
+
+1. 推导三层金属波导的 SPP（题目自拟）
+
+要求：完整的report、图文并茂
+包括：题目、摘要、背景、问题描述清楚
+    推导过程、色散关系、讨论、结论、文献
+讨论：倏逝波、电磁场分布、
+    传播长度、穿透深度、可能的应用
+
+
+2. 见第10页的要求
+
+
+                         40
+41
+Surface plasmon resonance （SPR） 的概念
+Or Localized SPP
+In the isolated metallic nanostructures, due to the
+collective oscillations of free electrons, SPRs are
+excited accompanied with the enhancement of
+optical near field.
+
+
+
+
+Determined by the geometry, incident light , metallic
+dielectric permittivity, dielectric environment
+                                                                             42
+Resonance capacity of surface plasmon on subwavelength metallic structures
+Ying Gu and Qihuang Gong el al, EPL, 83 (2008) 27004
+SPR 的尺度 或 纳米金属的尺度
+
+0～10 nm: 金属的介电常数是位置依赖的， （，r）
+（微观）            量子效应出现，用量子方法处理
+
+
+10nm～几个 um: 金属的介电常数是常数，（）
+                                                                            r
+ （介观） collective resonances of free elctrons
+       maxwell 方程的框架下处理
+
+
+大于几个 um或10个波长:
+ （宏观）   通常的几何光学和波动光学
+
+5～10nm 是量子还是经典，也就是微观到介观如何过渡？
+2012年已有文章研究。
+Nature,483,417(2012,Microscopy Plasmons go quantum); nature, 483, 421 (2012,Quantum
+plasmon resonances of individual metallic nanoparticles).                         43
+Mie 散射和Rayleigh散射
+
+瑞利散射定律：1871年，L. Rayleigh 指出细小质点的散射光
+强与4成反比。解释了天空呈蓝色，日出日落是橙红色
+
+
+                      光学，下册，
+                      赵凯华，钟锡华著，
+                      北京大学出版社
+
+
+
+
+米散射定律：1908年和1909年，G. Mie 和 P. Debye计算了球
+形物体的电磁波散射，发现ka<0.3时，瑞利散射适用。可计
+算任意大球形物体的散射问题。
+
+这里我们关心波长或亚波长量级以内金属球的散射及吸收
+                                      44
+1.4 Mie 理论
+➢ Mie 理论是Gustav Mie et al.在1908年提出，可以解
+
+ 决球和球对称问题中的散射、吸收和消光
+
+➢ 通过求解 满足球边界条件的Maxwell 方程，可将电磁
+ 场按照球谐函数进行多级展开
+
+➢ 球形金属纳米结构的表面等离激元共振可以理解为激
+ 发了球形结构的多极电子集体振荡模式
+
+➢ 对光波段的SPR来说，通常研究几十到几百纳米的金
+ 或银小球、椭球和球壳等。目前，它们的制备、表征、
+ SPR性质和应用都已广泛研究。
+                                         45
+Mie theory
+
+➢ 在均匀的各向同性介质中，波动方程如下：
+
+
+其中k2＝2，并且满足散度为零   E=0,   H=0
+                                                                                      m
+ E和H间的关系：
+                                                                              ()
+
+
+➢ 以下的求解过程就是构造出标量函数ψ，常数矢量c，
+    以及符合波动方程的矢量M和N，先算出本征模式，
+    然后加上外光场和边界条件后找到符合问题要求的解
+Absorption and scattering of light by small particles, C. Bohren and D. R. Huffman,1976.
+Optical properties of metal clusters, M.Vollmer, 1995                                      46
+➢ 矢量函数M满足：
+
+
+
+根据M的公式
+
+要求                                     ，M和E，H的性质才能对应上。
+
+➢ 根据E和H间的联系，构造出另一散度为零的矢量函数N
+
+
+
+
+ N也满足波动方程                                                       和         N =0
+
+并且M和N有关系
+
+                                                                                           47
+Absorption and scattering of light by small particles, C. Bohren and D. R. Huffman,1976.
+Optical properties of metal clusters, M.Vollmer, 1995
+➢ 因此M和N满足电磁场E和H间的关系，并且问题的求解
+    化简到求满足边界条件的标量函数 ψ 。
+
+➢ 由于体系的球对称性，可令
+➢ 则球坐标系下的标量方程可写为
+
+
+
+
+➢ 用球谐函数可给出解的完备基失
+
+
+
+
+     zn是任意的一种球贝赛尔函数
+                                                                                           48
+Absorption and scattering of light by small particles, C. Bohren and D. R. Huffman,1976.
+Optical properties of metal clusters, M.Vollmer, 1995
+➢ 由此，在球对称体系中，可以得到由ψ的基失表示出的
+    多极子形式的电磁场模式
+
+
+
+
+➢ 入射平面波的电场部分
+➢ 按以上模式展开后得
+
+
+
+
+其中上角标(1)表示生成函数中的径向部分 jn（ ）, =kr。
+这里n=1表示展开项的偶极部分，n=2表示展开项的四极部分。
+                                                                                           49
+Absorption and scattering of light by small particles, C. Bohren and D. R. Huffman,1976.
+Optical properties of metal clusters, M.Vollmer, 1995
+➢ 相应的入射磁场为
+
+
+
+
+➢ 散射的电磁场（Es, Hs）和小球内的电磁场 (E1, H1)也
+    可做同样的展开
+
+  ➢ 利用边界条件
+
+  ➢ 和考虑无穷远处的渐近行为后，我们得到：
+
+
+                                                                                              50
+Absorption and scattering of light by small particles, C. F. Bohren and D. R. Huffman,1976.
+Optical properties of metal clusters, M.Vollmer, 1995
+➢ 小球内的电磁场可写为
+
+
+
+
+➢ 散射电磁场
+
+
+
+
+其中上角标（3）生成函数中的径向部分hn
+
+                                                                                           51
+Absorption and scattering of light by small particles, C. Bohren and D. R. Huffman,1976.
+Optical properties of metal clusters, M.Vollmer, 1995
+➢ 小球内的电磁场系数可写为
+
+
+
+
+➢ 散射电磁场的系数
+
+
+
+
+其中
+
+1和是球内和球外的磁导率。
+                                                                                           52
+Absorption and scattering of light by small particles, C. Bohren and D. R. Huffman,1976.
+Optical properties of metal clusters, M.Vollmer, 1995
+➢ 如果小球周围是非吸收介质，则Wi＝0，消光功率是
+    吸收功率和散射功率之和，Wext=Wa+Ws.
+
+ ➢ 消光截面定义为：
+ 其中 Ii是入射光强。
+
+ ➢ 可按同样的方式定义吸收截面和散射截面
+ 将以上电磁场的具体形式代入，得到
+
+
+
+
+➢ 这里强调：Mie理论适合计算任何材料，包括金属和介质，
+  还有零折射率材料。SPR发生时，消光较大。
+                                                                                           53
+Absorption and scattering of light by small particles, C. Bohren and D. R. Huffman,1976.
+Optical properties of metal clusters, M.Vollmer, 1995
+54
+偶极辐射的远场图
+
+
+
+
+           55
+➢ 准静态近似
+因为电磁场表达式中的系数an，bn正比于(kR)2n+1,所以
+在R<<时，只保留n=1的偶极子项
+
+
+
+
+其中介质是m， 金属 =1+i2
+
+➢ 对于金属小球来说，介电常数可以取负值，表面等
+  离激元共振发生在 1= -2 m处，与小球的大小无关。
+  实际上，当纳米颗粒的尺度在30纳米以内，只有偶
+  极共振起作用。而且此时吸收起主要消光作用。
+Absorption and scattering of light by small particles, C. Bohren and D. R. Huffman,1976.
+Optical properties of metal clusters, M.Vollmer, 1995
+                                                                                           56
+  ➢ SPR of metallic nanospheres
+
+    Mie理论可以用来计算金属小球的消光峰，这些消光
+    峰对应一系列表面等离激元共振（SPR）。解释为外
+    加光场激发了小球内自由电子的集体振荡，伴随近场
+    局域或增益。
+
+
+
+
+       ➢ 下面简单介绍纳米金属小球的SPR性质
+
+                                                                                           57
+Absorption and scattering of light by small particles, C. Bohren and D. R. Huffman,1976.
+Optical properties of metal clusters, M.Vollmer, 1995
+➢ Dipole and quadrupole plasmon resonances
+
+
+
+
+                                      以银小球为例
+                                      先给出银的介电常数的实部和虚部，
+                                      半径是30nm时，只有偶极共振被激发，
+                                      半径是60nm时，四极共振也激发出来。
+
+
+The Optical Properties of Metal Nanoparticles: The Influence of Size, Shape, and Dielectric 58
+Environment, K. Lance Kelly el al, J. Phys. Chem. B 2003, 107, 668-677.
+ ➢ 消光峰中吸收和散射部分对小球尺度大小的依赖
+ 以银小球为例，在消光峰中，当尺度很小时，吸收所占
+ 比例较大，当尺度很大时，散射所占比例增大。其它金
+ 属材料和其它形状的纳米颗粒有同样性质。
+
+
+
+
+                                                                                           59
+Absorption and scattering of light by small particles, C. Bohren and D. R. Huffman,1976.
+Optical properties of metal clusters, M.Vollmer, 1995.
+ ➢ 小球尺度变化对SPR的影响
+ 随着金银铜小球尺度的增加，共振峰红移；
+ 介电常数的虚部越大，共振峰半宽越大；
+ 银的等离子体频率高于金的。
+
+
+
+
+                                                                                           60
+Absorption and scattering of light by small particles, C. Bohren and D. R. Huffman,1976.
+Optical properties of metal clusters, M.Vollmer, 1995.
+             Gold single spheres
+
+
+
+
+消
+光
+峰
+
+
+
+
+                         波长 （nm）
+
+    与上页同样的结论，只算了偶极部分的结果。
+
+                                      61
+      Numerical results , By J. Li.
+➢ 外界介电环境变化对SPR的影响
+将铜小球放在介电常数不同的介质中，可以看到，
+随外界介电常数的增加，共振红移，并且强度变大。
+
+
+
+
+Absorption and scattering of light by small particles, C. Bohren and D. R. Huffman,1976.
+Optical properties of metal clusters, M.Vollmer, 1995.
+                                                                                           62
+  ➢ SPR of spheroids
+
+
+
+
+    以纳米银椭球为例
+    其体积相当于半径30nm的银小球，当长短轴比例增加时，
+    共振峰红移。
+                                                                                              63
+The Optical Properties of Metal Nanoparticles: The Influence of Size, Shape, and Dielectric
+Environment, K. Lance Kelly el al, J. Phys. Chem. B 2003, 107, 668-677.
+1.5 金属纳米球壳的Mie共振
+
+
+
+
+➢ Results:
+Gold nanoshell，Silica nanocore
+当球壳由厚变薄时，共振峰红移；
+当外界介电常数由小变大时，偶
+极共振峰发生红移和变宽。
+                                                  64
+Nano-optics from sensing to waveguiding
+N.J. Halas, nature photonics | VOL 1 |641| 2007
+   ➢ 球壳中的多重共振
+
+
+                                                                Experiment
+
+
+
+
+                                                                 Theory
+
+
+
+
+   参数：silica core-Au shell, r1/r2=482nm/510nm
+   ➢ 可以看到，当纳米球壳变得远远超出准静态的范围
+     后，多极共振的性质体现出来。
+Mesoscopic nanoshells: Geometry-dependent plasmon resonances beyond the            65
+quasistatic limit F. Tam et al, THE JOURNAL OF CHEMICAL PHYSICS 127, 204703 2007
+➢ 多层球壳共振的杂化耦合
+
+
+
+
+➢ 通过电多极模式的耦合和杂化，多重共振出现。
+Plasmonic Properties of Concentric Nanoshells,                                  66
+Corey Radloff and Naomi J. Halas, NANO LETTERS (2004) Vol. 4, No. 7,1323-1327
+总结：
+
+
+➢ 用两个可以精确求解的例子，阐述了SPP和SPR的概
+ 念及其相应的物理性质
+
+
+➢ 但是，绝大多数物理问题是不能精确求解的，只能用
+ 半解析方法和数值模拟的方法。后面将学习这些方法
+
+
+➢ 有了概念准备后，我们看看SPP的前沿进展及其应用
+
+
+                              67
+68
+

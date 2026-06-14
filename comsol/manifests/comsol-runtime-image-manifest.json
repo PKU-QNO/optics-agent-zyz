@@ -1,0 +1,47 @@
+{
+  "name": "comsol-runtime",
+  "version": "6.3-zyz-v1",
+  "created_for": "Magnus administrator staging",
+  "staging_root": "/data/public/zhangyuanzheng",
+  "archive": {
+    "filename": "comsol-runtime-6.3-zyz-v1.docker.tar",
+    "local_path": "D:/docker-base/comsol-runtime-6.3-zyz-v1.docker.tar",
+    "remote_path": "/data/public/zhangyuanzheng/comsol-runtime-6.3-zyz-v1.docker.tar",
+    "bytes": 11451059712,
+    "sha256": "33c8dfb5df07722143d043e653e72299f3ac0d9b9145ac9736818f16e1ea55a4"
+  },
+  "docker_tags": [
+    "comsol-runtime:6.3-zyz-v1",
+    "crpi-32rssczyu25r10yu.cn-beijing.personal.cr.aliyuncs.com/zyz25/comsol-runtime:6.3-zyz-v1"
+  ],
+  "active_magnus_image": {
+    "uri": "docker://magnus-local/comsol-runtime:latest",
+    "reported_size": "1.38G",
+    "origin": "administrator-imported local Magnus image, constructed differently from the original archive plan",
+    "policy": "do not refresh, pull, overwrite, retag, or rebuild unless explicitly requested by the administrator",
+    "validated_jobs": [
+      "de368ea77db7da7f",
+      "deb10848cb99128a",
+      "3681f26d40ccbf7b"
+    ]
+  },
+  "source_image_digest": "sha256:1715c2f1d2929669325f2067650ce1a3efeca2ce2ab0dab873cfcc6dc2508671",
+  "blueprint": {
+    "local_path": "comsol/blueprints/source/Optics_COMSOL_Runtime_zyz.magnus.py",
+    "remote_path": "/data/public/zhangyuanzheng/Optics_COMSOL_Runtime_zyz.magnus",
+    "default_container_image": "docker://magnus-local/comsol-runtime:latest",
+    "code_root": "/data/public/zhangyuanzheng/comsol-runtime",
+    "license_path": "/data/public/zhangyuanzheng/comsol-runtime/secrets/comsol/license.dat",
+    "output_root": "/home/magnus/data/optics_agent/comsol/runs"
+  },
+  "runtime_folder": {
+    "local_path": "comsol/runtime",
+    "remote_path": "/data/public/zhangyuanzheng/comsol-runtime"
+  },
+  "validation": [
+    "comsol -version",
+    "comsol batch -help",
+    "python imports: numpy scipy pandas matplotlib h5py meshio mph jpype",
+    "comsol_runner.py env_check"
+  ]
+}

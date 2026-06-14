@@ -1,0 +1,1013 @@
+1
+   第三章 介观光学的理论方法
+       更是看问题的方法或角度
+由于介观体系的细微结构可以和波长相比拟，甚至比波长小
+得多（亚波长），在处理此类问题时，边界尤为复杂，可解
+析求解的特例已不能满足许多实际问题的需要。
+
+所以，目前发展出多种数值方法和理论方法，如：
+纯数值计算：有限时域差分 FDTD 有限元方法 FEM
+电偶极近似的算法：离散偶极近似 DDA
+          耦合偶极子近似 CDA
+周期性结构中常用算法：多重散射MMS和平面波展开PWE
+处理不规则纳米结构：格林函数方法 GFM，
+           转移矩阵方法TMM
+
+                                2
+            古英 ygu@pku.edu.cn
+      有限时域差分（FDTD）
+      Finite Difference Time Domain
+
+在电磁领域用的最广泛的纯数值算法 －popular
+能算任意电磁波段，任意结构，任意介电常数 －powerful
+
+研究物理问题的手段：实验、解析和数值计算
+
+FDTD是纯数值计算法，如格林函数和DDA都是半解析
+半数值的算法，所以FDTD的适用性更强。原理上说，
+FDTD须用更多的计算资源和计算时间。目前快速发展
+的计算机技术和计算方法可一定程度解决这一问题。
+
+FDTD的计算结果需要清楚的头脑和物理思想去分析和
+提炼。
+
+                                      33
+FDTD 的实质就是数值解满足边界条件的 maxwell 方程。
+
+从maxwell 方程出发：   E = −B / t                               （1）
+
+                                  H = D / t + J           （2）
+                                D = 
+                                B = 0
+                                and D =  E
+                                      B = H
+加上初始和边条件的考虑后，只有（1），(2) 起作用
+E 和 H 可写成以下形式：
+          E total = − H total / t −  * H total
+          H total = E total / t +  E total
+                                                                    4
+  Finite difference time domain method for elctromagnetics,
+  Karl S. Kunz and Raymond J. Luebbers,1993 CRC press.
+                               E total  E incident + E scattered
+                               H total  H incident + H scattered
+
+将 E 和 H 代入后得：   E inc = −  H inc / t
+                                                       0
+
+                                 H inc =  0E inc / t
+                            H scat     * scat  * inc
+                                    =−    H    −   H
+                             t                 
+和另一组方程
+                              (  − 0 ) H inc 1
+                            −                  − (  E scat )
+                                         t    
+                            E scat       scat  inc
+                                    =− E        − E
+                              t                 
+                              ( −  0 ) E inc 1
+                            −                  − (  H scat )
+                                         t    
+                                                                    5
+  Finite difference time domain method for elctromagnetics,
+  Karl S. Kunz and Raymond J. Luebbers,1993 CRC press.
+上页得到的方程就是数值求解的基础
+             求解的过程是方程离散化的过程
+利用以下有限差分
+         f          f ( x, t2 ) − f ( x, t1 )     f ( x, t2 ) − f ( x, t1 )
+            = lim                                
+         t   t → 0            t                            t
+         f          f ( x2 , t ) − f ( x1 , t )   f ( x2 , t ) − f ( x1 , t )
+            = lim                                
+         x x →0                x                            x
+
+以及Escat和Hscat间的关系
+
+    Exscat 1  H zscat H y 
+                            scat
+
+           =           −         ,                    E yscat ,       E yscat
+     t       
+              y        z 
+
+                1  Ezscat E y 
+                               scat
+    H xscat
+             =−          −         ,                     H yscat ,        H yscat
+     t         0  y      z 
+
+                                                                                        6
+ Finite difference time domain method for elctromagnetics,
+ Karl S. Kunz and Raymond J. Luebbers,1993 CRC press.
+可以得到
+                                      scat , n −
+                                                  1      scat , n −
+                                                                    1
+                                                                      
+      scat , n
+     Ex           scat , n −1
+               − Ex             1  H z          2   H y
+                                                                    2
+                                                                      
+                              =                     −
+               t               0   y                 z           
+                                   
+                                                                     
+                                                                      
+                     1                     1
+        scat , n +            scat , n −
+     Hy              2
+                         − Hy              2
+                                                 1  Ezscat , n   Exscat , n 
+                                               =                −             
+                         t                      0  x            z         
+                                                               x  
+下面就可以编程计算了，但是要求：                                                     ( x)
+                                                               t 
+                                                                        3c
+
+可以看到：整个过程几乎没有任何公式推导，将麻烦
+交给算法和计算机。原则上，可以解决任何maxwell框
+架内的问题。
+
+                                                                                   7
+ Finite difference time domain method for elctromagnetics,
+ Karl S. Kunz and Raymond J. Luebbers,1993 CRC press.
+目前已有几款商用及自由软件可选择:
+XFDTD, Rsoft，Solution, Comsol(FEM), EastFDTD
+
+
+自由软件：Meep
+
+Meep = MIT Electromagnetic Equation Propagation，
+是 MIT 2000 年代初为光子晶体研究写的开源 FDTD
+电磁仿真软件，2006 年正式开源发布。
+
+
+
+                                                   8
+CDA (Coupled dipole approximation)
+偶极耦合近似
+
+概述：将组成单元考虑成偶极子，组成单元之间的耦合也
+只考虑偶极作用。
+适用范围：可以看成偶极子的纳米小颗粒或由其组成的阵列。颗粒的
+尺度要比波长小得多，以使小球的多级共振不会造成大的影响。更多
+的了解可以知道：偶极子是亮模式、四极以上是暗模式。颗粒之间距
+离也比较大（一般大于半个波长即可），一般只有偶极起作用。组成
+单元多是球形或椭球形，也可以是其它形状。
+
+
+
+
+                                     9
+  考虑一散射体系，包含多个组成单元，其位置和偶极极化率
+  由 ri和  i表示，则极化强度可以表示为
+
+    Pi = ai i Eloc,i
+  注意这里的 Eloc,i 是包括入射光场和其他小球散射场的影响。
+  所以，对于一给定的波长。
+                                                              N
+    Eloc,i = Einc,i + Edipole,i = E0 exp(iki ri ) -          å Aij i Pj
+                                                           j=1, j¹i
+  根据电动力学的知识，两个偶极子的耦合可以写成
+                                                          2
+                       r
+               2 ikrij ij
+                          ´ (rij ´ Pj )    ikrij        ri, jPj - 3rij (rij Pj )
+   Aij i Pj = k e                       + e (1- ikrij )
+                               3
+                             rij                                  rij5
+
+                                                                                           10
+Theoretical studies of plasmon resonances in one-dimensional nanoparticle chains: narrow
+lineshapes with tunable widths, Shengli Zou et al, Nanotechnology (2006)
+  如果散射体系有N个组成颗粒，那么就有N个类似上面的线性
+  方程。我们通过解一个自洽的N阶线性方程组
+
+         编程计算
+  就可以得到每个颗粒的极化强度 Pi ，接着就可以计算散射
+  体系的消光，吸收截面等物理量
+              4p k N
+    Cext =
+                   2
+                     å Im(E*inc, j i P j )
+              E0       j=1
+
+            4p k N ìï é              ù 2 3 2 üï
+                                       ( )
+                                 *
+     Cabs =      å íImêP j i a j P j ú - 3 k P j ý
+                              -1   *
+
+            E j=1ïî ë                            ïþ
+               2
+                                     û
+                   0
+
+
+                                                                                           11
+Theoretical studies of plasmon resonances in one-dimensional nanoparticle chains: narrow
+lineshapes with tunable widths, Shengli Zou et al, Nanotechnology (2006)
+  利用CDA方法，并不要求组成颗粒一定是球形，只要考虑偶
+  极和偶极耦合反应体系的主要物理性质时，都可以使用。
+  最简单的是小球，其偶极极化率可以由Mie理论中的展开系数
+  直接求出来：
+
+                   3a1
+    a dipole =
+                   2k 3
+
+  而对于其它形状的偶极极化率，则需要建立近似模型甚至数
+  值方法求出了
+
+
+
+                                                                                           12
+Theoretical studies of plasmon resonances in one-dimensional nanoparticle chains: narrow
+lineshapes with tunable widths, Shengli Zou et al, Nanotechnology (2006)
+              几何共振（Geometric resonances）
+几何共振：在周期性金属结构中，衍射极与SPR互相激励，互相
+增强，形成一种特殊的等离激元共振–几何共振
+
+
+
+
+理论计算：一维银纳米小球链，R=50 nm
+                                                         实验：二维金的椭球阵列
+ 1.Zou, Janel, and Schatz， J. Chem. Phys., 120, 10871 (2004)
+ 2. Baptiste Auguie´* and William L. Barnes. PRL 101, 143902 (2008)
+ 金/银纳米颗粒阵列中极窄几何共振的调节
+
+
+
+
+推广了耦合偶极方法，使
+之可以高效、准确地计算
+二元金银纳米颗粒阵列的
+光学性质。二元纳米颗粒
+阵列呈现新的几何共振。
+此几何共振的强度，宽度，
+Fano线型，都可以通过改
+变阵列的几何参数进行有
+效的调节。
+
+
+                                                                            14
+Tuning of narrow geometric resonances in Ag/Au binary nanoparticle arrays
+Li J, Gu Y, Gong QH, OPTICS EXPRESS, 18, 17684-17698 (2010).
+    阵列的多重几何共振用于波分复用
+
+
+
+
+                                                          各个衍射极，如果落在SPR
+                                                          的光谱范围之内，均能激发
+                                                          出较强的几何共振。
+
+                                                          多重几何共振特点：
+                                                          强度较大：大于SPR
+                                                          线宽很窄：一般为几个纳米
+
+
+Jia Li et al, Tunable wavelength-division multiplexing based on metallic nanoparticle arrays, Opt. Lett. 35,
+4051 (2010)
+  液晶（liquid crystal）中几何共振的调节及控制
+
+                                                 纳米盘+LC，调
+                                                 节范围～ 30 nm
+
+
+
+
+纳米颗粒+LC，调节范围<10 nm
+
+
+                        在已有的工作中，研究的都是局域表
+          纳米棒+LC
+                 面等离激元的调节（LSPR），调节
+          调节范围5- 范围最多不超过40 nm。用阵列的几
+          25 nm  何共振，可以很容易达到100 nm。
+
+             P. A. Kossyrev et al, Nano Lett. 5, 1978 (2005).
+                                                                    16
+             K. C. Chu et al，Appl. Phys. Lett. 89, 103107 (2006).
+             V. K. S. Hsiao et al, Adv. Mater. 20, 3528 (2008).
+                      液晶中的纳米金球阵列
+
+
+                                                         沿着轴向传播的散射光所
+                                                         感受的折射率：
+
+
+
+
+结构简单：浸在向列型液晶中的金纳米小球一维阵列。
+调节原理：几何共振波长大致等于相邻小球之间的轴向光
+程差，我们通过改变液晶的光轴方向改变阵列轴向折射率
+，从而调节几何共振。
+                                                                                          17
+Jia Li, Yi Ma, Ying Gu, Iam-Choon Khoo and Qihuang Gong, Appl. Phys. Lett. 98, 213101 (2011).
+                 调节范围与阵列周期成正比
+
+
+                                             调节范围与阵列周期成正比：
+
+
+                                             阵列的周期为460-560 nm范围
+                                             内时，调节范围为92.7-111.7
+                                             nm。
+
+
+                                             另外：我们还可以选用双折射较
+                                             大的液晶实现更大的调节范围。
+
+
+                                                                                          18
+Jia Li, Yi Ma, Ying Gu, Iam-Choon Khoo and Qihuang Gong, Appl. Phys. Lett. 98, 213101 (2011).
+DDA (Discrete dipole approximation )
+
+离散偶极子近似
+
+概述：把不规则的连续散射体分为有限个数的小单元，
+每个小单元在局域电场的作用下产生一个偶极极化强度。
+再考虑单元之间的偶极耦合。从尺度的概念理解DDA和
+CDA的联系和不同。
+
+
+适用范围：可计算各种几何形状散射体的性质，对其
+尺度没有原则上的要求
+
+
+
+
+                                       19
+DDA的大部分推导与CDA是相同的，唯一不同的是CDA中的单
+元是原本的组成单元，其极化率可以由Mie理论等直接求出，
+而DDA中的单元是我们划分的，每个单元的极化率得采取特
+殊的近似
+
+
+最简单的是Purcell等人采用的 Clausius-Mossotti polarizabilities:
+                 3  −1
+   CM         3d    j
+  j dipole =
+              4  j + 2
+这里的d是所分正方体单元格的线度，而  j 则是此处的介电常
+数。这种近似在在所分单元格无限小时是精确的，而一般情况
+下，有很多种修正模型。
+
+                                                    20
+DDA的准确度直接与单元格划分的大小相关，当单元格较小
+时，DDA方法还是很准确的
+
+                                                          左图是复折射率为
+                                                          1.33+0.01i的小球的散射，
+                                                          吸收谱。DDA与Mie理
+                                                          论的比较。
+
+                                                          可以看出：
+                                                          1.相同半径下，划分的单
+                                                          元格数越多，误差越小
+                                                          2. 只要划分的单元格数足
+                                                          够多。即使小球半径为波
+                                                          长的2倍，误差也才3%
+
+
+                                                                                                 21
+Discrete-dipole approximation for scattering calculations, Bruce T. Draine et al, J. Opt. Soc. Am. A，
+11， 1491 (1994)
+ DDA方法中，单元格一般都划分为正方体，所以DDA计
+ 算方形结构时非常方便。
+
+
+
+
+    图B是长度分别为100， 150 ，200nm，宽度和高度分别为
+    55，50 nm的 nanobars的散射谱。图A中相同颜色对应为其
+    实验结果。两者的差异是因为制备的并非完美的nanobars
+
+                                                                                             22
+Synthesis and Optical Properties of Silver Nanobars and Nanorice， Zhi-Yuan Li et al, Nano Lett， 7，
+1032 (2007)
+TMM (Transition matrix method)
+ 转移矩阵方法
+概述：将入射光和散射光分别用矢量球谐函数展开。这两
+套展开系数由一个转移矩阵联系。通过边界条件可以求出
+转移矩阵。进而求解散射系统的其它光学性质。
+
+
+适用范围：原则上适用于任何形状，任何尺度的系统。
+但是如果形状过于奇异，尺度太大。计算量会迅速增加
+导致不可解。
+
+TMM的特点：一般说来计算量比较大。对于有对称性的
+结构，计算有很多简化。而对于不同对称性的几何结构，
+很多人发展出了很多简化方法（下面介绍最一般情况）。
+                                 23
+考虑一平面入射光
+                   ik1 r
+Einc (r ) = Einc
+             0   e
+
+经过一任意散射体系后，入射光和散射光都可以被展开为
+
+                    n
+                              (1) (k r ) + b N(1) (k r ) 
+E inc
+        ( )    mn mn 1
+         r =               a M               mn mn 1
+                                                          
+             n =1 m =− n
+                    n
+E sca ( r ) =    pmn M (mn) (k1r ) + qmn N(mn) (k1r ) 
+                            3                 3
+                                                                       rR
+              n =1 m =− n
+                                                        
+
+ k1 是周围介质中的波数， R 是包含整个散射体的一个假想
+球体的半径。式中的上标表示第一类和第三类矢量球谐函数
+
+                                                                             24
+    Scattering, Absorption, and Emission of light by small particles
+    Michael I. Mishchenko et al, Cambridge（1994）
+入射光的展开系数可以简单求出。而根据麦克斯韦方程
+的线性特点，散射光的展开系数和入射光展开系数有一
+个线性关系，这样就可以定义一个转移矩阵（T-matrix）
+                  n
+  pmn =           Tmnm
+                       11
+                             a
+                          n mn + T 12         
+                                      mnmnbmn 
+          n=1 m=− n
+
+                 n
+  qmn =           mnmn mn mnmnbmn 
+                     T 21
+                           a    + T 22
+
+          n=1 m =− n
+                  
+
+
+可以紧凑地表示为
+          é p ù = Té a ù = éê T11     T12
+                                          ùé a ù
+                                          úë b û
+          ëqû      ë b û ë T21         22
+                                      T û
+
+如果能求出T-matrix，那么散射光的展开系数就可以求出来
+                                                                     25
+  Scattering, Absorption, and Emission of light by small particles
+  Michael I. Mishchenko et al, Cambridge（1994）
+求转移矩阵是TMM方法中最关键的也是最难的一步。对
+于不同对称性的几何体，有各种相对简便的方法，这里只
+介绍最一般的方法：EBCM（Extended boundary
+condition method）
+散射体内部的电磁场也可以做如下展开
+                   n
+                         (1)                 (1)
+                       
+E ( r ) =   cmnM mn (k2r ) + d mn N mn (k2r ) 
+          n=1 m=− n
+                                                         
+               k2           n
+                                        (1)                      (1)            
+H (r ) =                      d      M      ( k   r ) + c     N      ( k   r )
+           i0 n=1 m=− n                                                   
+                                  mn   mn     2        mn   mn     2
+
+
+边界条件要求电场和磁场在切线方向上连续
+nˆ  E+ ( r ) = nˆ  E− ( r )
+nˆ  H + ( r ) = nˆ  H − ( r )
+                                                                                      26
+   Scattering, Absorption, and Emission of light by small particles
+   Michael I. Mishchenko et al, Cambridge（1994）
+上述边界条件要求入射光的展开系数和散射光的展开系数
+都与散射体内部电磁场的展开系数有一个线性关系
+                  é  11  12 ù     é   ù    é   ù   é T11 T12 ùé a ù
+ é a ù = Qé c ù = ê Q   Q
+                            úéc ù   p        a
+                                        = Të b û = ê         úë b û
+ ë û
+   b      ë û ë Q21 Q22 ûë û
+            d                 d   ë q û            ëT 21  22
+                                                         T û
+
+  é p ù = -RgQé c ù = éê RgQ11           RgQ12
+                                               ùé c ù
+                                               úë d û
+  ëqû         ë d û ë RgQ21              RgQ22 û
+
+这里的矩阵Q和RgQ的元素都可以通过对于散射体的面积分
+求出，比如：
+
+ 11                21         2 21
+Qmnmn = −ik1k2 J mnmn − ik1 J mnmn
+
+                                M(1) ( k r , , )  M(1) ( k r , , ) 
+     n = ( −1)
+  12               m
+J mnm                  S dSnˆ g mn 2              − mn 1            
+
+                                                                              27
+    Scattering, Absorption, and Emission of light by small particles
+    Michael I. Mishchenko et al, Cambridge（1994）
+比较上面的式子，可以最终求出转移矩阵T
+
+T ( P ) = − ( RgQ) Q−1
+
+
+再通过T矩阵求出散射光的展开系数，则散射结构的一系列
+性质就可以求出来了，比如：
+                                n
+             1
+                      Re   Im(amn ( pmn ) + bmn ( qmn ) )
+                                                        *            *
+Cext =              2
+         k12 Einc
+              0
+                          n =1 m =− n
+
+
+
+                       Im ( pmn                           )
+                           n
+             1                              2           2
+Csca =                                          + qmn
+          2 inc 2 n =1 m =− n
+         k1 E0
+
+
+                                                                         28
+  Scattering, Absorption, and Emission of light by small particles
+  Michael I. Mishchenko et al, Cambridge（1994）
+    例：研究小球链时，如果小球之间的距离很小，就不能
+    用前面的CDA方法了，因为小球之间的耦合不能再看成
+    偶极子的耦合。这个时候，TMM方法是很好的选择
+
+                                               不同周期下的一维银小球链
+                                               的消光谱（链包含150 个直径
+                                               为15 nm的银小球，入射光垂
+                                               直于链，偏振沿着链的方向）
+
+                                                随着距离的减小，近场耦合的
+                                                增强，共振红移。
+
+
+
+
+                                                                                            29
+Plasmonic Resonances of Closely Coupled Gold Nanosphere Chains , Nadine Harris et al. J. Phys.
+Chem. C 2009, 113, 2784–2791
+30
+                        格林函数方法
+   格林并失方法
+  通过引入格林并失，解决不规则亚波长结构中的近场问题，
+  除了格林并失对角元项中的奇点问题，没有任何近似。因
+  为考虑了多极散射，计算精度较高。计算电磁场后，给出
+  吸收、散射和消光峰等。
+ An incident light E0(r)eit impinges on the following system,
+ the scattering field E(r) is a solution of the wave equation:
+
+                                                                                (1)
+
+ With
+  In the scattering: (r,)
+  out the scattering: r                                      r              (r,)
+  In E(r), eit is cancelled.
+                                                                                       3131
+Generalized field propagator for electromagnetic scattering and light confinement ,
+Olivier J. F. Martin et al, Phys. Rev. Lett. 74, 526 (1995)
+Introducing the operators
+             L = −               er = k 2 r ( )       es = k 2 s ( )
+
+Eq.(1) can be rewritten as
+
+                                                                    （2）
+and E0(r) satisfies
+                                                                    （3）
+
+The Green’s tensor G0 associated with the reference is
+
+                                                                   （4）
+
+                        G 0 = ( L + er ) −1
+The Green’s tensor G0 associated with the complete system
+is                                           （5）
+                                                          −1
+                        G = ( L + er + es )
+                                                                                        32
+   Generalized field propagator for electromagnetic scattering and light confinement,
+   Olivier J. F. Martin et al, Phys. Rev. Lett. 74, 526 (1995)
+If（2）＝（3）, then               ( L + er + es ) E = ( L + er ) E 0
+                               G −1 E = (G o ) −1 E 0
+                               GG −1 E = G (G o ) −1 E 0
+                               E = G ( L + er + es − es ) E 0
+                               E = ( I − Ges ) E 0
+
+In the r-representation
+
+                                                                                        （6）
+
+Finally, we get Lippmann-Schwinger equation
+
+                                                                                        （7）
+
+
+This is the main results of Green’s tensor method
+                                                                                          33
+   Generalized field propagator for electromagnetic scattering and light confinement,
+   Olivier J. F. Martin et al, Phys. Rev. Lett. 74, 526 (1995)
+几点说明或解释：
+
+                        （7）
+
+
+（1）从上式可以看出，散射体内或散射体外任何一点的
+电场可以用散射体内格林并失和散射体内电场求积后的叠
+加来表示，大大简化了纳米散射体中电磁散射的复杂边界
+问题。
+（2）通常的解法是先自洽解出散射体内的电场，然后代
+入上式得到空间任何一点的电场，包括近场和远场。这里
+可以是金属或介质。
+（3）原则上说，知道电场后可以计算消光、吸收和散射。
+但在实际纳米金属结构应用中，通常只给出散射体内吸收
+峰或者散射峰去代表表面等离激元共振（SPR）。
+
+                          34
+关于G和G0的说明：
+这里G0是3D系统的Green’s tensor ：
+
+                                              （8）
+
+
+
+
+（1）可以看到，G0包含了电多极的成分，比偶极近似精确。
+
+（2）在r=r’时，G0存在奇点问题。通常的处理方法是在一个
+R=0小区域内用积分，直接给出积分值即可。具体可参考以
+下文献。
+（3）需要指出的是，这里奇点的存在是格林并失方法中唯一
+的近似。
+                                                    35
+ Yaghjian A. D., Proc. IEEE, 68 (1980) 248.
+通过简单的推导，可得到G0和G的关系：
+
+
+
+（1）电场的表达方式有两种，在（6）中用G表达，在
+（7）中用G0表达。
+
+（2）在计算和自发辐射相关的问题时需要计算G，以
+下递推公式巧妙避过解线性方程组中的大矩阵问题。
+
+
+
+
+                                                                                     36
+Generalized field propagator for electromagnetic scattering and light confinement,
+Olivier J. F. Martin et al, Phys. Rev. Lett. 74, 526 (1995)
+具体计算实例：
+计算中通常所用的mesh是 /100到/50。对应到光波段，
+所用网格大小通常是5nm到15nm。对于格林函数来说，
+网格太大或太小计算都不是太精确。
+以下是一个不规则纳米散射体的近场计算结果
+
+
+3D letter F
+s=2.25, r=1.0
+=633 nm
+Size:7.5*30*50 nm3
+Position: 5nm away
+
+
+
+
+                                                                                      37
+ Generalized field propagator for electromagnetic scattering and light confinement,
+ Olivier J. F. Martin et al, Phys. Rev. Lett. 74, 526 (1995)
+具体应用实例：
+Optical nanoantenna 中理论计算用的就是 GTM
+
+
+
+
+                     Au nano strips
+                     =833 nm
+                     Size:250*40*45 nm3
+                                                                                        38
+Resonant Optical Antennas, O. J. F. Martin and B. Hecht et al, Science,308,1607,2005.
+     将格林并失方法延展到B≠1的情形
+      Lippmann-Schwinger equation is changed as
+
+
+
+
+      Where
+
+
+
+
+     还有其中奇点的处理也要格外小心。
+                                                                                                 39
+Electromagnetic scattering in polarizable backgrounds, O. J. F. Martin et al, PRE, 58,3909 (1998).
+格林并失方法可处理不规则形状金属的SPR （1）
+
+2D Silver ellipse
+size 20nm×10 nm
+
+Results:
+随着光入射方向的不同，
+共振峰移动，共振时的电
+场分布也不同
+注意这里算的是散射峰
+
+
+
+
+Spectral response of plasmon resonant nanoparticles with a non-regular shape   40
+Jorg P. Kottmann et al, OPTICS EXPRESS, 6,213(2000)
+格林并失方法可处理不规则形状金属的SPR （2）
+
+2D Silver triange
+size 20nm×20 nm
+
+Results:
+随着光入射方向的不同，共振
+峰移动，共振时的电场分布也
+不同。结论与上同，但几个角
+的处理上用了有限元法。
+
+
+
+
+Spectral response of plasmon resonant nanoparticles with a non-regular shape   41
+Jorg P. Kottmann et al, OPTICS EXPRESS, 6,213(2000)
+用格林并失方法处理层状结构中问题
+
+
+
+
+Accurate and efficient computation of the Green’s tensor for stratified media
+Michael Paulus el al,PRE,62,5797(2000).
+                                                                                42
+用格林并失方法解决有限尺度光子带隙的问题
+
+所用公式：
+
+
+
+
+所得结果：
+TM波和TE波都发现了带隙结构。
+
+
+
+
+Generalized Field Propagator for Arbitrary Finite-Size Photonic Band Gap Structures
+                                                                                      43
+Olivier JF martin et al, PRL, 82,315 (1999).
+用格林并失方法解决SPP表面的纳米颗粒散射问题
+
+所用公式：
+
+
+
+
+Surface plasmon polariton scattering by finite-size nanoparticles
+A. B. Evlyukhin et al, PHYSICAL REVIEW B 76, 075426 (2007).
+                                                                    44
+   结果发现：
+
+                                                （1）距表面50纳米处，纳
+                                                米颗粒越大，吸收比散射
+                                                的值越小，说明大颗粒散
+                                                射所占比重大，小颗粒吸
+                                                收所占比重大。
+
+
+
+
+（2）同等大小的纳米颗粒，
+离表面越近，散射所占比
+重越大，反之亦然。
+
+                                                                    45
+Surface plasmon polariton scattering by finite-size nanoparticles
+A. B. Evlyukhin et al, PHYSICAL REVIEW B 76, 075426 (2007).
+格林矩阵方法 (Green’s matrix method or GMM)
+在格林并失的方法基础上发展出的新方法，解决不规则金
+属亚波长结构中的表面等离激元共振问题。其特点是通过
+求解纳米散射体中格林矩阵的本征值和本征矢，以及定义
+共振容量的概念，直接给出体系的共振信息及近场信息。
+
+
+优点：解决了任意纳米结构的表面等离激
+元共振及近场这一类问题，一方面可更深
+入揭示SPR的物理，另一方面将对金属纳
+微结构的裁剪、共振控制及混合型纳米器
+件的设计提供指导。
+
+                                                                  46
+Resonance capacity of surface plasmon on subwavelength metallic
+structures ,Y.Gu et al, EPL, 83 (2008) 27004
+  Starting from Lippmann-Schwinger equation
+
+
+
+
+                                                                               线性问题转
+                                                                               化为矩阵的
+                                                                               本征问题
+
+                                                                                 s
+
+
+
+                                                                               (r,)
+
+
+
+                                                                                        47
+Resonance capacity of surface plasmon on subwavelength metallic structures ,
+Y.Gu et al, EPL, 83 (2008) 27004
+本征值直接和材料参数对应：
+
+
+ 可直接用本征矢表示电磁场，包括近场和远场。
+
+Electric fields in the nanostructures：
+
+
+
+
+Electric fields outside the nanostructures
+
+
+
+
+Resonance capacity of surface plasmon on subwavelength metallic structures ,
+Y.Gu et al, EPL, 83 (2008) 27004
+                                                                               48
+ Resonance Capacity (RC)
+
+Definition in view of the inside electric field energy of the
+nanostructures
+
+
+
+
+    where
+
+
+
+
+                                                                               49
+Resonance capacity of surface plasmon on subwavelength metallic structures ,
+Y.Gu et al, EPL, 83 (2008) 27004
+   Physics meaning:
+
+
+ （1）RC quantitatively expresses the ability to gather the
+ electromagnetic energy from the environment for free
+ electrons in metals.
+ （2）the larger RC means the larger value of εmEm, so the
+ more enhanced near field Ed
+ （3）by RC distribution, we can select those SPRs with the
+ strong near fields in the subwavelength metallic structures
+ （4）the extinction peaks of far field should correspond to
+ those SPRs with the high values of RC
+
+
+
+
+                                                                               50
+Resonance capacity of surface plasmon on subwavelength metallic structures ,
+Y.Gu et al, EPL, 83 (2008) 27004
+Comparison with the nanoantena experiment
+
+
+
+
+         Science, 308, 1607 (2005)
+
+Nanoantena effects ：at the wavelength                        GMM results
+830nm, a nanostrip 260×40×45nm3 has no
+SPR, while with a gap, SPR happens.
+
+Resonance capacity of surface plasmon on subwavelength metallic structures ,
+Y.Gu et al, EPL, 83 (2008) 27004
+                                                                               51
+    Resonance capacity distribution of rectangular
+    nanostrips
+
+
+
+    ＝632nm
+
+
+
+ 结果发现：
+ 扁平的纳米金属条能
+ 够在光波段发生共振
+
+
+
+
+                                                                               52
+Resonance capacity of surface plasmon on subwavelength metallic structures ,
+Y.Gu et al, EPL, 83 (2008) 27004
+On the other hand:
+
+RC distribution has
+a little modification
+with increasing the wavelength
+for an example
+
+GMM的缺点：
+由于格林矩阵对称，只能得
+到实的介电常数值，而金属
+中有虚部，会带来计算的不
+准确。
+
+下面阐明：
+由于金属介电常数的虚部和实部比值很小，略去虚部的考虑
+不会影响其SPR性质。
+                                                                               53
+Resonance capacity of surface plasmon on subwavelength metallic structures ,
+Y.Gu et al, EPL, 83 (2008) 27004
+   从可见到红外的纳米金属条等离激元共振设计
+
+
+
+
+固定横截面后，增加纳米金条的                                  在波长 900 nm后，固定金条长宽
+长度，SPR可从可见调到红外；                                 高比例的各个系列，共振和尺度
+横截面越小，可调性越好。                                    间存在线性关系：基本是长度每
+                                                增加一个纳米，共振红移2.6nm。
+
+                                                                                           54
+A designer approach to plasmonic nanostructures: tuning their resonance from visible to near -
+infrared, J. Li et al, Journal of Modern Optics, Vol. 56, 1396–1402 (2009).
+Comparison between GMM and DDA
+
+
+
+
+      Good agreement, DDA data by Li zhi-yuan
+
+
+
+                                                                                           55
+A designer approach to plasmonic nanostructures: tuning their resonance from visible to near -
+infrared, J. Li et al, Journal of Modern Optics, Vol. 56, 1396–1402 (2009).
+    二元纳米金属结构中表面等离激元共振的相互作用
+
+
+
+   随着两块金属介电
+   常数的变化，固定
+   入射波长下，出现
+   以下共振区域：
+   介电影响区
+   共振混乱区
+   联合共振区
+   共振高原区
+   新共振枝出现区
+
+
+                                                                                   56
+Interplay of plasmon resonances in binary nanostructures
+Y. Gu · Y. Wang · J. Li · O.J.F. Martin ·Q. Gong, Appl Phys B (2010) 98: 353–363
+  利用二元纳米金属结构控制表面等离激元共振
+ 利用不同共振区性质的不同来控制共振的波长和强度。
+ 通常来说，两种金属的介电常数相当时，比较容易得到共
+ 振波长的调节；而介电常数相差比较大时，可得到巨大的
+ 近场增益。
+
+
+
+
+                                                                                                57
+Controlling plasmonic resonances in binary metallic nanostructures
+Ying Gu, Jia Li, Olivier J. F. Martin, and Qihuang Gong, The journal of applied physics, in press.
+各种方法优缺点和适用性说明
+有限时域差分 FDTD：可解决Maxwell框架下的任何问题
+     缺点：所得物理结果需要仔细分析。
+离散偶极近似 DDA：纳米颗粒尺度不能太大
+耦合偶极子近似 CDA ：颗粒小并离得远时适用
+     缺点：只考虑了偶极共振
+和转移矩阵方法TMM：适合解决任意纳米形状
+     缺点：计算过程复杂、计算量大
+格林函数方法 GFM：可解决任意形状纳米金属或介质的散
+射问题，解析程度更高；
+     缺点：格林算子中有奇点，颗粒太小时
+          不准确，尺度太大时计算困难。         58
+59
+

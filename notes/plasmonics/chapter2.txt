@@ -1,0 +1,1465 @@
+1
+复习：
+
+1. 微纳光学最重要的是：光学模式
+
+2. Drude 模型
+
+3. SPP模式
+
+4. 局域的SPP模式、SPR
+
+
+
+ygu@pku.edu.cn      2
+第二章 表面等离激元的发展、前沿及应用
+2.1 表面等离激元发展简史 （1-43）
+2.2 表面等离激元的应用
+ 2.2.1 表面等离激元（SPP）波导（45-65）
+ 2.2.2 表面等离激元共振（SPR）及应用（67-96）
+ 2.2.3 周期性结构中SPP性质 （98-112）
+
+
+
+
+                              3
+                                 金和银的介电常数值
+                                                         7
+                            0
+                                                         6
+
+
+
+
+                                                                                             Imaginay dielectric constant)
+                                                                                 gold
+Real dielectric constant
+
+
+
+
+                           -10                           5                       silver
+
+
+                           -20                           4
+
+                                      Gold               3
+                           -30        Silver
+                                                         2
+                           -40
+                                                         1
+
+                           -50                           0
+                              200   400   600   800   1000200   400  600   800            1000
+                                      wavelength                  wavelength
+
+
+
+
+                                                                PRB, 6, 4370 (1972).
+                                                                                                                             4
+2.1 表面等离激元发展简史（按年代）
+   Wood’s anomalies，1902
+
+
+
+
+On a Remarkable Case of Uneven Distribution of Light in a Diffraction Grating Spectrum
+                  R W Wood 1902 Proc. Phys. Soc. London 18 269
+
+SURFACE-PLASMON RESONANCE EFFECT IN GRATING DIFFRACTION
+RITCHIE RH, ARAKAWA ET, COWAN JJ, et al （1968） PRL, 21 , 1530.                           5
+Mie theory , 1908
+Exact solution of sphere, spherical symmetry structure
+Absorption, scattering, and extinction
+
+
+
+
+                                                    6
+7
+8
+9
+10
+Extraordinary optical transmission
+T.W.Ebbesen group , 1998           Start point of SPP
+Bottleneck: low light transmittivity of
+apertures smaller than the wavelength of
+incident photon
+
+Hole arrays in silver film:
+metal film thickness t
+Periodicity of holes a0
+Scale of holes d
+Results:
+Extraordinary transmission
+Maximum at /d~10
+Influence of t (in APL)
+Explanation:
+Coupling of light and plasmons
+
+                                                                  11
+ Extraordinary optical transmission through subwavelength holes
+ T.W. Ebbesen et al, NATURE |VOL 391 | 12 FEBRUARY 1998
+Beaming light from a bull’s eyes structure
+T.W.Ebbesen group , 2002
+                                                      Progress work
+To solve: light diffracts in all
+directions when an aperture is
+small.
+Bull’s eye of Ag film:
+thickness 300nm
+Groove periodicity 500nm
+And depth 60nm
+Hole diamter 250nm
+
+Results:
+Beaming light
+
+Explanation:
+Coupling of light and plasmons
+Beaming light from a subwavelength hole, T.W. Ebbesen et al, Science,297,820(2002)   12
+ Plasmon-assisted transmission of entangled photons
+ E. Altewischer el al, 2002
+                                                                     Application work
+
+Aim to: Investigate the effects
+of nanostructured metal on
+entangled photons.
+Results:
+Such arrays convert photons
+into surface-plasmon —optically
+excited compressive charge
+density waves — which tunnel
+through the holes before
+reradiating as photons.
+
+Explanation:
+Conversion between photons and
+plasmons, quantum feature of SPP
+
+                                                                                   13
+ Plasmon-assisted transmission of entangled photons,
+ E. Altewischer, M. P. van Exter & J. P. Woerdman, NATURE |VOL 418 | 304| 2002 |
+Synthesis of Ag and Au nanocubes
+Xia YN el al, 2002
+                                                                  Progress work
+
+
+
+
+Significience:
+Controlling the size, shape, and structure of metal nanoparticles
+is technologically important to tailor the plasmonic properties.
+                                                                             14
+    Shape-Controlled Synthesis of Gold and Silver Nanoparticles
+    Yugang Sun and Younan Xia, science, 76 (2002); 298 Science
+A hybridization model for plasmon response
+N J Halas el al, 2003
+To solve: surface plasmon                                 Progress work
+resonances in nanoshells
+
+
+
+
+A hybridization of sphere and cavity
+A hybridization of inner and outer shells
+Results:
+Several response peaks
+A hybridization model for the plasmon response of complex nanostructures   15
+E Prodan; C Radloff; N J Halas; P Nordlander,Science, 302,419, 2003.
+Surface plasmon subwavelength optics
+William L. Barnes, Alain Dereux & Thomas W. Ebbesen, nature, 424, 824 (2003)
+
+
+
+
+表面等离激元光学是纳米尺度上光子学和电子学的结合，在
+光子回路，光谱学，生物光子学，太阳能及非线性光学方面
+都有应用。
+                                                                               16
+ Forster Energy Transfer Across a Metal Film
+ W. L. Barnes et al, 2004
+                                                         Application work
+                                                         Molecular plasmonics
+Aim to: realize the Forster
+energy transfer between donor
+and acceptor across silver film
+
+
+
+
+Significance:
+toward the realization of an active
+plasmonic device by combining thin
+polymer films with thin silver films
+
+                                                                               17
+  Energy Transfer Across a Metal Film Mediated by Surface Plasmon Polaritons
+  P. Andrew and W. L. Barnes,science,306,1002(2004).
+Optical Imaging below the Diffraction Limit
+X. Zhang et al, 2005                   Progress work
+
+Aim to: realize the image by collecting the
+of evanescent waves via the excitation of
+surface plasmons
+
+Results:
+60-nanometer resolution,
+Or 1/6 of wavelength.
+
+
+Significance:
+breakthrough the
+diffraction limit
+
+
+Sub–Diffraction-Limited Optical Imaging with a Silver Superlens
+                                                                           18
+Nicholas Fang, Hyesog Lee, Cheng Sun, Xiang Zhang, Science,308,534,2005.
+Resonant Optical Antennas
+O.J.F. Martin et al, 2005
+                                                          Progress work
+Aim to: The antenna length at resonance is considerably
+shorter than one-half the wavelength of the incident light
+
+
+                                                            Results:
+                                                            Fields localized in
+                                                            the gap and White
+                                                            light emission
+
+
+
+
+  Parameters:
+  Incident light: 830 nm                           Significance:
+  Size: 255*40*45 nm3                              Realization of optical
+  Gap: 30 nm                                       nanoantenna
+                                                                                          19
+  Resonant Optical Antennas, B. Hecht and O. J. F. Martin et al, Science,308,1607,2005.
+Channel SPP waveguide components including
+interferometers and ring resonators
+T. W. Ebbesen et al, 2006           Application work
+challenge to: the miniaturization and high-density integration
+of optical circuits at telecom. Wavelength
+
+
+
+
+ Results:                                        Significance:
+ Grooves in silver, strong light                 nano devices based
+ confinement, low propagation loss               Channel SPP
+                                                                                 20
+  Channel plasmon subwavelength waveguide components including interferometers
+  and ring resonators, T.W. Ebbesen et al, NATURE|Vol 440|508| 2006
+Generation of single optical plasmons in metallic
+nanowires coupled to quantum dots
+M. D. Lukin et al, 2007             Crossing work
+Aim to: efficient coupling between quantum dots and SPP,
+single photon switch and transistor, long range quantum bits.
+
+
+
+
+  Results:
+  Realizing single quanta of surface plasmon.
+                                                                                       21
+ Generation of single optical plasmons in metallic nanowires coupled to quantum dots
+ A. V. Akimov et al, NATURE|Vol 450|402| 2007
+Quantum light switch: A single-photon transistor
+using nanoscale surface plasmons
+M. D. Lukin et al, 2007               Crossing work
+
+在未来的计算机中光子能够代替电子吗？光子回路体积小，易
+于集成，损耗小，传的快，但是光子间没有相互作用，实现量
+子操控比较困难。量子发射体和表面等离激元强耦合的单光子
+晶体管，实现了单光子间的强相互作用，可在单光子探测，纠
+缠，可控相位门，量子的非线性效应方面有应用.
+
+
+
+
+                                                                                         22
+A single-photon transistor using nanoscale surface plasmons,M. D. Lukin et al, NATURE
+PHYSICS|Vol 3|807| 2007; Quantum light, switch,M.Orrit, NATURE PHYSICS|Vol 3|755| 2007
+Core-shell nanostructure spaser
+M. A. Noginov et al, 2009                                        Progress work
+
+Aim to: realize a ‘spaser’ generating stimulated emission of
+surface plasmons in resonating metallic nanostructures
+adjacent to a gain medium.
+
+
+
+
+  Parameters:                                   Significance:
+  gold core : 14 nm                             the smallest nanolaser
+  Shell: 44 nm                                  the first operating at visible
+  Wavelength: 525 nm                            wavelengths.
+                                                                                         23
+Demonstration of a spaser-based nanolaser, M. A. Noginov et al, NATURE| Vol 460|1110| 2009
+  Nano-spaser based on hybrid waveguide
+  X. Zhang et al, 2009
+                                                                 Progress work
+
+Challenge to: realize ultracompact lasers generating coherent
+optical fields at a nanoscale, far beyond the diffraction limit
+
+
+
+
+ Significance:
+ Plasmonic modes have no cutoff, downscaling of the lateral
+ dimensions of both the device and the optical mode is
+ demonstrated.
+                                                                                      24
+Plasmon lasers at deep subwavelength scale, X.Zhang et al, NATURE|Vol 461|629| 2009
+modified plasmon–matter interaction with
+mesoscopic quantum emitters
+                                     Progress work
+Mads Lykke Andersen, et al. 2010
+Aim to: experimentally demonstrate various decay channels with
+considering the size of quantum emitters.
+
+
+
+
+Significance: the effect of the size of nanoscale quantum dot on
+the coupling between SPP and quantum emitter.
+                                                                                25
+Strongly modified plasmon–matter interaction with mesoscopic quantum emitters
+Mads Lykke Andersen, et al. nature physics, DOI: 10.1038/NPHYS1870, 2010
+DNA-based self-assembly of chiral plasmonic
+nanostructures with tailored optical response, Anton
+Kuzyk and Robert Schreiber et al, Nature，2012
+                                                  Progress work
+Aim to: DNA origami enables the high-yield production of
+plasmonic structures that contain nanoparticles arranged in
+nano- metre-scale helices
+
+
+
+
+Significance: positioned with an accuracy better than 2 nm;
+the optical response of our nanoparticle assemblies is rationally
+designed and tunable in handedness, colour and intensity
+                                                              26
+Imaging Local Electrochemical Current via
+Surface Plasmon Resonance
+                                     Progress work
+NJ. Tao et al, 2010
+
+
+Aim to: developing an
+electrochemical
+microscopy technique
+based on the detection
+of variations in local
+electrochemical current
+from optical signals
+arising from SPP
+
+
+
+Significance: noninvasive, scanning-free, and fast, and it
+constitutes a powerful tool for studying heterogeneous surface
+reactions and for analyzing trace chemicals.
+                                                                       27
+ Imaging Local Electrochemical Current via Surface Plasmon Resonance
+ NJ Tao et al, Science|Vol 327|1363| 2010
+APPLIED PHYSICS: The Case for Plasmonics
+Mark L. Brongersma, and Vladimir M. Shalaev, 2010
+
+
+
+
+By squeezing light into nanoscale volumes, plasmonic
+elements allow for fundamental studies of light-matter
+interactions at length scales that were otherwise inaccessible
+
+                                                             28
+ The Case for Plasmonics
+ Mark L. Brongersma, et al, VOL 328,440 SCIENCE， 2010.
+        hybrid photonic architectures
+The assembly of hybrid nanophotonic devices from different
+fundamental photonic entities—such as single molecules,
+nanocrystals, semiconductor quantum dots, nanowires and metal
+nanoparticles—can yield functionalities that exceed those of the
+individual subunits.
+
+
+
+
+                                                             29
+                    Oliver Benson, nature, 480, 193 (2011)
+                                         30
+Oliver Benson, nature, 480, 193 (2011)
+Plasmonics Goes Quantum
+                                   single plasmon →
+                                       antibunching statistics
+                                   nanoscale-mode volume →
+                                       strong coupling
+                                   entangling+squeezing →
+                                       quantum information
+                                   quantum plasmonics →
+                                       Spaser
+                                       Cavity QED
+                                       QI system
+
+
+                                                                        31
+        Zubin Jacob and Vladimir M. Shalaev, science, 334, 463 (2011)
+Unidirectional Chiral Proporgating SPP
+Anatoly V. Zayats et al, 2013
+                                                                   Progress work
+Aim to: the near-field interference of a circularly polarized dipole
+results in the unidirectional excitation of guided electromagnetic
+modes in the near field, with no preferred far-field radiation direction
+
+
+
+
+ Significance: opens exciting possibilities for directional switching,
+ polarization sorting, and processing of polarization-encoded
+ information, including polarization-entangled optical qubits.
+ Quantum spin Hall effect of light (2015, science)
+Near-Field Interference for the Unidirectional Excitation of Electromagnetic Guided Modes 32
+Anatoly V. Zayats et al, Science|Vol 340|328| 2013
+Gate-tuning of graphene plasmons revealed
+by infrared nano-imaging
+                                                                     Progress work
+Z. Fei et al, 2012
+Aim to: graphene/SiO2/Si back-gated structures support
+propagating surface plasmons.
+
+
+
+
+Significance: Intrinsic plasmonic losses in graphene is less;
+plasmon tuning is realized; first generation of plasmonic
+devices; an ideal medium for active infrared plasmonics.
+Gate-tuning of graphene plasmons revealed by infrared nano-imaging              33
+Z. Fei et al, NATURE|Vol 487|82| 2012
+Controlling graphene plasmons with resonant
+metal antennas
+                                                                Progress work
+R. Hillenbrand et al, 2014
+Aim to: infrared graphene plasmons with metal antennas and
+observed a two-dimensional conductivity pattern of a bilayer
+
+
+
+
+Significance: a versatile platform based on optical antennas;
+launching and control of propagating graphene plasmons;
+ an essential step for the graphene plasmonic circuits
+Mid-infrared plasmonic biosensing with graphene (Science 2015)
+Controlling graphene plasmons with resonant metal antennas and spatial conductivity   34
+patterns R. Hillenbrand et al, Science|Vol 344|1369| 2014
+Quantum Tunnelling between Plasmon nanostructures
+Christian A. Nijhuis et al, 2013                              Progress work
+Aim to: direct observation of quantum plasmon resonances in the
+range 0.4 to 1.3 nm across molecular tunnel junctions made of two
+plasmonic resonators bridged by self-assembled monolayers (SAMs)
+
+
+
+
+ Significance: Our results show that tunneling can reconcile
+ molecular electronics with plasmonics, opening up a whole new
+ interdisciplinary field of exploration.
+
+Quantum Plasmon Resonances Controlled by Molecular Tunnel Junctions           35
+Christian A. Nijhuis et al, Science|Vol 343|1496| 2014
+               Other important affairs
+
+
+Review articles: 1
+
+Surface plasmon resonance sensors: review
+Jiri Homola, Sinclair S. Yee, Gunter Gauglitz, Sensors and Actuators B 54 (1999)
+3–15
+
+
+Surface plasmon subwavelength optics
+T. W. Ebbesen et al, NATURE | VOL 424 | 824| 2003
+
+
+Photonic structures in biology
+J.R. Sambles et al, NATURE | VOL 424 | 852| 2003
+
+
+
+
+                                                                                   36
+Review articles: 2
+
+Plasmonics: Merging Photonics and Electronics
+at Nanoscale Dimensions
+Ekmel Ozbay,SCIENCE VOL 311,189, 2006
+
+
+Nano-optics from sensing to waveguiding
+N.J. Halas, nature photonics | VOL 1 |641| 2007
+
+
+
+
+                                                  37
+Progresses: 1
+
+Local detection of electromagnetic energy
+transport below the diffraction limit in metal
+nanoparticle plasmon waveguides
+S. A.Maier et al, nature materials | VOL 2 |229| 2003
+
+
+Experimental Verification of Designer Surface
+Plasmons
+Alastair P. Hibbins, Benjamin R. Evans, J. Roy Sambles, SCIENCE,308,670,2005
+
+
+Nanofabricated media with negative permeability at
+visible frequencies
+A. N. Grigorenko and A. K. Geim el al, NATURE|Vol 438|335| 2005
+
+
+
+
+                                                                               38
+Progresses: 2
+
+Magnifying Superlens in the Visible Frequency
+Range (using metamaterial)
+Igor I. Smolyaninov, Yu-Ju Hung, Christopher C. Davis, science, 315, 1699, 2007
+
+
+
+Transmission resonances through aperiodic arrays
+of subwavelength apertures
+Tatsunosuke Matsui, NATURE| Vol 446|517| 2007
+
+
+
+Ultrasmooth Patterned Metals for Plasmonics and
+Metamaterials
+Prashant Nagpal et al, SCIENCE,325,594,2009
+
+
+Wave–particle duality of single surface plasmon
+polaritons
+Roman Kolesov et al, NATURE PHYSICS, VOL 5, 470, 2009
+
+                                                                                  39
+Progresses: 3
+
+Efficient hot-electron transfer by a plasmon-induced interfacial charge-transfer
+transition 作者 : Wu, K.; Chen, J.; McBride, J. R.; 等.
+SCIENCE 卷: 349 期: 6248 页: 632-635 出版年: AUG 7 2015
+
+Fundamental limits to graphene plasmonics
+作者: Ni, G. X.; McLeod, A. S.; Sun, Z.; 等.
+NATURE 卷: 557 期: 7706 页: 530-+ 出版年: MAY 24 2018
+
+
+
+Determining plasmonic hot-carrier energy distributions via single-molecule
+transport measurements
+作者: Reddy, Harsha; Wang, Kun; Kudyshev, Zhaxylyk; 等.
+SCIENCE 卷: 369 期: 6502 页: 423-+ 出版年: JUL 24 2020
+
+
+
+
+                                                                                   40
+Applications: 1
+
+Controlling anisotropic nanoparticle growth through
+plasmon excitation
+Rongchao Jin et al, NATURE |VOL 425 | 487| 2003
+
+
+Negative Refraction at Visible Frequencies
+Henri J. Lezec, Jennifer A. Dionne, Harry A. Atwater, science,316,430,2007
+
+
+Slow guided surface plasmons at telecom frequencies
+M. SANDTKE AND L. KUIPERS, nature photonics,1,2007
+
+
+
+Measurement of the Distribution of Site Enhancements
+in Surface-Enhanced Raman Scattering
+Ying Fang et al, SCIENCE,321,388,2008
+
+
+
+
+                                                                             41
+Applications: 2
+
+High-Q surface-plasmon-polariton whispering-
+gallery microcavity
+Bumki Min el al, NATURE| Vol 457|455| 2009
+
+
+Nanoplasmonic Probes of Catalytic Reactions
+Elin M. Larsson et al, SCIENCE VOL 326,1091, 2009
+
+
+
+
+                                                    42
+Applications：3
+
+Mid-infrared plasmonic biosensing with graphene
+作者: Rodrigo, Daniel; Limaj, Odeta; Janner, Davide; 等.
+SCIENCE 卷: 349 期: 6244 页: 165-168 出版年: JUL 10 2015
+
+Femtosecond laser reshaping yields gold nanorods with
+ultranarrow surface plasmon resonances
+作者: Gonzalez-Rubio, Guillermo; Diaz-Nunez, Pablo; Rivera, Antonio; 等.
+SCIENCE 卷: 358 期: 6363 页: 640-644 出版年: NOV 3 2017
+
+Real-space and real-time observation of a plasmon-induced chemical reaction of a
+single molecule
+作者: Kazuma, Emiko; Jung, Jaehoon; Ueba, Hiromu; 等.
+SCIENCE 卷: 360 期: 6388 页: 521-525 出版年: MAY 4 2018
+
+Amino-acid- and peptide-directed synthesis of chiral plasmonic gold nanoparticles
+作者: Lee, Hye-Eun; Ahn, Hyo-Yong; Mun, Jungho; 等.
+NATURE 卷: 556 期: 7701 页: 360-+ 出版年: APR 19 2018
+
+
+
+                                                                             43
+Applications：4
+
+Low-loss plasmon-assisted electro-optic modulator
+作者: Haffner, Christian; Chelladurai, Daniel; Fedoryshyn, Yuriy; 等.
+NATURE 卷: 556 期: 7702 页: 483-+ 出版年: APR 26 2018
+
+
+Stable, high-performance sodium-based plasmonic devices in the near infrared
+作者: Wang, Yang; Yu, Jianyu; Mao, Yi-Fei; 等.
+NATURE 卷: 581 期: 7809 页: 401-+ 出版年: MAY 28 2020
+
+
+
+Plasmonic enhancement of stability and brightness in organic light-emitting devices
+作者: Fusella, Michael A.; Saramak, Renata; Bushati, Rezlind; 等.
+NATURE 卷: 585 期: 7825 页: 379-+ 出版年: SEP 17 2020
+
+
+
+
+                                                                               44
+2.1节结束语：
+
+第一章讲清楚SPP的基本概念后，本节以 Nature 和
+Science 上进展、应用和综述文章为主要线索，总结了
+plasmonics 发展过程中的重要事件，试图对plasmonics
+有一个全局的了解。Plasmonics 是 微纳光学 的重要组成
+部分, 目前在应用领域和交叉学科方面有重要发展。
+
+
+
+
+                                      45
+46
+第二章 表面等离激元的发展、前沿及应用
+2.1 表面等离激元发展简史 （1-43）
+2.2 表面等离激元的应用
+2.2.1 表面等离激元（SPP）波导（46-64）
+ 2.2.2 表面等离激元共振（SPR）及应用（66-95）
+ 2.2.3 周期性结构中SPP性质 （97-111）
+
+
+
+
+                              47
+2.2.1 表面等离激元（SPP）波导
+
+类型：平面波导、槽形波导、柱形波导、球链波导、
+弯形波导、金属介质混合型波导 (杂化波导)
+特点：结构的尺度在亚波长范围内、
+电场束缚在金属表面、传播长度有限
+（倏逝波、有损耗）
+
+用途：分束器、干涉仪等纳米的光子器件
+
+意义：实现器件的小型化、信息传输速度快、
+各种光子器件的基础
+
+
+                          48
+ 纳米金属条形SPP波导
+
+
+
+
+                                                                 传播常数的实部
+                                                                 关于x和y对称和反
+                                                                 对称共有4支SP模
+                                                                 式。
+
+
+                                                                                           49
+Plasmon-polariton waves guided by thin lossy metal films of finite width: Bound modes of
+asymmetric structures, Pierre Berini, PHYSICAL REVIEW B, VOLUME 63, 125417 (2001).
+        传播常数的虚部
+                                                                                           50
+Plasmon-polariton waves guided by thin lossy metal films of finite width: Bound modes of
+asymmetric structures, Pierre Berini, PHYSICAL REVIEW B, VOLUME 63, 125417 (2001).
+          SSb0在宽度是1um厚度变化时的Ey电磁场分布
+          厚度薄的时候倏逝波特征明显
+                                                                                           51
+Plasmon-polariton waves guided by thin lossy metal films of finite width: Bound modes of
+asymmetric structures, Pierre Berini, PHYSICAL REVIEW B, VOLUME 63, 125417 (2001).
+     槽形SPP波导
+
+
+
+
+想法：与MIM型波导的比较的角度去理解，
+以期找到局域性好传播又长的模式。
+
+Channel Plasmon-Polariton Guiding by Subwavelength Metal Grooves,   52
+Sergey I. Bozhevolnyi et al, PRL 95, 046802 (2005)
+槽形SPP波导中电场
+
+
+
+
+可以看到：在以金属为基底的槽形波导中，模式
+的能量集中在槽中，利于导波。
+
+
+Single-mode subwavelength waveguide with channel plasmon-polaritons in triangular
+                                                                                         53
+grooves on a metal surface，D. K. Gramotnev and D. F. P. Pilea, Appl. Phys. Lett., Vol.
+85, 6323 (2004).
+  Channel SPP waveguide components including
+  interferometers and ring resonators
+  T. W. Ebbesen et al, 2006 （2.1节中提过）
+
+challenge to: the miniaturization and high-density integration
+of optical circuits at telecom. Wavelength
+
+
+
+
+ Results:                                            Significance:
+ Grooves in silver, strong light                     nano devices based
+ confinement, low propagation loss                   Channel SPP
+                                                                                 54
+  Channel plasmon subwavelength waveguide components including interferometers
+  and ring resonators, T.W. Ebbesen et al, NATURE|Vol 440|508| 2006
+柱形SPP波导（一维，柱对称、解析解）
+
+金属纳米线
+ –对每个n，存在表面模式TM0，HEn。
+
+
+
+
+                铝纳米线，波长488nm
+
+                                                    55
+  L. Novotny et al, Phys. Rev. E 50, 4094 (1994).
+金属纳米管
+  –HE1表面模式
+  –众多波导模式 HE1n，在
+   管内径减小截止。
+  –表面模式和波导模式之
+   间存在模式转换现象。
+
+
+
+
+ L. Novotny et al, Phys. Rev. E 50, 4094 (1994).
+
+
+                                                   56
+球链SPP波导
+原理：通过纳米金属颗粒间的近场耦合实现光的传递
+
+
+
+
+                                 可以看到：由于小球上电场偏振
+                                 的不同而出现T模式和L模式；
+                                 小球间距离的不同导致消光峰的
+                                 位置不同。
+                                                                                     57
+Plasmonics: Localization and guiding of electromagnetic energy in metal/dielectric
+Stefan A. Maier and Harry A. Atwater, JOURNAL OF APPLIED PHYSICS 98, 011101 2005
+聚焦后用SPP波导传输
+
+
+
+
+原理：如上图所示，光场通过半圆排列的纳米小洞后聚
+焦，聚焦后的能量通过SPP波导传递。
+
+
+Plasmonics: Merging Photonics and Electronics at Nanoscale Dimensions   58
+Ekmel Ozbay,SCIENCE VOL 311,189, 2006
+弯形SPP波导
+
+
+
+
+结果：如上图所示，SPP通过弯形波导和T型分束器后，
+透射率很高。
+
+
+Bends and splitters in metal-dielectric-metal subwavelength plasmonic waveguides   59
+Georgios Veronis and Shanhui Fan， APPLIED PHYSICS LETTERS 87, 131102 (2005).
+   金属介质混合型波导
+
+
+
+
+                                                           632nm, Au
+                                                           n1=1.45,n2=1.0
+                                                           t=100nm
+  结果：
+  将传播的SP进一步局域在宽度为d的介质条中。
+
+
+                                                                                         60
+Propagation properties of guided waves in index-guided two-dimensional optical waveguides
+Fuminori Kusunokia et al, APPLIED PHYSICS LETTERS 86, 211101 (2005)
+   金属介质混合型波导
+
+
+                                                          结果：
+                                                          通过近场耦合，将
+                                                          传播的SP的能量局
+                                                          域在介质条上。
+
+
+
+
+Floating dielectric slab optical interconnection between metal-dielectric interface  61
+surfaceplasmon polariton waveguides，Minsu Kang et al, OPTICS EXPRESS, 17,676 (2009).
+ 杂化SPP波导
+  Sub-wavelength confinement and long-range
+  propagation
+
+  Hybrid waveguide:
+  dielectric cylindrical nanowire
+  εc =12.25, d
+  dielectric gap nc=2.25, h
+  metallic half-space Ag
+
+   Results:
+   tightly confined field
+   in the vicinity of the
+   gap,low-loss light
+   transport
+   Explanation:
+   Hybridization of the fundamental mode of a dielectric cylinder
+   with the SPP of a dielectric-metal interface.
+                                                                                           62
+A hybrid plasmonic waveguide for subwavelength confinement and long-range propagation, R. F.
+Oulton, et al, Nature Photon. 2 (2008) 496
+  杂化SPP波导
+
+
+
+
+                                                   参数：
+    结论：
+    电磁场被局域在gap中或
+    高介电常数材料中
+
+                                                                                         63
+Analysis of Hybrid Dielectric Plasmonic Waveguides，Rub´en Salvador et al, IEEE JOURNAL OF
+SELECTED TOPICS IN QUANTUM ELECTRONICS, VOL. 14, 1496 (2008)
+其它类型SPP波导
+
+
+
+
+                              C型波导
+
+
+Design of a subwavelength bent C-aperture waveguide,   64
+Paul Hansen et al, OPTICS LETTERS,12,1737 (2007).
+                 弯型混合波导
+                                                                             65
+Directional coupling between dielectric and long-range plasmon waveguides，
+Aloyse Degiron et al, New Journal of Physics 11 (2009)
+其它类型SPP波导（仅给出示意图）
+
+
+
+
+                                                                          66
+ JOURNAL OF APPLIED PHYSICS 102, 033112 (2007); APPLIED PHYSICS LETTERS
+ 88, 094104 ( 2006); PHYSICAL REVIEW B 74, 155435 (2006).
+67
+2.2.2 表面等离激元共振（SPR）及应用
+
+各种形状金属颗粒SPR的共振范围
+
+
+
+
+                                                             nanostrip
+
+
+
+
+结论：通过调节纳米金属颗粒的形状，SPR可发生在可
+见光、红外和中红外波段。
+实际上：在通讯、太赫兹和微波波段，SPR的研究也很
+广泛。                                                                                       68
+Nano-optics from sensing to waveguiding,N.J. Halas, nature photonics | VOL 1 |641| 2007
+拉曼散射
+
+
+
+
+       来自吕国伟老师的PPT
+                     69
+SERS/TERS
+Surface/Tip Enhanced Raman Scattering
+
+
+
+
+                来自吕国伟老师的PPT             70
+金小球的SPR及SERS
+
+
+
+
+                                            结果：13nm的金小球，在
+                                            isolated情况下，共振在520nm，
+                                            在聚集时，共振在700nm。以及
+                                            在647nm共振时的SERS。
+
+
+                                                               71
+Preparation and Characterization of Au colloids Monolayers
+Katherine C. Grabar et al, Anal. Chem. 1995,67, 735-743
+银纳米岛的SPR及SERS
+
+
+
+
+                                            ，
+
+
+
+
+ 结果：随着纳米小球尺寸的增加，
+ 共振红移，场增益系数增加，以及
+ 在722nm共振时的SERS。
+
+Atomic force microscopy and surface-enhanced Raman spectroscopy. I. Ag island films and
+                                                                                        72
+Ag film over polymer nanosphere surfaces supported on glass
+R. P. Van Duyne et al. J. Chern. Phys. 99 ,2101(1993).
+银纳米三角形结构的制备及通讯波段SPR
+
+
+
+
+   结果：除了光波段，我们看到了在1000到1500纳米间的SPR
+
+
+                                                                                    73
+Formation of Silver Nanoprisms with Surface Plasmons at Communication Wavelengths
+Vytautas Bastys et al, Adv. Funct. Mater. 2006, 16, 766–773
+银纳米三角形结构的SPR及近场分布
+
+
+
+
+                                        结果：随纳米三角形结构尺度的增加，
+                                        共振红移；上图给出电偶极和电四极
+                                        共振时的电场分布和电荷分布。
+
+
+                                                                    74
+Optical Near-Field Mapping of Plasmonic Nanoprisms
+Matthias Rang et al, NANO LETTERS (2008) Vol. 8, No. 10,3357-3363
+   SNOM近场分布
+
+
+
+                                              结果：用SNOM探测到的共振时的
+                                              近场分布,AFM探测到纳米三角形结
+                                              构，结果与理论计算相符。
+
+
+
+
+                                                                    75
+Optical Near-Field Mapping of Plasmonic Nanoprisms
+Matthias Rang et al, NANO LETTERS (2008) Vol. 8, No. 10,3357-3363
+银Nanobars 和 Nanorices 的SPR
+
+
+
+
+结果：制备出的银纳米颗粒尺度在百纳米内，共振在光波
+段，用散射谱表征SPR。理论计算用DDA。
+                                                                   76
+Synthesis and Optical Properties of Silver Nanobars and Nanorice
+Benjamin J. Wiley et al, NANO LETTERS (2007) Vol. 7, 1032。
+      金Nanorods 的SPR及SERS
+
+
+
+
+                                               结果：制备出的金纳米颗粒尺度
+                                               在百纳米的尺度，共振波长在光
+                                               到近红外,可增强SERS。
+
+Preparation and Growth Mechanism of Gold Nanorods (NRs) Using Seed-Mediated Growth Method
+Babak Nikoobakht and Mostafa A. El-Sayed，Chem. Mater. 2003, 15, 1957-1962
+Surface-Enhanced Raman Scattering Studies on Aggregated Gold Nanorod,                 77
+Babak Nikoobakht and Mostafa A. El-Sayed, J. Phys. Chem. A 2003, 107, 3372-3378
+      纳米金笼的SPR
+
+
+
+
+      结果：制备出的纳米金笼尺度在百纳米内，共振波长在光
+      波段，可用于癌症细胞的靶向治疗或免疫等。
+                                                                                          78
+Immuno Gold Nanocages with Tailored Optical Properties for Targeted Photothermal Destruction
+of Cancer Cells，Jingyi Chen et al, Nano letters, 7, 1318 (2007).
+      金Nanostar的SPR及SERS
+
+
+
+
+ 结果：制备出的纳米金星在增强表面拉
+ 曼散射方面的应用。一方面，出现更多
+ 拉曼峰，另一方面，强度增加。
+                                                                                          79
+Immuno Gold Nanocages with Tailored Optical Properties for Targeted Photothermal Destruction
+of Cancer Cells，Jingyi Chen et al, Nano letters, 7, 1318 (2007).
+      金Nanocrescent的SPR及SERS
+
+
+
+
+    结果：制备出的纳米金月形，出现多重共振，电场局域在尖角，
+    在增强表面拉曼散射方面的应用。
+                                                                                            80
+Nanophotonic Crescent Moon Structures with Sharp Edge for Ultrasensitive Biomolecular Detection
+by Local Electromagnetic Field Enhancement Effect,Y. Lu et al, Nano letters, 5, 119 (2005).
+ 金Nanoring的多重SPR
+
+
+
+
+     135nm radius                  215nm radius
+结果：制备出的纳米C形，出现多重共振，1,2,3,4,5.
+                                                                   81
+Multiple plasmon resonances from gold nanostructures，
+A. K. Sheridan et al, APPLIED PHYSICS LETTERS 90, 143105 (2007).
+                                                      以上模式的电场分布。
+
+
+
+
+                                                                   82
+Multiple plasmon resonances from gold nanostructures，
+A. K. Sheridan et al, APPLIED PHYSICS LETTERS 90, 143105 (2007).
+  银纳米金属颗粒间的SPR相互作用
+
+
+
+
+结果：100nm直径的银球共振在520nm左右，两个银球放在一
+起时，加平行中心线的光场，共振红移到760nm，加垂直光场
+时，共振蓝移到470nm。
+
+
+
+                                                                                83
+Resonant light scattering from individual Ag nanoparticles and particle pairs
+Hiroharu Tamarua，Appl. Phys. Lett., Vol. 80, 1827 ( 2002).
+百纳米金棒间的SPR耦合
+
+
+
+
+                                            结果：金的结果与银类似，平
+                                            行排列时SPR红移，垂直时蓝
+                                            移，相互垂直是发生分裂。
+
+Plasmon Coupling of Gold Nanorods at Short Distances and in Different Geometries
+Alison M. Funston et al, NANO LETTERS (2009) Vol. 9, No. 4,1651-1658
+                                                                                   84
+SPR的“能级”分裂图
+
+
+
+
+                                                                                   85
+Plasmon Coupling of Gold Nanorods at Short Distances and in Different Geometries
+Alison M. Funston et al, NANO LETTERS (2009) Vol. 9, No. 4,1651-1658
+      百纳米量级金棒SPR耦合与金棒间距离的关系
+
+
+
+
+        结果：在光场偏振垂直于纳米棒间的中心连线时，当棒间距离越近，
+        蓝移得越远；当增加棒的个数时，蓝移得越远。
+                                                                                             86
+Plasmon Coupling in Nanorod Assemblies: Optical Absorption, Discrete Dipole Approximation Simulation,
+and Exciton-Coupling Model，Prashant K. Jain et al, J. Phys. Chem. B (2006) 110, 18243-18253
+        结果：在光场偏振平行于纳米棒间的中心连线时，当棒间距离
+        越近，红移得越远；当增加棒的个数时，红移得越远。
+Plasmon Coupling in Nanorod Assemblies: Optical Absorption, Discrete Dipole Approximation   87
+Simulation, and Exciton-Coupling Model
+Prashant K. Jain et al, J. Phys. Chem. B (2006) 110, 18243-18253
+纳米金属颗粒间SPR耦合的标度律
+
+
+
+
+ 结果：从两个样品的吸收和消光峰以及理论和实验上共振峰移
+ 动规律，可以得到标度律
+
+On the Universal Scaling Behavior of the Distance Decay of Plasmon Coupling in Metal
+nanoparticle Pairs: A Plasmon Ruler Equation                                           88
+Prashant K. Jain et al, NANO LETTERS (2007) Vol. 7, No. 7,2080-2088
+用纳米金球壳结构的SPR收集太阳能
+
+
+
+
+结果：通过调节纳米金球壳的核壳比例，其SPR的吸收谱可以
+覆盖太阳光的区域，用于solar cell。
+
+                                                                               89
+Optimized plasmonic nanoparticle distributions for solar spectrum harvesting
+Joseph R. Cole et al, APPLIED PHYSICS LETTERS 89, 153120 (2006).
+结果：将不同尺度的金或银球壳混合在一起，使其共振谱覆盖太
+阳光区域（200nm～1500nm），用于solar cell 能量收集。
+
+                                                                               90
+Optimized plasmonic nanoparticle distributions for solar spectrum harvesting
+Joseph R. Cole et al, APPLIED PHYSICS LETTERS 89, 153120 (2006).
+纳米银膜上岛状结构的SPR实现二次谐波
+
+
+
+
+结果：SPR用于非线性光学的典型例子。可以看到，
+1060nm处激发，在530nm处产生了二次谐波。
+
+                                                      91
+                A. Wokaun et al, PRB 24, 849 (1981)
+纳米银岛上利用SPR实现三次谐波
+
+
+
+
+                                                   结果：SPR用于非线性光学
+                                                   的又一例子。入射波长
+                                                   1060nm，可以看到，（d）
+                                                   中产生的530nm二次谐波，
+                                                   (f) 中产生了355nm的三次谐
+                                                   波，厚度40nm时增益最强。
+
+
+
+
+                                                                        92
+Surface-Enhanced Optical Third-Harmonic Generation in Ag Island Films
+E. M. Kim et al, PRL 95, 227402 (2005)
+利用纳米金球的SPR耦合实现多波混频
+
+
+
+
+                                                    结果：SPR用于非线性光学
+                                                    的例子。实现多波混频。
+
+
+Optical Frequency Mixing at Coupled Gold Nanoparticles          93
+Matthias Danckwerts and Lukas Novotny, PRL 98, 026104 (2007)
+利用纳米金属颗粒SPR实现生物传感
+
+
+
+
+                                                                  94
+Biosensing with plasmonic nanosensors
+Jeffrey N. ANker et al，nature materials | VOL 7 | JUNE 2008|442
+用纳米近颗粒的SPR实现数据存储
+
+
+Aim to: minimize the recording storage by multiplexing:
+wavelength, polarization, and spatial dimensions
+
+
+
+
+  Results:
+  realizing five-dimensional data recording by SPR
+                                                                                    95
+ Five-dimensional optical recording mediated by surface plasmons in gold nanorods
+ M. Gu et al, NATURE|Vol 459|410| 2009
+Results:
+realizing five-dimensional data recording by SPR
+                                                                                   96
+Five-dimensional optical recording mediated by surface plasmons in gold nanorods
+M. Gu et al, NATURE|Vol 459|410| 2009
+间隙表面等离激元及应用
+
+
+
+                             Enhanced spontaneous emission
+Gap surface plasmon
+                             Nat. Photon. 6, 459 (2012)
+Nano Lett. 13, 5866 (2013)
+                             Nat. Photon. 8, 835 (2014)
+
+
+
+
+                             Weak: Single photon collection
+                             PRL 114, 193002 (2015)
+Strong coupling
+Nature 535, 127 (2016)       Strong: Evanescent vacuum
+                             PRL 118, 073604 (2017)
+98
+4.3 周期性结构中SPP性质
+
+                      Comparisons
+
+Photonic crystals:
+spatially periodic dielectric structures
+Photonic band gaps with a period ～ wavelength
+To transmit and reflect light within specific frequencies
+Properties tunable by the periodicity or refraction index
+
+Polaritonic crystals: (periodical metallic nanostructure)
+periodic arrangement of defects on a metal-dielectric interface
+SPP band gaps with surface structure ～ wavelength of SPP
+Scattering of SPP into SPP or SPP into light
+(Extraordinary transmission from visible to microwave)
+Properties tunable by the surface features
+                                                              99
+          Dispersion relations
+
+Photonic crystals:   Polaritonic crystals:
+
+
+
+
+                                             100
+Ebbesen Group’s work
+Extraordinary transmission though subwavelength hole array
+
+                                                  Experiments
+
+
+
+ L. Martín-Moreno, et al, PRL 86 1114 (2001)      Theory
+
+
+Beaming light from a subwavelength aperture
+ H J Lezec; et al,Science, 297 (5582) , 820 (2002)
+
+Hole array + aperture, Hole array + molecular, SPP guiding
+  PRL 90, 167401 (2003)
+  PRL 90, 213901 (2003)
+                                              Review Article
+  PRL 92,107401(2004)                      Nature 424,824 (2003)
+  PRB 71,035424 (2005)
+  PRL 95,046802(2005)
+                                                                   101
+Extraordinary optical transmission
+through sub-wavelength hole arrays
+
+Bottleneck: low light transmittivity of apertures
+smaller than the wavelength of incident photon
+
+Hole arrays in silver film:
+metal film thickness t
+Periodicity of holes a0
+Scale of holes d
+Results:
+Extraordinary transmission
+Maximum at /d~10
+Influence of t (in APL)
+Explanation:
+Coupling of light and plasmons
+
+                                                    102
+Dispersion relations
+
+
+
+
+                          Review Article       103
+                       Nature 424,824 (2003)
+Theory of Extraordinary Optical transmission
+
+
+surface impedance boundary condition
+Theory agrees experiments well, parameters are reasonable
+
+Enhanced transmission is due to tunneling through surface plasmons.
+
+For small thickness h, the photon then goes back and forth several times
+inside the hole, building up coherent constructive interference in the
+forward direction much as would occur in electron resonant tunneling.
+
+For larger h, the photon can make fewer round-trips inside the hole
+before being radiated to infinity, and the concept of plasmon molecule
+becomes less well defined.
+
+For even larger h, the process is more like sequential tunneling, where the
+incoming photon gets trapped in a SP, tunnels to the SP at the other
+interface, and then couples to the outgoing radiative mode and exits.
+
+                                                                       104
+         L. Martý n-Moreno et al., Phys. Rev. Lett. 86, 1114 (2001).
+Effects of hole depth on light transmission
+
+
+
+
+                              For shallow holes, two SPs modes
+                              couple as the resonant passage of
+                              light through the array.
+                              For deeper holes, the uncoupled SP
+                              modes therefore transmission falls
+                              exponentially as the film gets thicker.
+
+
+
+
+                                APL 81,4327(02,ebbesen)
+                                                              105
+Beaming light from a subwavelength aperture
+
+
+
+
+                         Science 297,820 (2002,ebbesen)
+                                                   106
+       Highly Directional Emission from a Single Subwavelength
+            Aperture Surrounded by Surface Corrugations
+
+
+
+
+PRL 90, 167401 (2003,ebbesen)                                    107
+PRL 90, 213901 (2003)(subwavelength slit)
+        Role of SPP in subwavelength hole arrrys
+
+Transmittance maxima are associated
+with both reflectance minima
+    and absorption maxima
+
+
+
+
+                                                    108
+                        PRL 92,107401(04,ebbesen)
+Sambles Group’s work
+Full Photonic Band Gap for Surface Modes in the Visible
+  PRL 77,2670(96) 94        experiment
+  PRB 54 6227(96) 96     theory and a good review
+Influence of depth of grating on band gaps
+   PRL 79, 3978 (97)
+   PRL 80, 5667 (98)
+   PRB 65,125415(02) theory and experiment
+Extraodinary transmission in microwave region
+  APL 77,2789 (00)
+  PRL 89,063901 (02)
+  APL 84,849 (04)
+
+ Other works
+
+
+
+
+                                                          109
+Full Photonic Band Gap for Surface Modes in the Visible
+
+
+
+
+                                        Period     300nm
+                                        Dot radius 100nm
+                                        Silver film 40nm
+
+
+                                                             110
+                               Sambles JR, PRL 77,2670(96)
+      Other several works
+Transition from localized surface plasmon resonance to
+extended surface plasmon-polariton as metallic nanoparticles
+merge to form a periodic hole array
+                                     Main results
+
+                                For individual metallic nanoparticals,
+                                Localized SPPs dominate.
+
+
+                                For adjacent metallic nanoparticals,
+                                A small gap appears.
+
+
+
+                                For a continues metallic thin films,
+                                Extended SPPs dominate.
+
+
+                              PRB 69,165407(04,barnes)
+                                                                       111
+Transmission of Light through a Single Rectangular Hole
+
+
+
+
+                                               Theory                112
+                                 PRL 95,103901(2005, F. J. Garcia-Vidal)
+  纳米金椭球链中的超窄几何共振
+参数：
+金颗粒尺寸： 60×40×15nm3
+折射率 n=1.46, 周期 h=519nm
+
+原理：
+超窄几何峰的出现是由于近场
+的衍射效应造成。
+
+极化率：
+
+
+
+
+   ext  k Im(  )
+1/ 与s实部的交点导致消光极大。
+                                                                   113
+   Collective Resonances in Gold Nanoparticle Arrays，
+   Baptiste Auguie and William L. Barnes, PRL 101, 143902 (2008)
+本章总结：
+一方面：从历史发展的角度，看到SPP的发展
+历程、前沿和里程碑工作，从而对plasmonics有
+个全面的了解
+另一方面：以波导、individual结构和周期性结
+构为线索，梳理plasmonics 在特定方向的重要
+进展
+
+
+                             114
+115
+

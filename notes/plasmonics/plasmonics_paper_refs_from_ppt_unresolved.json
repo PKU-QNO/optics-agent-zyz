@@ -1,0 +1,37 @@
+[
+  {
+    "line": "1. 罗杰，赖耘，零折射率材料的物理与应用，物理，48卷7期，426（2019）。",
+    "query": "罗杰，赖耘，零折射率材料的物理与应用，物理，48卷7期，426（2019）",
+    "matched_title": null,
+    "confidence": 0.0,
+    "source": null
+  },
+  {
+    "line": "11. Sub-wavvelength plasmonic modes in a conductor-gap-dielectric system with a nanoscale gap. I. Avrutsky et al, Opt. Express 18 (2010) 348.",
+    "query": "Sub-wavvelength plasmonic modes in a conductor-gap-dielectric system with a nanoscale gap",
+    "matched_title": null,
+    "confidence": 0.0,
+    "source": null
+  },
+  {
+    "line": "7. Floating dielectric slab optical interconnection between metal-dielectric interface surfaceplasmon polariton waveguides. Minsu Kang et al, OPTICS EXPRESS, 17, 676 (2009).",
+    "query": "Floating dielectric slab optical interconnection between metal-dielectric interface surfaceplasmon polariton waveguides",
+    "matched_title": null,
+    "confidence": 0.0,
+    "source": null
+  },
+  {
+    "line": "9. Jia Li, Yi Ma, Ying Gu, Iam-Choon Khoo and Qihuang Gong, Appl. Phys. Lett. 98, 213101 (2011).（PPT 信息不完整；液晶中纳米金球阵列几何共振调节）",
+    "query": "Jia Li, Yi Ma, Ying Gu, Iam-Choon Khoo and Qihuang Gong, Appl",
+    "matched_title": null,
+    "confidence": 0.0,
+    "source": null
+  },
+  {
+    "line": "11. Scattering, Absorption, and Emission of light by small particles. Michael I. Mishchenko et al, Cambridge (1994).（书籍）",
+    "query": "Scattering, Absorption, and Emission of light by small particles",
+    "matched_title": "Scattering, Absorption, and Emission of Light by Small Particles",
+    "confidence": 1.0,
+    "source": "openalex"
+  }
+]

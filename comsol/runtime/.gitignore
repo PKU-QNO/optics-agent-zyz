@@ -1,0 +1,11 @@
+secrets/
+*.lic
+license.dat
+license.trial
+licenseinfo.ini
+Crack/
+SSQ*
+keygen*
+patch*
+__pycache__/
+*.pyc

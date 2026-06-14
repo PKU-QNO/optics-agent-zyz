@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+
+# Local or large runtime artifacts.
+comsol/local-runs/
+*.docker.tar
+*.tar.gz
+*.tgz
+*.zip
+
+# Private local-only files.
+comsol/runtime/secrets/comsol/license.dat
+
+# Local agent backups, not active project skills.
+.claude/skills.backup-*/
