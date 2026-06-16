@@ -1,85 +1,57 @@
 ---
 name: comsol-java-api
-description: [TODO: Complete and informative explanation of what the skill does and when to use it. Include WHEN to use this skill - specific scenarios, file types, or tasks that trigger it.]
+description: Use when Codex needs to read, write, debug, or summarize COMSOL Java API model files, GUI-exported Java models, geometry/mesh/study/solver/results API calls, COMSOL batch Java files, or convert COMSOL Java API/manual knowledge into executable model templates for optics_agent headless COMSOL workflows.
 ---
 
-# Comsol Java Api
+# COMSOL Java API
 
-## Overview
+Use this skill for COMSOL Java syntax and model-file structure: GUI-exported Java, hand-written model Java files, geometry/mesh/study/solver/result API calls, and batch-safe Java templates.
 
-[TODO: 1-2 sentences explaining what this skill enables]
+## Boundaries
 
-## Structuring This Skill
+- COMSOL runtime image, license, mounts, and Magnus paths: use `optics-comsol-runtime`.
+- COMSOL batch runner contract, run modes, and output manifest: use `optics-comsol-batch`.
+- Paper-figure reproduction planning and reports: use `optics-paper-reproduction`.
+- Java API object syntax, feature tags, settings, and templates: use this skill.
 
-[TODO: Choose the structure that best fits this skill's purpose. Common patterns:
+## Quick Workflow
 
-**1. Workflow-Based** (best for sequential processes)
-- Works well when there are clear step-by-step procedures
-- Example: DOCX skill with "Workflow Decision Tree" -> "Reading" -> "Creating" -> "Editing"
-- Structure: ## Overview -> ## Workflow Decision Tree -> ## Step 1 -> ## Step 2...
+1. Prefer a GUI-exported Java model as the source of truth for physics feature tags, boundary conditions, study steps, and solver sequences.
+2. Identify which layer is being edited: model core, geometry, mesh, study/solver, results/export, or batch wrapper.
+3. Read only the relevant reference file below, starting with `references/00-index.md`.
+4. Preserve tags, feature type strings, selections, units, and solver sequence order when patching Java.
+5. For optics_agent batch runs, keep `public static Model run()` returning the model, then let `main(String[] args)` save `args[0]` if provided.
+6. Run a batch smoke test through the existing COMSOL batch tooling after editing an executable model.
 
-**2. Task-Based** (best for tool collections)
-- Works well when the skill offers different operations/capabilities
-- Example: PDF skill with "Quick Start" -> "Merge PDFs" -> "Split PDFs" -> "Extract Text"
-- Structure: ## Overview -> ## Quick Start -> ## Task Category 1 -> ## Task Category 2...
+## API Principles
 
-**3. Reference/Guidelines** (best for standards or specifications)
-- Works well for brand guidelines, coding standards, or requirements
-- Example: Brand styling with "Brand Guidelines" -> "Colors" -> "Typography" -> "Features"
-- Structure: ## Overview -> ## Guidelines -> ## Specifications -> ## Usage...
+- Treat the bundled COMSOL Java API manual as API-reference material, not as proof that a physics model is correct.
+- The manual used for this skill is COMSOL 4.3; the active optics_agent runtime is COMSOL 6.3. Validate version-sensitive feature names against COMSOL 6.3 GUI-exported Java.
+- Hand-written Java should keep stable tags for geometry, selections, physics, study, solver, datasets, numerical results, and tables.
+- Avoid `System.getenv`, `System.getProperty`, direct Java file IO inside `run()`, inner classes, and anonymous classes in Magnus/COMSOL batch Java unless that exact pattern has been validated.
+- Mark uncertain physics-specific setting keys as requiring GUI-exported Java validation instead of guessing.
 
-**4. Capabilities-Based** (best for integrated systems)
-- Works well when the skill provides multiple interrelated features
-- Example: Product Management with "Core Capabilities" -> numbered capability list
-- Structure: ## Overview -> ## Core Capabilities -> ### 1. Feature -> ### 2. Feature...
+## References
 
-Patterns can be mixed and matched as needed. Most skills combine patterns (e.g., start with task-based, add workflow for complex operations).
+- `references/00-index.md`: routing, manual chapter mapping, object quick lookup.
+- `references/01-model-core.md`: `ModelUtil`, model object, parameters, model nodes/components.
+- `references/02-general-commands.md`: variables, functions, materials, physics, selections, coupling operators.
+- `references/03-geometry.md`: geometry sequences, primitives, booleans, work planes, measurements.
+- `references/04-mesh.md`: mesh sequences, `FreeTri`, `FreeTet`, `Size`, boundary layers, mesh diagnostics.
+- `references/05-solver-study.md`: study and solver sequences, `createAutoSequence`, eigenvalue settings, solution data.
+- `references/06-results-export.md`: datasets, numerical evaluations, solution selection, tables, exports.
+- `references/07-batch-java-files.md`: COMSOL Java-file structure, compile/run modes, headless-safe wrapper.
+- `references/08-gui-exported-java.md`: how to read and reuse GUI-exported Java.
+- `references/09-api-patterns-for-optics.md`: optics_agent waveguide/eigenmode patterns and gaps.
+- `references/10-common-errors.md`: compile, batch, mesh, solver, result, and runner failure diagnosis.
 
-Delete this entire "Structuring This Skill" section when done - it's just guidance.]
+## Templates
 
-## [TODO: Replace with the first main section based on chosen structure]
+Copy from `assets/templates/` when starting a new model:
 
-[TODO: Add content here. See examples in existing skills:
-- Code samples for technical skills
-- Decision trees for complex workflows
-- Concrete examples with realistic user requests
-- References to scripts/templates/references as needed]
-
-## Resources (optional)
-
-Create only the resource directories this skill actually needs. Delete this section if no resources are required.
-
-### scripts/
-Executable code (Python/Bash/etc.) that can be run directly to perform specific operations.
-
-**Examples from other skills:**
-- PDF skill: `fill_fillable_fields.py`, `extract_form_field_info.py` - utilities for PDF manipulation
-- DOCX skill: `document.py`, `utilities.py` - Python modules for document processing
-
-**Appropriate for:** Python scripts, shell scripts, or any executable code that performs automation, data processing, or specific operations.
-
-**Note:** Scripts may be executed without loading into context, but can still be read by Codex for patching or environment adjustments.
-
-### references/
-Documentation and reference material intended to be loaded into context to inform Codex's process and thinking.
-
-**Examples from other skills:**
-- Product management: `communication.md`, `context_building.md` - detailed workflow guides
-- BigQuery: API reference documentation and query examples
-- Finance: Schema documentation, company policies
-
-**Appropriate for:** In-depth documentation, API references, database schemas, comprehensive guides, or any detailed information that Codex should reference while working.
-
-### assets/
-Files not intended to be loaded into context, but rather used within the output Codex produces.
-
-**Examples from other skills:**
-- Brand styling: PowerPoint template files (.pptx), logo files
-- Frontend builder: HTML/React boilerplate project directories
-- Typography: Font files (.ttf, .woff2)
-
-**Appropriate for:** Templates, boilerplate code, document templates, images, icons, fonts, or any files meant to be copied or used in the final output.
-
----
-
-**Not every skill requires all three types of resources.**
+- `BasicModel.java`: model creation, params, simple geometry, mesh, save.
+- `GeometrySequence.java`: primitives, boolean difference, stable geometry tags.
+- `MeshFreeTri.java`: explicit user-controlled triangular mesh with size feature.
+- `StudySolverEigenvalue.java`: generic PDE eigenvalue study and `getPVals()`.
+- `ResultsEvalExport.java`: numerical evaluation and table pattern without Java file IO in `run()`.
+- `BatchSafeModel.java`: minimal batch-safe `run()` plus `main()` save and stdout marker.
