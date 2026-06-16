@@ -4,12 +4,15 @@ This file solves: read, trim, and reuse Java files exported from COMSOL Desktop 
 
 ## What GUI Export Is Good For
 
+- Treat COMSOL 6.3 GUI-exported Java as the highest-priority source for physics feature tags, boundary condition features, material/selection wiring, study steps, solver sequence, and result variables.
 - Exact physics interface strings.
 - Default feature tags and feature type names.
 - Boundary and domain selections COMSOL accepted.
 - Study-step and solver-sequence order.
 - Result variable names and datasets.
 - Version-specific COMSOL 6.3 API style.
+
+When the Java API Reference and GUI-exported Java disagree for Wave Optics/RF mode-analysis details, follow the GUI-exported Java first and document the difference.
 
 ## What To Check First
 

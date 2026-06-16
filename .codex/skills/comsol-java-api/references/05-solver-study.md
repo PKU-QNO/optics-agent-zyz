@@ -26,6 +26,17 @@ If a method fails, follow the exact style produced by COMSOL 6.3 GUI export.
 | `Eigenvalue` | Generic eigenvalue solve. |
 | `BoundaryModeAnalysis`, `ModeAnalysis` | Wave Optics/RF mode-analysis names are module/version-specific; verify from GUI-exported Java. |
 
+## Eigenvalue vs Mode Analysis
+
+| Concept | What it means | How to validate |
+|---|---|---|
+| Generic `Eigenvalue` | Solver/study pattern for a PDE eigenproblem. `StudySolverEigenvalue.java` demonstrates this only with `CoefficientFormPDE`. | Java API Reference and a generic PDE smoke test are enough for syntax. |
+| Wave Optics/RF `ModeAnalysis` or `BoundaryModeAnalysis` | Physics-module workflow for propagation modes, often returning propagation constant, effective index, and mode fields. | Must come from COMSOL 6.3 GUI-exported Java or Wave Optics/RF docs. |
+| `lambda` / eigenvalue from `getPVals()` | Generic eigenvalue variable from the solver. | Check solver feature `eigname` and result dataset. |
+| `beta`, `neff`, `emw.neff`, `ewfd.neff` | Module-defined mode-analysis variables, not guaranteed by the generic Java API. | Inspect GUI result expressions and variable list from the working COMSOL 6.3 model. |
+
+Do not treat a successful generic eigenvalue template as proof that Wave Optics mode analysis is correct.
+
 ## Solver Sequence
 
 ```java
@@ -45,6 +56,8 @@ Manual entry points:
 | `sol(tag).run(ftag)`, `runFrom(ftag)`, `runAll()` | Execute solver sequence. |
 | `sol(tag).clearSolution()` | Clear solution data, keep features. |
 | `sol(tag).updateSolution()` | Update solution for current model. |
+
+`createAutoSequence("std1")` is a useful first pass, but it is limited: it generates a default sequence from the study and active physics. It may omit or alter module-specific mode-analysis details, linearization settings, solver attributes, result variables, or boundary/PML assumptions that a GUI-created model needs. For production Wave Optics/RF work, preserve the GUI-exported solver sequence unless a specific simplification is being tested.
 
 ## Eigenvalue Solver Settings
 
@@ -67,6 +80,13 @@ model.sol("sol1").feature("eig1").set("rtol", "1e-4");
 | `solfile`, `solfileblock` | Store solution on temporary file; validate in headless runtime before relying on it. |
 
 For Wave Optics mode analysis, these are only generic solver settings. The Java API manual does not define the complete physics-specific mode-analysis setup. Use Wave Optics/RF documentation or GUI-exported Java for propagation direction, mode variable, boundary, and solver-sequence details.
+
+Shift unit risk:
+
+- In a generic eigenvalue problem, `shift` is in the eigenvalue variable's scale.
+- In mode analysis, the GUI may express search location as `neff`, `beta`, `kz`, or a module-specific transformed eigenvalue.
+- Do not mix dimensionless `neff` with dimensional `beta = k0*neff` or `kz` shifts. Compare the GUI-exported Java setting and the study's eigenvalue variable before changing `shift`.
+- For optics, record whether output is `neff`, `beta`, or raw eigenvalue, and convert explicitly in postprocessing.
 
 ## Stationary And Parametric
 

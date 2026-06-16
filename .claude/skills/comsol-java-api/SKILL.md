@@ -11,6 +11,7 @@ Use this skill for COMSOL Java syntax and model-file structure: GUI-exported Jav
 
 - COMSOL runtime image, license, mounts, and Magnus paths: use `optics-comsol-runtime`.
 - COMSOL batch runner contract, run modes, and output manifest: use `optics-comsol-batch`.
+- Magnus job launch/status/logs, FileSecret, MAGNUS_RESULT/ACTION, and platform file flow: use `optics-magnus-platform`.
 - Paper-figure reproduction planning and reports: use `optics-paper-reproduction`.
 - Java API object syntax, feature tags, settings, and templates: use this skill.
 
@@ -26,7 +27,8 @@ Use this skill for COMSOL Java syntax and model-file structure: GUI-exported Jav
 ## API Principles
 
 - Treat the bundled COMSOL Java API manual as API-reference material, not as proof that a physics model is correct.
-- The manual used for this skill is COMSOL 4.3; the active optics_agent runtime is COMSOL 6.3. Validate version-sensitive feature names against COMSOL 6.3 GUI-exported Java.
+- The Java API Reference can verify API syntax and object patterns; it cannot by itself prove a Wave Optics/RF mode-analysis physics model is well posed.
+- The manual used for this skill is COMSOL 4.3; the active optics_agent runtime is COMSOL 6.3. Validate version-sensitive feature names, setting keys, and solver-sequence structure against COMSOL 6.3 GUI-exported Java.
 - Hand-written Java should keep stable tags for geometry, selections, physics, study, solver, datasets, numerical results, and tables.
 - Avoid `System.getenv`, `System.getProperty`, direct Java file IO inside `run()`, inner classes, and anonymous classes in Magnus/COMSOL batch Java unless that exact pattern has been validated.
 - Mark uncertain physics-specific setting keys as requiring GUI-exported Java validation instead of guessing.
@@ -54,4 +56,4 @@ Copy from `assets/templates/` when starting a new model:
 - `MeshFreeTri.java`: explicit user-controlled triangular mesh with size feature.
 - `StudySolverEigenvalue.java`: generic PDE eigenvalue study and `getPVals()`.
 - `ResultsEvalExport.java`: numerical evaluation and table pattern without Java file IO in `run()`.
-- `BatchSafeModel.java`: minimal batch-safe `run()` plus `main()` save and stdout marker.
+- `BatchSafeModel.java`: minimal batch-safe `run()` plus `main()` that only saves `args[0]` when provided.

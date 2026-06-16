@@ -41,7 +41,7 @@ This file solves: diagnose common COMSOL Java API, headless batch, mesh, solver,
 
 | Symptom | Likely cause | Action |
 |---|---|---|
-| `emw.neff` / `ewfd.neff` not found | Wrong physics interface, wrong study type, or variable not defined for that solution | Inspect GUI result expressions; try `lambda`, `beta`, or documented mode variables only after verification. |
+| `emw.neff` / `ewfd.neff` not found or unreliable | Wrong physics interface, wrong study type, changed module tag, no mode-analysis variable, or variable not defined for that solution | Inspect COMSOL 6.3 GUI result expressions; verify whether the model exposes `neff`, `beta`, `kz`, or raw eigenvalue; do not invent variable names from the Java API Reference. |
 | Empty table | Numerical feature not evaluated or wrong `data`/`table` property | Call `setResult()` or `getReal()` after setting `data`, `expr`, and solution selection. |
 | Wrong sweep row order | Confused inner/outer solution numbers | Set `solnum`, `outersolnum`, `looplevel`, and record row mapping explicitly. |
 | Complex result mishandled | Imaginary array allocated as zeros or expression is real | Check `isComplex()` before interpreting imaginary data. |

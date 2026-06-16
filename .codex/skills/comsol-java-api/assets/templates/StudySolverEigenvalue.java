@@ -4,6 +4,8 @@ import com.comsol.model.util.*;
 public class StudySolverEigenvalue {
   public static Model run() throws Exception {
     Model model = ModelUtil.create("Model");
+    // Generic Coefficient Form PDE eigenvalue template only.
+    // Do not use this as a Wave Optics/RF mode-analysis model without GUI-exported Java validation.
     model.modelNode().create("comp1");
     model.geom().create("geom1", 2);
     model.geom("geom1").create("r1", "Rectangle");

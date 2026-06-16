@@ -20,6 +20,5 @@ public class BatchSafeModel {
   public static void main(String[] args) throws Exception {
     Model model = run();
     if (args.length > 0) model.save(args[0]);
-    System.out.println("BATCH_SAFE_MODEL_OK");
   }
 }
