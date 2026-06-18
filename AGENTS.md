@@ -5,6 +5,7 @@ This file is the always-on project rulebook for AI coding agents working in this
 ## Project Identity
 
 - Repository root: `C:\Users\27370\Desktop\project\optics_agent`
+- Canonical GitHub repository: `https://github.com/PKU-QNO/optics-agent-zyz`
 - Current branch: `main`
 - Primary user environment: Windows + PowerShell, with SSH access to Gustation.
 - Project role: local control workspace for optics_agent paper reproduction, COMSOL/Magnus runtime work, plasmonics notes, and reusable scientific-computing workflow design.

@@ -32,6 +32,12 @@ Keep local development in:
 C:\Users\27370\Desktop\project\optics_agent
 ```
 
+Canonical GitHub repository:
+
+```text
+https://github.com/PKU-QNO/optics-agent-zyz
+```
+
 Use Gustation/Magnus for containerized compute jobs.
 
 ## Skill Routing
