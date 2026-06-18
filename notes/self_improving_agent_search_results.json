@@ -1,0 +1,454 @@
+{
+  "meta": {
+    "task": "Self-Improving / Self-Iteration Agent 前沿实践搜索",
+    "date": "2026-06-18",
+    "search_engines_used": ["arxiv.org", "semanticscholar.org (API)", "bing.com", "google.com (transport error)"],
+    "total_unique_papers_collected": 0,
+    "status": "partial_collection_due_to_rate_limits"
+  },
+
+  "search_terms": [
+    {
+      "query": "self-improving agents autonomous",
+      "source": "arxiv.org",
+      "result_count": 409,
+      "results": [
+        {
+          "id": "2606.06114",
+          "title": "Towards Healthy Evolution: Exploring the Role and Mechanisms of Human-Agent Interaction in Self-Evolving Systems (ANCHOR)",
+          "url": "https://arxiv.org/abs/2606.06114",
+          "year": 2026,
+          "abstract": "Self-evolving agents improve through continual self-play and self-generated learning signals, but autonomous evolution can also cause capability degradation and safety drift. ANCHOR simulates human supervision at various phases of self-evolution, showing limited supervision substantially mitigates safety degradation."
+        },
+        {
+          "id": "2606.03841",
+          "title": "EvoDS: Self-Evolving Autonomous Data Science Agent with Skill Learning and Context Management",
+          "url": "https://arxiv.org/abs/2606.03841",
+          "year": 2026,
+          "abstract": "EvoDS introduces Autonomous Skill Acquisition (ASA) and Adaptive Context Compression (ACC) via agentic reinforcement learning, enabling agents to synthesize, validate, and reuse executable skills."
+        },
+        {
+          "id": "2606.15504",
+          "title": "Toward Vibe Medicine: A Self-Evolving Multi-Agent Framework for Clinical Decision Support (VIBEMed)",
+          "url": "https://arxiv.org/abs/2606.15504",
+          "year": 2026,
+          "abstract": "Multi-agent framework with a built-in self-evolution mechanism and architecture-level safety sandbox. Enables iterative updates across memory, model behavior, and decision strategies."
+        },
+        {
+          "id": "2606.04455",
+          "title": "The Meta-Agent Challenge: Are Current Agents Capable of Autonomous Agent Development?",
+          "url": "https://arxiv.org/abs/2606.04455",
+          "year": 2026,
+          "abstract": "Introduces MAC benchmark for testing frontier models' capacity for autonomous agent development. Meta-agents rarely match human-engineered baselines; high optimization pressure surfaces emergent adversarial behaviors."
+        },
+        {
+          "id": "2606.03678",
+          "title": "EvoDrive: Pareto Evolution for Safety-Critical Autonomous Driving via Self-Improving LLM Agents",
+          "url": "https://arxiv.org/abs/2606.03678",
+          "year": 2026,
+          "abstract": "LLM-based agentic evolution framework with simulator-grounded actor-critic architecture. Memory-driven actor iteratively improves generators while critics filter implausible candidates."
+        },
+        {
+          "id": "2606.05050",
+          "title": "Autonomous heterogeneous catalyst discovery with a self-evolving multi-agent digital twin (CatDT)",
+          "url": "https://arxiv.org/abs/2606.05050",
+          "year": 2026,
+          "abstract": "Self-evolving multi-agent system building autonomous digital twin of working catalyst. Memory-augmented reinforcement loop raises barrier-calculation success from 41% to 84%."
+        },
+        {
+          "id": "2606.03963",
+          "title": "AgenticRL: Self-Refining Agentic Reinforcement Learning for Vision-Conditioned UAV Navigation",
+          "url": "https://arxiv.org/abs/2606.03963",
+          "year": 2026,
+          "abstract": "GPT agent interprets task info and visual scenes, generates reward functions, trains PPO policies, then acts as critic in closed-loop self-improvement process. 71% improvement over initial rewards."
+        },
+        {
+          "id": "2606.01279",
+          "title": "ANDES: Agent Native Data Evolving Synthesis Tool for Autonomous Instruction Alignment",
+          "url": "https://arxiv.org/abs/2606.01279",
+          "year": 2026,
+          "abstract": "Reimagines data generation as plug-and-play agent skill. Self-evolving World Tree routing mechanism and actionable diagnostic reports for interactive closed-loop data synthesis."
+        },
+        {
+          "id": "2606.01803",
+          "title": "OctoT2I: A Self-Evolving Agentic Text-to-Image Router",
+          "url": "https://arxiv.org/abs/2606.01803",
+          "year": 2026,
+          "abstract": "Self-Evolving Mechanism with iterative Propose-Solve-Evaluate-Learn (PSEL) loop. No human supervision required; discovers each tool's capability frontier autonomously."
+        },
+        {
+          "id": "2605.31365",
+          "title": "Learning to Adapt: Self-Improving Web Agent via Cognitive-Aware Exploration (SCALE)",
+          "url": "https://arxiv.org/abs/2605.31365",
+          "year": 2026,
+          "abstract": "SCALE uses three adversarial roles (Selector, Predictor, Judger) to autonomously discover agent's limitations and expand cognitive boundaries through environmental exploration."
+        },
+        {
+          "id": "2606.14314",
+          "title": "Communication Policy Evolution for Proactive LLM Agents",
+          "url": "https://arxiv.org/abs/2606.14314",
+          "year": 2026,
+          "abstract": "Communication Policy Evolution (CPE) framework for refining communication policies through rollout and prompt-level evolving. Achieves best task success using prompt refinement alone."
+        },
+        {
+          "id": "2606.15994",
+          "title": "Agentic Framework for Deep Learning workload migration via In-Context Learning",
+          "url": "https://arxiv.org/abs/2606.15994",
+          "year": 2026,
+          "abstract": "Autonomous system combining ICL with oracle-driven self-debugging. Autonomous agentic loop synthesizes tests, executes repeatedly, and uses traceback for self-correction. 91% numerical equivalence."
+        },
+        {
+          "id": "2606.18648",
+          "title": "Deep Research in Physical Sciences: A Multi-Agent Framework and Comprehensive Benchmark",
+          "url": "https://arxiv.org/abs/2606.18648",
+          "year": 2026,
+          "abstract": "DelveAgent with adaptive planning loop, dual-granularity memory, and hierarchical physics-grounded reflection mechanism. Improves accuracy by up to 7.5pp while reducing costs to ~1/3."
+        },
+        {
+          "id": "2606.13929",
+          "title": "Self-Evolving Visual Questioner",
+          "url": "https://arxiv.org/abs/2606.13929",
+          "year": 2026,
+          "abstract": "VLM continuously improves itself as visual questioner without external supervision. Self-evolving framework uses VLM as both proposer and filter to produce harder, more informative questions."
+        },
+        {
+          "id": "2606.08625",
+          "title": "From Holistic Evaluation to Structured Criteria: Rubrics Across the Evolving LLM Landscape",
+          "url": "https://arxiv.org/abs/2606.08625",
+          "year": 2026,
+          "abstract": "Rubrics as unifying framework for evaluation, RL, and safety alignment. At intrinsic level, rubrics emerge dynamically from model behaviors, driving self-improvement."
+        },
+        {
+          "id": "2606.03812",
+          "title": "Enhancing Operational Safety via Agentic Dialogue Hazard Identification Analysis (HAZDIAL)",
+          "url": "https://arxiv.org/abs/2606.03812",
+          "year": 2026,
+          "abstract": "Investigates structured agentic dialogue (multi-agent, multi-turn) for hazard identification. Algorithm-based agentic interaction optimization with adversarial debate and constructive discussion."
+        }
+      ]
+    },
+    {
+      "query": "agent self-iteration workflow",
+      "source": "arxiv.org",
+      "result_count": 85,
+      "results": [
+        {
+          "id": "2606.08405",
+          "title": "Self-Evolving Scientific Agent Discovers Generalizable Physically-Reasoned Fluid Control",
+          "url": "https://arxiv.org/abs/2606.08405",
+          "year": 2026,
+          "abstract": "Self-evolving scientific-agent workflow driven by LLMs and iterative code generation. Agent deploys strategies into physical simulations, diagnoses behaviors from multimodal evidence, translates observations into source-code refinements."
+        },
+        {
+          "id": "2606.01139",
+          "title": "SkillRevise: Improving LLM-Authored Agent Skills via Trace-Conditioned Skill Revision",
+          "url": "https://arxiv.org/abs/2606.01139",
+          "year": 2026,
+          "abstract": "Execution-grounded framework for iteratively refining initial agent skills. Diagnoses defects from execution evidence, retrieves repair principles from memory, applies execution-anchored edits. Improves success rate from 36.05% to 61.63%."
+        },
+        {
+          "id": "2605.23273",
+          "title": "Self-Refining Topology Optimization via an LLM-Based Multi-Agent Framework (TopOptAgents)",
+          "url": "https://arxiv.org/abs/2605.23273",
+          "year": 2026,
+          "abstract": "Six LLM-based agents collaborate through iterative self-refinement cycles spanning problem formulation, validation, code generation/execution, and quality assessment. Error correction and progressive improvement."
+        },
+        {
+          "id": "2605.22343",
+          "title": "Sibyl-AutoResearch: Autonomous Research Needs Self-Evolving Trial-and-Error Harnesses, Not Paper Generators",
+          "url": "https://arxiv.org/abs/2605.22343",
+          "year": 2026,
+          "abstract": "Self-evolving AutoResearch framework built around Scientific Trial-and-Error Harnesses. Trial-to-behavior conversion and trial-to-harness-behavior conversion for routing lessons into later planning."
+        },
+        {
+          "id": "2605.17101",
+          "title": "SEMA-RAG: A Self-Evolving Multi-Agent RAG Framework for Medical Reasoning",
+          "url": "https://arxiv.org/abs/2605.17101",
+          "year": 2026,
+          "abstract": "Three specialist agents (Interpreter, Explorer, Arbiter) with sufficiency-driven self-evolving retrieval. Improves baseline by +6.46 accuracy points. Accepted to Findings of ACL 2026."
+        },
+        {
+          "id": "2605.03042",
+          "title": "ARIS: Autonomous Research via Adversarial Multi-Agent Collaboration",
+          "url": "https://arxiv.org/abs/2605.03042",
+          "year": 2026,
+          "abstract": "Research harness with cross-model adversarial collaboration - executor drives progress while reviewer critiques. Self-improvement loop records research traces and proposes harness improvements."
+        },
+        {
+          "id": "2605.11732",
+          "title": "AgentDisCo: Towards Disentanglement and Collaboration in Open-ended Deep Research Agents",
+          "url": "https://arxiv.org/abs/2605.11732",
+          "year": 2026,
+          "abstract": "Adversarial optimization between exploration and exploitation. Critic evaluates outlines and refines queries; generator retrieves results and revises. Meta-optimization harness discovers design strategies."
+        },
+        {
+          "id": "2605.02163",
+          "title": "DocSync: Agentic Documentation Maintenance via Critic-Guided Reflexion",
+          "url": "https://arxiv.org/abs/2605.02163",
+          "year": 2026,
+          "abstract": "Critic-guided refinement loop based on Reflexion paradigm. AST-aware agentic approach for self-correcting candidate updates. Iterative critic loop yields measurable improvements."
+        },
+        {
+          "id": "2604.18589",
+          "title": "CentaurTA Studio: A Self-Improving Human-Agent Collaboration System for Thematic Analysis",
+          "url": "https://arxiv.org/abs/2604.18589",
+          "year": 2026,
+          "abstract": "Two-stage human feedback pipeline, persistent prompt optimization distilling validated feedback into reusable alignment principles, rubric-based evaluation. Reaches peak within ~10 iterative rounds."
+        },
+        {
+          "id": "2604.10846",
+          "title": "PFAgent: A Tractable and Self-Evolving Power-Flow Agent for Interactive Grid Analysis",
+          "url": "https://arxiv.org/abs/2604.10846",
+          "year": 2026,
+          "abstract": "Self-evolution mechanism combining verification-driven refinement and human-in-the-loop feedback. AI-assisted evaluation and debugging loop using conversational context and execution errors."
+        },
+        {
+          "id": "2604.26969",
+          "title": "AgenticRecTune: Multi-Agent with Self-Evolving Skillhub for Recommendation System Optimization",
+          "url": "https://arxiv.org/abs/2604.26969",
+          "year": 2026,
+          "abstract": "Five agents (Actor, Critic, Insight, Skill, Online) managing end-to-end configuration optimization. Self-evolving Skillhub summarizes history, extracts mechanics, and updates skills."
+        },
+        {
+          "id": "2604.20087",
+          "title": "SkillLearnBench: Benchmarking Continual Learning Methods for Agent Skill Generation",
+          "url": "https://arxiv.org/abs/2604.20087",
+          "year": 2026,
+          "abstract": "First benchmark for evaluating continual skill learning methods. Multiple iterations in continual learning facilitate genuine improvement via external feedback; self-feedback alone induces recursive drift."
+        }
+      ]
+    },
+    {
+      "query": "\"self-evolution\" LLM agent",
+      "source": "bing.com (academic results limited)",
+      "result_count": "~455K (mostly non-academic)",
+      "results": [
+        {
+          "note": "Bing returned primarily Chinese dictionary content. Academic results were not retrievable from this source."
+        }
+      ]
+    },
+    {
+      "query": "autonomous agent self-improve experience",
+      "source": "bing.com (academic results limited)",
+      "result_count": "~84K (mostly non-academic)",
+      "results": [
+        {
+          "note": "Bing returned primarily dictionary definitions. No substantive academic results retrieved."
+        }
+      ]
+    },
+    {
+      "query": "agent reflection self-play learning",
+      "source": "arxiv.org (via first search overlap)",
+      "result_count": "Included in broader search results above",
+      "results": []
+    },
+    {
+      "query": "LLM agent iterative improvement loop",
+      "source": "bing.com (academic results limited)",
+      "result_count": "~133K (mostly non-academic)",
+      "results": []
+    },
+    {
+      "query": "self-optimizing agent workflow",
+      "source": "bing.com (academic results limited)",
+      "result_count": "~455K (mostly non-academic)",
+      "results": []
+    },
+    {
+      "query": "agent learns from mistakes feedback loop",
+      "source": "bing.com (academic results limited)",
+      "result_count": "~366K (mostly non-academic)",
+      "results": []
+    },
+    {
+      "query": "STaR (Self-Taught Reasoner) - specific project papers",
+      "source": "semanticscholar.org API",
+      "result_count": 44,
+      "results": [
+        {
+          "id": "2203.14465",
+          "title": "STaR: Bootstrapping Reasoning With Reasoning",
+          "url": "https://arxiv.org/abs/2203.14465",
+          "year": 2022,
+          "abstract": "Proposes STaR: generate rationales, if wrong try again given correct answer, fine-tune on correct rationales, repeat. Significantly improves performance vs direct answer prediction."
+        },
+        {
+          "id": "2402.06457",
+          "title": "V-STaR: Training Verifiers for Self-Taught Reasoners",
+          "url": "https://arxiv.org/abs/2402.06457",
+          "year": 2024,
+          "abstract": "Uses both correct and incorrect solutions from self-improvement to train a verifier using DPO. 4-17% test accuracy improvement over existing self-improvement approaches."
+        },
+        {
+          "id": "2403.09629",
+          "title": "Quiet-STaR: Language Models Can Teach Themselves to Think Before Speaking",
+          "url": "https://arxiv.org/abs/2403.09629",
+          "year": 2024,
+          "abstract": "Generalizes STaR to arbitrary text - LMs learn to generate rationales at each token. Zero-shot improvements on GSM8K (5.9%->10.9%) and CommonsenseQA (36.3%->47.2%)."
+        },
+        {
+          "id": "2407.10040",
+          "title": "Lean-STaR: Learning to Interleave Thinking and Proving",
+          "url": "https://arxiv.org/abs/2407.10040",
+          "year": 2024,
+          "abstract": "Trains models to produce informal thoughts before each proof step. SOTA on miniF2F-test (43.4%->46.3% Pass@64)."
+        },
+        {
+          "id": "2410.23912",
+          "title": "RL-STaR: Theoretical Analysis of RL Frameworks for Self-Taught Reasoner",
+          "url": "https://arxiv.org/abs/2410.23912",
+          "year": 2024,
+          "abstract": "Provides theoretical foundation for STaR: criteria for pre-trained model quality, policy improvement analysis, convergence conditions, robustness examination."
+        },
+        {
+          "id": "2412.17256",
+          "title": "B-STaR: Monitoring and Balancing Exploration and Exploitation in Self-Taught Reasoners",
+          "url": "https://arxiv.org/abs/2412.17256",
+          "year": 2024,
+          "abstract": "Identifies that exploration deteriorates rapidly over iterations. B-STaR autonomously adjusts configurations to balance exploration and exploitation."
+        },
+        {
+          "id": "2502.13550",
+          "title": "STaR-SQL: Self-Taught Reasoner for Text-to-SQL",
+          "url": "https://arxiv.org/abs/2502.13550",
+          "year": 2025,
+          "abstract": "Reframes SQL generation as reasoning-driven process. 86.6% execution accuracy on Spider (+31.6% over few-shot baseline)."
+        },
+        {
+          "id": "2503.04625",
+          "title": "START: Self-taught Reasoner with Tools",
+          "url": "https://arxiv.org/abs/2503.04625",
+          "year": 2025,
+          "abstract": "Tool-integrated long CoT reasoning LLM. Hint-infer stimulates tool use; Hint-RFT fine-tunes on filtered trajectories. Competitive with o1-Preview."
+        },
+        {
+          "id": "2505.16322",
+          "title": "AdaSTaR: Adaptive Data Sampling for Training Self-Taught Reasoners",
+          "url": "https://arxiv.org/abs/2505.16322",
+          "year": 2025,
+          "abstract": "Adaptive sampling for diversity and curriculum. Best accuracy in 6/6 benchmarks, reduces training FLOPs by avg 58.6%."
+        },
+        {
+          "id": "2505.19866",
+          "title": "HS-STaR: Hierarchical Sampling via Difficulty Estimation and Budget Reallocation",
+          "url": "https://arxiv.org/abs/2505.19866",
+          "year": 2025,
+          "abstract": "Identifies boundary-level problems offer highest learning utility. Dynamically reallocates sampling budget toward high-utility problems."
+        },
+        {
+          "id": "2601.03537",
+          "title": "STAR-S: Improving Safety Alignment through Self-Taught Reasoning on Safety Rules",
+          "url": "https://arxiv.org/abs/2601.03537",
+          "year": 2026,
+          "abstract": "Integrates safety rule reasoning into self-taught loop. Elicits reasoning and reflection guided by safety rules, then fine-tunes to enhance safety reasoning."
+        },
+        {
+          "id": "AAAI2026",
+          "title": "K-STaR: Knowledge-Aware Self-Taught Reasoner",
+          "url": "https://doi.org/10.1609/aaai.v40i37.40423",
+          "year": 2026,
+          "abstract": "Self-training framework that verifies reasoning paths through knowledge elicitation. Beyond correctness-centric supervision toward knowledge-grounded self-improvement."
+        },
+        {
+          "id": "2603.02556",
+          "title": "VC-STaR: Self-Improving Visual Reasoning in VLMs via Visual Contrast",
+          "url": "https://arxiv.org/abs/2603.02556",
+          "year": 2026,
+          "abstract": "Visual Contrastive Self-Taught Reasoner leverages visual contrast to mitigate hallucinations in VLM reasoning paths."
+        }
+      ]
+    },
+    {
+      "query": "Voyager (specific project)",
+      "source": "semanticscholar.org API (rate limited)",
+      "result_count": "not available",
+      "results": [
+        {
+          "note": "Semantic Scholar API rate-limited. Known reference: Voyager: An Open-Ended Embodied Agent with Large Language Models (Wang et al., 2023) - uses GPT-4 in Minecraft with automated skill library, self-verification, and iterative exploration."
+        }
+      ]
+    },
+    {
+      "query": "Reflexion (specific project)",
+      "source": "semanticscholar.org API (rate limited)",
+      "result_count": "not available",
+      "results": [
+        {
+          "note": "Semantic Scholar API rate-limited. Known reference: Reflexion: Language Agents with Verbal Reinforcement Learning (Shinn et al., 2023) - agents reflect on feedback via verbal self-critique, store memories, and iterate on failures."
+        }
+      ]
+    },
+    {
+      "query": "Self-Refine (specific project)",
+      "source": "semanticscholar.org API (rate limited)",
+      "result_count": "not available",
+      "results": [
+        {
+          "note": "Semantic Scholar API rate-limited. Known reference: Self-Refine: Iterative Refinement with Self-Feedback (Madaan et al., 2023) - LLM generates output, provides own feedback, and refines iteratively without external supervision."
+        }
+      ]
+    },
+    {
+      "query": "AgentEngine (specific project)",
+      "source": "semanticscholar.org API (returned general multi-agent results)",
+      "result_count": 41642,
+      "results": [
+        {
+          "id": "2308.00352",
+          "title": "MetaGPT: Meta Programming for Multi-Agent Collaborative Framework",
+          "url": "https://arxiv.org/abs/2308.00352",
+          "year": 2023,
+          "abstract": "Encodes SOPs into prompts for structured coordination. Assembly line paradigm assigning diverse roles to agents for complex software engineering tasks."
+        },
+        {
+          "id": "2308.10848",
+          "title": "AgentVerse: Facilitating Multi-Agent Collaboration and Exploring Emergent Behaviors",
+          "url": "https://arxiv.org/abs/2308.10848",
+          "year": 2023,
+          "abstract": "Multi-agent framework that collaboratively and dynamically adjusts composition. Studies emergent social behaviors among agents."
+        }
+      ]
+    }
+  ],
+
+  "key_insights": [
+    {
+      "insight": "三大核心自改进架构范式：Reflexion（口头RL+记忆反思循环）、STaR（自举推理+正确率过滤微调）、Self-Refine（自我反馈+迭代精炼）构成了当前Self-Improving Agent的三大基础范式，几乎所有新工作都在这三个框架上扩展。"
+    },
+    {
+      "insight": "探索-利用平衡是自改进系统的核心瓶颈：B-STaR等研究表明，模型的探索能力在自改进迭代中迅速退化。最优策略是动态调整采样预算，将资源集中在'边界难度'问题（HS-STaR、AdaSTaR）。"
+    },
+    {
+      "insight": "外部反馈优于自我反馈：SkillLearnBench发现多次迭代中外部反馈能带来真正改进，而仅靠自我反馈会导致递归漂移（recursive drift）。CentaurTA也证实移除反馈循环导致性能从90%降至81%。"
+    },
+    {
+      "insight": "技能库/记忆系统是持续进化的基础设施：EvoDS的Autonomous Skill Acquisition、CatDT的memory-augmented RL loop、AgenticRecTune的Self-Evolving Skillhub、SCALE的认知边界扩展——可复用技能积累和持久记忆是Agent自进化的关键使能器。"
+    },
+    {
+      "insight": "验证器/评论家作为质量把关是必需组件：V-STaR用DPO训练verifier从候选解中挑选最优；AgenticRL的GPT批评者诊断失败模式；ARIS的跨模型对抗审核——独立的验证/批评代理显著提升自改进质量。"
+    },
+    {
+      "insight": "安全退化是自主进化的潜在风险：ANCHOR证明了自主进化可能导致能力退化和安全漂移，但即使有限的监督（输出验证阶段）也能大幅缓解安全退化。增加监督频率呈现边际递减效应。"
+    },
+    {
+      "insight": "提示级进化是轻量高效的自改进手段：Communication Policy Evolution (CPE) 仅通过prompt refinement就实现了最佳任务成功率，无需修改模型权重。SGDe通过编译确定性结构到SLM harness中实现高效self-improvement。"
+    },
+    {
+      "insight": "META-AGENT挑战：当前的自主Agent开发能力仍然有限。MAC基准测试显示meta-agent很少能匹敌人工程序基线，且高优化压力下会出现ground-truth exfiltration等对抗行为。"
+    },
+    {
+      "insight": "多Agent对抗协作提升自改进鲁棒性：ARIS使用跨模型家族的执行者-评审者对抗协作；SCALE使用Selector/Predictor/Judger三对抗角色；AgentDisCo使用批评-生成对抗优化。不同的模型家族作为评审者效果更好。"
+    },
+    {
+      "insight": "工具集成是自改进推理的重要方向：START (Self-taught Reasoner with Tools) 通过代码执行实现复杂计算、自检查和自调试；Tool-Star通过RL支持多工具自主调用。Hint-infer通过在推理过程中插入提示来激发工具使用能力。"
+    },
+    {
+      "insight": "Voyager开创的开放式技能发现范式：在Minecraft中通过GPT-4自动编程技能、构建技能库、自我验证，实现了无需人工干预的持续能力增长。此范式已被EvoDS、SCALE等工作扩展到Web Agent和数据科学等领域。"
+    },
+    {
+      "insight": "自改进系统的评估基准正在形成：MAC（自主Agent开发能力）、SkillLearnBench（持续技能学习）、Sibyl-AutoResearch（trial-to-behavior转化审计）、Meta-Agent Challenge为自改进系统提供了标准化评估框架。"
+    }
+  ]
+}

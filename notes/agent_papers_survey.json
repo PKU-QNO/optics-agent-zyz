@@ -1,0 +1,430 @@
+{
+  "survey_metadata": {
+    "title": "AI Agent 关键论文精读报告 — 技能系统与自迭代机制",
+    "analyst": "opencode AI Agent Research Analyst",
+    "date": "2026-06-18",
+    "total_papers": 16
+  },
+  "papers": [
+    {
+      "id": 1,
+      "title": "Voyager: An Open-Ended Embodied Agent with Large Language Models",
+      "arxiv_id": "2305.16291",
+      "authors": "Guanzhi Wang, Yuqi Xie, Yunfan Jiang, Ajay Mandlekar, Chaowei Xiao, Yuke Zhu, Linxi Fan, Anima Anandkumar",
+      "year": 2023,
+      "venue": "NeurIPS 2023",
+      "core_question": "如何在Minecraft这类开放式环境中构建无需人类干预的终身学习 embodied agent？",
+      "method_architecture": "三组件架构：(1) 自动课程(Automatic Curriculum) — 基于当前技能水平和环境状态动态调整探索目标，最大化探索效率；(2) 技能库(Skill Library) — 不断增长的代码技能库，以可执行JavaScript代码表示复杂行为，支持存储和检索；(3) 迭代提示机制(Iterative Prompting Mechanism) — 结合环境反馈、执行错误和自我验证(self-verification)来迭代改进程序。通过GPT-4黑盒查询实现，无需微调模型参数。",
+      "key_contributions": [
+        "首个LLM驱动的Minecraft终身学习agent，无需人类干预",
+        "以可执行代码作为技能表示(Code as Skill)，技能具有时间扩展性、可解释性和可组合性",
+        "自动课程机制实现自我驱动探索，避免灾难性遗忘",
+        "获得3.3倍独特物品、2.3倍移动距离、15.3倍更快解锁科技树",
+        "技能库可零样本泛化到新Minecraft世界"
+      ],
+      "limitations": [
+        "依赖GPT-4黑盒API，存在成本和延迟问题",
+        "技能库增长可能导致检索效率下降",
+        "自动课程可能在某些场景下产生次优探索路径",
+        "仅在Minecraft中验证，泛化性待检验"
+      ],
+      "optics_agent_relevance": "核心启示：技能库+可执行代码范式。Voyager的'Code as Skill'模式可直接映射到optics_agent的COMSOL Java技能库设计——每次成功的COMSOL batch Java脚本可以作为技能存入库中，自动课程机制可类比为参数扫描任务的自适应规划。自我验证机制可应用于COMSOL仿真结果的自动有效性检查。"
+    },
+    {
+      "id": 2,
+      "title": "Reflexion: Language Agents with Verbal Reinforcement Learning",
+      "arxiv_id": "2303.11366",
+      "authors": "Noah Shinn, Federico Cassano, Edward Berman, Ashwin Gopinath, Karthik Narasimhan, Shunyu Yao",
+      "year": 2023,
+      "venue": "NeurIPS 2023",
+      "core_question": "如何让LLM agent通过语言反馈而非权重更新来从试错中学习？",
+      "method_architecture": "四组件框架：(1) Actor — 生成文本和动作的LLM；(2) Evaluator — 评估Actor输出(外部环境反馈或自我评估)；(3) Self-Reflection — 将评估信号转化为语言反思文本；(4) Episodic Memory — 存储反思文本供后续trail使用。流程：Actor生成→执行→Evaluator评估→Self-reflection产生反思→存入Memory→下次调用时注入上下文。无需微调，完全通过上下文学习实现'verbal RL'。",
+      "key_contributions": [
+        "提出'语言强化学习'新范式，用语言反馈替代梯度更新的RL",
+        "在HumanEval上达到91% pass@1（超越GPT-4的80%）",
+        "跨越决策(ALFWorld)、推理(HotpotQA)、编程(Coding)三大类任务验证",
+        "提出LeetcodeHardGym基准（40道hard题×19种语言）",
+        "轻量级、可解释、无需模型参数更新"
+      ],
+      "limitations": [
+        "依赖LLM的自我评估能力，对弱模型可能失效",
+        "无形式化收敛保证",
+        "长轨迹下credit assignment仍具挑战",
+        "记忆缓冲区大小受限"
+      ],
+      "optics_agent_relevance": "核心启示：将COMSOL仿真失败/错误信息转化为语言反思，存入episodic memory，作为后续Java脚本生成的上下文。当COMSOL eigensolver失败时，Reflexion机制可以让agent反思失败原因（如网格密度不足、shift选择不当）并指导下一轮脚本改进。这对Degiron v2失败后的迭代改进尤其关键。"
+    },
+    {
+      "id": 3,
+      "title": "Generative Agents: Interactive Simulacra of Human Behavior",
+      "arxiv_id": "2304.03442",
+      "authors": "Joon Sung Park, Joseph C. O'Brien, Carrie J. Cai, Meredith Ringel Morris, Percy Liang, Michael S. Bernstein",
+      "year": 2023,
+      "venue": "UIST 2023",
+      "core_question": "如何构建可信的人类行为模拟agent？",
+      "method_architecture": "核心架构：记忆流(Memory Stream) + 反思(Reflection) + 计划(Planning)。(1) Memory Stream：以自然语言记录agent的所有经历，支持时间衰减的检索；(2) Reflection：定期将低层观察综合为高层反思（如'我是在图书馆认识Maria的'→'Maria是研究型学生'），递归构建抽象层次；(3) Planning：基于记忆和反思生成行动计划，支持重新规划。25个agent在小镇沙盒中交互。",
+      "key_contributions": [
+        "实现了个体和社会层面可信的类人行为模拟",
+        "记忆→反思→计划三阶段架构成为后续工作的基础范式",
+        "展示了涌现式社交行为（自主传递邀请、约会、协调聚会）",
+        "通过消融实验验证了每个组件的必要性"
+      ],
+      "limitations": [
+        "依赖GPT-4 API，成本高昂",
+        "agent基数扩大时记忆检索和交互复杂度指数增长",
+        "行为可信性评估依赖人类判断，缺乏定量指标",
+        "未验证在专业任务领域的效果"
+      ],
+      "optics_agent_relevance": "核心启示：记忆+反思架构可直接映射到科学计算agent的工作流记忆。COMSOL仿真experiment的完整参数、结果、失败记录可构成'科学记忆流'，定期反思生成高层insight（如'当epsilon>3时TM模式收敛困难'）。计划机制可驱动多步仿真工作流（如Degiron全面再现需要的一组关联仿真）。"
+    },
+    {
+      "id": 4,
+      "title": "SWE-agent: Agent-Computer Interfaces Enable Automated Software Engineering",
+      "arxiv_id": "2405.15793",
+      "authors": "John Yang, Carlos E. Jimenez, Alexander Wettig, Kilian Lieret, Shunyu Yao, Karthik Narasimhan, Ofir Press",
+      "year": 2024,
+      "venue": "NeurIPS 2024",
+      "core_question": "Agent-Computer Interface(ACI)设计如何影响LLM agent在软件工程任务中的表现？",
+      "method_architecture": "核心洞察：LLM agent是一类特殊的'终端用户'，需要专门设计的接口(ACI)而非人类优化的UI。具体设计：(1) 专为LM设计有限、高信息量的命令集（如文件编辑、搜索、导航）；(2) 在报错和反馈中嵌入可操作信息；(3) 限制动作空间减少token浪费。在SWE-bench上实现12.5% pass@1（SOTA），HumanEvalFix上87.7%。",
+      "key_contributions": [
+        "提出ACI概念，将其与agent性能建立因果关系",
+        "通过ACI设计大幅超越非交互式LM基线",
+        "详细分析ACI设计选择对行为的影响",
+        "开源代码和数据"
+      ],
+      "limitations": [
+        "仅在软件工程场景验证",
+        "ACI设计依赖启发式，缺乏自动化搜索方法",
+        "12.5%在SWE-bench上仍有很大提升空间",
+        "命令设计偏向特定agent类型"
+      ],
+      "optics_agent_relevance": "核心启示：ACI设计理念可迁移到COMSOL-Computer Interface(CCI)。为LLM agent设计专门的COMSOL操作接口（如标准化的Java API模板封装、有限命令集）比让agent直接生成完整Java代码更高效。这指向'受限动作空间+丰富反馈'的设计原则——为optics_agent设计聚焦的COMSOL batch接口层。"
+    },
+    {
+      "id": 5,
+      "title": "Code as Policies: Language Model Programs for Embodied Control",
+      "arxiv_id": "2209.07753",
+      "authors": "Jacky Liang, Wenlong Huang, Fei Xia, Peng Xu, Karol Hausman, Brian Ichter, Pete Florence, Andy Zeng",
+      "year": 2022,
+      "venue": "ICRA 2023",
+      "core_question": "如何用代码生成LLM为机器人编写策略代码？",
+      "method_architecture": "利用代码预训练LLM从自然语言指令生成机器人策略代码(LMPs)。核心方法：few-shot prompting，输入几个自然语言命令（格式化为注释）+对应策略代码示例，LLM为新命令生成新代码。关键技巧：层次化代码生成(recursively defining undefined functions)——先生成高层函数，对未定义函数递归生成实现。支持NumPy/Shapely等第三方库实现空间几何推理。",
+      "key_contributions": [
+        "提出'代码即策略'(Code as Policies)范式",
+        "实现空间几何推理、新指令泛化、模糊描述量化",
+        "层次化代码生成在HumanEval上达到39.8%",
+        "在多个真实机器人平台验证"
+      ],
+      "limitations": [
+        "依赖预定义的控制原语API库",
+        "复杂长序列策略生成准确率有限",
+        "层次代码递归可能产生无法执行的中间函数",
+        "安全验证仍是开放问题"
+      ],
+      "optics_agent_relevance": "核心启示：'Code as Policy'与'Code as Skill'一脉相承。对optics_agent，COMSOL Java API调用可看作'控制原语'，自然语言描述（'计算Au纳米线的plasmonic模式'）→生成完整Java仿真脚本。层次化生成可用于构建标准仿真模板：高层'full_sweep()'→中层'setup_geometry()'→底层'mesh_and_solve()'。"
+    },
+    {
+      "id": 6,
+      "title": "Self-Refine: Iterative Refinement with Self-Feedback",
+      "arxiv_id": "2303.17651",
+      "authors": "Aman Madaan, Niket Tandon, Prakhar Gupta, Skyler Hallinan, Luyu Gao, Sarah Wiegreffe, Uri Alon, Nouha Dziri, Shrimai Prabhumoye, Yiming Yang, Shashank Gupta, Bodhisattwa Prasad Majumder, Katherine Hermann, Sean Welleck, Amir Yazdanbakhsh, Peter Clark",
+      "year": 2023,
+      "venue": "NeurIPS 2023",
+      "core_question": "如何让同一个LLM通过自我反馈和迭代改进自己的输出？",
+      "method_architecture": "单一LLM充当三个角色：Generator(初始输出) → Feeback Provider(对输出提供反馈) → Refiner(根据反馈改进)。迭代循环进行直到满足条件。所有角色由同一个LLM承担，无需额外训练或RL。在7个任务上验证：对话生成、数学推理、情感分析、代码生成等。相比一次性生成提升约20%。",
+      "key_contributions": [
+        "最简洁的自我改进范式：Generator-Feedback-Refiner同一LLM",
+        "无需训练数据、无需微调、无需RL",
+        "在7个不同任务中统一验证，平均提升20%",
+        "证明了GPT-4在测试时还可以通过简单方法进一步提升"
+      ],
+      "limitations": [
+        "迭代增加推理成本和延迟",
+        "依赖LLM自我评估能力，能力不足时反馈质量差",
+        "缺乏判断何时停止迭代的稳健标准",
+        "每轮改进可能边际递减"
+      ],
+      "optics_agent_relevance": "核心启示：可直接用于COMSOL脚本的迭代调试。agent生成Java脚本→编译错误反馈→自我改进代码→重新提交。Self-Refine的'同一LLM担任三角色'设计适用于COMSOL batch workflow中'编写-执行-调试'的循环，每轮从错误日志中提取反馈并改进。"
+    },
+    {
+      "id": 7,
+      "title": "Toolformer: Language Models Can Teach Themselves to Use Tools",
+      "arxiv_id": "2302.04761",
+      "authors": "Timo Schick, Jane Dwivedi-Yu, Roberto Dessì, Roberta Raileanu, Maria Lomeli, Luke Zettlemoyer, Nicola Cancedda, Thomas Scialom",
+      "year": 2023,
+      "venue": "NeurIPS 2023",
+      "core_question": "LM如何自监督地学会使用外部工具（计算器、搜索引擎等）？",
+      "method_architecture": "自监督工具学习框架。方法：对每个API，手工编写少量demonstration（~10个示例），然后在大规模文本语料上自监督训练模型学会插入API调用。核心是采样机制：对每个位置，尝试调用各API并评估调用是否能降低后续token预测的perplexity，只保留能改善perplexity的调用。支持计算器、QA系统、搜索引擎、翻译系统、日历等工具。",
+      "key_contributions": [
+        "第一个让LM自监督学习工具使用的框架",
+        "只需少量demonstration，无需大量人工标注",
+        "零样本性能大幅提升，甚至媲美更大模型",
+        "不牺牲核心语言建模能力"
+      ],
+      "limitations": [
+        "需要微调模型，不适用于纯black-box API调用",
+        "工具选择基于perplexity简化假设",
+        "不支持链式工具调用（sequential tool use）",
+        "对每个新工具需要重新训练或微调"
+      ],
+      "optics_agent_relevance": "核心启示：自监督工具学习范式可用于让agent学会调用COMSOL API。虽然optics_agent场景下agent通常是black-box调用，但Toolformer的'决定何时调用什么工具+传递什么参数+如何整合结果'的决策框架可以直接映射到'决定何时调用COMSOL求解器+传递什么物理参数+如何解析输出结果'。"
+    },
+    {
+      "id": 8,
+      "title": "ReAct: Synergizing Reasoning and Acting in Language Models",
+      "arxiv_id": "2210.03629",
+      "authors": "Shunyu Yao, Jeffrey Zhao, Dian Yu, Nan Du, Izhak Shafran, Karthik Narasimhan, Yuan Cao",
+      "year": 2022,
+      "venue": "ICLR 2023",
+      "core_question": "推理(Reasoning)和行动(Acting)如何在LLM中协同增强？",
+      "method_architecture": "生成交错的推理轨迹(Reasoning Traces)和任务特定动作(Task-specific Actions)。关键创新：不再把reasoning和acting作为独立环节，而是让推理帮助跟踪和更新行动计划、处理异常；行动让agent与外部知识库/环境交互获取额外信息。在HotpotQA上结合Wikipedia API克服了CoT的幻觉和错误传播问题；在ALFWorld和WebShop上分别超越imitation和RL方法34%和10%。",
+      "key_contributions": [
+        "提出推理-行动协同范式(ReAct)",
+        "克服CoT方法中的幻觉和错误传播",
+        "仅需1-2个in-context示例即超越RL方法",
+        "生成的轨迹比纯推理或纯行动方法更可解释"
+      ],
+      "limitations": [
+        "交错生成的token开销大",
+        "长轨迹仍可能发散",
+        "action space需要预定义",
+        "对API的质量和响应速度有依赖"
+      ],
+      "optics_agent_relevance": "核心启示：ReAct是几乎所有现代agent框架的基础。对optics_agent，推理轨迹('我想需要先设置slab geometry，因为plasmonic模式需要层状结构')与动作('调用Java API构建层状几何')交织——推理帮助规划COMSOL工作流，动作执行获取仿真结果，结果反馈更新推理。建议作为optics_agent推理循环的基础设计模式。"
+    },
+    {
+      "id": 9,
+      "title": "STaR: Bootstrapping Reasoning With Reasoning",
+      "arxiv_id": "2203.14465",
+      "authors": "Eric Zelikman, Yuhuai Wu, Jesse Mu, Noah D. Goodman",
+      "year": 2022,
+      "venue": "NeurIPS 2022",
+      "core_question": "如何用少量推理示例和大规模无推理数据集来自举(reasoning bootstrapping)模型的逐步推理能力？",
+      "method_architecture": "循环自举方法：(1) 用少量chain-of-thought示例prompt模型，让其为大量问题生成推理链(rationale)和答案；(2) 对答案错误的问题，提供正确答案让模型反向生成rationale（rationalization）；(3) 收集所有最终答案正确的rationale，微调模型；(4) 重复。核心是'rationalization'步骤——即使答案错误，给出正确答案后模型可以逆向生成合理的推理路径。",
+      "key_contributions": [
+        "提出利用'rationalization'从错误中学习的自举方法",
+        "仅需少量CoT示例即可大幅提升推理能力",
+        "在CommonsenseQA上与30倍大模型表现相当",
+        "模型通过自生成的推理实现自我改进"
+      ],
+      "limitations": [
+        "需要微调模型，不适用于纯prompt场景",
+        "rationalization可能产生似是而非的推理路径",
+        "自举迭代可能放大早期错误",
+        "主要验证在数学和常识推理任务"
+      ],
+      "optics_agent_relevance": "核心启示：自举范式对optics_agent的'技能演化'至关重要。agent从少量成功的COMSOL仿真脚本示例开始，对新的仿真任务自动生成Java脚本；如果仿真失败（类似'答案错误'），回溯提供成功的仿真结果（如已知的plasmonic模式物理数据），让agent逆向生成正确的脚本步骤。多次迭代自举可逐步提升agent的仿真脚本编写能力。"
+    },
+    {
+      "id": 10,
+      "title": "AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation",
+      "arxiv_id": "2308.08155",
+      "authors": "Qingyun Wu, Gagan Bansal, Jieyu Zhang, Yiran Wu, Beibin Li, Erkang Zhu, Li Jiang, Xiaoyun Zhang, Shaokun Zhang, Jiale Liu, Ahmed Hassan Awadallah, Ryen W White, Doug Burger, Chi Wang",
+      "year": 2023,
+      "venue": "Microsoft Research",
+      "core_question": "如何构建支持多agent对话和协作的通用框架？",
+      "method_architecture": "开源框架，核心概念：(1) Agent可定制、可对话、支持多种操作模式(LLM+人类+工具)；(2) 灵活的对话模式定义(自然语言或代码)；(3) 统一基础设施支持不同复杂度和LLM能力的应用。支持Assistant Agent、User Proxy Agent等角色，支持代码执行、工具调用、人类反馈等。典型应用场景包括数学解题、编码、QA、运筹优化、决策等。",
+      "key_contributions": [
+        "通用的多agent对话框架，降低开发门槛",
+        "支持灵活的人机协作模式和工具集成",
+        "在多个领域的实证验证",
+        "开源生态广泛"
+      ],
+      "limitations": [
+        "多agent对话的协调开销大",
+        "缺乏标准化的agent通信协议",
+        "复杂任务中agent分工容易出现冲突",
+        "对话轮次增长时性能下降"
+      ],
+      "optics_agent_relevance": "核心启示：多agent模式可用于optics_agent中的角色分工。例如：'COMSOL专家Agent'(负责Java脚本生成)+'物理验证Agent'(负责结果合理性检查)+'工作流规划Agent'(负责参数扫描规划)。AutoGen的对话框架可作为optics多agent协作的基础设施参考。"
+    },
+    {
+      "id": 11,
+      "title": "ChatDev: Communicative Agents for Software Development",
+      "arxiv_id": "2307.07924",
+      "authors": "Chen Qian, Wei Liu, Hongzhang Liu, Nuo Chen, Yufan Dang, Jiahao Li, Cheng Yang, Weize Chen, Yusheng Su, Xin Cong, Juyuan Xu, Dahai Li, Zhiyuan Liu, Maosong Sun",
+      "year": 2023,
+      "venue": "ACL 2024",
+      "core_question": "如何通过多agent的基于语言的通信实现软件开发的自动化？",
+      "method_architecture": "按软件公司组织多Agent：CEO、CTO、Programmer、Tester等角色。关键设计：(1) Chat Chain——结构化对话链保证信息流；(2) Communicative Dehallucination——减少幻觉的一致沟通策略。Agent之间通过统一语言接口（自然语言用于设计讨论，编程语言用于编码调试）通信。设计→编码→测试各阶段由专门agent负责，多轮对话形成解决方案。",
+      "key_contributions": [
+        "首个端到端的多Agent软件开发框架",
+        'Chat Chain设计保证多轮对话的结构化和可控性',
+        "发现自然语言有益于设计、编程语言有益于调试",
+        "语言作为多Agent协作的统一桥梁"
+      ],
+      "limitations": [
+        "生成的软件规模和复杂度有限",
+        "CEO/CTO等角色的任务分配合适性依赖于prompt设计",
+        "主流场景是小型软件（< 1000行）",
+        "Agent间的'沟通损耗'可能影响效率"
+      ],
+      "optics_agent_relevance": "核心启示：ChatDev的软件公司角色映射到COMSOL仿真工作流：'设计师Agent'(选择物理接口和几何配置)+'编码Agent'(生成Java脚本)+'验证Agent'(执行和验证结果)。Chat Chain确保多步骤工作流的节奏控制，Communicative Dehallucination减少COMSOL API幻觉调用。"
+    },
+    {
+      "id": 12,
+      "title": "MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework",
+      "arxiv_id": "2308.00352",
+      "authors": "Sirui Hong, Mingchen Zhuge, Jiaqi Chen, Xiawu Zheng, Yuheng Cheng, Ceyao Zhang, Jinlin Wang, Zili Wang, Steven Ka Shing Yau, Zijuan Lin, Liyang Zhou, Chenyu Ran, Lingfeng Xiao, Chenglin Wu, Jürgen Schmidhuber",
+      "year": 2023,
+      "venue": "ICLR 2024",
+      "core_question": "如何将人类SOP(标准操作流程)编码为LLM多Agent协作范式的元编程框架？",
+      "method_architecture": "将人类软件工程的标准操作流程(SOPs)编码为prompt序列。核心设计：(1) 角色扮演——不同agent分配不同领域专业角色(产品经理、架构师、项目经理、工程师等)；(2) 流水线范式——类似工厂流水线，输出/文档在角色间传递；(3) SOPs约束工作流——每个角色的输出格式和内容由SOP模板约束。生成的结构化文档（PRD、设计文档、API规范等）作为中间产物串联各阶段。",
+      "key_contributions": [
+        "将人类SOP系统化编码为LLM多Agent协作流程",
+        "流水线范式减少级联幻觉（cascading hallucinations）",
+        "生成结构化文档中间产物，提升可控性",
+        "在软件工程benchmark上显著优于纯聊天式多Agent系统"
+      ],
+      "limitations": [
+        "SOP编码需要专家知识且领域特定",
+        "严格的SOP可能限制创造性解决方案",
+        "角色增多时协调复杂度非线性增加",
+        "主要适用于有明确流程的工程任务"
+      ],
+      "optics_agent_relevance": "核心启示：SOP编码是最直接的optics_agent设计思路。COMSOL仿真有非常明确的SOP：几何构建→材料分配→物理场设置→网格剖分→求解→后处理。将这些SOP编码为agent的prompt序列，不同agent负责不同阶段，并生成标准化中间产物（几何参数文档、求解器配置等）。MetaGPT的流水线模式与COMSOL的工作流天然契合。"
+    },
+    {
+      "id": 13,
+      "title": "AgentBench: Evaluating LLMs as Agents",
+      "arxiv_id": "2308.03688",
+      "authors": "Xiao Liu, Hao Yu, Hanchen Zhang, Yifan Xu, Xuanyu Lei, Hanyu Lai, Yu Gu, Hangliang Ding, Kaiwen Men, Kejuan Yang, Shudan Zhang, Xiang Deng, Aohan Zeng, Zhengxiao Du, Chenhui Zhang, Sheng Shen, Tianjun Zhang, Yu Su, Huan Sun, Minlie Huang, Yuxiao Dong, Jie Tang",
+      "year": 2023,
+      "venue": "ICLR 2024",
+      "core_question": "如何全面评估LLM作为agent的推理和决策能力？",
+      "method_architecture": "多维度基准测试，包含8个不同环境：操作系统(OS)、Web浏览(WebShop/WebArena)、数据库(DB)、知识图谱(KG)、数字卡牌游戏(Digital Card Game)、横向思维(Lateral Thinking)、家居任务(ALFWorld)、Minecraft。涵盖LLM API和开源模型，系统评估agent的长期推理、决策和指令遵循能力。",
+      "key_contributions": [
+        "首个全面的LLM-as-Agent多维度评测基准",
+        "揭示顶级商业LLM与开源模型在agent任务上的巨大差距",
+        "发现长期推理和指令遵循是主要瓶颈",
+        "训练代码和改进指令遵循可以提升agent性能"
+      ],
+      "limitations": [
+        "8个环境仍无法覆盖所有agent应用场景",
+        "评估集规模和任务多样性有限",
+        "开源模型评测时可能受部署配置影响",
+        "未包含科学计算/工程仿真类任务"
+      ],
+      "optics_agent_relevance": "核心启示：AgentBench的方法论可用来构建'COMSOL Agent基准'。建议定义一套标准COMSOL仿真任务（几何构建、特定物理场设置、参数扫描、结果提取等），系统评测agent在不同COMSOL任务上的成功率。AgentBench的评测维度（长期推理、指令遵循、工具使用）都可映射到COMSOL场景。"
+    },
+    {
+      "id": 14,
+      "title": "DSPy: Compiling Declarative Language Model Calls into Self-Improving Pipelines",
+      "arxiv_id": "2310.03714",
+      "authors": "Omar Khattab, Arnav Singhvi, Paridhi Maheshwari, Zhiyuan Zhang, Keshav Santhanam, Sri Vardhamanan, Saiful Haq, Ashutosh Sharma, Thomas T. Joshi, Hanna Moazam, Heather Miller, Matei Zaharia, Christopher Potts",
+      "year": 2023,
+      "venue": "JMLR 2024",
+      "core_question": "如何用编程抽象系统地优化LM pipeline而不是手动编写prompt模板？",
+      "method_architecture": "编程模型将LM pipeline抽象为文本变换图(text transformation graphs)。核心：(1) 声明式模块(Modules)——将prompting、finetuning、augmentation、推理组合封装为参数化模块；(2) 编译器(Compiler)——自动优化pipeline最大化给定指标。开发者只需用Python定义流程图和数据流，DSPy自动优化各模块的prompt/few-shot示例/权重。",
+      "key_contributions": [
+        "第一个系统化的LM pipeline编程和优化框架",
+        "声明式模块定义替代手写prompt模板",
+        "编译器自动优化pipeline，无需手动tuning",
+        "GPT-3.5通过DSPy编译后可超过手写prompt 25%+",
+        "小模型（770M T5）通过DSPy可与GPT-3.5手动prompt匹敌"
+      ],
+      "limitations": [
+        "优化过程需要标注指标数据",
+        "抽象层增加学习曲线",
+        "高度复杂的pipeline优化可能不收敛",
+        "主要针对文本处理任务"
+      ],
+      "optics_agent_relevance": "核心启示：DSPy的声明式编程+自动编译范式可直接应用于科学计算agent的pipeline设计。将COMSOL工作流定义为DSPy模块（几何模块→物理模块→求解模块→后处理模块），让compiler自动优化各模块的prompt策略和参数。这为optics_agent提供了一条从手写prompt到系统化优化的路径。"
+    },
+    {
+      "id": 15,
+      "title": "Socratic-SWE: Self-Evolving Coding Agents via Trace-Derived Agent Skills",
+      "arxiv_id": "2606.07412",
+      "authors": "Chuan Xiao, Zhengbo Jiao, Shaobo Wang, Wei Wang, Bing Zhao, Hu Wei, Linfeng Zhang, Lin Qu",
+      "year": 2026,
+      "venue": "Under Review",
+      "core_question": "如何将agent历史求解轨迹(traces)蒸馏为结构化技能，实现闭环自演化？",
+      "method_architecture": "闭环自演化框架：(1) 轨迹蒸馏——将agent历史求解轨迹提炼为结构化技能(summarize recurring failures and effective repair patterns)；(2) 技能引导任务生成——用蒸馏出的技能在真实代码仓库中生成针对性修复任务；(3) 执行验证+梯度对齐奖赏——候选任务通过执行验证和solver-gradient alignment reward筛选，保留可验证且对solver有用的任务；(4) Solver更新后产生新轨迹，循环迭代。在SWE-bench Verified上经3轮迭代达到50.40%。",
+      "key_contributions": [
+        "提出'trace → skill → task → update'闭环自演化范式",
+        "轨迹蒸馏为结构化技能，不是简单存入experience buffer",
+        "solver-gradient alignment reward确保筛选的任务真正有用",
+        "多benchmark验证：SWE-bench Verified 50.40%",
+        "解决traces本身可作为可扩展的自演化基板"
+      ],
+      "limitations": [
+        "仅在软件工程benchmark上验证",
+        "三轮迭代后提升趋势是否持续未知",
+        "技能蒸馏质量依赖base model",
+        "任务生成可能引入分布偏移"
+      ],
+      "optics_agent_relevance": "★★★★★ 最高相关度。Socratic-SWE的闭环自演化框架直接对应optics_agent的长期目标——通过COMSOL仿真轨迹蒸馏为'科学技能'，技能引导生成新的仿真任务，执行验证筛选有效任务，更新solver后继续迭代。这正是'paper reproduction→reusable blueprint→self-evolving agent'路线的核心引擎。Voyager的skill library是静态增长，Socratic-SWE实现了闭环演化。"
+    },
+    {
+      "id": 16,
+      "title": "SoK: Agentic Skills — Beyond Tool Use in LLM Agents",
+      "arxiv_id": "2602.20867",
+      "authors": "Yanna Jiang, Delong Li, Haiyu Deng, Baihe Ma, Xu Wang, Qin Wang, Guangsheng Yu",
+      "year": 2026,
+      "venue": "Systematization of Knowledge",
+      "core_question": "如何系统化理解LLM agent中'技能'(skills)的完整生命周期、设计模式和评估方法？",
+      "method_architecture": "不提出新方法，而是全面的系统化综述。核心输出：(1) 技能的形式化定义 S=(C,π,T,R)；(2) 技能生命周期模型：发现→实践→蒸馏→存储→组合→评估→更新；(3) 7种设计模式：元数据驱动渐进披露(Metadata-Driven Disclosure)、代码即技能(Code-as-Skill)、工作流强制(Workflow Enforcement)、自演化技能库(Self-Evolving Libraries)、混合NL+Code宏(Hybrid NL+Code Macros)、元技能(Meta-Skills)、插件/市场分发(Plugin/Marketplace Distribution)；(4) 表示×范围分类体系；(5) 安全治理分析。",
+      "key_contributions": [
+        "首个agent技能的系统化研究(SoK)",
+        "形式化技能定义和生命周期模型",
+        "7种设计模式分类体系，覆盖完整空间",
+        "技能安全治理分析，引用真实攻击案例(ClawHavoc)",
+        "技能评估框架和benchmark映射"
+      ],
+      "limitations": [
+        "分类体系可能随技术发展需要更新",
+        "未包含足够的定量实验对比",
+        "安全分析基于特定案例",
+        "技能形式化定义未被广泛验证"
+      ],
+      "optics_agent_relevance": "★★★★★ 最高相关度。这是optics_agent技能系统设计的直接理论框架。7种设计模式中：Code-as-Skill(Voyager模式)对应COMSOL Java技能库；Workflow Enforcement(MetaGPT模式)对应COMSOL SOP；Self-Evolving Libraries对应Socratic-SWE的闭环自演化；Hybrid NL+Code Macros对应自然语言描述+COMSOL代码的组合技能。建议将optics_agent的技能系统按这7种模式对照设计，选择最适配科学计算的模式组合。"
+    }
+  ],
+  "cross_paper_insights": [
+    {
+      "insight": "核心技能循环范式：从 Voyager 的静态技能库 → Socratic-SWE 的闭环自演化技能 → SoK 的7模式分类，形成完整的技能系统理论谱系。optics_agent 应直接采纳闭环自演化范式作为长期架构。"
+    },
+    {
+      "insight": "三种自我改进机制形成互补：Self-Refine(同一步的迭代优化) + Reflexion(跨trail的记忆反思) + STaR(训练时自举)，分别对应推理时、记忆时、训练时的自我改进。在 COMSOL 场景中应组合使用。"
+    },
+    {
+      "insight": "代码作为统一技能表示是跨论文一致共识：Voyager(JS代码技能)、Code as Policies(Python策略)、SoK(Code-as-Skill模式)。对 optics_agent 而言，COMSOL Java API 脚本是自然的技能表示载体。"
+    },
+    {
+      "insight": "多Agent角色分工的两种模式：ChatDev(软件开发公司)和 MetaGPT(SOP流水线)。对科学计算而言，MetaGPT的SOP流水线模式更适合——COMSOL仿真有明确的标准化流程可编码。"
+    },
+    {
+      "insight": "ReAct 的推理-行动交织是所有现代 agent 的基础模式，所有后续工作(Voyager/Reflexion/AutoGen)都在此基础上扩展。optics_agent 的推理循环应以 ReAct 为基座。"
+    },
+    {
+      "insight": "Toolformer 的自监督工具学习和 DSPy 的声明式管线编译代表了两种端到端优化路径：前者通过训练时学习工具使用，后者通过编译时优化prompt策略。对 black-box LLM 场景，DSPy 路线更可行。"
+    },
+    {
+      "insight": "接口设计(ACI)对 agent 性能的影响被显著低估。SWE-agent 证明为 LLM 设计的专属接口比人类接口更有效。optics_agent 应设计专门的 'COMSOL Agent 接口层'，限制动作空间但丰富反馈信号。"
+    },
+    {
+      "insight": "记忆+反思架构(Generative Agents)对科学工作流有直接映射：实验记忆(参数-结果)→科学反思(规律发现)→工作计划(下一轮实验)→更新记忆。这种架构比简单的 experience replay 更适合科学发现。"
+    },
+    {
+      "insight": "AgentBench 的评测方法论揭示了 agent 能力的四个关键瓶颈：长期推理、指令遵循、工具使用、决策一致性。这些维度完全适用于 COMSOL agent 的能力评估。"
+    },
+    {
+      "insight": "轨迹蒸馏自演化(Socratic-SWE)是当前最先进的 agent 持续学习范式。其核心创新在于将 trace 蒸馏为结构化技能(而非简单存储)，并用 solver-gradient alignment 保证筛选的任务对 solver 有实际帮助。"
+    },
+    {
+      "insight": "SoK 提出的技能形式化定义 S=(C,π,T,R) 为 skill 系统提供了精确的理论基础——C(适用条件)、π(执行策略)、T(终止条件)、R(可复用接口)。optics_agent 的技能应严格遵循这一定义。"
+    },
+    {
+      "insight": "从安全性角度，SoK 揭示了技能分发中的供应链风险(ClawHavoc 案例)。optics_agent 的技能库应设计信任层级(trust tiers)和沙箱执行机制，尤其是在从外部来源导入 COMSOL 脚本时。"
+    },
+    {
+      "insight": "代码生成 agent 能力的 scaling law 尚未明确，但多项工作显示 self-play/self-evolution 可以在相同 compute budget 下持续提升。对光学仿真这种领域知识密集型任务，self-evolution 可能是克服数据稀缺的关键。"
+    },
+    {
+      "insight": "Generative Agents 的反思机制和 Reflexion 的 verbal RL 都指向同一个结论：语言作为内部表示比数值向量更适合 LLM agent 的 long-horizon 学习和规划。科学 agent 应使用自然语言记录和推理仿真结果，而非仅存储数值。"
+    },
+    {
+      "insight": "16篇论文呈现两条发展路线的交汇：一条是从 ReAct/Reflexion 发展出的推理-记忆交互路线，另一条是从 Voyager/Socratic-SWE 发展出的技能自演化路线。optics_agent 应位于这两条路线的交汇点——既有强大的推理记忆能力，也有自治的技能演化和积累机制。"
+    }
+  ]
+}

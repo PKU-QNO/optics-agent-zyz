@@ -15,6 +15,13 @@ When the task involves COMSOL or Magnus execution, also load the relevant runtim
 - `optics-comsol-batch` for Java/M-file/.mph batch patterns and runner contracts.
 - `optics-magnus-platform` for job dedupe, resource checks, logs, and file flow.
 
+For complex multi-step reproductions, use the declarative workflow system:
+
+- Load `workflows/paper_reproduction.workflow.yaml` for the full topology.
+- Start from the first node and follow `next`/`branches` transitions.
+- Update `workflows/state/<session>.yaml` after each node.
+- The `update_artifacts` node handles SKILL/workflow self-iteration.
+
 ## Workflow
 
 1. Scope the target figure.

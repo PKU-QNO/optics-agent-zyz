@@ -81,9 +81,58 @@ notes/
 papers/
 reproduction_test/
 services/
+workflows/              <-- 工作流定义、prompt 文件、状态文件
 ```
 
 Keep root clutter low. New COMSOL work should go under `comsol/`; paper-specific reproduction artifacts should go under `reproduction_test/private/<case>/`; notes should go under `notes/` or `docs/` by topic.
+
+## Workflow System
+
+optics_agent 使用 YAML 定义的声明式工作流来编排论文复现等复杂任务。工作流文件 (`*.workflow.yaml`) 定义了执行拓扑、节点指令和分支条件。
+
+### 核心概念
+- **节点 (Node)**：工作流的基本执行单元，每个节点是一个原子任务
+- **分支 (Branch)**：根据条件评估结果动态路由到不同路径
+- **状态文件 (State)**：记录当前 session 的执行进度和中间产物
+- **自迭代**：工作流定义本身可以被 `update_artifacts` 节点修改，实现拓扑级自进化
+
+### 节点类型
+| 类型 | 行为 | 示例 |
+|------|------|------|
+| `prompt` | 执行 instruction，进入 `next` | 论文阅读、报告生成 |
+| `branch` | 评估 condition，按 `branches` 映射路由 | 理论检查、数值检查 |
+| `tool` | 调用预定义工具 | 提交 Magnus 作业 |
+| `parallel` | 并行执行多个子节点 | 同时检查多个结果 |
+
+### 使用方式
+1. 识别任务类型，选择对应的工作流文件 (如 `paper_reproduction.workflow.yaml`)
+2. 载入工作流定义到 context
+3. 从第一个节点开始按顺序/分支执行
+4. 每节点完成后更新 state 文件
+5. 在 `update_artifacts` 节点更新工作流定义本身
+
+### 文件位置
+```text
+workflows/
+├── ENGINE.md                          # 工作流引擎指南
+├── schemas/
+│   ├── workflow_schema.yaml           # 工作流定义格式标准
+│   └── params_schema.yaml             # 参数文件格式标准
+├── prompts/                           # 各节点的详细 prompt 文件
+│   ├── paper_reading.md
+│   ├── theory_derivation.md
+│   ├── numerical_program.md
+│   └── update_artifacts.md
+├── state/                             # 执行状态文件（自动生成）
+└── paper_reproduction.workflow.yaml   # 论文复现标准工作流
+```
+
+### 自迭代契约
+- `update_artifacts` 节点可修改 `.workflow.yaml` 本身
+- 修改后递增 `version`，追加 `history` 条目
+- 蓝图更新 → `.magnus/.blueprints/`
+- SKILL 更新 → `.codex/skills/<name>/SKILL.md`
+- 工作流更新 → `workflows/`
 
 ## Skill System
 
@@ -107,7 +156,7 @@ Current routing:
 | Task | Skill |
 |---|---|
 | Project routing, goals, credentials, important files | `optics-agent-core` |
-| Paper figure reproduction, parameter tables, missing-info analysis, handoff reports | `optics-paper-reproduction` |
+| Paper figure reproduction, parameter tables, missing-info analysis, handoff reports, workflow-based reproduction | `optics-paper-reproduction` + `workflows/paper_reproduction.workflow.yaml` |
 | COMSOL runtime image, active Magnus-local image, license mounts, runtime folder | `optics-comsol-runtime` |
 | COMSOL batch/headless jobs, `.java`/`.mph`/`.m`, smoke cases, manifest contract | `optics-comsol-batch` |
 | COMSOL Java API syntax, GUI-exported Java, feature/study/solver tags | `comsol-java-api` |

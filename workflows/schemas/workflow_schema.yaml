@@ -1,0 +1,71 @@
+# ============================================================================
+# optics_agent 工作流定义标准格式 (Workflow Schema v0.1)
+# ============================================================================
+# 此文件定义 .workflow.yaml 文件的格式规范。
+# Agent 在工作流开始时载入此文件，按拓扑执行节点。
+# Agent 可在运行时通过 update_artifacts 节点修改此文件，实现自迭代。
+# ============================================================================
+
+# ---- 工作流元数据 ----
+name: string                          # 工作流名称，必填
+version: string                       # 语义版本号，必填，如 "0.1.0"
+description: string                   # 描述，必填
+author: string                        # 创建者，可选
+last_updated: date                    # 最后更新日期
+iteration_count: integer              # 迭代次数统计
+
+# ---- 节点定义 ----
+# 每个节点是一个 key-value 对，key 是节点 ID，value 是节点配置
+nodes:
+  
+  # ---- 普通节点 (type: prompt) ----
+  node_id_here:
+    type: prompt                      # 节点类型：prompt（默认）
+    description: string               # 节点描述
+    instruction: string               # LLM 指令（或引用 prompt_file）
+    prompt_file: string               # 可选：引用外部 prompt 文件
+    produces:                         # 本节点应产生的输出文件
+      - output_file_1.yaml
+      - output_file_2.md
+    next: next_node_id                # 下一个节点 ID
+    
+  # ---- 分支节点 (type: branch) ----
+  branch_node_id:
+    type: branch                      # 分支节点
+    description: string               # 节点描述
+    instruction: string               # 判断条件的指令
+    condition: string                 # 条件评估描述
+    branches:                         # 分支映射
+      branch_name_1: next_node_a      # 分支名称 → 下一节点 ID
+      branch_name_2: next_node_b
+      # ... 更多分支
+    max_retries: integer              # 最大重试次数（可选，默认 3）
+    retry_condition: string           # 重试时的额外说明（可选）
+    
+  # ---- 工具节点 (type: tool) ----
+  tool_node_id:
+    type: tool                        # 工具调用节点
+    description: string
+    tool: string                      # 工具名称
+    tool_params:                      # 工具参数
+      param1: value1
+    produces:                         # 输出产物
+      - output_file.ext
+    next: next_node_id
+    
+  # ---- 并行节点 (type: parallel) ----
+  parallel_node_id:
+    type: parallel                    # 并行执行多个子节点
+    description: string
+    parallel_branches:                # 并行分支
+      - branch_a
+      - branch_b
+    join_mode: all                    # 聚合模式：all（全部完成才继续）/ any
+    next: next_node_id
+
+# ---- 终止节点 ----
+# 没有 next 字段的节点是终止节点
+end_node_id:
+    type: prompt
+    description: 工作流终止
+    instruction: 工作流完成，输出最终报告

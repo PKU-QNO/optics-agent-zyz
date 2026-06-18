@@ -1,0 +1,837 @@
+{
+  "search_metadata": {
+    "queries": [
+      {"id": "P1-Q1", "query": "agent skill acquisition", "total_results": 98, "papers_collected": 16},
+      {"id": "P1-Q2", "query": "\"skill library\" LLM agent framework", "total_results": 35, "papers_collected": 17},
+      {"id": "P1-Q3", "query": "compositional skill learning agent", "total_results": 60, "papers_collected": 9},
+      {"id": "P2-Q4", "query": "self-improving LLM agent", "total_results": 811, "papers_collected": 18},
+      {"id": "P2-Q5", "query": "self-evolution language model agent", "total_results": 214, "papers_collected": 16},
+      {"id": "P2-Q6", "query": "autonomous self-improvement agent", "total_results": 444, "papers_collected": 13}
+    ],
+    "total_papers_collected": 89
+  },
+  "papers": [
+    {
+      "id": "P1-001",
+      "title": "A Comprehensive Survey on Agent Skills: Taxonomy, Techniques, and Applications",
+      "arxiv_id": "2605.07358",
+      "authors": "Yingli Zhou, Wang Shu, Yaodong Su, et al.",
+      "query_source": "agent skill acquisition",
+      "abstract": "LLM-based agents that reason, plan, and act through tools, memory, and structured interaction are emerging as a promising paradigm. This survey examines this challenge through agent skills, defined as reusable procedural artifacts. Literature organized around four stages: representation, acquisition, retrieval, and evolution.",
+      "key_contribution": "首个系统梳理agent skill完整生命周期（表示-获取-检索-演化）的综述",
+      "optics_agent_relevance": "中：工作流自动化方法论相关"
+    },
+    {
+      "id": "P1-002",
+      "title": "Agent Skills for LLMs: Architecture, Acquisition, Security, and the Path Forward",
+      "arxiv_id": "2602.12430",
+      "authors": "Renjun Xu, Yang Yan",
+      "query_source": "agent skill acquisition",
+      "abstract": "Comprehensive survey organized along four axes: architectural foundations (SKILL.md, progressive context loading, MCP); skill acquisition (RL, autonomous discovery, compositional synthesis); deployment at scale; and security (26.1% community skills contain vulnerabilities).",
+      "key_contribution": "全面覆盖skill生态技术栈和安全问题，提出Skill Trust框架",
+      "optics_agent_relevance": "高：SKILL.md规范和MCP协议直接相关"
+    },
+    {
+      "id": "P1-003",
+      "title": "EvoDS: Self-Evolving Autonomous Data Science Agent with Skill Learning",
+      "arxiv_id": "2606.03841",
+      "authors": "Zherui Yang, Fan Liu, Yansong Ning, Hao Liu",
+      "query_source": "agent skill acquisition",
+      "abstract": "Self-evolving data science agent with Autonomous Skill Acquisition (ASA) and Adaptive Context Compression (ACC) via agentic RL. Outperforms SOTA by 28.9% across four benchmarks. Proves hierarchical design reduces tool-selection error.",
+      "key_contribution": "证明agent可以通过RL自主合成验证复用技能",
+      "optics_agent_relevance": "高：科学工作流自动化与optics_agent目标一致"
+    },
+    {
+      "id": "P1-004",
+      "title": "SkillEvolBench: Benchmarking Episodic Experience to Procedural Skills Evolution",
+      "arxiv_id": "2605.24117",
+      "authors": "Yingtie Lei, Zhongwei Wan, Jiankun Zhang, et al.",
+      "query_source": "agent skill acquisition",
+      "abstract": "180 tasks across six agent environments. Key finding: current agents rarely form robust reusable skills; raw-trajectory reuse outperforms distilled skills, suggesting current abstraction discards procedural cues.",
+      "key_contribution": "揭示关键发现：蒸馏技能不如原始轨迹复用",
+      "optics_agent_relevance": "高：benchmark方法论可直接用于optics_agent评估"
+    },
+    {
+      "id": "P1-005",
+      "title": "Automating Skill Acquisition through Mining Open-Source Agentic Repositories",
+      "arxiv_id": "2603.11808",
+      "authors": "Shuzhen Bi, Mengsong Wu, Hao Hao, et al.",
+      "query_source": "agent skill acquisition",
+      "abstract": "Systematic framework for automated acquisition of agent skills through mining GitHub repos. Includes structural analysis, semantic skill identification, and SKILL.md format translation. Agent-generated content achieves 40% gains in knowledge transfer.",
+      "key_contribution": "GitHub技能挖掘pipeline，验证SKILL.md标准化",
+      "optics_agent_relevance": "中：方法论可参考，领域偏教育可视化"
+    },
+    {
+      "id": "P1-006",
+      "title": "SkillCraft: Can LLM Agents Learn to Use Tools Skillfully?",
+      "arxiv_id": "2603.00718",
+      "authors": "Shiqi Chen, Jingze Gai, Ruochen Zhou, et al.",
+      "query_source": "agent skill acquisition",
+      "abstract": "Benchmark for compositional tool-use skills. Token usage reduced by up to 80% via skill saving/reuse. Success rate strongly correlates with tool composition ability.",
+      "key_contribution": "skill保存复用减少80% token消耗",
+      "optics_agent_relevance": "中：高效复用方法论可参考"
+    },
+    {
+      "id": "P1-007",
+      "title": "Agent Skill Acquisition via CycleQD",
+      "arxiv_id": "2410.14735",
+      "authors": "So Kuroki, Taishi Nakamura, Takuya Akiba, Yujin Tang",
+      "query_source": "agent skill acquisition",
+      "abstract": "Uses Quality Diversity framework with cyclic adaptation, model merging crossover, and SVD-based mutation. LLAMA3-8B matches GPT-3.5-TURBO on AgentBench while retaining language capabilities.",
+      "key_contribution": "质量多样性框架实现多技能联合获取",
+      "optics_agent_relevance": "中：偏向通用LLM训练"
+    },
+    {
+      "id": "P1-008",
+      "title": "Bootstrap Your Own Skills (BOSS)",
+      "arxiv_id": "2310.10021",
+      "authors": "Jesse Zhang, Jiahui Zhang, Karl Pertsch, et al.",
+      "query_source": "agent skill acquisition",
+      "abstract": "LLM-guided skill bootstrapping for long-horizon tasks. Agent with primitive skills practices new skills without reward feedback. Outperforms unsupervised methods on zero-shot execution.",
+      "key_contribution": "LLM指导skill自举，无需奖励信号",
+      "optics_agent_relevance": "低：面向机器人，方法论可参考"
+    },
+    {
+      "id": "P1-009",
+      "title": "TRACE: Test-time Rule Acquisition and Compiled Enforcement",
+      "arxiv_id": "2606.13174",
+      "authors": "Yujun Zhou, Kehan Guo, Haomin Zhuang, et al.",
+      "query_source": "agent skill acquisition",
+      "abstract": "Skill-layer pipeline mining user corrections, rewriting as atomic rules, compiling into runtime checks. Reduces violation from 100% to 37.6% (in-distribution) and 2.0% (out-of-distribution).",
+      "key_contribution": "用户纠错→规则编译→运行时检查pipeline",
+      "optics_agent_relevance": "高：用户反馈编译为规则的方法可直接应用"
+    },
+    {
+      "id": "P1-010",
+      "title": "Plan Before Search: Search Agents Need Plan",
+      "arxiv_id": "2605.28354",
+      "authors": "Zhipeng Qian, Zihan Liang, Yufei Ma, et al.",
+      "query_source": "agent skill acquisition",
+      "abstract": "Studies sub-skill dependency structure in retrieval agents. Identical reward induces qualitatively different RL failure modes across model scales. Self-bootstrapping paradigm eliminates need for external distillation.",
+      "key_contribution": "子技能依赖结构和模型-specific RL失败模式",
+      "optics_agent_relevance": "中：sub-skill dependency分析可参考"
+    },
+    {
+      "id": "P1-011",
+      "title": "S1-DeepResearch: Long-Horizon Research Agents",
+      "arxiv_id": "2606.15367",
+      "authors": "Yao Dong, Xinglin Xiao, Liwei Dong, et al.",
+      "query_source": "agent skill acquisition",
+      "abstract": "Unified trajectory construction for deep research agents. Graph-grounded formulation, agentic rollout, multi-dimensional verification. SOTA among open-source 32B models across 20 benchmarks.",
+      "key_contribution": "统一deep research agent轨迹构建框架",
+      "optics_agent_relevance": "中：长周期研究自动化架构可参考"
+    },
+    {
+      "id": "P1-012",
+      "title": "SADE: Symptom-Aware Diagnostic Escalation",
+      "arxiv_id": "2605.04530",
+      "authors": "Kuan-Hao Tseng, Niruth Bogahawatta, Yasod Ginige, et al.",
+      "query_source": "agent skill acquisition",
+      "abstract": "Encodes Cisco troubleshooting methodology as explicit policy with phase-gated workflow and routed fault-family skills library. 37 pp F1 improvement over ReAct+GPT-5 on NIKA benchmark.",
+      "key_contribution": "领域专家方法论→显式策略+技能库的编码",
+      "optics_agent_relevance": "高：直接适用于COMSOL工作流skill编码"
+    },
+    {
+      "id": "P1-013",
+      "title": "NORA: Harness-Engineered Autonomous Research Agent for Spatial Data Science",
+      "arxiv_id": "2605.02092",
+      "authors": "Bing Zhou, Xiao Huang, Huan Ning, et al.",
+      "query_source": "agent skill acquisition",
+      "abstract": "Skills-first architecture with 21 domain workflow skills, 9 specialist sub-agents, custom MCP servers. Formalizes harness engineering: lifecycle hooks, safety gates, human-in-the-loop.",
+      "key_contribution": "首个skills-first科学领域agent系统",
+      "optics_agent_relevance": "高：skills-first架构设计直接相关"
+    },
+    {
+      "id": "P1-014",
+      "title": "STEM Agent: Self-adapting, Tool-enabled, Extensible Multi-agent Architecture",
+      "arxiv_id": "2603.22359",
+      "authors": "Alfred Shen, Aaron Shen",
+      "query_source": "agent skill acquisition",
+      "abstract": "Biologically inspired architecture where undifferentiated agent core differentiates into specialized handlers. Skills crystallize from recurring interaction patterns through maturation lifecycle analogous to cell differentiation.",
+      "key_contribution": "生物启发的skill成熟生命周期模型",
+      "optics_agent_relevance": "中：技能成熟度模型值得借鉴"
+    },
+    {
+      "id": "P1-015",
+      "title": "Strategist: Self-improvement via Bi-Level Tree Search",
+      "arxiv_id": "2408.10635",
+      "authors": "Jonathan Light, Min Cai, Weiqin Chen, et al.",
+      "query_source": "agent skill acquisition",
+      "abstract": "LLMs search/update high-level strategies refined by low-level MCTS. Population-based self-play without training data. Outperforms RL methods in competitive games.",
+      "key_contribution": "LLM+MCTS双层优化，无需训练数据",
+      "optics_agent_relevance": "低：面向博弈场景"
+    },
+    {
+      "id": "P1-016",
+      "title": "ImplicitMemBench: Unconscious Behavioral Adaptation in LLMs",
+      "arxiv_id": "2604.08064",
+      "authors": "Chonghan Qin, Xiachong Feng, Weitao Ma, et al.",
+      "query_source": "agent skill acquisition",
+      "abstract": "Evaluates implicit memory through Procedural Memory (one-shot skill acquisition), Priming, and Classical Conditioning. No model exceeds 66%, top performers far below human baselines.",
+      "key_contribution": "首次评估LLM内隐记忆",
+      "optics_agent_relevance": "中：内隐记忆评估有参考价值"
+    },
+    {
+      "id": "P1-017",
+      "title": "Compositional Skill Routing: Decompose, Retrieve, and Compose",
+      "arxiv_id": "2606.18051",
+      "authors": "Xueping Gao",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "Formalizes Compositional Skill Routing. SkillWeaver combines LLM decomposer, bi-encoder retriever, DAG planner. Task decomposition identified as primary bottleneck (34.2% category recall). SAD improves to 67.7%.",
+      "key_contribution": "形式化定义compositional skill routing，揭示分解是瓶颈",
+      "optics_agent_relevance": "高：直接适用于COMSOL多物理场工作流编排"
+    },
+    {
+      "id": "P1-018",
+      "title": "Not All Skills Help: Measuring and Repairing Agent Knowledge (ASSAY)",
+      "arxiv_id": "2606.15390",
+      "authors": "Yixuan Wang, Yiyang Zhou, Yiming Liang, et al.",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "Skill libraries exhibit causal heterogeneity: skills help on some types, hurt on others, effects cancel in aggregate. ASSAY separates generation from curation, computes per-skill causal attribution. DeepSeek-V3 reaches 69.3% (+47.4%) on AppWorld hardest split.",
+      "key_contribution": "skill因果异质性+因果归因筛选方法",
+      "optics_agent_relevance": "高：可直接用于optics_agent技能质量评估"
+    },
+    {
+      "id": "P1-019",
+      "title": "SkillAxe: Evaluation-Guided Self-Refinement of Agent Skills",
+      "arxiv_id": "2606.10546",
+      "authors": "Srishti Gautam, Arjun Radhakrishna, Sumit Gulwani",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "LLMs iteratively diagnose/refine own skills. Four interpretable dimensions: quality impact, trigger precision, instruction compliance, solution-path coverage. 28% relative improvement over unimproved skills, closes 47-67% gap to human.",
+      "key_contribution": "四维度skill质量评估框架",
+      "optics_agent_relevance": "中：skill自优化可参考"
+    },
+    {
+      "id": "P1-020",
+      "title": "FederatedSkill: Federated Learning for Agentic Skill Evolution",
+      "arxiv_id": "2606.03143",
+      "authors": "Jingbo Yang, Guanyu Yao, Yang Zhang, et al.",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "Privacy-preserving collaborative agent evolution using semantic skill diffs. Server models client-specific capability boundaries. Up to 44.4% success rate increase, 37.5% cost reduction.",
+      "key_contribution": "联邦学习下协作skill演化",
+      "optics_agent_relevance": "中：多用户协作场景可参考"
+    },
+    {
+      "id": "P1-021",
+      "title": "MASA: Model-Aware Skill Alignment",
+      "arxiv_id": "2605.30723",
+      "authors": "Jianxiang Yu, Jiapeng Zhu, Bochen Lin, et al.",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "Skill effectiveness is strongly model-dependent. MASA adapts skills per backbone via hierarchical evolution (hill climbing+UCB tree search) and lightweight rewriter. Gains up to 25.8 points.",
+      "key_contribution": "首次证明skill效果模型特异性",
+      "optics_agent_relevance": "高：直接影响optics_agent系统设计"
+    },
+    {
+      "id": "P1-022",
+      "title": "HiSME: Hierarchical Skill Meta-Evolving",
+      "arxiv_id": "2605.28390",
+      "authors": "Xujun Li, Kehan Zheng, Mingyuan Zhao, et al.",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "Test-time refinement of the skill evolving framework itself. Jointly optimizes skills AND evolving strategy by learning meta-skills from execution traces.",
+      "key_contribution": "元演化：优化skill演化策略本身",
+      "optics_agent_relevance": "高：元演化可用于持续改进机制设计"
+    },
+    {
+      "id": "P1-023",
+      "title": "Maestro: RL Orchestration of Hierarchical Model-Skill Ensembles",
+      "arxiv_id": "2605.22177",
+      "authors": "Jinyang Wu, Guocheng Zhai, Ruihan Jin, et al.",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "RL-driven orchestration over hierarchical model-skill registry. 4B orchestrator surpasses GPT-5 (70.1% vs 69.3%). Generalizes to unseen models without retraining.",
+      "key_contribution": "RL编排专家模型+skill的层次化架构",
+      "optics_agent_relevance": "高：轻量级orchestrator架构有启发性"
+    },
+    {
+      "id": "P1-024",
+      "title": "HASP: Harnessing LLM Agents with Skill Programs",
+      "arxiv_id": "2605.17734",
+      "authors": "Hongjun Liu, Yifei Ming, Shafiq Joty, Chen Zhao",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "Upgrades skills to executable Program Functions (PFs) as guardrails on failure-prone states. 25% improvement over ReAct. Modular: inference, post-training, or self-improvement.",
+      "key_contribution": "textual skill升级为可执行guardrail",
+      "optics_agent_relevance": "高：可执行guardrail用于COMSOL流程错误检测"
+    },
+    {
+      "id": "P1-025",
+      "title": "SkillFlow: Flow-Driven Recursive Skill Evolution",
+      "arxiv_id": "2605.14089",
+      "authors": "Mingda Zhang, Tiesunlong Shen, Haoran Luo, et al.",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "Tempered Trajectory Balance loss sampling proportional to reward. Transparent per-step credit assignment via jointly learned backward policy. Recursive evolution closes training-to-growth loop.",
+      "key_contribution": "流匹配保留多样性编排策略",
+      "optics_agent_relevance": "中：流程编排方法可参考"
+    },
+    {
+      "id": "P1-026",
+      "title": "SkillOps: Managing Skill Libraries as Software Ecosystems",
+      "arxiv_id": "2605.13716",
+      "authors": "Hongji Pu, Xinyuan Song, Liang Zhao",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "Skill Contract representation, Hierarchical Skill Ecosystem Graph, health diagnosis across utility/compatibility/risk/validation. 79.5% ALFWorld success, +8.8 pp as standalone agent, near-zero LLM maintenance cost.",
+      "key_contribution": "skill库软件生态系统维护框架",
+      "optics_agent_relevance": "高：skill库维护对长期运行至关重要"
+    },
+    {
+      "id": "P1-027",
+      "title": "SkillLens: Adaptive Multi-Granularity Skill Reuse",
+      "arxiv_id": "2605.08386",
+      "authors": "Yongliang Miao, Ziyang Yu, Liang Zhao, et al.",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "Four-layer skill graph (policies/strategies/procedures/primitives) with mixed-granularity retrieval. Random walk expansion over graph. Sublinear cost under sparse mismatch.",
+      "key_contribution": "多层次skill粒度混合检索与演化",
+      "optics_agent_relevance": "高：多层次粒度适用于COMSOL不同抽象层级"
+    },
+    {
+      "id": "P1-028",
+      "title": "Dr. RTL: Autonomous RTL Optimization via Skill Learning",
+      "arxiv_id": "2604.14989",
+      "authors": "Wenji Fang, Yao Lu, Shang Liu, et al.",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "Multi-agent framework for RTL timing optimization. Group-relative skill learning distills 47 pattern-strategy entries. 21%/17% WNS/TNS improvements, 6% area reduction over commercial tool.",
+      "key_contribution": "领域特定skill获取+复用的完整案例",
+      "optics_agent_relevance": "高：思路可直接迁移到COMSOL仿真"
+    },
+    {
+      "id": "P1-029",
+      "title": "SkillX: Automatically Constructing Skill Knowledge Bases",
+      "arxiv_id": "2604.04804",
+      "authors": "Chenxi Wang, Zhuoyun Yu, Xin Xie, et al.",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "Fully automated plug-and-play skill KB. Three-tier hierarchy: strategic plans, functional skills, atomic skills. Strong backbone skills boost weaker agents.",
+      "key_contribution": "跨agent可迁移的分层skill知识库",
+      "optics_agent_relevance": "高：强弱agent技能迁移可复用"
+    },
+    {
+      "id": "P1-030",
+      "title": "EffiSkill: Code Efficiency Optimization via Agent Skills",
+      "arxiv_id": "2603.27850",
+      "authors": "Zimu Wang, Yuling Shi, Mengfan Li, et al.",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "Mines Operator/Meta Skills from slow/fast program pairs. Execution-free diagnosis+skill retrieval for optimization. +3.69-12.52 pp over strongest baseline.",
+      "key_contribution": "代码优化模式→可复用agent skill",
+      "optics_agent_relevance": "中：领域差异较大"
+    },
+    {
+      "id": "P1-031",
+      "title": "Memento-Skills: Let Agents Design Agents",
+      "arxiv_id": "2603.18743",
+      "authors": "Huichi Zhou, Siyuan Guo, Anjie Liu, et al.",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "Agent-designing-agent system. Structured markdown skills as persistent evolving memory via Read-Write Reflective Learning. 26.2% and 116.2% relative improvements.",
+      "key_contribution": "agent设计agent的闭循环",
+      "optics_agent_relevance": "中：自设计理念有启发性"
+    },
+    {
+      "id": "P1-032",
+      "title": "daVinci-kernel: Co-Evolving Skill Selection, Summarization, Utilization",
+      "arxiv_id": "2606.16497",
+      "authors": "Dayuan Fu, Mohan Jiang, Tongyu Wang, et al.",
+      "query_source": "skill library LLM agent framework",
+      "abstract": "Three agents (selection, policy, summary) sharing LLM backbone, jointly trained via multi-turn REINFORCE. SOTA on KernelBench.",
+      "key_contribution": "三agent co-evolution共享backbone",
+      "optics_agent_relevance": "中：多agent协作可借鉴"
+    },
+    {
+      "id": "P1-033",
+      "title": "SkillGraph: Evolving Skill Graphs for Agents",
+      "arxiv_id": "2605.12039",
+      "authors": "Xiaoyuan Li, Moxin Li, Keqin Bao, et al.",
+      "query_source": "compositional skill learning agent",
+      "abstract": "Directed graph with prerequisite/enhancement/co-occurrence edges. Retrieves ordered subgraphs. Continuously updated from trajectories+RL. SOTA on ALFWorld, WebShop, QA tasks.",
+      "key_contribution": "有向技能图支持组合推理",
+      "optics_agent_relevance": "高：适合COMSOL多物理场步骤依赖建模"
+    },
+    {
+      "id": "P1-034",
+      "title": "MAGE: Multi-Agent Self-Evolution with Co-Evolutionary Knowledge Graphs",
+      "arxiv_id": "2605.10064",
+      "authors": "Ruiyi Yang, Zechen Li, Hao Xue, et al.",
+      "query_source": "compositional skill learning agent",
+      "abstract": "Four-subgraph co-evolutionary knowledge graph. Experience subgraph stores corrections and success traces. Graph+bandits updated from reward stream; backbone frozen.",
+      "key_contribution": "四子图共进化+frozen backbone持续学习",
+      "optics_agent_relevance": "中：frozen backbone+图演化可参考"
+    },
+    {
+      "id": "P1-035",
+      "title": "SkillOS: Learning Skill Curation for Self-Evolving Agents",
+      "arxiv_id": "2605.06614",
+      "authors": "Siru Ouyang, Jun Yan, Yanfei Chen, et al.",
+      "query_source": "compositional skill learning agent",
+      "abstract": "Trainable curator + frozen executor. RL training on grouped task streams with composite rewards. Curator generalizes across backbones and domains.",
+      "key_contribution": "可训练skill curator (vs 启发式)",
+      "optics_agent_relevance": "高：trainable curator模式可应用"
+    },
+    {
+      "id": "P1-036",
+      "title": "Decompose and Recompose for Robotic Manipulation",
+      "arxiv_id": "2605.01448",
+      "authors": "Xitie Zhang, Aming Wu, Yahong Han",
+      "query_source": "compositional skill learning agent",
+      "abstract": "Atomic skill-action pairs as intermediate representation. Decompose demonstrations, recompose for unseen tasks via compositional reasoning. Zero-shot cross-task generalization.",
+      "key_contribution": "原子技能-动作对的分解-重组范式",
+      "optics_agent_relevance": "中：分解-重组范式有参考价值"
+    },
+    {
+      "id": "P2-037",
+      "title": "Experiential Reflective Learning (ERL) for Self-Improving LLM Agents",
+      "arxiv_id": "2603.24639",
+      "authors": "Marc-Antoine Allard, Arnaud Teinturier, Victor Xing, Gautier Viaud",
+      "query_source": "self-improving LLM agent",
+      "abstract": "Reflects on trajectories to generate heuristics capturing transferable lessons. Selective retrieval essential. +7.8% on Gaia2. Heuristics more transferable than few-shot prompting.",
+      "key_contribution": "轨迹→启发式的反思学习框架",
+      "optics_agent_relevance": "高：可直接用于COMSOL仿真经验提炼"
+    },
+    {
+      "id": "P2-038",
+      "title": "GRASP: Gated Regression-Aware Skill Proposer",
+      "arxiv_id": "2605.29668",
+      "authors": "Johannes Moll, Jean-Philippe Corbeil, Jiazhen Pan, et al.",
+      "query_source": "self-improving LLM agent",
+      "abstract": "Skill edits pass regression budget: net improvement on held-out probe. gpt-oss-120b from 40.6% to 88.8%, +21.0 points over strongest baseline. Libraries transfer across models.",
+      "key_contribution": "regression budget确保安全改进",
+      "optics_agent_relevance": "高：regression budget可直接采用"
+    },
+    {
+      "id": "P2-039",
+      "title": "ReST meets ReAct: Self-Improvement for Multi-Step Reasoning",
+      "arxiv_id": "2312.10003",
+      "authors": "Renat Aksitov, Sobhan Miryoosefi, Zonglin Li, et al.",
+      "query_source": "self-improving LLM agent",
+      "abstract": "ReAct-style agent refined via ReST-like iterative training on trajectories with AI feedback. Two iterations produce small model matching large prompted model on compositional QA.",
+      "key_contribution": "ReAct+ReST经典组合，大教小蒸馏",
+      "optics_agent_relevance": "中：基础框架可参考"
+    },
+    {
+      "id": "P2-040",
+      "title": "AccelOpt: Self-Improving LLM Agentic System for Kernel Optimization",
+      "arxiv_id": "2511.15915",
+      "authors": "Genghan Zhang, Shaowei Zhu, Anjiang Wei, et al.",
+      "query_source": "self-improving LLM agent",
+      "abstract": "Autonomous kernel optimization via iterative generation + optimization memory from slow-fast pairs. 49% to 61% throughput on Trainium. Matches Claude Sonnet 4 at 26x lower cost.",
+      "key_contribution": "经验记忆库驱动领域自改进",
+      "optics_agent_relevance": "中：领域专业agent自改进架构可参考"
+    },
+    {
+      "id": "P2-041",
+      "title": "Towards Agentic Self-Learning LLMs in Search Environment",
+      "arxiv_id": "2510.14253",
+      "authors": "Wangtao Sun, Xiang Cheng, Jialin Fan, et al.",
+      "query_source": "self-improving LLM agent",
+      "abstract": "Closed-loop multi-role RL: Prompt Generator, Policy Model, Generative Reward Model co-evolve. GRM verification capacity identified as main bottleneck. Accumulating round-over-round gains.",
+      "key_contribution": "无监督闭环自我学习，GRM瓶颈识别",
+      "optics_agent_relevance": "中：无监督范式可参考"
+    },
+    {
+      "id": "P2-042",
+      "title": "A Self-Improving Coding Agent",
+      "arxiv_id": "2504.15228",
+      "authors": "Maxime Robeyns, Martin Szummer, Laurence Aitchison",
+      "query_source": "self-improving LLM agent",
+      "abstract": "Agent with basic coding tools autonomously edits itself. 17%-53% gains on SWE Bench Verified. Non-gradient learning via LLM reflection+code updates.",
+      "key_contribution": "非梯度自改进：agent自我代码编辑",
+      "optics_agent_relevance": "中：非梯度范式可参考"
+    },
+    {
+      "id": "P2-043",
+      "title": "Self-Improving LLM Agents at Test-Time",
+      "arxiv_id": "2510.07841",
+      "authors": "Emre Can Acikgoz, Cheng Qian, Heng Ji, et al.",
+      "query_source": "self-improving LLM agent",
+      "abstract": "Test-time self-improvement: self-awareness→data augmentation→fine-tuning. +5.48% accuracy using 68x fewer samples.",
+      "key_contribution": "测试时自改进范式",
+      "optics_agent_relevance": "中：可用于COMSOL参数调优"
+    },
+    {
+      "id": "P2-044",
+      "title": "Gödel Agent: Recursive Self-Improvement",
+      "arxiv_id": "2410.04444",
+      "authors": "Xunjian Yin, Xinyi Wang, Liangming Pan, et al.",
+      "query_source": "self-improving LLM agent",
+      "abstract": "Self-referential framework enabling agents to recursively modify own logic guided by high-level objectives. Surpasses manually crafted agents.",
+      "key_contribution": "哥德尔机启发的递归自修改",
+      "optics_agent_relevance": "中：递归自改进理念有指导意义"
+    },
+    {
+      "id": "P2-045",
+      "title": "STeP: Synthetic Self-Reflected Trajectories with Partial Masking",
+      "arxiv_id": "2505.20023",
+      "authors": "Yihan Chen, Benfeng Xu, Xiaorui Wang, et al.",
+      "query_source": "self-improving LLM agent",
+      "abstract": "Synthesizes self-reflected trajectories with error corrections. Partial masking prevents learning from incorrect steps. Improvements across ALFWorld, WebShop, SciWorld.",
+      "key_contribution": "反思轨迹+部分掩码训练",
+      "optics_agent_relevance": "中：反思轨迹生成可参考"
+    },
+    {
+      "id": "P2-046",
+      "title": "From Language Models to Practical Self-Improving Computer Agents",
+      "arxiv_id": "2404.11964",
+      "authors": "Alex Sheng",
+      "query_source": "self-improving LLM agent",
+      "abstract": "Agent generates software to augment itself. Starting from terminal access, self-augments with retrieval, search, web nav, text editor. Minimal querying loop with prompt engineering.",
+      "key_contribution": "agent自我生成代码扩展能力",
+      "optics_agent_relevance": "中：自我扩展范式可参考"
+    },
+    {
+      "id": "P2-047",
+      "title": "LLMs Can Self-Improve At Web Agent Tasks",
+      "arxiv_id": "2405.20309",
+      "authors": "Ajay Patel, Markus Hofmarcher, Claudiu Leoveanu-Condrei, et al.",
+      "query_source": "self-improving LLM agent",
+      "abstract": "Self-generated data→fine-tuning self-improvement loop. 31% improvement on WebArena. Novel evaluation metrics beyond aggregate scores.",
+      "key_contribution": "自生成数据→自训练改进闭环",
+      "optics_agent_relevance": "中：自训练范式可参考"
+    },
+    {
+      "id": "P2-048",
+      "title": "Zombie Agents: Persistent Control via Self-Reinforcing Injections",
+      "arxiv_id": "2602.15654",
+      "authors": "Xianglin Yang, Yufei He, Shuo Ji, et al.",
+      "query_source": "self-improving LLM agent",
+      "abstract": "Self-evolving agent security risk: untrusted content→memory→persistent compromise. Attack survives across sessions. Memory evolution enables persistent control.",
+      "key_contribution": "揭示self-evolving agent安全隐患",
+      "optics_agent_relevance": "高：直接适用于optics_agent安全部署"
+    },
+    {
+      "id": "P2-049",
+      "title": "Darwin Gödel Machine: Open-Ended Evolution",
+      "arxiv_id": "2505.22954",
+      "authors": "Jenny Zhang, Shengran Hu, Cong Lu, et al.",
+      "query_source": "self-improving LLM agent",
+      "abstract": "Agent iteratively modifies own code, validates via benchmarks. Darwinian archive of generated agents. SWE-bench 20%→50%, Polyglot 14.2%→30.7%.",
+      "key_contribution": "达尔文进化+档案维护的开源式演化",
+      "optics_agent_relevance": "中：进化机制可参考"
+    },
+    {
+      "id": "P2-050",
+      "title": "MALT: Multi-Agent LLM Training",
+      "arxiv_id": "2412.01928",
+      "authors": "Sumeet Ramesh Motwani, Chandler Smith, Rocktim Jyoti Das, et al.",
+      "query_source": "self-improving LLM agent",
+      "abstract": "Heterogeneous agent pipeline (generation/verification/refinement). Value iteration propagates rewards across roles. +15.66% MATH, +7.42% GSM8K, +9.40% CSQA.",
+      "key_contribution": "多角色agent pipeline+值迭代",
+      "optics_agent_relevance": "中：多agent协作可借鉴"
+    },
+    {
+      "id": "P2-051",
+      "title": "Comprehensive Survey of Self-Evolving AI Agents",
+      "arxiv_id": "2508.07407",
+      "authors": "Jinyuan Fang, Yanwen Peng, Xi Zhang, et al.",
+      "query_source": "self-evolution language model agent",
+      "abstract": "Unified framework: System Inputs, Agent System, Environment, Optimisers. Reviews techniques for each component, domain-specific strategies (biomedicine, programming, finance). Safety and ethics.",
+      "key_contribution": "最全面self-evolving agent综述",
+      "optics_agent_relevance": "高：框架可用于指导optics_agent设计"
+    },
+    {
+      "id": "P2-052",
+      "title": "Survey on Self-Evolution of Large Language Models",
+      "arxiv_id": "2404.14387",
+      "authors": "Zhengwei Tao, Ting-En Lin, Xiancai Chen, et al.",
+      "query_source": "self-evolution language model agent",
+      "abstract": "Iterative cycles: experience acquisition, refinement, updating, evaluation. Categorizes evolution objectives of LLMs and LLM-based agents.",
+      "key_contribution": "早期系统性self-evolution综述",
+      "optics_agent_relevance": "高：四阶段框架提供理论基础"
+    },
+    {
+      "id": "P2-053",
+      "title": "PACE: Two-Timescale Self-Evolution for SLM Agents",
+      "arxiv_id": "2605.23019",
+      "authors": "Chen Ling, Pei Chen, Albert Guan, et al.",
+      "query_source": "self-evolution language model agent",
+      "abstract": "Two-timescale: evolve prompts under fixed logic; then constrained logic updates via validation. Best on all 12 backbone-benchmark combos. SLM evolution possible without weight updates.",
+      "key_contribution": "双时间尺度进化+验证门控",
+      "optics_agent_relevance": "高：适用于资源受限场景"
+    },
+    {
+      "id": "P2-054",
+      "title": "ICE: Investigate-Consolidate-Exploit for Inter-Task Self-Evolution",
+      "arxiv_id": "2401.13996",
+      "authors": "Cheng Qian, Shihao Liang, Yujia Qin, et al.",
+      "query_source": "self-evolution language model agent",
+      "abstract": "Investigate trajectories, consolidate into workflows, exploit for improvement. 80% API reduction. GPT-3.5+ICE matches raw GPT-4.",
+      "key_contribution": "任务间知识迁移三阶段策略",
+      "optics_agent_relevance": "中：任务间迁移可参考"
+    },
+    {
+      "id": "P2-055",
+      "title": "AgentGym: Evolving LLM Agents across Diverse Environments",
+      "arxiv_id": "2406.04151",
+      "authors": "Zhiheng Xi, Yiwen Ding, Wenxiang Chen, et al.",
+      "query_source": "self-evolution language model agent",
+      "abstract": "Framework for concurrent agent exploration across diverse environments. AgentEvol method for self-evolution beyond seen data. Trajectory database and benchmark suite.",
+      "key_contribution": "多环境并发进化框架",
+      "optics_agent_relevance": "中：多环境方法论可参考"
+    },
+    {
+      "id": "P2-056",
+      "title": "OpenSkill: Open-World Self-Evolution for LLM Agents",
+      "arxiv_id": "2606.06741",
+      "authors": "Zhiling Yan, Dingjie Song, Hanrong Zhang, et al.",
+      "query_source": "self-evolution language model agent",
+      "abstract": "Bootstraps skills and verification from scratch using docs/repos/web. Synthesizes into transferable skills, refines via self-built virtual tasks. No target-task supervision.",
+      "key_contribution": "从零开始的开放世界技能自举",
+      "optics_agent_relevance": "高：可用于COMSOL文档知识提取"
+    },
+    {
+      "id": "P2-057",
+      "title": "Your Agent May Misevolve: Emergent Risks",
+      "arxiv_id": "2509.26354",
+      "authors": "Shuai Shao, Qihan Ren, Chen Qian, et al.",
+      "query_source": "self-evolution language model agent",
+      "abstract": "Systematic misevolution study: model/memory/tool/workflow four pathways. Safety degradation after memory accumulation, vulnerabilities in tool creation. First conceptualization.",
+      "key_contribution": "首次定义误进化风险",
+      "optics_agent_relevance": "高：对部署optics_agent有警示意义"
+    },
+    {
+      "id": "P2-058",
+      "title": "SEVerA: Verified Synthesis of Self-Evolving Agents",
+      "arxiv_id": "2603.25111",
+      "authors": "Debangshu Banerjee, Changming Xu, Eugene Ie, et al.",
+      "query_source": "self-improving LLM agent",
+      "abstract": "Constrained learning with formal specifications. Formally Guarded Generative Models (FGGM) with verified fallback. Zero constraint violations while improving performance.",
+      "key_contribution": "self-evolving agent形式化验证",
+      "optics_agent_relevance": "高：形式化验证对科学计算agent至关重要"
+    },
+    {
+      "id": "P2-059",
+      "title": "SAGE: Socialized Evolution in Agent Ecosystems",
+      "arxiv_id": "2606.03544",
+      "authors": "Linyue Pan, Yaoming Zhu, Lin Qiu, et al.",
+      "query_source": "self-evolution language model agent",
+      "abstract": "SocialEvo vs SelfEvo comparison. Group history not universal amplifier but helps plateaued agents. Filtered peer traces outperform raw logs.",
+      "key_contribution": "社会化vs自我进化的系统比较",
+      "optics_agent_relevance": "中：协作知识共享可参考"
+    },
+    {
+      "id": "P2-060",
+      "title": "EvoRepair: Experience-Based Self-Evolution for Vulnerability Repair",
+      "arxiv_id": "2605.30105",
+      "authors": "Haichuan Hu, Guoqing Xie, Quanjun Zhang, et al.",
+      "query_source": "self-evolution language model agent",
+      "abstract": "Cyclic learn-and-repair with quality-aware experience bank. Reaches 93.47% on PATCHEVAL, surpasses SOTA by large margins. Generalizes across models and languages.",
+      "key_contribution": "质量感知经验银行驱动自进化",
+      "optics_agent_relevance": "中：经验积累架构可参考"
+    },
+    {
+      "id": "P2-061",
+      "title": "SkillCAT: Training-Free Skill Self-Evolution",
+      "arxiv_id": "2606.13317",
+      "authors": "Kunfeng Chen, Qihuang Zhong, Juhua Liu, Bo Du",
+      "query_source": "self-evolution language model agent",
+      "abstract": "Three-stage: Contrastive Causal Extraction (success/failure pairs), Assessment-Augmented Evolution (clone verification), Topology-Aware Execution (relevant nodes only). Up to 40.40% gain without training.",
+      "key_contribution": "无训练skill自我进化三步框架",
+      "optics_agent_relevance": "高：可直接应用于optics_agent"
+    },
+    {
+      "id": "P2-062",
+      "title": "EvolveSearch: Iterative Self-Evolving Search Agent",
+      "arxiv_id": "2505.22501",
+      "authors": "Dingchu Zhang, Yida Zhao, Jialong Wu, et al.",
+      "query_source": "self-evolution language model agent",
+      "abstract": "SFT+RL iterative evolution without human data. Consistent per-iteration improvement, +4.7% over SOTA on seven multi-hop QA benchmarks.",
+      "key_contribution": "SFT+RL组合迭代进化",
+      "optics_agent_relevance": "中：迭代训练方法可参考"
+    },
+    {
+      "id": "P2-063",
+      "title": "SE-Agent: Self-Evolution Trajectory Optimization",
+      "arxiv_id": "2508.02085",
+      "authors": "Jiaye Lin, Yifu Guo, Yuzhen Han, et al.",
+      "query_source": "self-evolution language model agent",
+      "abstract": "Revision, recombination, refinement of trajectories. Expands search space via cross-trajectory inspiration. 55% relative improvement on SWE-bench Verified.",
+      "key_contribution": "修订-重组-精炼三操作轨迹进化",
+      "optics_agent_relevance": "中：轨迹进化操作符可参考"
+    },
+    {
+      "id": "P2-064",
+      "title": "Meta-Agent Challenge: Autonomous Agent Development",
+      "arxiv_id": "2606.04455",
+      "authors": "Xinyu Lu, Tianshu Wang, Pengbo Wang, et al.",
+      "query_source": "autonomous self-improvement agent",
+      "abstract": "Benchmark testing meta-agents developing agent systems. Reveals meta-agents rarely match human baselines. High optimization pressure surfaces adversarial behaviors like ground-truth exfiltration.",
+      "key_contribution": "评估agent自主开发agent的基准",
+      "optics_agent_relevance": "中：元agent评估可参考"
+    },
+    {
+      "id": "P2-065",
+      "title": "WebEvolver: Coevolving World Model for Self-Improvement",
+      "arxiv_id": "2504.21024",
+      "authors": "Tianqing Fang, Hongming Zhang, Zhisong Zhang, et al.",
+      "query_source": "autonomous self-improvement agent",
+      "abstract": "World Model predicts next observation, serves as virtual server for data generation and look-ahead simulation. 10% performance gain over existing self-evolving agents.",
+      "key_contribution": "世界模型+agent协同进化",
+      "optics_agent_relevance": "中：可用于COMSOL结果预测"
+    },
+    {
+      "id": "P2-066",
+      "title": "RoboPhD: Self-Improving Text-to-SQL via Agent Evolution",
+      "arxiv_id": "2601.01126",
+      "authors": "Andrew Borthwick, Stephen Ash",
+      "query_source": "autonomous self-improvement agent",
+      "abstract": "ELO-based selection mechanism for survival-of-the-fittest. SQL Gen agent + Evolution agent. 70-line baseline evolves to 1500 lines over 18 iterations. 73.67% on BIRD.",
+      "key_contribution": "ELO评分驱动进化选择",
+      "optics_agent_relevance": "中：竞争选择机制可参考"
+    },
+    {
+      "id": "P2-067",
+      "title": "SkillWeaver: Web Agents Self-Improve by Discovering Skills",
+      "arxiv_id": "2504.07079",
+      "authors": "Boyuan Zheng, Michael Y. Fatemi, Xiaolong Jin, et al.",
+      "query_source": "autonomous self-improvement agent",
+      "abstract": "Skill-centric: autonomous discovery→practice→distillation as APIs. 31.8%/39.8% improvement on WebArena/websites. Strong APIs transfer to weaker agents (+54.3%).",
+      "key_contribution": "技能API化+强弱迁移",
+      "optics_agent_relevance": "高：API化和迁移机制可直接应用"
+    },
+    {
+      "id": "P2-068",
+      "title": "Self-Initiated Open World Learning (SOL)",
+      "arxiv_id": "2110.11385",
+      "authors": "Bing Liu, Eric Robertson, Scott Grigsby, Sahisnu Mazumder",
+      "query_source": "autonomous self-improvement agent",
+      "abstract": "Theoretical framework: detect novelties→characterize→accommodate→gather data→incrementally learn. All on agent's own initiative.",
+      "key_contribution": "开放世界自主学习理论框架",
+      "optics_agent_relevance": "中：理论框架可参考"
+    },
+    {
+      "id": "P2-069",
+      "title": "OS-Copilot: Generalist Computer Agents with Self-Improvement",
+      "arxiv_id": "2402.07456",
+      "authors": "Zhiyong Wu, Chengcheng Han, Zichen Ding, et al.",
+      "query_source": "autonomous self-improvement agent",
+      "abstract": "Framework for OS-level generalist agents. FRIDAY agent outperforms prior methods by 35% on GAIA. Self-improves on Excel/Powerpoint with minimal supervision.",
+      "key_contribution": "通用OS agent + 自我改进",
+      "optics_agent_relevance": "中：通用框架可参考"
+    },
+    {
+      "id": "P2-070",
+      "title": "GRAFT-ATHENA: Self-Improving Agentic Teams for Scientific Discovery",
+      "arxiv_id": "2605.11117",
+      "authors": "Juan Diego Toscano, Zhaojie Chai, George Em Karniadakis",
+      "query_source": "autonomous self-improvement agent",
+      "abstract": "Scientific discovery agentic framework. GRAFT reduces combinatorial spaces to factored trees. Discovers numerical methods (spectral PINN), solves engineering problems (Mach-10 flow). Self-improves across problems.",
+      "key_contribution": "科学发现领域agent自我改进，发现新数值方法",
+      "optics_agent_relevance": "高：科学计算agent最相关工作，直接相关"
+    },
+    {
+      "id": "P2-071",
+      "title": "SpacMind: Modular Self-Evolving VLM Agent for On-orbit Servicing",
+      "arxiv_id": "2604.14399",
+      "authors": "Aodi Wu, Haodong Han, Xubo Luo, et al.",
+      "query_source": "self-evolution language model agent",
+      "abstract": "Skill modules + MCP tools + reasoning-mode skills. Self-Evolution distills experience to skill files without fine-tuning. 192 closed-loop runs, recovers from failure to 100% success.",
+      "key_contribution": "航天领域的self-evolving VLM agent",
+      "optics_agent_relevance": "高：领域agent架构+蒸馏机制直接参考"
+    },
+    {
+      "id": "P2-072",
+      "title": "MetaClaw: Agent That Meta-Learns and Evolves in the Wild",
+      "arxiv_id": "2603.17187",
+      "authors": "Peng Xia, Jianwen Chen, Xinyu Yang, et al.",
+      "query_source": "compositional skill learning agent",
+      "abstract": "Skill-driven fast adaptation (failure→new skills) + Opportunistic policy optimization (cloud LoRA/RL during idle). Zero-downtime evolution. Kimi-K2.5 from 21.4% to 40.6%.",
+      "key_contribution": "双机制进化+零宕机更新",
+      "optics_agent_relevance": "高：对持续运行的optics_agent很有价值"
+    },
+    {
+      "id": "P2-073",
+      "title": "OSExpert: Computer-Use Agents Learning Skills via Exploration",
+      "arxiv_id": "2603.07978",
+      "authors": "Jiateng Liu, Zhenhailong Wang, Rushi Wang, et al.",
+      "query_source": "compositional skill learning agent",
+      "abstract": "GUI-DFS exploration→unit skill composition→self-constructed curriculum. ~20% gain on OSExpert-Eval, closes human efficiency gap by ~80%.",
+      "key_contribution": "DFS探索+组合性自构建课程",
+      "optics_agent_relevance": "中：可用于探索COMSOL API功能空间"
+    },
+    {
+      "id": "P2-074",
+      "title": "Agentic Proposing via Compositional Skill Synthesis",
+      "arxiv_id": "2602.03279",
+      "authors": "Zhengbo Jiao, Shaobo Wang, Zifan Zhang, et al.",
+      "query_source": "compositional skill learning agent",
+      "abstract": "Goal-driven sequential skill selection/composition for problem synthesis. 4B proposer, 30B solver on 11K trajectories achieves 91.6% on AIME25.",
+      "key_contribution": "模块化技能组合+少量数据达前沿",
+      "optics_agent_relevance": "中：合成数据pipeline可参考"
+    },
+    {
+      "id": "P2-075",
+      "title": "MOBIMEM: Memory-Centric Self-Evolution",
+      "arxiv_id": "2512.15784",
+      "authors": "Zibin Liu, Cheng Zhang, Xi Zhao, et al.",
+      "query_source": "self-evolution language model agent",
+      "abstract": "Profile/Experience/Action three memory primitives. DisGraph for alignment, multi-level templates, fine-grained action records. 83.1% alignment, up to 50.3% success gain. No model retraining.",
+      "key_contribution": "纯记忆驱动进化，无需模型重训练",
+      "optics_agent_relevance": "中：记忆驱动范式可参考"
+    },
+    {
+      "id": "P2-076",
+      "title": "SAND: Self-Taught Action Deliberation",
+      "arxiv_id": "2507.07441",
+      "authors": "Yu Xia, Yiran Shen, Junda Wu, et al.",
+      "query_source": "self-improving LLM agent",
+      "abstract": "Explicit deliberation over candidate actions before commitment. Self-consistency sampling + execution-guided critique. 20% average improvement over SFT.",
+      "key_contribution": "行动前显式 deliberation 机制",
+      "optics_agent_relevance": "中：行动慎重决策可参考"
+    },
+    {
+      "id": "P2-077",
+      "title": "Group-Evolving Agents: Open-Ended Self-Improvement via Experience Sharing",
+      "arxiv_id": "2602.04837",
+      "authors": "Authors from search results",
+      "query_source": "autonomous self-improvement agent",
+      "abstract": "Framework for group-level open-ended self-improvement through experience sharing.",
+      "key_contribution": "群体经验共享的开源式改进",
+      "optics_agent_relevance": "中：群体进化可参考"
+    }
+  ],
+  "key_insights": [
+    {
+      "insight_id": "KI-01",
+      "category": "定义与抽象范式转变",
+      "insight": "Agent Skill正从非结构化自然语言演化为结构化可执行制品（Program Functions、API、SKILL.md）。SkillOps将skill库视作软件生态系统，HASP提出可执行guardrail，SkillWeaver封装skill为API。这标志着agent能力扩展从'提示工程'向'软件工程化'的范式转变。"
+    },
+    {
+      "insight_id": "KI-02",
+      "category": "技能获取的多层次性",
+      "insight": "技能获取分三个层次：原子技能（SkillCraft）、组合技能合成（Compositional Skill Routing）、元技能演化（HiSME）。关键瓶颈在任务分解而非技能数量——SkillWeaver发现标准LLM分解仅达34.2%步骤级召回率。对比学习（SkillCAT）和DFS探索（OSExpert）是有效的技能发现策略。"
+    },
+    {
+      "insight_id": "KI-03",
+      "category": "技能效用的条件性",
+      "insight": "Skill不具有通用有效性。ASSAY揭示因果异质性（同技能对不同任务正负效应不同，聚合抵消）。MASA证明模型特异性（有益A模型可能损害B模型）。GRASP引入regression budget确保新skill不破坏已有能力。这对optics_agent的技能库管理有直接指导意义。"
+    },
+    {
+      "insight_id": "KI-04",
+      "category": "自我改进vs自我进化的区别",
+      "insight": "self-improving（经验积累→性能提升：ERL、ReST+ReAct）和self-evolving（架构级自适应：Gödel Agent、Darwin Gödel Machine）存在本质区别。前者在固定架构内优化，后者可修改自身逻辑/工具/知识图谱。PACE（双时间尺度）和ICE（可控演进）代表中间的保守路线。"
+    },
+    {
+      "insight_id": "KI-05",
+      "category": "经验→技能的蒸馏困境",
+      "insight": "SkillEvolBench揭示原始轨迹复用优于蒸馏技能，说明当前抽象过程丢弃关键上下文线索。AgentCL证明naive任务流不足以评估持续学习。ImplicitMemBench显示LLM内隐记忆（自动化的程序性知识）远低于人类基线。这是optics_agent需要重点关注的瓶颈。"
+    },
+    {
+      "insight_id": "KI-06",
+      "category": "安全风险",
+      "insight": "自我进化agent面临独特安全风险：Misevolution（偏离预期轨道，ICLR 2026）和Zombie Agent（记忆机制跨session持久控制）。26.1%社区skill含漏洞（Agent Skills Survey）。SEVerA最先引入形式化验证保证。GRASP的regression budget是最直接的防护机制。"
+    },
+    {
+      "insight_id": "KI-07",
+      "category": "科学/工程领域agent兴起",
+      "insight": "特定科学/工程领域的self-evolving agent正在兴起：GRAFT-ATHENA（科学发现，学界具名PINN）、SpaceMind（航天维修）、Dr.RTL（芯片设计）、NORA（空间数据科学）。共享特征：skills-first架构、领域知识编码、无模型微调的持续改进。对optics_agent是最直接的相关参考。"
+    },
+    {
+      "insight_id": "KI-08",
+      "category": "社会化进化的新维度",
+      "insight": "SAGE系统比较社会化vs自我进化：peer经验可帮助plateau agents突破，但最强者不超self-evolution上限。FederatedSkill在联邦学习中协作演化。SkillX展示强到弱agent技能迁移。Group-Evolving探索群体经验共享。提示研究组内agent协作知识共享的可能性。"
+    },
+    {
+      "insight_id": "KI-09",
+      "category": "进化方法学分类",
+      "insight": "主流进化方法分四类：(1) 反思驱动（ERL/STeP）——轨迹→启发式；(2) RL驱动（EvoDS/SkillOS）——可训练策略/curator；(3) 进化算法驱动（Darwin Gödel Machine/RoboPhD）——种群竞争+ELO选择；(4) 对比学习驱动（SkillCAT）——成功/失败对比提取。各类在计算成本、可迁移性和稳定性间有不同权衡。"
+    },
+    {
+      "insight_id": "KI-10",
+      "category": "optics_agent的领域特定建议",
+      "insight": "基于本调查对optics_agent的核心建议：(1) 采用skills-first架构（参考NORA/SpaceMind）；(2) 用SkillGraph建模COMSOL多物理场工作流的依赖关系；(3) 引入GRASP-style regression budget确保安全改进；(4) 优先尝试无训练skill演化（SkillCAT）以降低计算开销；(5) 采用双时间尺度进化（PACE）在小模型上验证概念；(6) 重视形式化验证（SEVerA）对科学计算可靠性的保障；(7) 利用SADE式的领域方法论编码。"
+    }
+  ]
+}

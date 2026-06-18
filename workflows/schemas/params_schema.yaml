@@ -1,0 +1,55 @@
+# params.yaml 标准格式
+# 论文参数提取的标准输出格式
+
+paper:
+  title: string
+  authors: [string]
+  doi: string
+  journal: string
+  year: integer
+  figure: string          # 目标复现的图号
+
+geometry:
+  type: string            # layer / grating / waveguide / plasmonic
+  dimensions:
+    unit: string          # nm / um / mm
+    parameters:           # 所有几何参数
+      param_name: {value: number, description: string}
+
+materials:
+  - name: string
+    type: string          # dielectric / metal / semiconductor
+    optical_properties:
+      model: string       # constant / Drude / Lorentz / Sellmeier
+      params: {}          # 模型参数
+    wavelength_range:     # 有效波长范围
+      min: number
+      max: number
+
+physics:
+  equations: string       # 控制方程描述
+  boundary_conditions: string
+  module: string          # Wave Optics / RF / AC/DC
+  study_type: string      # eigenfrequency / frequency_domain / parametric
+
+numerics:
+  fem:
+    element_order: integer
+    element_type: string
+  mesh:
+    type: string
+    max_element_size: number  # 每波长单元数
+  solver:
+    type: string
+    shift: number | string    # 特征值移位
+    search_range: [number, number]
+  frequency_range:
+    min: number
+    max: number
+    step: number
+
+target_output:
+  type: string            # neff / reflectance / transmittance / field
+  x_axis: string
+  y_axis: string
+  expected_phenomenon: string  # anticrossing / resonance / coupling
