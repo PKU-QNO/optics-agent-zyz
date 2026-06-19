@@ -1139,3 +1139,52 @@ pass rate
 | failures/ | 10 | Library Drift (2605.19576), Skill Shadowing (2605.24050), Misevolve (2509.26354), 遗忘 (2605.09315), 不忠实自我演化 (2601.22436), 安全风险 (2604.16968), 健康演化 (2606.06114), Self-Bias (2402.11436), 进步或退步 (2407.05013), Skill Drift (2605.10990) |
 | frameworks/ | 18 | Socratic-SWE, GEA, SkillRL, EXG, CoEvoSkills, Ratchet, Skill1, Scaling Laws, SkillDAG, GraSP, Voyager, Reflexion, Self-Refine, 符号学习自演化, SEW, AutoRefine, EvoDS, MemCoder |
 | surveys/ | 4 | Self-Evolving 综述 (2508.07407), SkillEvolBench (2605.24117), SEAGym (2606.17546), PACE (2606.08106) |
+
+---
+
+## 15. 可能的科研成果全览
+
+### 15.1 7 种成果类型
+
+| # | 类型 | 内容 | 投稿方向 | 难度 | 简历价值 | 结题价值 |
+|---|------|------|---------|------|---------|---------|
+| 1 | **工具论文** | workflow 框架本身，能跑通一个 case 即可 | CPC / SoftwareX / JOSS | 低 | ★★★ | ★★★ |
+| 2 | **科学发现论文** | agent 发现了人类没注意到的新物理（从复现走向创新） | Nature Computational Science / PRL / npj | 极高 | ★★★★★ | ★★★★★ |
+| 3 | **方法论论文** | 声明式 DSL + 多角色隔离 + 科学领域 skill 自演化 | NeurIPS AI4Science / ICML AI4Science / Nature Machine Intelligence | 高 | ★★★★ | ★★★★ |
+| 4 | **负结果论文** | 系统性描述自迭代的失败模式、能力边界、崩溃机制 | Scientific Reports / CPC (经验报告) / arXiv + workshop | 中 | ★★ | ★★★ |
+| 5 | **数据集论文** | 复现积累的参数表 + 预期结果 + 失败案例 → benchmark | NeurIPS Datasets & Benchmarks / Scientific Data | 中 | ★★★ | ★★★ |
+| 6 | **实证研究论文** | LLM 写 COMSOL Java 的正确率？多少次交互能复现？失败模式分布？ | ACM Computing Surveys / Empirical Software Engineering | 中高 | ★★★ | ★★★ |
+| 7 | **综述论文** | "LLM Agent in Computational Optics" 占坑 | arXiv + 后续投期刊 | 低（但开头难） | ★ | ★★ |
+
+### 15.2 三种情况的投稿策略
+
+| 情况 | 建议打包 | 说明 |
+|------|---------|------|
+| **workflow 成功**（指标优越+解决崩溃） | 2(发现) + 3(方法论) 绑一起投 Nat. Comput. Sci. | 科学发现+方法贡献+工程验证 |
+| **workflow 一般**（能跑但无显著优势） | 1(工具) + 6(实证) 分开投 CPC 和 workshop | 工具保底+实证数据补充 |
+| **workflow 失败** | 4(负结果) + 5(数据集) 投 Scientific Reports 或 NeurIPS D&B | 失败的发现也是发现 |
+
+### 15.3 额外的小成果清单
+
+以下每个问题都可以作为论文的一个 section（ablation study）或独立 workshop 短文：
+
+| # | 问题 | 实验设计 | 最小可行产出 |
+|---|------|---------|------------|
+| Q6 | **主管强+工作弱的成本收益** | 强-强 vs 强-弱 vs 弱-强 vs 弱-弱，记录成功率和 token 消耗 | 一张四象限图 + 短文 |
+| Q7 | **节点顺序敏感性** | 同一个 workflow 随机打乱节点顺序，看成功率变化 | 说明拓扑设计是否真的重要 |
+| Q8 | **失败模式分布** | 统计 50+ 次失败的节点分布、错误类型、根因 | 饼图 + bar chart |
+| Q9 | **MCP vs 无 MCP 对比** | 有 advanced/rollback 工具 vs 没工具让 agent 自己管理状态 | ablation study |
+| Q10 | **上下文压缩的影响** | 长 workflow（20+ 节点）中, 工作 agent 在开头 vs 结尾的准确率变化 | 退化曲线 |
+| Q11 | **人类辅助点设计** | 在不同节点插入人类确认，比较完成时间和最终质量 | 人机协同设计建议 |
+| Q12 | **CLI 选择的影响** | 同一 prompt 用 opencode vs Claude Code vs Codex CLI 的效果 | 框架选择指南 |
+
+### 15.4 务实建议
+
+```
+不要一篇论文想装下所有档位，分开发更清晰。
+
+短期(半年内): 瓶盖 1(工具论文) → 保简历+结题
+中期(一年内): 瓶盖 2(实证数据) + Q6-Q12 挑 2-3 个做
+长期: 如果 workflow 真的成功 → 冲发现+方法论
+如果 workflow 失败 → 负结果也是发现
+```
