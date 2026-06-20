@@ -1,10 +1,15 @@
-# Workflow 待解决风险与建议
+# 自演化 Workflow 风险评审与建议（合并版）
 
-> 2026-06-20（R-1~R-19 一轮）；2026-06-20 二轮深挖补充 R-20~R-49
-> 来源：文献风险评审 + 学长意见 + 项目决策记录 + 127 篇 self-evolution 论文深度摘要的并发二轮挖掘
+> 2026-06-20 合并版
+> 合并自三份原文件：
+> - `self_evolution_workflow_risk_review-CN.md`（中文决策版，一轮评审）
+> - `self_evolution_workflow_risk_review.md`（英文详细版，一轮评审）
+> - `workflow_risks_and_recommendations.md`（R-1~R-49 结构化清单，一轮 + 二轮深挖）
+> 来源：127 篇 self-evolution 论文深度摘要 + 学长意见 + 项目决策记录 + 两个并发子 agent 的二轮深挖
 
 ## 阅读指引
 
+- 本文件是 `optics_agent` 工作流引擎设计的**风险评审与改进建议唯一来源**
 - 每项风险包含：风险描述 → 建议措施 → 优先级
 - 优先级分四级：P0（现在不改就危险）、P1（必须有，可稍晚）、P2（建议做）、P3（远期）
 - 区分两类风险：架构性风险（必须先解决再扩展）、渐进性风险（可在实现中逐步收敛）
@@ -12,12 +17,65 @@
 
 ---
 
-## R-1：核心卖点不是 agent 框架，而是垂域可验证效果
+## 一句话结论
+
+现在的 workflow 设计已经有雏形，但还不能算严格意义上的"自演化系统"。更准确地说，现在是：
+
+```text
+workflow 编排 + 复盘后改文档
+```
+
+真正需要变成：
+
+```text
+workflow 编排 + 物理验证器 + 证据日志 + provenance + 技能管理员 + 回放测试 + 沙箱/导出门控
+```
+
+最危险的地方不是 workflow 某次失败，而是它**看起来在进步，实际上在悄悄积累错误经验、过度泛化的规则、越来越长的 skill、越来越复杂的 workflow，最后变得更脆弱**。
+
+这正是几篇崩溃论文反复警告的东西：Library Drift、Skill Shadowing、Forgetting、Misevolution。二轮深挖进一步发现：即使加了 verifier 和 replay，如果**进步判定方向本身不可靠**（单指标误判、self-bias 闭环、经验成为装饰），所有治理机制都在错误方向上优化。
+
+---
+
+## 当前计划的最大问题
+
+### 问题 1：`update_artifacts` 太危险
+
+`update_artifacts` 节点让 agent 在一次复现结束后直接改 SKILL/workflow/blueprint/AGENTS。一次失败不等于通用规律，一次成功也不等于可复用技能。例如 Degiron v2 的 COMSOL 模式分析失败，不能直接变成"所有 SU-8 waveguide mode analysis 都不可行"。→ 详见 R-3、R-24。
+
+### 问题 2：缺少"技能管理员"
+
+Ratchet 和 Library Drift 的核心结论：skill library 的问题不是 LLM 不会写 skill，而是没有 librarian 回答"这条经验用过几次？哪些 case 有用/有害？现在还适用吗？该不该降级？有没有 shadow 掉更正确的 skill？"。→ 详见 R-9、R-34、R-35。
+
+### 问题 3：skill 越多不一定越好
+
+Skill Shadowing：库变大后 agent 可能更差——选错 skill，或因相似 skill 太多而干脆不用。optics_agent 的技能边界天然重叠（comsol-runtime / comsol-batch / comsol-java-api / magnus-platform / paper-reproduction / Mie），Mie Python 任务若加载 COMSOL 经验反被误导。→ 详见 R-34。
+
+### 问题 4：主管 agent 不能当最终裁判
+
+theory_check、numerical_check、check_iteration 靠 supervisor 判断。Self-Refine 和 Reflexion 说明模型经常觉得"looks good"。正确优先级：`LLM supervisor < deterministic verifier < held-out benchmark`。→ 详见 R-25、R-26、R-29。
+
+### 问题 5：没有 replay suite，会出现遗忘
+
+为 Mie 优化 workflow 可能破坏 COMSOL 流程；为 COMSOL 调试增加规则可能让简单 Python 任务变复杂。任何长期更新都要先跑 replay。→ 详见 R-8、R-24。
+
+### 问题 6：抽象 lessons 可能不被忠实使用
+
+Not Faithful Self-Evolvers：agent 对 raw trace 有因果依赖，但对 condensed experience 经常不忠实——忽略、误解、只学风格、错误上下文套用。即使 memento/skill 写入丰富，若未验证"经验是否影响后续行为"，经验库只是装饰。→ 详见 R-23。
+
+### 问题 7：成功经验会强化"行动偏置"
+
+Safety Risks 和 Misevolve：benign 成功经验让 agent 更倾向于继续试、继续提交、继续改、继续包装结果、继续写入长期规则。高风险行为包括自动提交 Magnus job、自动增大资源、修改 active COMSOL image、泄露 private/license/token、把 surrogate 说成复现成功、缺 GUI 模板时继续盲调、把一次失败写进全局规则。→ 详见 R-22、R-40、R-47。
+
+---
+
+## 风险清单
+
+### R-1：核心卖点不是 agent 框架，而是垂域可验证效果
 
 **风险**：项目容易把"多 agent 编排/DSL 自迭代"当作核心成果，但 2026 年这偏 cheap，大量传统学科都在做。
 
 **建议**：
-
 1. 核心卖点定位为：**光学复现 benchmark + deterministic verifier + 可审计执行系统**
 2. agent 只是实现手段，不作为论文主线
 3. 所有成果必须回答：相比聪明人用 Claude Code、写死脚本，有什么真实增益
@@ -26,12 +84,11 @@
 
 ---
 
-## R-2：DSL/自迭代相对固定脚本的优势未验证
+### R-2：DSL/自迭代相对固定脚本的优势未验证
 
 **风险**：假设 DSL 比固定脚本好，假设自迭代有净收益，但目前零验证。
 
 **建议**：
-
 1. 建立 baseline 体系：
 
    ```text
@@ -48,12 +105,11 @@
 
 ---
 
-## R-3：`update_artifacts` 直接写长期工件
+### R-3：`update_artifacts` 直接写长期工件
 
 **风险**：单次 run 的经验被直接写入 SKILL/workflow/blueprint/AGENTS，是 Library Drift、Misevolution、Safety Drift 的直接入口。
 
 **建议**：
-
 1. 拆成 `propose_artifact_patch → critic_verdict → schema_validation → verifier_gate → replay_gate → supervisor_gate → accept/quarantine/reject`
 2. 默认策略：
 
@@ -68,12 +124,11 @@
 
 ---
 
-## R-4：确定性流程用 agent，不确定性断点反而没注意
+### R-4：确定性流程用 agent，不确定性断点反而没注意
 
 **风险**：向"编排""串联"倾斜，拆出过多 agent 节点，能写死的不写死（来自学长意见）。
 
 **建议**：
-
 1. 确定拆分原则：
 
    ```text
@@ -94,28 +149,14 @@
      stop_conditions: []
    ```
 
-3. 以下优先用脚本，不启动 LLM agent：
-   - 文件结构初始化
-   - schema 校验
-   - PDF 文本提取
-   - verifier 执行（能量守恒、Rayleigh 极限等）
-   - artifact hash / run manifest 写入
-   - export whitelist 检查
-   - replay suite 运行
-
-4. 以下保留 agent：
-   - 论文意图理解
-   - 物理 formalization
-   - 参数缺失判断
-   - 异常归因
-   - 停止/继续/请求人工决策
-   - 报告措辞审查
+3. 以下优先用脚本，不启动 LLM agent：文件结构初始化、schema 校验、PDF 文本提取、verifier 执行（能量守恒、Rayleigh 极限等）、artifact hash / run manifest 写入、export whitelist 检查、replay suite 运行
+4. 以下保留 agent：论文意图理解、物理 formalization、参数缺失判断、异常归因、停止/继续/请求人工决策、报告措辞审查
 
 **优先级**：P0（影响 architecture 设计）
 
 ---
 
-## R-5：workflow schema 缺少治理字段
+### R-5：workflow schema 缺少治理字段
 
 **风险**：当前 schema 只记录拓扑、指令、产物、分支和重试，缺乏 risk_level、verifiers、stop_conditions、loads_skills、loads_memories、provenance、uncertainty、template_contract、tool_chain_policy。
 
@@ -180,7 +221,7 @@ tool_chain_policy:
 
 ---
 
-## R-6：无 provenance / run manifest，不可归因
+### R-6：无 provenance / run manifest，不可归因
 
 **风险**：run 只记录最终产物，不记录 workflow 版本、skill 版本、memory ID、模型参数、工具版本、container digest。后续"变好了"无法归因。
 
@@ -210,13 +251,13 @@ retry_count:
 failure_taxonomy: []
 ```
 
-provenance 回答须引用 artifact ID，无记录时必须返回 `unknown`，不能补全。
+provenance 回答须引用 artifact ID，无记录时必须返回 `unknown`，不能补全。→ 但注意 R-45：即使有 provenance，问答仍可能幻觉。
 
 **优先级**：P1（必须实现后才能声称任何"改进"）
 
 ---
 
-## R-7：无 attempt capsule，无法追溯经验效果
+### R-7：无 attempt capsule，无法追溯经验效果
 
 **风险**：节点日志适合人读，但无法统计某条经验到底有用还是有害。
 
@@ -256,7 +297,7 @@ confidence: low | medium | high
 
 ---
 
-## R-8：无 replay suite，修改会破坏旧能力
+### R-8：无 replay suite，修改会破坏旧能力
 
 **风险**：优化一个新任务后，旧任务退化无感知。这是 Forgetting 论文核心警告。
 
@@ -283,12 +324,11 @@ replay_workflow_schema
 
 ---
 
-## R-9：skill 生命周期和供应检查缺失
+### R-9：skill 生命周期和供应检查缺失
 
 **风险**：skill 只有 Markdown 文本，但实际包含脚本、配置、示例、资源文件。供应链投毒、行为不一致、声明 vs 实际能力不匹配。
 
 **建议**：每个 skill 需要：
-
 1. 生命周期：`candidate | active | deprecated`（不硬删除）
 2. 声明能力 vs 实际能力检查：
 
@@ -311,12 +351,11 @@ writes_canonical_artifacts: true|false
 
 ---
 
-## R-10：无 uncertainty routing，缺参时仍继续执行
+### R-10：无 uncertainty routing，缺参时仍继续执行
 
 **风险**：agent 给出一个笼统置信度，把"任务欠指定"和"执行不确定"混在一起。缺材料常数、边界条件、GUI-exported COMSOL 模板时仍 attempt/retry/debug。
 
 **建议**：
-
 1. 每个计划/检查节点区分：
 
    ```text
@@ -331,12 +370,11 @@ writes_canonical_artifacts: true|false
 
 ---
 
-## R-11：无 artifact taint tracking 和导出门控
+### R-11：无 artifact taint tracking 和导出门控
 
 **风险**：私有路径产物（private PDF、private run、license-adjacent、token-adjacent）被组合成公开报告后 export/commit，单步看似安全，链条危险。
 
 **建议**：
-
 1. artifact 携带 taint 状态：
 
    ```yaml
@@ -353,7 +391,7 @@ writes_canonical_artifacts: true|false
 
 ---
 
-## R-12：无 physics_formalization 节点，代码可能求解正确错误问题
+### R-12：无 physics_formalization 节点，代码可能求解正确错误问题
 
 **风险**：从论文 prose 直接进入 Python/COMSOL 代码生成，不先结构化物理 spec。代码可运行、verifier 通过，但求解的不是论文里的物理问题。
 
@@ -379,12 +417,11 @@ physics_formalization:
 
 ---
 
-## R-13：agent 检查不足，外部内容/搜索结果注入风险
+### R-13：agent 检查不足，外部内容/搜索结果注入风险
 
 **风险**：PDF 文本、网页、README、日志、搜索结果、工具输出可能包含指令式文本，绕过 AGENTS/workflow 规则。间接 prompt injection 和跨文件链风险。
 
 **建议**：
-
 1. 所有外部/工具内容标记为 `untrusted_data`
 2. 明确禁止 untrusted data 覆盖 system/AGENTS/workflow 规则
 3. 搜索/网页内容不能直接导入可执行代码
@@ -394,12 +431,11 @@ physics_formalization:
 
 ---
 
-## R-14：多 agent 协调不解决独立审查
+### R-14：多 agent 协调不解决独立审查
 
 **风险**：加入 reviewer/expert agent 后可能出现 echoing、identity drift、共识放大错误。
 
 **建议**：
-
 1. 每轮交接要求声明：`role`、`object_to_check`、`forbidden_actions`、`required_evidence`、`confidence`
 2. reviewer 必须读 artifact/verifier/output，不能只读 worker 输出
 3. 对话超过固定轮数触发 identity drift 检查
@@ -409,7 +445,7 @@ physics_formalization:
 
 ---
 
-## R-15：template reuse 和 plan reuse 缺少边界检查
+### R-15：template reuse 和 plan reuse 缺少边界检查
 
 **风险**：模板按语义相似度复用，可能带入旧论文的几何/材料/求解器/验收假设。复用前无 premise matching。
 
@@ -430,12 +466,11 @@ forbidden_reuse_conditions: []
 
 ---
 
-## R-16：memory 类型混用污染推理
+### R-16：memory 类型混用污染推理
 
 **风险**：fact、procedure、reflection、failed attempt、raw observation、reviewer feedback、policy 混在同一个检索池中，COMSOL 失败经验污染 Python-only Mie 任务。
 
 **建议**：
-
 1. 区分 memory type：`fact`、`procedure`、`reflection`、`failed_attempt`、`raw_observation`、`reviewer_feedback`、`policy`
 2. 节点声明允许哪些 type：
 
@@ -454,20 +489,11 @@ forbidden_reuse_conditions: []
 
 ---
 
-## R-17：benchmark disclosure 不足——可复现性幻觉
+### R-17：benchmark disclosure 不足——可复现性幻觉
 
 **风险**：只报告 pass rate，不披露 harness 版本、模型参数、失败分类、成本、人类介入，无法判断"变好"来自 workflow 还是环境变化。
 
-**建议**：每个 benchmark run 记录：
-
-- task version / source paper / figure
-- workflow 版本 / case_workflow hash
-- 模型 + 推理参数 + 工具版本
-- container / runtime digest
-- cost、retries、wall time、human intervention
-- 失败分类
-- replay regression 结果
-- raw verifier outputs
+**建议**：每个 benchmark run 记录：task version / source paper / figure、workflow 版本 / case_workflow hash、模型 + 推理参数 + 工具版本、container / runtime digest、cost、retries、wall time、human intervention、失败分类、replay regression 结果、raw verifier outputs。
 
 报告中区分：
 
@@ -482,7 +508,7 @@ human domain-review pass
 
 ---
 
-## R-18：graph memory 错误因果边固化
+### R-18：graph memory 错误因果边固化
 
 **风险**：自动 `caused_by` / `mitigated_by` 边把相关当因果，形成持久 debug bias。
 
@@ -495,7 +521,7 @@ human domain-review pass
 
 ---
 
-## R-19：LLM emulated sandbox 过信任
+### R-19：LLM emulated sandbox 过信任
 
 **风险**：模拟/伪造环境通过安全检查，真实 COMSOL/Magnus/license/filesystem 行为不同。
 
@@ -933,6 +959,66 @@ emulated pass < dry-run pass < real sandbox pass < real execution pass
 
 ---
 
+## 文献给我们的核心启发
+
+### 成功框架靠的不是"反思"本身
+
+这些成功框架不是因为 agent 会反思就成功。它们真正依赖的是：
+
+| 框架 | 真正关键点 |
+|------|------------|
+| Voyager | 环境反馈、执行错误、状态变化、自动 curriculum |
+| Reflexion | 外部 evaluator + 短期反思 |
+| Self-Refine | specific/actionable feedback |
+| Socratic-SWE | 可执行测试、trace-derived skill、trusted validation set |
+| Ratchet | evidence log、skill lifecycle、active cap、rollback gate |
+
+对我们来说，对应关系是：
+
+```text
+反思不是核心
+验证器才是核心
+长期经验治理才是核心
+```
+
+### 最该借鉴 Ratchet
+
+Ratchet 的思路最适合现在的 optics_agent。不需要一上来做复杂 RL，不需要大规模 benchmark。先加一个最小 librarian：candidate / active / deprecated 状态、每条经验有来源 run_id、适用边界、调用记录、成功/失败统计、active skill 数量上限、出现退化可 rollback。这比继续堆 SKILL.md 更重要。
+
+---
+
+## 两条未被 R 清单覆盖的独特建议
+
+以下两条来自一轮评审的"应该怎么改"，未被 R-1~R-49 的建议措施完全覆盖，单独保留：
+
+### 1. 区分短期反思和长期 skill（四层存储）
+
+不要把每次反思都写进长期 SKILL。建议四层存储：
+
+```text
+short-term reflection：当前节点/当前 case 内有效，最多 1-3 条
+case pitfall：某篇论文/某个 case 专属经验，存 case 文件夹而非全局 skill
+project skill candidate：多 case 证据支持的候选技能
+active skill / project policy：经过 replay 或人工确认的长期规则
+```
+
+### 2. 把成功定义分层（6 级保守声明阶梯）
+
+以后不要直接说 workflow 成功。建议分成 6 级：
+
+```text
+Level 0: workflow 跑完一个 case
+Level 1: deterministic verifier 通过
+Level 2: replay 不退化
+Level 3: paired validation 有净收益
+Level 4: held-out ID/OOD 测试确认提升
+Level 5: 有统计证据优于已有框架
+```
+
+Level 0-1 只能叫工程可行性。Level 2-3 才能说初步自演化有效。Level 4-5 才能说方法真的强。
+
+---
+
 ## 优先级排序
 
 | 优先 | 风险 | 处理方式 |
@@ -987,6 +1073,8 @@ emulated pass < dry-run pass < real sandbox pass < real execution pass
 | **P2** | R-48 hypothesis-test loop 自我确认 | 验证器独立于生成器 |
 | **P2** | R-49 多工具组合恶意涌现 + 差分 stance shift | 组合测试 + 差分检测 |
 
+---
+
 ## 当前阶段最该做的事
 
 ### 第一批（R-1~R-19 驱动，已有计划）
@@ -1012,3 +1100,27 @@ emulated pass < dry-run pass < real sandbox pass < real execution pass
 R-20~R-24（A 组：进步判定与自迭代方向）是第二批里最该先做的——如果自迭代方向判定本身不可靠，后面所有 verifier / replay / librarian 都是在错误方向上优化。R-25（verifier co-evolution）紧随其后，因为 verifier 走偏会让所有 gate 失效。
 
 建议把第二批 6-7 项并入第一批的 schema 扩展（R-5）一起做：`workflow_schema.yaml` 扩展时同步加入 `context_policy`、`frozen_acceptance_criteria`、`evaluator_id`、`completion_verifier`（外部完成判定）等字段，避免 schema 反复改。
+
+---
+
+## 最终判断
+
+现在最重要的不是让 workflow 更自动，而是让 workflow **更难"假进步"**。
+
+如果没有 verifier、replay、evidence log、skill lifecycle，那么自动迭代越强，可能越快把错误经验固化进系统。
+
+所以短期目标应该从：
+
+```text
+让 agent 自动改进自己
+```
+
+调整为：
+
+```text
+让 agent 的每次自我修改都必须留下证据、通过回放、可以回滚
+```
+
+这才是能长期做下去，也能写成论文的方法论基础。
+
+二轮深挖进一步确认：即使加了上述治理，还必须保证**进步判定方向本身可靠**（R-20~R-24）和**verifier 不与生成器共同走偏**（R-25）。否则治理机制越完善，在错误方向上优化得越深。
