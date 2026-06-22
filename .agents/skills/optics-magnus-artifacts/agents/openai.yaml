@@ -1,0 +1,4 @@
+interface:
+  display_name: "Optics Magnus Artifacts"
+  short_description: "Magnus blueprint and skill package hygiene."
+  default_prompt: "Use $optics-magnus-artifacts to author or audit Magnus blueprint and skill package files."

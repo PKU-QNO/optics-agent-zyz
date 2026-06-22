@@ -1,0 +1,4 @@
+interface:
+  display_name: "Optics Agent Core"
+  short_description: "Project routing and core operating context."
+  default_prompt: "Use $optics-agent-core to choose the right project skill and locate the relevant optics_agent files."

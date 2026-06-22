@@ -1,0 +1,4 @@
+interface:
+  display_name: "Optics Magnus Platform"
+  short_description: "Magnus jobs, services, logs, and file flow."
+  default_prompt: "Use $optics-magnus-platform to diagnose or operate a Magnus/Gustation job, service, blueprint launch, or file transfer."

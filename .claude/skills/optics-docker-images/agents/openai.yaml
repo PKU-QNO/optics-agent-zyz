@@ -1,0 +1,4 @@
+interface:
+  display_name: "Optics Docker Images"
+  short_description: "COMSOL runtime image and registry handling."
+  default_prompt: "Use $optics-docker-images to inspect or manage optics_agent container image provenance and handoff rules."

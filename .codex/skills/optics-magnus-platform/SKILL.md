@@ -1,6 +1,6 @@
 ---
 name: optics-magnus-platform
-description: Magnus/Gustation HPC platform operations for optics_agent. Use when the user mentions Magnus, Gustation, blueprint save/launch, job status/logs, file transfer, FileSecret, MAGNUS_RESULT, MAGNUS_ACTION, mounts, /data/public/zhangyuanzheng staging, COMSOL runtime jobs, or resource settings.
+description: Magnus/Gustation HPC platform operations for optics_agent. Use when the user mentions Magnus, Gustation, blueprint save/launch, job status/logs, file transfer, FileSecret, MAGNUS_RESULT, MAGNUS_ACTION, mounts, /data/public/zhangyuanzheng staging, COMSOL runtime jobs, resource settings, service proxy behavior, job-in-job submission, or service-launched jobs.
 ---
 
 # Optics Magnus Platform
@@ -60,6 +60,42 @@ logs = magnus.get_job_logs(job_id, page=-1)
 ```
 
 Do not launch large resource jobs, A-class jobs, or GPU jobs unless explicitly requested and reviewed.
+
+## Runtime API Reachability
+
+Magnus jobs receive API credentials for the owning user:
+
+```text
+MAGNUS_TOKEN
+MAGNUS_ADDRESS
+MAGNUS_JOB_ID
+```
+
+The Python SDK reads these automatically, so code inside a job can call `submit_job(...)`, `launch_blueprint(...)`, `get_job(...)`, and other Magnus APIs if the container can reach `MAGNUS_ADDRESS`.
+
+Operational constraints:
+
+- Treat job-in-job submission as allowed by source design, not as guaranteed by every deployment network.
+- Before depending on nested submission, run a small connectivity check inside the job against `$MAGNUS_ADDRESS/api/auth/mode` or a read-only SDK call.
+- Add explicit run IDs to `task_name` or `description`; Magnus does not record a parent-child relation for jobs submitted from inside another job.
+- Put hard caps in user code for fan-out, retries, and resource class. The server applies normal resource and queue checks but does not add a special recursion guard.
+
+## Service Semantics
+
+Magnus service is a single backing job plus an HTTP proxy, not a multi-job controller by itself:
+
+```text
+browser/SDK -> Magnus API -> service proxy -> 127.0.0.1:$MAGNUS_PORT in the service job
+```
+
+Framework behavior:
+
+- Each `Service` has one `current_job_id` and one `assigned_port`; concurrent requests reuse the same backing job.
+- Service `max_concurrency` limits proxied request concurrency, not the number of backing jobs.
+- The framework does not provide an automatic callback channel from the service to the user's computer.
+- A service can still run user code that uses the SDK to submit multiple ordinary Magnus jobs. Those jobs belong to the token user and are not tracked as children of the service unless the code records that relationship externally.
+
+For local-computer interaction, prefer Magnus-mediated paths: `call_service(...)`, file custody, logs, `$MAGNUS_RESULT`, and `$MAGNUS_ACTION`. Use direct service-to-user networking only when the user explicitly provides a reachable URL or tunnel.
 
 ## Resource Defaults
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Optics COMSOL Batch"
+  short_description: "Headless COMSOL batch execution patterns."
+  default_prompt: "Use $optics-comsol-batch to prepare, run, or debug a headless COMSOL batch job through the optics_agent runtime."
