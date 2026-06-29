@@ -148,8 +148,8 @@ Current routing:
 | Task | Skill |
 |---|---|
 | Project routing, goals, credentials, important files | `optics-agent-core` |
-| Paper figure reproduction, parameter tables, missing-info analysis, handoff reports, workflow-based reproduction | `optics-paper-reproduction` + `workflows/paper_reproduction.workflow.yaml` |
-| Mie theory analytical/semi-analytical calculations, sphere array effective medium, Python-only scattering models | `optics-paper-reproduction` + `reproduction_test/mie_internal_plan.md` |
+| Mie theory analytical/semi-analytical calculations, Lorenz-Mie coefficients, scattering/absorption/extinction cross sections, metal LSPR, dielectric Mie modes, core-shell recursive Mie, coupled dipole approximation, surface lattice resonances, binary arrays, S-parameter retrieval effective medium, Maxwell-Garnett, Mie-vs-Bragg phase diagram, Python-only scattering benchmark data, Mie physical verifiers, PyMieScatt cross-check | `optics-mie-reproduction` + `reproduction_test/mie/mie_reproduction_plan-CN.md` |
+| Paper figure reproduction, parameter tables, missing-info analysis, handoff reports, workflow-based reproduction, COMSOL/Magnus reproduction (non-Mie) | `optics-paper-reproduction` + `workflows/paper_reproduction.workflow.yaml` |
 | COMSOL runtime image, active Magnus-local image, license mounts, runtime folder | `optics-comsol-runtime` |
 | COMSOL batch/headless jobs, `.java`/`.mph`/`.m`, smoke cases, manifest contract | `optics-comsol-batch` |
 | COMSOL Java API syntax, GUI-exported Java, feature/study/solver tags | `comsol-java-api` |
