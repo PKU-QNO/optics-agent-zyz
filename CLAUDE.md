@@ -1,16 +1,16 @@
 # optics_agent Agent Manual
 
-This file is the always-on project rulebook for AI coding agents working in this repository. Treat it as the project-level AI README. It is stronger than ordinary notes and should be kept synchronized with project skills when conventions change.
+本文件是 AI coding agent 在 optics_agent 仓库工作的常驻项目规则。它比普通笔记优先级更高；当项目规则变化时，应同步更新相关 skill。
 
 ## Project Identity
 
 - Repository root: `C:\Users\27370\Desktop\project\optics_agent`
 - Canonical GitHub repository: `https://github.com/PKU-QNO/optics-agent-zyz`
-- Current branch: `main`
-- Primary user environment: Windows + PowerShell, with SSH access to Gustation.
-- Project role: local control workspace for optics_agent paper reproduction, COMSOL/Magnus runtime work, plasmonics notes, and reusable scientific-computing workflow design.
+- 当前分支：`main`
+- 主要用户环境：Windows + PowerShell，可 SSH 访问 Gustation。
+- Project role: **设计 SEPR 的元工作区**（设计论文复现自进化 agent 框架）+ 自身的 COMSOL/Magnus 运行时工作 + plasmonics 笔记 + 可复用科学计算 workflow 设计。SEPR 框架在姊妹工作区 `../self-evo-paper-repro/` 执行复现。
 
-Long-term direction:
+长期方向：
 
 ```text
 paper reproduction
@@ -19,22 +19,40 @@ paper reproduction
   -> new scientific exploration
 ```
 
-Paper reproduction is a regression test for blueprint iteration, not the final objective. Optics is the current use case; the workflow should generalize to unfamiliar scientific and engineering domains.
+论文复现是 blueprint 迭代的回归测试，不是最终目标。Optics 是当前 use case，workflow 应能迁移到陌生科学与工程领域。
 
-## SEPR Sister Workspace
+## SEPR Sister Workspace（两个工作区的分工——重要）
 
-- **SEPR** (self-evo-paper-repro, `C:\Users\27370\Desktop\project\self-evo-paper-repro`) is optics_agent's sister workspace for paper reproduction + skill/blueprint self-evolution experiments.
-- Isolates self-evolution context from optics_agent's coding-and-production context.
-- Uses Claude Code 3-layer sub-agents (main-agent → sub-agent → sub-sub-agent) instead of workflow state machines.
-- `.human/` = Chinese human-review drafts; `.claude/` = English prompt-engineered execution versions.
-- 4-agent architecture: Reproduction (main-agent + sub-agent, 10 steps) + Self-evolution (evolution-agent + sub-E-agent, 5 steps).
-- Mie Phase 1 infrastructure runs in SEPR; code shares `reproduction_test/mie/` via junction.
+**架构**：optics_agent 和 SEPR 是两个独立工作区，角色不同：
+
+- **optics_agent（本工作区）** = **设计 SEPR 的元工作区**。在这里设计 SEPR 的框架（4 agent 架构、workflow、spawn 模版、六维裁决、失败防护等），也做自身的 COMSOL/Magnus 工作。
+- **SEPR**（`C:\Users\27370\Desktop\project\self-evo-paper-repro`）= **agent 复现论文的执行工作区**。Claude Code 在这里以 main-agent 身份跑 10 步复现 workflow，或以 evolution-agent 身份跑自迭代。
+
+**人工预训练工作流**（核心，非 E-flow 自动）：
+
+```text
+1. optics_agent 设计 SEPR 框架（已完成设计阶段）
+2. CC 在 SEPR 区复现一篇论文（用 .claude/skills/ 详细版）
+3. 把 SEPR 复现过程的上下文（WORK_LOG.md + 复现报告）发给 optics_agent 的 CC
+4. optics_agent 的 CC 读 SEPR 经验，人工改进 SEPR 设计（不直接用 E-flow 自迭代）
+5. 重跑论文，验证改进
+6. 循环 2-5 = 人工预训练
+```
+
+**关键边界**：SEPR 复现论文时反馈的经验，由 optics_agent 的 CC 人工审查后改进设计，不是 SEPR 自己跑 E-flow 自动改。E-flow 是后期才用的（攒够 case 后人工开专门 evolution session）。
+
+**SEPR 现状**（2026-06-30）：设计阶段完成。`.human/`（中文大纲人看）+ `.claude/skills/`（中文 prompt-engineered 详细版，4 身份 main/sub/evolution/sub-E 全部 6465 行）+ CLAUDE.md（路由+红线+全规范）+ WORK_LOG.md（475 行完整交接）。94 篇 v3 文献审查 + 16 条风险落地。教材 `.paper/scattering.pdf`（Bohren & Huffman）已就位。待启动 Mie 第一阶段复现（Akimov 2401.04146）。
+
+**SEPR 技术要点**：Claude Code 3 层子 agent（main-agent → sub-agent → sub-sub-agent）；`.human/` = 中文大纲，`.claude/` = 中文详细执行版；4-agent 架构：复现（main-agent + sub-agent, 10 步）+ 自迭代（evolution-agent + sub-E-agent, 6 步）；Mie 代码共享 `reproduction_test/mie/` via junction。
+
+**给 optics_agent 的 CC 的提醒**：你要改进 SEPR 设计时，读 `C:\Users\27370\Desktop\project\self-evo-paper-repro\WORK_LOG.md` 恢复 SEPR 上下文，不要照搬 SEPR 的复现机制到 optics_agent（optics_agent 是 Magnus+COMSOL 工作区，不是复现 agent）。
 
 ## Current Project Status
 
-- **Mie theory analytical reproduction** (new, 2026-06): Infrastructure built in SEPR workspace. Verification: 4-layer → 3-layer — PyMieScatt deprecated, physical hard constraints + Rayleigh/large-size limit degradation + paper figure quantitative comparison retained, two-party consistency. 11 reference papers in `papers/mie/` (mirrored in `.paper/mie/`). Textbook PDFs (Bohren & Huffman / Kerker) pending — core formulas from primary textbooks. Complete plan in `reproduction_test/mie/mie_reproduction_plan-CN.md` + skill `optics-mie-reproduction` + todolist. **Blocker**: awaiting user textbook confirmation before Phase 1.
-- **Agent skill & workflow self-iteration survey** completed. See `notes/agent_skill_self_iteration/`.
-- **Workflow engine design** (v2) in progress. Canonical: `notes/workflow_v2_plan-CN.md` (+ `notes/project_flow_plan-CN.md`, `notes/workflow_v2_risks-CN.md`). The v1 self-evolving-DSL design is archived under `project/to-do-future/DSL/` and is no longer the active plan.
+- **Mie theory analytical reproduction**（2026-06）：执行基础设施已转入 SEPR 工作区；Mie blocker 已解除。验证体系从 4 层收敛为 3 层：物理硬约束 + Rayleigh/large-size 等已知极限 + 论文图定量比较；PyMieScatt 作为强依赖已废弃。11 篇参考论文在 `papers/mie/`（SEPR 侧镜像到 `.paper/mie/`）。教材 Bohren & Huffman `.paper/scattering.pdf`（27.8MB）已就位。完整计划见 `reproduction_test/mie/mie_reproduction_plan-FINAL-CN.md` + skill `optics-mie-reproduction`。下一步是在 SEPR 启动 Phase 1：Akimov 2401.04146。
+- **SEPR 设计阶段已完成**：94 篇 v3 文献审查 + 16 条风险落地 + 4 身份 `.claude/skills/` 详细版（6465 行）已完成。optics_agent 当前职责是基于 SEPR 复现经验继续人工改进框架设计。
+- **Agent skill & workflow self-iteration survey** 已完成。见 `notes/agent_skill_self_iteration/`。
+- **Workflow engine design**（v2）已完成设计但未作为代码实现。权威文档：`notes/workflow_v2_plan-CN.md`、`notes/project_flow_plan-CN.md`、`notes/workflow_v2_risks-CN.md`。v1 自演化 DSL 归档在 `project/to-do-future/DSL/`，不再是当前方案。
 - COMSOL/Magnus runtime exists and is usable through the active Magnus image:
 
 ```text
@@ -82,7 +100,7 @@ V1 completed the engineering workflow but not physical COMSOL full-vector reprod
 
 ## Root Layout
 
-Expected high-level directories:
+预期高层目录：
 
 ```text
 .codex/
@@ -97,7 +115,7 @@ services/
 workflows/              <-- 工作流定义、prompt 文件、状态文件
 ```
 
-Keep root clutter low. New COMSOL work should go under `comsol/`; paper-specific reproduction artifacts should go under `reproduction_test/private/<case>/`; notes should go under `notes/` or `docs/` by topic.
+保持根目录低噪音。新的 COMSOL 工作放在 `comsol/`；论文私有复现产物放在 `reproduction_test/private/<case>/`；笔记按主题放在 `notes/` 或 `docs/`。
 
 ## Workflow System
 
@@ -137,55 +155,55 @@ v2 设计已完成但代码未实现（2026-06）。SEPR 工作区用 claude 三
 
 ## Skill System
 
-Project skills live in:
+项目 skills 位于：
 
 ```text
 .codex/skills/
 ```
 
-Claude and Agents skills are synchronized by Windows junctions:
+Claude 和 Agents 的 skills 通过 Windows junction 同步：
 
 ```text
 .claude/skills -> .codex/skills
 .agents/skills -> .codex/skills
 ```
 
-Edit `.codex/skills` as the canonical path. Read the relevant `SKILL.md` completely before acting on a matching task.
+只编辑 canonical 路径 `.codex/skills`。遇到匹配任务时，先完整阅读对应 `SKILL.md`。
 
-Current routing:
+当前路由：
 
-| Task | Skill |
+| 任务 | Skill |
 |---|---|
-| Project routing, goals, credentials, important files | `optics-agent-core` |
-| Mie theory analytical/semi-analytical calculations, Lorenz-Mie coefficients, scattering/absorption/extinction cross sections, metal LSPR, dielectric Mie modes, core-shell recursive Mie, coupled dipole approximation, surface lattice resonances, binary arrays, S-parameter retrieval effective medium, Maxwell-Garnett, Mie-vs-Bragg phase diagram, Python-only scattering benchmark data, Mie physical verifiers, 3-layer physical verification (energy conservation, Rayleigh/large-size limits, paper figure comparison; PyMieScatt deprecated) | `optics-mie-reproduction` + `reproduction_test/mie/mie_reproduction_plan-CN.md` |
-| Paper figure reproduction, parameter tables, missing-info analysis, handoff reports, workflow-based reproduction, COMSOL/Magnus reproduction (non-Mie) | `optics-paper-reproduction` + `workflows/paper_reproduction.workflow.yaml` |
-| COMSOL runtime image, active Magnus-local image, license mounts, runtime folder | `optics-comsol-runtime` |
-| COMSOL batch/headless jobs, `.java`/`.mph`/`.m`, smoke cases, manifest contract | `optics-comsol-batch` |
-| COMSOL Java API syntax, GUI-exported Java, feature/study/solver tags | `comsol-java-api` |
-| Magnus/Gustation jobs, logs, blueprint save/launch, staging paths | `optics-magnus-platform` |
-| Magnus artifact formats, `.magnus.yaml`, `.magnus.skill.yaml`, import/export packaging | `optics-magnus-artifacts` |
-| Docker image build/push/archive/handoff, ACR/PKU registry, image size/hash | `optics-docker-images` |
-| Reproduction 复现编排 (SEPR workspace) | `main-agent` (SEPR `.human/skills/`) |
-| Reproduction 复现执行 (SEPR workspace) | `sub-agent` (SEPR `.human/skills/`) |
-| Self-evolution 自迭代编排 (SEPR workspace) | `evolution-agent` (SEPR `.human/skills/`) |
-| Self-evolution 自迭代执行 (SEPR workspace) | `sub-E-agent` (SEPR `.human/skills/`) |
+| 项目路由、目标、工作区边界、credentials、安全规则、重要文件 | `optics-agent-core` |
+| Mie 理论解析/半解析计算、Lorenz-Mie 系数、散射/吸收/消光截面、LSPR、介质 Mie 模式、core-shell、CDA、SLR、二元阵列、S 参数反演、Maxwell-Garnett、Mie-vs-Bragg 相图、Python-only benchmark、3 层物理验证（能量守恒、Rayleigh/large-size 极限、论文图定量比较；PyMieScatt 已废弃） | `optics-mie-reproduction` + `reproduction_test/mie/mie_reproduction_plan-FINAL-CN.md` |
+| 非 Mie 的论文图复现、参数表、缺失信息分析、复现报告、handoff、COMSOL/Magnus 复现 | `optics-paper-reproduction` |
+| COMSOL runtime image、active `magnus-local/comsol-runtime` image、license mount、runtime folder | `optics-comsol-runtime` |
+| COMSOL batch/headless jobs、`.java`/`.mph`/`.m`、smoke cases、manifest contract | `optics-comsol-batch` |
+| COMSOL Java API syntax、GUI-exported Java、feature/study/solver/result tags、batch-safe Java templates | `comsol-java-api` |
+| Magnus/Gustation jobs、logs、blueprint save/launch、FileSecret、`MAGNUS_RESULT`/`MAGNUS_ACTION`、mounts、staging paths | `optics-magnus-platform` |
+| Magnus artifact formats、`.magnus.yaml`、`.magnus.skill.yaml`、import/export packaging、public/private boundary | `optics-magnus-artifacts` |
+| Docker image build/push/archive/handoff、ACR/PKU registry、image size/hash、active image 安全边界 | `optics-docker-images` |
+| SEPR 复现编排（只在 SEPR 工作区使用） | `main-agent`（SEPR `.claude/skills/` / `.human/skills/`） |
+| SEPR 复现执行（只在 SEPR 工作区使用） | `sub-agent`（SEPR `.claude/skills/` / `.human/skills/`） |
+| SEPR 自迭代编排（后期人工开启，非当前 OA 自动流程） | `evolution-agent`（SEPR `.claude/skills/` / `.human/skills/`） |
+| SEPR 自迭代执行（后期人工开启，非当前 OA 自动流程） | `sub-E-agent`（SEPR `.claude/skills/` / `.human/skills/`） |
 
-If COMSOL and Magnus are both involved, load `optics-comsol-runtime` first, then `optics-magnus-platform`. If paper reproduction is involved, also load `optics-paper-reproduction`.
+如果同时涉及 COMSOL 和 Magnus，先加载 `optics-comsol-runtime`，再加载 `optics-magnus-platform`。若涉及论文复现，再加载 `optics-paper-reproduction`。SEPR 的 4 个 agent skill 属于姊妹工作区，不复制到 optics_agent。
 
 ## AGENTS And Skill Update Policy
 
-When project rules change, update the persistent rule surfaces in the same task:
+当项目规则变化时，在同一任务内更新持久规则面：
 
-1. Update `AGENTS.md` for always-on project policy.
-2. Update the relevant `.codex/skills/*/SKILL.md` for task-specific procedural knowledge.
+1. 更新 `AGENTS.md` 中的常驻项目规则。
+2. 更新相关 `.codex/skills/*/SKILL.md` 中的任务专用流程知识。
 3. Validate changed skills with:
 
 ```powershell
 python C:\Users\27370\.codex\skills\.system\skill-creator\scripts\quick_validate.py .codex\skills\<skill-name>
 ```
 
-4. If the change affects Claude or Agents behavior, confirm `.claude/skills` and `.agents/skills` still point to `.codex/skills`.
-5. Keep `CLAUDE.md` synchronized with `AGENTS.md`. In this repo, `CLAUDE.md` should be a hard link to `AGENTS.md`; do not replace it with divergent content.
+4. 如果变更会影响 Claude 或 Agents 行为，确认 `.claude/skills` 和 `.agents/skills` 仍指向 `.codex/skills`。
+5. 保持 `CLAUDE.md` 与 `AGENTS.md` 同步。本仓库中 `CLAUDE.md` 应是 `AGENTS.md` 的 hard link，不要替换成分叉内容。
 
 If an editor or patch tool breaks the hard link, recreate it after merging content:
 
@@ -194,7 +212,7 @@ Remove-Item -LiteralPath .\CLAUDE.md
 New-Item -ItemType HardLink -Path .\CLAUDE.md -Target .\AGENTS.md
 ```
 
-Only run the above after verifying both resolved paths are inside the repository.
+只有在确认两个解析后的路径都位于仓库内之后，才运行上述命令。
 
 ## Progress Reporting Policy
 

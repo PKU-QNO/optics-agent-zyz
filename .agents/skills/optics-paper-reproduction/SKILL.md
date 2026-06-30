@@ -7,7 +7,7 @@ description: Plan, execute, audit, and report optics paper figure reproductions 
 
 ## Purpose
 
-Use paper reproduction as an auditable workflow test for optics_agent, not as a one-off plot recreation. A good run must leave durable artifacts that explain what was read, what was assumed, what was simulated, what failed, what was fixed, and whether the final result is a physical reproduction or only a pipeline fallback.
+Use paper reproduction as an auditable workflow test for optics_agent, not as a one-off plot recreation. optics_agent is now the SEPR design/meta workspace plus its own COMSOL/Magnus runtime workspace; SEPR (`../self-evo-paper-repro`) is the execution workspace for agent paper reproductions. A good run must leave durable artifacts that explain what was read, what was assumed, what was simulated, what failed, what was fixed, and whether the final result is a physical reproduction or only a pipeline fallback.
 
 When the task involves COMSOL or Magnus execution, also load the relevant runtime skills:
 
@@ -15,14 +15,14 @@ When the task involves COMSOL or Magnus execution, also load the relevant runtim
 - `optics-comsol-batch` for Java/M-file/.mph batch patterns and runner contracts.
 - `optics-magnus-platform` for job dedupe, resource checks, logs, and file flow.
 
-For complex multi-step reproductions, the project uses a **fixed-topology** workflow system (v2). The reproduction topology is human-written YAML and is never self-modified. Self-iteration (skill-content and prompt-note updates only) is a separate offline workflow gated by human review, and it never edits the reproduction topology, blueprints, or `AGENTS.md`. Canonical design: `notes/workflow_v2_plan-CN.md`. The current `workflows/*.workflow.yaml` is a v1 instance pending rewrite, so do not treat its `update_artifacts`/self-evolving-topology nodes as authoritative.
+For complex multi-step reproductions, the current effective execution path is SEPR's Claude Code agent workflow, not the old optics_agent `workflows/*.workflow.yaml` implementation. In optics_agent, the fixed-topology v2 design remains the architecture reference (`notes/workflow_v2_plan-CN.md`, `notes/project_flow_plan-CN.md`, `notes/workflow_v2_risks-CN.md`) but is not implemented as code. Do not treat old `workflows/*.workflow.yaml` `update_artifacts`/self-evolving-topology nodes as authoritative.
 
 For Mie theory analytical/semi-analytical reproductions (2026-06):
 
-- All Python, no COMSOL. See `reproduction_test/mie_internal_plan.md` for the execution plan.
-- Papers are in `papers/mie/` (non-arXiv ones) or accessible via arXiv.
+- All Python, no COMSOL. See `reproduction_test/mie/mie_reproduction_plan-FINAL-CN.md` for the plan and `optics-mie-reproduction` for verifier rules.
+- Papers are in `papers/mie/` (mirrored to SEPR `.paper/mie/`) or accessible via arXiv; Bohren & Huffman is staged in SEPR as `.paper/scattering.pdf`.
 - Core codes go in `reproduction_test/mie/code/`.
-- Every calculation must pass the 5 physical checks: energy conservation, Rayleigh limit, large-size limit, quasi-static LSPR, low-filling MG limit.
+- Every calculation must pass the applicable 3-layer verification: physical hard constraints, known limits/degeneracies, and quantitative paper-figure comparison. PyMieScatt is deprecated as a hard dependency.
 
 ## Workflow
 

@@ -7,9 +7,9 @@ description: Mie theory analytical/semi-analytical scattering calculations for o
 
 ## Purpose
 
-Produce auditable, verifier-checked Mie scattering benchmark data in Python. No COMSOL. All output under `reproduction_test/mie/`. This is both a physics reproduction task and the low-cost benchmark for later workflow self-iteration experiments.
+Produce auditable, verifier-checked Mie scattering benchmark data in Python. No COMSOL. In optics_agent, the plan and shared code live under `reproduction_test/mie/`; execution now happens in the SEPR workspace (`../self-evo-paper-repro`) as the paper-reproduction execution workspace. This is both a physics reproduction task and the low-cost benchmark for later workflow self-iteration experiments.
 
-Authoritative human-facing plan: `reproduction_test/mie/mie_reproduction_plan-CN.md`. Task list for the executing agent: `reproduction_test/mie/todolist.md`. Papers in `papers/mie/`.
+Authoritative human-facing plan: `reproduction_test/mie/mie_reproduction_plan-FINAL-CN.md`. Task list for the executing agent: `reproduction_test/mie/todolist.md`. Papers in `papers/mie/` and mirrored into SEPR `.paper/mie/`. Bohren & Huffman textbook is staged in SEPR as `.paper/scattering.pdf`.
 
 ## Core Principle: How A Human Knows The AI Got It Right
 
@@ -64,7 +64,7 @@ reproduction_test/mie/
 
 ## Skill Lifecycle (avoid Degiron lesson)
 
-This skill starts as `status: candidate` covering only single-sphere Mie. Promote to `active` only after core-shell (stage 4) also passes — i.e., repeated evidence, not single-case. Every skill item carries `applies_when` / `does_not_apply_when` / `source_cases`.
+This skill stays as optics_agent design/reference knowledge. Promote any new general lesson to long-term skill text only after repeated SEPR reproduction evidence, not from a single case. Every skill item should carry `applies_when` / `does_not_apply_when` / `source_cases` when it becomes procedural guidance.
 
 ## References (load when needed)
 

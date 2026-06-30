@@ -7,10 +7,11 @@ description: Core index for the optics_agent project. Use when the user mentions
 
 ## Project Goal
 
-Build an automation workflow for frontier optics paper reproduction:
+optics_agent is the meta-workspace for designing SEPR (self-evolving paper reproduction) and for this repository's own COMSOL/Magnus runtime work:
 
 ```text
-paper -> theory notes -> numerical implementation -> Magnus/COMSOL runs -> artifacts
+optics_agent designs SEPR framework + COMSOL/Magnus optics infrastructure
+SEPR executes paper reproductions in ../self-evo-paper-repro
 ```
 
 Treat paper reproduction as regression tests for reusable scientific-computing blueprints, not as the endpoint. The longer arc is:
@@ -28,9 +29,11 @@ Group-meeting direction:
 
 ## Recent Work (2026-06)
 
+- **SEPR sister workspace split**: optics_agent is the design/meta workspace; `C:\Users\27370\Desktop\project\self-evo-paper-repro` is the execution workspace for agent paper reproduction. Human pretraining loop: OA designs -> SEPR reproduces -> SEPR experience returns to OA -> OA manually improves design -> rerun.
+- **SEPR design phase complete**: `.human/`, `.claude/skills/`, `CLAUDE.md`, and `WORK_LOG.md` are in place in the SEPR workspace; 94-paper v3 review and 16 risk items landed.
 - **Agent skill & workflow self-iteration survey**: `notes/agent_skill_self_iteration/` — covers skill system design, self-improving agents, tool use, meta-cognition, SWE agents, framework comparison, and scientific computing agents.
-- **Workflow engine design**: `notes/workflow_engine_design.md` — YAML-declared dual-agent (supervisor/worker) workflow system with MCP communication, branch routing, experience notes, and self-iteration.
-- **Mie theory reproduction**: `reproduction_test/mie_internal_plan.md` — analytical Mie scattering models for sphere arrays, Python-only, 6-week plan covering single sphere → multilayer → arrays → effective medium.
+- **Workflow engine design v2**: `notes/workflow_v2_plan-CN.md`, `notes/project_flow_plan-CN.md`, and `notes/workflow_v2_risks-CN.md` — fixed topology and human-gated experience-layer self-iteration. The v1 self-evolving DSL is archived under `project/to-do-future/DSL/` and is not the active plan.
+- **Mie theory reproduction**: infrastructure moved to SEPR execution; plan remains at `reproduction_test/mie/mie_reproduction_plan-FINAL-CN.md`. Verification is 3-layer physical hard constraints + known limits + quantitative paper-figure comparison; PyMieScatt is deprecated as a hard dependency. Bohren & Huffman textbook is available in SEPR as `.paper/scattering.pdf`.
 
 Keep local development in:
 
@@ -50,7 +53,9 @@ Use Gustation/Magnus for containerized compute jobs.
 
 | User intent | Load |
 |---|---|
-| Paper figure reproduction, parameter extraction, missing-info tables, optics-group standard answers, reproduction reports, self-iteration workflow lessons | `optics-paper-reproduction` |
+| SEPR framework/workspace boundary, project routing, credentials, important files | `optics-agent-core` |
+| Mie analytical/semi-analytical scattering benchmarks and physical verifiers | `optics-mie-reproduction` |
+| Non-Mie paper figure reproduction, parameter extraction, missing-info tables, optics-group standard answers, reproduction reports, COMSOL/Magnus reproduction | `optics-paper-reproduction` |
 | COMSOL runtime image, active `magnus-local` image, license mount, runtime folder, admin handoff | `optics-comsol-runtime` |
 | COMSOL `batch`, `.java`, `.mph`, `.m`, smoke tests, manifest contract | `optics-comsol-batch` |
 | COMSOL Java API syntax, GUI-exported Java, feature tags, study/solver syntax, results API, Java templates | `comsol-java-api` |
@@ -60,6 +65,7 @@ Use Gustation/Magnus for containerized compute jobs.
 | Creating or updating project skills | `skill-creator` |
 
 When COMSOL and Magnus are both mentioned, load `optics-comsol-runtime` first, then `optics-magnus-platform`.
+SEPR's `main-agent`, `sub-agent`, `evolution-agent`, and `sub-E-agent` live only in the SEPR workspace and are not copied into optics_agent.
 
 ## Current COMSOL Runtime Facts
 

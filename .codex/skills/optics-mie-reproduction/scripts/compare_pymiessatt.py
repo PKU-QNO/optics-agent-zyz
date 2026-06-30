@@ -1,9 +1,10 @@
-"""Layer 3 verifier: cross-check our Mie implementation against PyMieScatt.
+"""Optional reference check against PyMieScatt.
 
 Runs the same parameters through both implementations and prints a diff table.
-Accept only when all quantities agree within tolerance.
+This script is not part of the required 3-layer verifier because PyMieScatt is
+no longer a hard dependency for the Mie workflow.
 
-Install: pip install PyMieScatt
+Optional install: pip install PyMieScatt
 Imports from reproduction_test/mie/code/. Exits 0 on PASS, non-zero on FAIL.
 """
 from __future__ import annotations
@@ -22,8 +23,8 @@ def main() -> int:
     try:
         import PyMieScatt  # type: ignore
     except ImportError:
-        print("FAIL: PyMieScatt not installed. Run: pip install PyMieScatt")
-        return 2
+        print("SKIP: PyMieScatt not installed. This optional cross-check is not required.")
+        return 0
     try:
         from scattering import compute_cross_sections  # type: ignore
     except ImportError as e:
