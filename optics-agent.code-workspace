@@ -1,0 +1,17 @@
+{
+  "folders": [
+    {
+      "path": "C:\\Users\\27370\\Desktop\\project\\optics_agent",
+      "name": "optics_agent"
+    },
+    {
+      "path": "C:\\Users\\27370\\Desktop\\project\\self-evo-paper-repro",
+      "name": "self-evo-paper-repro"
+    }
+  ],
+  "settings": {
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "files.eol": "\n"
+  }
+}
