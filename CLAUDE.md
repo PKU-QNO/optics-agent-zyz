@@ -54,7 +54,7 @@ paper reproduction
 - **Mie theory analytical reproduction**（2026-06）：执行基础设施已转入 SEPR 工作区；Mie blocker 已解除。验证体系从 4 层收敛为 3 层：物理硬约束 + Rayleigh/large-size 等已知极限 + 论文图定量比较；PyMieScatt 作为强依赖已废弃。11 篇参考论文在 `papers/mie/`（SEPR 侧镜像到 `.paper/mie/`）。教材 Bohren & Huffman `.paper/scattering.pdf`（27.8MB）已就位。完整计划见 `reproduction_test/mie/mie_reproduction_plan-FINAL-CN.md` + skill `optics-mie-reproduction`。下一步是在 SEPR 启动 Phase 1：Akimov 2401.04146。
 - **SEPR 设计阶段已完成**：94 篇 v3 文献审查 + 16 条风险落地 + 4 身份 `.claude/skills/` 详细版（6465 行）已完成。optics_agent 当前职责是基于 SEPR 复现经验继续人工改进框架设计。
 - **Agent skill & workflow self-iteration survey** 已完成。见 `notes/agent_skill_self_iteration/`。
-- **Workflow engine design**（v2）已完成设计但未作为代码实现。权威文档：`notes/workflow_v2_plan-CN.md`、`notes/project_flow_plan-CN.md`、`notes/workflow_v2_risks-CN.md`。v1 自演化 DSL 归档在 `project/to-do-future/DSL/`，不再是当前方案。
+- **Workflow engine design**（v2）已完成设计但未作为代码实现。权威文档已归档到 `v3-final/`：`workflow_v2_plan-CN_archive.md`、`project_flow_plan-CN_archive.md`、`workflow_v2_risks-CN_archive.md`（原位 `notes/*_moved.md` 只作面包屑）。v1 自演化 DSL 其余文件仍在 `project/to-do-future/DSL/`；其 127 篇 arxiv 风险审查已归档 `v3-final/V1-workflow_risk_review-CN_archive.md`。均非当前方案。
 - COMSOL/Magnus runtime exists and is usable through the active Magnus image:
 
 ```text
@@ -126,10 +126,11 @@ optics_agent 用 YAML 定义的**固定拓扑**工作流编排论文复现。当
 权威设计文档（细节在 `notes/`，本文件只保留不可违反的原则）：
 
 ```text
-notes/workflow_v2_plan-CN.md      工作 workflow + 自迭代 workflow（已归档；SEPR 用子 agent 替代 workflow 状态机）
-notes/workflow_v2_risks-CN.md     v2 风险清单
-notes/project_flow_plan-CN.md     项目状态树版本控制（project-flow）
-project/to-do-future/DSL/         v1 可变拓扑 DSL（已归档，远期）
+v3-final/workflow_v2_plan-CN_archive.md         工作 workflow + 自迭代 workflow（V2 废案；SEPR 用子 agent 替代 workflow 状态机）
+v3-final/workflow_v2_risks-CN_archive.md        v2 风险清单
+v3-final/project_flow_plan-CN_archive.md        项目状态树版本控制（project-flow）
+v3-final/V1-workflow_risk_review-CN_archive.md  v1 127 篇 arxiv 风险审查（R-1~R-49）
+project/to-do-future/DSL/                        v1 可变拓扑 DSL 其余文件（远期）
 ```
 
 ### 不可违反的架构原则
@@ -154,6 +155,22 @@ human_intervention   人工改 SKILL/规则/参数/记忆
 ### 实现状态
 
 v2 设计已完成但代码未实现（2026-06）。SEPR 工作区用 claude 三层子 agent 替代 workflow 状态机，已实际运行 Mie 复现基础设施。`workflows/` 下现存文件（`paper_reproduction.workflow.yaml`、`ENGINE.md`、`prompts/`）是 v1 残留，暂不重写——SEPR 子 agent 方案是当前有效路径。
+
+## v3-final 设计归档（V1/V2/V3 谱系 + tag 约定）
+
+`v3-final/` 汇总 V1→V2→V3 的设计、风险审计、演进文档的 **canonical 版本**，索引见 `v3-final/README.md`。散落在 `papers/SEPR/`、`notes/`、`notes/Gemini/`、`project/to-do-future/DSL/` 的原件已改名带 `_moved` 后缀并冻结（顶部加面包屑指向 v3-final）。SEPR 侧同规则见其 `CLAUDE.md`「v3-final 设计归档」节。
+
+文件名后缀约定（改这些文件或新增设计文档时沿用）：
+
+| 后缀 | 含义 |
+|------|------|
+| `_latest` | 正在更新的最新版本（v3-final 内活文档） |
+| `_archive` | 废案/完结但有价值，保留参考 |
+| `_deprecated` | 废案无价值且易误导（当前无） |
+| `_moved` | 别处有 canonical 版、此处不再更新（原位面包屑） |
+| `_V1_finished` | 历史版本完结（预留，当前 V1 用 `_archive`） |
+
+例外：`WORK_LOG.md` 是 living 操作日志，仍在 optics_agent 根，未移动。
 
 ## Skill System
 

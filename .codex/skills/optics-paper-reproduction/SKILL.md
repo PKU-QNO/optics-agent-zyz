@@ -15,7 +15,7 @@ When the task involves COMSOL or Magnus execution, also load the relevant runtim
 - `optics-comsol-batch` for Java/M-file/.mph batch patterns and runner contracts.
 - `optics-magnus-platform` for job dedupe, resource checks, logs, and file flow.
 
-For complex multi-step reproductions, the current effective execution path is SEPR's Claude Code agent workflow, not the old optics_agent `workflows/*.workflow.yaml` implementation. In optics_agent, the fixed-topology v2 design remains the architecture reference (`notes/workflow_v2_plan-CN.md`, `notes/project_flow_plan-CN.md`, `notes/workflow_v2_risks-CN.md`) but is not implemented as code. Do not treat old `workflows/*.workflow.yaml` `update_artifacts`/self-evolving-topology nodes as authoritative.
+For complex multi-step reproductions, the current effective execution path is SEPR's Claude Code agent workflow, not the old optics_agent `workflows/*.workflow.yaml` implementation. In optics_agent, the fixed-topology v2 design remains the architecture reference (archived in `v3-final/`: `workflow_v2_plan-CN_archive.md`, `project_flow_plan-CN_archive.md`, `workflow_v2_risks-CN_archive.md`) but is not implemented as code. Do not treat old `workflows/*.workflow.yaml` `update_artifacts`/self-evolving-topology nodes as authoritative.
 
 For Mie theory analytical/semi-analytical reproductions (2026-06):
 

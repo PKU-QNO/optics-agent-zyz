@@ -1,6 +1,3 @@
-> **[_moved] 此文件已移动。** 正式版（canonical）在 `optics_agent/v3-final/Gemini-pre-subagent_archive.md`，此处为冻结面包屑，不再更新。
-> 后缀约定见 `v3-final/README.md` 与两侧 CLAUDE.md「v3-final 归档」节。
-
 # Claude Code Subagents 预配置与嵌套能力核验笔记
 
 > 来源说明：原始内容来自 Gemini 低置信度总结，已按 Claude Code 官方文档重新整理。本文用于 SEPR 设计核验，不是最终项目规则。已核对至官方 ~v2.1.196（code.claude.com/docs/en 的 sub-agents / model-config / agent-teams），最后核对 2026-07-03；再次改动前请复核最新官方文档。

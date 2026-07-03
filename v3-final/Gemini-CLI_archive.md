@@ -1,6 +1,3 @@
-> **[_moved] 此文件已移动。** 正式版（canonical）在 `optics_agent/v3-final/Gemini-CLI_archive.md`，此处为冻结面包屑，不再更新。
-> 后缀约定见 `v3-final/README.md` 与两侧 CLAUDE.md「v3-final 归档」节。
-
 # Claude Code CLI 深度架构解析与高级工程实践笔记
 
 > 来源说明：本文原始内容来自一次 web search 综述总结（低置信度），主题为 Claude Code CLI 的高级功能与工程实践。本次改写**只做重排与结构化，忠实保留原文所有实质内容、术语、数字、命令与声称**，未按官方文档纠正任何内容。全文**尚未核对 Claude Code 官方文档**：部分声称（如具体 benchmark/企业迁移数字、`--json-schema` / `--bare` / `/batch` / “25 种 hooks” 等标志与命令、SWE-bench 解析率、模型 ID、成本百分比等）可能不准确，使用前必须让 `claude-code-docs-agent` 或官方文档核验。整理日期 2026-07-03。副标题：超越传统 AI IDE 的终端自治范式。

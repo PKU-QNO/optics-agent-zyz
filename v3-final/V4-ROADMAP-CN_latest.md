@@ -1,12 +1,9 @@
-> **[_moved] 此文件已移动。** 正式版（canonical）在 `optics_agent/v3-final/V4-ROADMAP-CN_latest.md`，此处为冻结面包屑，不再更新。
-> 后缀约定见 `v3-final/README.md` 与两侧 CLAUDE.md「v3-final 归档」节。
-
 # SEPR V4 路线图：跑完 Mie 后如何把 V3 改进到 V4（前瞻规划，人话版）
 
 > **元信息**
 > - 日期：2026-07-03
 > - 产出侧：optics_agent（设计 SEPR 框架的元工作区）。SEPR 本体在 `C:\Users\27370\Desktop\project\self-evo-paper-repro`。
-> - 承接：`V3-HARDENING-DESIGN-CN.md`（V3 加固提案，尤其 §9 待决问题与再排序）、`DESIGN-GAP-AUDIT-CN.md`（gap 审计）、`BORROWABLE-EXPERIENCE-CN.md`（可借鉴经验，尤其 §6.1「先跑通再加治理」、§4.2 缺口清单）、`V3-CHANGELOG-SINCE-HUMAN-CN.md`（从 .human 到现在的净状态）。
+> - 承接：`V3-HARDENING-DESIGN-CN_latest.md`（V3 加固提案，尤其 §9 待决问题与再排序）、`DESIGN-GAP-AUDIT-CN_latest.md`（gap 审计）、`BORROWABLE-EXPERIENCE-CN_latest.md`（可借鉴经验，尤其 §6.1「先跑通再加治理」、§4.2 缺口清单）、`V3-CHANGELOG-SINCE-HUMAN-CN_latest.md`（从 .human 到现在的净状态）。
 > - **文档性质：前瞻规划（forward-looking roadmap），不是承诺。本文是「跑通后再定」的地图，不修改 SEPR 本体任何文件。很多分支取决于 Mie 第一阶段实跑结果——凡标『取决于实跑』的条目，实跑没发生前都只是候选，不落地。**
 > - **诚实口径**：本文所有「预期收益」都是假设，未经第一次真复现验证；本文所有「重启条件」都是触发器，触发器没出现就不做。这与 BORROWABLE §6.1 铁律一致——先证明价值，再加护栏。
 
@@ -35,7 +32,7 @@
 
 ## 1. 前提对齐：现在的净状态（V4 的起点）
 
-从 `V3-CHANGELOG-SINCE-HUMAN-CN.md` §5 收敛，V4 起跑线如下：
+从 `V3-CHANGELOG-SINCE-HUMAN-CN_latest.md` §5 收敛，V4 起跑线如下：
 
 | 项 | 状态 | 对 V4 的含义 |
 |---|---|---|

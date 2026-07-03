@@ -1,6 +1,3 @@
-> **[_moved] 此文件已移动。** 正式版（canonical）在 `optics_agent/v3-final/V1-workflow_risk_review-CN_archive.md`，此处为冻结面包屑，不再更新。
-> 后缀约定见 `v3-final/README.md` 与两侧 CLAUDE.md「v3-final 归档」节。
-
 # 自演化 Workflow 风险评审与建议（合并版）
 
 > 2026-06-20 合并版

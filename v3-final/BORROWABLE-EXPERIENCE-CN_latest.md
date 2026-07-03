@@ -1,11 +1,8 @@
-> **[_moved] 此文件已移动。** 正式版（canonical）在 `optics_agent/v3-final/BORROWABLE-EXPERIENCE-CN_latest.md`，此处为冻结面包屑，不再更新。
-> 后缀约定见 `v3-final/README.md` 与两侧 CLAUDE.md「v3-final 归档」节。
-
 # SEPR 可借鉴经验与风险总汇（人话版）
 
 > **这份文档给谁看**：项目成员、PI、任何想理解"我们设计的自进化 agent 该抄什么、该防什么"的人。
 > **怎么来的**：2026-07-02 在 optics_agent 里并发派了 6 个搜索子 agent，用 arXiv + academic-research + Exa + Firecrawl 多源交叉，覆盖自迭代、提示词工程、多 agent 编排、验证/评估、记忆治理、科学复现+失败防护 6 个方向，每条引用都做过核实（核不到的丢弃）。
-> **和已有文档的关系**：本文融合了**三个来源**——(1) §0–§4 本轮 6 路外部文献搜索（说人话 + 2026 最新实验数字）；(2) §5 前序 agent 的两份工作总结 `REVIEW-REPORT.md` + `CATEGORY-READING-NOTES.md`（2026-06-30，94 篇按 SEPR 十块的文献审查）；(3) **§6 项目自己的 V1/V2 废案设计与审计** `project/to-do-future/`（optics_agent 在做 SEPR 之前的两代 workflow 方案，同垂域踩过的坑，最贴切）。三来源结论互相印证，合起来才是完整的"该抄/该防"。
+> **和已有文档的关系**：本文融合了**三个来源**——(1) §0–§4 本轮 6 路外部文献搜索（说人话 + 2026 最新实验数字）；(2) §5 前序 agent 的两份工作总结 `REVIEW-REPORT_archive.md` + `CATEGORY-READING-NOTES_archive.md`（2026-06-30，94 篇按 SEPR 十块的文献审查）；(3) **§6 项目自己的 V1/V2 废案设计与审计** `project/to-do-future/`（optics_agent 在做 SEPR 之前的两代 workflow 方案，同垂域踩过的坑，最贴切）。三来源结论互相印证，合起来才是完整的"该抄/该防"。
 > **术语**：涉及的英文术语在第一次出现时用括号解释。公式若有用 `$...$`。
 
 ---
@@ -149,7 +146,7 @@
 7. **子 agent 产物落盘、只回传引用；绝不把主管完整对话层层下传（context 复利爆炸）。**（Lane 3）
 8. **红线/控制流要写死成代码或 schema，不能靠 prompt 求它；能用脚本就别用 agent。**（Lane 2/3/6）
 
-这 8 条同时印证了 `REVIEW-REPORT.md` 的 5 条老风险（LLM 把 fallback 当成功 / 自迭代假进步 / 子 agent 递归越权 / 记忆污染 / 蓝图无 schema 变随机实验），并把每条从"要注意"变成了"具体怎么防"。
+这 8 条同时印证了 `REVIEW-REPORT_archive.md` 的 5 条老风险（LLM 把 fallback 当成功 / 自迭代假进步 / 子 agent 递归越权 / 记忆污染 / 蓝图无 schema 变随机实验），并把每条从"要注意"变成了"具体怎么防"。
 
 ---
 
@@ -194,7 +191,7 @@
 
 ## 5. 融合前序 94 篇审查的独有发现（SEPR 独有工程面）
 
-> 本节收前序审查（`REVIEW-REPORT.md` + `CATEGORY-READING-NOTES.md`）里、本轮 6 路搜索**没覆盖或覆盖弱**、但对 SEPR 直接有用的内容。这批论文编号来自前序 agent 的检索，PDF 已下载在 `papers/SEPR/A–K/` 下，本轮**未逐一重核**（引用前建议再核一次）。下面按 SEPR 十块里我 §2 讲得少的几块来补。
+> 本节收前序审查（`REVIEW-REPORT_archive.md` + `CATEGORY-READING-NOTES_archive.md`）里、本轮 6 路搜索**没覆盖或覆盖弱**、但对 SEPR 直接有用的内容。这批论文编号来自前序 agent 的检索，PDF 已下载在 `papers/SEPR/A–K/` 下，本轮**未逐一重核**（引用前建议再核一次）。下面按 SEPR 十块里我 §2 讲得少的几块来补。
 
 ### 5.1 蓝图 / 参数扫描：把"可复用计算流程"做成 typed 可执行原语（§2 几乎没碰）
 
@@ -246,7 +243,7 @@
 
 ## 6. 从项目自己的 V1/V2 废案学到的（同垂域失败史，最贴切）
 
-> 来源：`project/to-do-future/` 里 optics_agent 自己的 workflow **V2** 设计（`workflow_v2_plan-CN.md` 708 行）+ 风险审计（`workflow_v2_risks-CN.md` 278 行，2026-06-20/21）。这是 SEPR（V3）的**前身**：V1 是"可自迭代拓扑 DSL、全自动"（更早，已归档 `to-do-future/DSL/`），V2 是"固定拓扑 + workflow runner（opencode）批处理"，V3=SEPR 转向"claude 交互式子 agent"。**同一个人、同一垂域、三代坑**，比外部文献更贴切。V2 里引用的一批论文（Zombie Agents/MRMMIA/MemRL/LoCoMo/SSGM 等）是当时内部调研，本轮未重核。
+> 来源：`project/to-do-future/` 里 optics_agent 自己的 workflow **V2** 设计（`workflow_v2_plan-CN_archive.md` 708 行）+ 风险审计（`workflow_v2_risks-CN_archive.md` 278 行，2026-06-20/21）。这是 SEPR（V3）的**前身**：V1 是"可自迭代拓扑 DSL、全自动"（更早，已归档 `to-do-future/DSL/`），V2 是"固定拓扑 + workflow runner（opencode）批处理"，V3=SEPR 转向"claude 交互式子 agent"。**同一个人、同一垂域、三代坑**，比外部文献更贴切。V2 里引用的一批论文（Zombie Agents/MRMMIA/MemRL/LoCoMo/SSGM 等）是当时内部调研，本轮未重核。
 > SEPR 已继承 V2 骨架（固定拓扑 / 自迭代不迭代自己 / 全 human gate / result_class 三态 / run_manifest / replay / 六维裁决 / provenance 五要素 / echoing 防护）——下面只列 **V2 想清楚、但 V3 转 claude 子 agent 后可能没带过去或值得强化**的。
 
 ### 6.1 最该刻脑门上的一条：先跑通，再加治理
@@ -341,7 +338,7 @@ V2 risks 末尾列了 10 条"v1 全自动方案的风险、v2 靠限制自迭代
 
 ---
 
-**前序 94 篇审查按 SEPR 十块**（来自 `REVIEW-REPORT.md` + `CATEGORY-READING-NOTES.md`，PDF 在 `papers/SEPR/A–K/`，本轮未逐一重核，仅收 §2 未列的独有项）：
+**前序 94 篇审查按 SEPR 十块**（来自 `REVIEW-REPORT_archive.md` + `CATEGORY-READING-NOTES_archive.md`，PDF 在 `papers/SEPR/A–K/`，本轮未逐一重核，仅收 §2 未列的独有项）：
 
 - **A 提示词**：SkCC 2605.03353 · Skill as Pseudocode 2605.27955 · User Comprehension of Skill Specs 2605.19362 · SePO 2606.04465 · TDD Governance 2604.26615 · Inseparability of Instructions & Data 2606.27567
 - **B 子 agent**：ASAF 2606.09832 · Glite ARF 2606.27416 · Structure-Guided Orchestration 2605.25746 · GBC Credit Assignment 2606.28187 · Multi-Agent Collaboration Survey 2501.06322

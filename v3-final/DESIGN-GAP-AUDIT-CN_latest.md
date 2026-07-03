@@ -1,10 +1,7 @@
-> **[_moved] 此文件已移动。** 正式版（canonical）在 `optics_agent/v3-final/DESIGN-GAP-AUDIT-CN_latest.md`，此处为冻结面包屑，不再更新。
-> 后缀约定见 `v3-final/README.md` 与两侧 CLAUDE.md「v3-final 归档」节。
-
 # SEPR 设计自洽性 + 落地现状 Gap 审计
 
 > 审计日期：2026-07-02  
-> 审计范围：`C:\Users\27370\Desktop\project\self-evo-paper-repro` 根配置、`.claude/agents/`、`.claude/skills/`、`.human/skills/`、`.opencode/prompts/`，并对照 `BORROWABLE-EXPERIENCE-CN.md` §4.2 / §5.7 / §6.6 与 memento 中 Claude 2026-07-02 审计结论。  
+> 审计范围：`C:\Users\27370\Desktop\project\self-evo-paper-repro` 根配置、`.claude/agents/`、`.claude/skills/`、`.human/skills/`、`.opencode/prompts/`，并对照 `BORROWABLE-EXPERIENCE-CN_latest.md` §4.2 / §5.7 / §6.6 与 memento 中 Claude 2026-07-02 审计结论。  
 > 审计约束：只读核对；未修改 SEPR 任何文件；本报告是唯一写入产物。
 
 ## 0. 优先级总表

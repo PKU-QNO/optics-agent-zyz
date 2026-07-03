@@ -1,6 +1,3 @@
-> **[_moved] 此文件已移动。** 正式版（canonical）在 `optics_agent/v3-final/workflow_v2_risks-CN_archive.md`，此处为冻结面包屑，不再更新。
-> 后缀约定见 `v3-final/README.md` 与两侧 CLAUDE.md「v3-final 归档」节。
-
 # Workflow v2 风险笔记
 
 > 2026-06-20

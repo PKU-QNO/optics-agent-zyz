@@ -1,6 +1,3 @@
-> **[_moved] 此文件已移动。** 正式版（canonical）在 `optics_agent/v3-final/REVIEW-REPORT_archive.md`，此处为冻结面包屑，不再更新。
-> 后缀约定见 `v3-final/README.md` 与两侧 CLAUDE.md「v3-final 归档」节。
-
 # SEPR workflow-v3 文献调研风险报告
 
 ## 0. 执行摘要
@@ -280,6 +277,6 @@ papers/SEPR/K_surveys/{success,failure,survey}
 
 ## 附录 C. 并发阅读子 agent 产出位置
 
-- 子 agent 上下文：`papers/SEPR/CONTEXT-for-subagent.md`。
-- A-K 分类阅读产出：`papers/SEPR/CATEGORY-READING-NOTES.md`。
-- 总报告：`papers/SEPR/REVIEW-REPORT.md`。
+- 子 agent 上下文：`CONTEXT-for-subagent_archive.md`。
+- A-K 分类阅读产出：`CATEGORY-READING-NOTES_archive.md`。
+- 总报告：`REVIEW-REPORT_archive.md`。

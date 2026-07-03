@@ -1,6 +1,3 @@
-> **[_moved] 此文件已移动。** 正式版（canonical）在 `optics_agent/v3-final/CATEGORY-READING-NOTES_archive.md`，此处为冻结面包屑，不再更新。
-> 后缀约定见 `v3-final/README.md` 与两侧 CLAUDE.md「v3-final 归档」节。
-
 # SEPR workflow-v3 A-K 分类阅读产出
 
 本文件模拟 A-K 并发阅读子 agent 的汇总输出。每类阅读 `papers/SEPR/<category>/{success,failure,survey}` 下的 PDF，并结合已有 `papers/self-evolution` 127 篇摘要交叉归纳。

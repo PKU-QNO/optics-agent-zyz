@@ -1,17 +1,14 @@
-> **[_moved] 此文件已移动。** 正式版（canonical）在 `optics_agent/v3-final/V3-HARDENING-DESIGN-CN_latest.md`，此处为冻结面包屑，不再更新。
-> 后缀约定见 `v3-final/README.md` 与两侧 CLAUDE.md「v3-final 归档」节。
-
 # SEPR V3 加固设计（放弃 OpenCode 兼容 + 采纳 Claude 新能力）
 
 > **元信息**
 > - 日期：2026-07-03
-> - 承接：`CLEANUP-A-LOG-CN.md`（上一轮清理日志）
-> - 现状基准：`DESIGN-GAP-AUDIT-CN.md`（2026-07-02 gap 审计，本文按其 gap 编号引用）
-> - 战略论证：`BORROWABLE-EXPERIENCE-CN.md` §6.1「先跑通再加治理」、§0 三条铁律、§4.2 缺口清单
-> - 能力核验来源：`../notes/Gemini/pre-subagent.md`（subagent 能力，已核至官方 ~v2.1.196）、`../notes/Gemini/agent-team.md`（Agent Teams 能力，已核）、`../notes/Gemini/CLI.md`（CLI 综述，**低置信度、未核验**，尤其其 §9 待核验清单）
+> - 承接：`CLEANUP-A-LOG-CN_archive.md`（上一轮清理日志）
+> - 现状基准：`DESIGN-GAP-AUDIT-CN_latest.md`（2026-07-02 gap 审计，本文按其 gap 编号引用）
+> - 战略论证：`BORROWABLE-EXPERIENCE-CN_latest.md` §6.1「先跑通再加治理」、§0 三条铁律、§4.2 缺口清单
+> - 能力核验来源：`Gemini-pre-subagent_archive.md`（subagent 能力，已核至官方 ~v2.1.196）、`Gemini-agent-team_archive.md`（Agent Teams 能力，已核）、`Gemini-CLI_archive.md`（CLI 综述，**低置信度、未核验**，尤其其 §9 待核验清单）
 > - **文档性质：设计提案（design proposal）。本文不修改 SEPR 本体任何文件，落地一律走后续 human gate。本文只新增这一份提案。**
 > - V3 定义：SEPR 的 Claude Code 三层子 agent 方案（`main`/`evolution` → `sub`/`sub-e` → `leaf`）。
-> - **核验状态（2026-07-03）**：本文 §4/§5 依赖的能力已由 `claude-code-docs-agent` 对照官方文档（`code.claude.com/docs/en`，changelog 至 `2.1.199`）逐条核验。结论：第一层四项均**成立可落地**，另有若干写法修正已回填 §3/§4/§5/§7。完整逐条结论见 §7 与 `../notes/Gemini/CLI.md` 末尾。
+> - **核验状态（2026-07-03）**：本文 §4/§5 依赖的能力已由 `claude-code-docs-agent` 对照官方文档（`code.claude.com/docs/en`，changelog 至 `2.1.199`）逐条核验。结论：第一层四项均**成立可落地**，另有若干写法修正已回填 §3/§4/§5/§7。完整逐条结论见 §7 与 `Gemini-CLI_archive.md` 末尾。
 
 ---
 
@@ -23,7 +20,7 @@
 - **决定 B：分层采纳 Claude 新能力。** 三层结论已定，直接采用（见 §3）：
   - **第一层直接用**：`.claude/agents/*.md` 预制配置、`skills:` frontmatter 预加载、新增 `sub-leaf` / `sub-e-leaf` 硬化第 3 层、**hooks 做红线**（最高价值）、`disable-model-invocation` 防误触发。
   - **第二层参考/择机**：无头模式 `-p` + JSON 输出 + `--resume` 可审计流水线、`context: fork` skill、plan approval 治理范式、token 经济学实践、Agent Teams 仅作后期审查模式。
-  - **第三层不用/谨慎**：Agent Teams 进复现主路径、OS 沙箱（Windows 不适用）、非本域 MCP、CLI.md 一切未核验声称。
+  - **第三层不用/谨慎**：Agent Teams 进复现主路径、OS 沙箱（Windows 不适用）、非本域 MCP、Gemini-CLI_archive.md 一切未核验声称。
 
 **本轮最高价值项 = hooks 红线**：把红线从 prompt「求它遵守」下沉成 CLI 框架层的确定性代码，对齐 BORROWABLE §3 铁律 #8「红线/控制流写死成代码，不靠 prompt」。放弃 OpenCode 后 hooks 无双系统同步负担，是本轮性价比最高的加固。
 
@@ -96,17 +93,17 @@ SEPR 近期只面向 Claude Code 一套执行系统，暂时放弃对 OpenCode�
 | `.claude/agents/*.md` 预制配置 | pre-subagent §1–2 | **用** | SEPR 已有 4 身份，继续用；项目级 scope 绑定 workspace | 维持现状，无退化 |
 | `skills:` frontmatter 预加载 | pre-subagent §2、§5 | **用** | 替掉「子 agent 跑起来自己 `skill-print.py` 手动读」的脆弱 bootstrap；每身份只预加载自己那份 + 当前领域 skill | 加固 bootstrap 可靠性；对齐 pre-subagent §11 建议 2 |
 | 新增 `sub-leaf` / `sub-e-leaf`（`tools` 省略 `Agent`） | pre-subagent §6、§11 建议 4 | **用** | 从框架层禁止第 3 层继续 spawn，取代 prompt 软约束 | **C1（P0）**，放弃 OpenCode 后为 Claude 侧单点改动 |
-| **Hooks 做红线**（PreToolUse 拦作业 / 完成门禁 / 报告字段校验） | pre-subagent §2、agent-team §1.9、CLI.md §3；**已核验（§7）：官方 30 事件，PreToolUse/Stop/SubagentStop 属实** | **用（最高价值）** | 把红线从 prompt 下沉成确定性代码 | 硬化 BORROWABLE 铁律 #8 / #1 / #2；对应 DESIGN-GAP-AUDIT 落地清单 #8「失败防护硬化」 |
-| `disable-model-invocation: true` | CLI.md §5.1；**已核验（§7）：属 skill frontmatter（非 agent 字段）** | **用** | 防模型闲聊误触发危险 skill（如提交作业的 skill），强制只能用户显式 `/skill` 触发 | 硬化 BORROWABLE 主题六「specification gaming 零样本出现」防线 |
-| 无头模式 `-p` + `--output-format json` + `--resume` | CLI.md §1；**已核验（§7）：真实标志，JSON 字段用 `total_cost_usd`** | **参考/择机** | 可审计 / 可 replay 脚本化流水线，契合核心卖点 | 跑通后用于 baseline / CI 化 |
-| `context: fork` skill | CLI.md §5.1；**已核验（§7）：真实 skill frontmatter** | **参考/择机** | 重 PDF / 数据 skill 隔离，避免污染主上下文 | 与 pre-subagent §7 上下文隔离同向 |
-| plan approval / read-only plan mode | agent-team §1.8、CLI.md §4.1 | **参考** | 治理范式，可用 human gate 模拟；无需引入 Agent Teams | 已有 human gate 覆盖 |
-| Token 经济学实践（定向 `/compact`、plan mode、`/model` 分层） | CLI.md §4（数字未核验） | **参考** | 控成本；具体百分比未核验，仅作实践习惯 | 不作硬约束 |
+| **Hooks 做红线**（PreToolUse 拦作业 / 完成门禁 / 报告字段校验） | pre-subagent §2、agent-team §1.9、Gemini-CLI_archive.md §3；**已核验（§7）：官方 30 事件，PreToolUse/Stop/SubagentStop 属实** | **用（最高价值）** | 把红线从 prompt 下沉成确定性代码 | 硬化 BORROWABLE 铁律 #8 / #1 / #2；对应 DESIGN-GAP-AUDIT 落地清单 #8「失败防护硬化」 |
+| `disable-model-invocation: true` | Gemini-CLI_archive.md §5.1；**已核验（§7）：属 skill frontmatter（非 agent 字段）** | **用** | 防模型闲聊误触发危险 skill（如提交作业的 skill），强制只能用户显式 `/skill` 触发 | 硬化 BORROWABLE 主题六「specification gaming 零样本出现」防线 |
+| 无头模式 `-p` + `--output-format json` + `--resume` | Gemini-CLI_archive.md §1；**已核验（§7）：真实标志，JSON 字段用 `total_cost_usd`** | **参考/择机** | 可审计 / 可 replay 脚本化流水线，契合核心卖点 | 跑通后用于 baseline / CI 化 |
+| `context: fork` skill | Gemini-CLI_archive.md §5.1；**已核验（§7）：真实 skill frontmatter** | **参考/择机** | 重 PDF / 数据 skill 隔离，避免污染主上下文 | 与 pre-subagent §7 上下文隔离同向 |
+| plan approval / read-only plan mode | agent-team §1.8、Gemini-CLI_archive.md §4.1 | **参考** | 治理范式，可用 human gate 模拟；无需引入 Agent Teams | 已有 human gate 覆盖 |
+| Token 经济学实践（定向 `/compact`、plan mode、`/model` 分层） | Gemini-CLI_archive.md §4（数字未核验） | **参考** | 控成本；具体百分比未核验，仅作实践习惯 | 不作硬约束 |
 | Agent Teams | agent-team 全文 | **仅后期人工审查 / devil's-advocate** | 实验性、teammate 不能嵌套 spawn、状态文件不可手改；绝不进复现主路径 | 见 §8 |
 | Agent Teams 进复现主路径 | agent-team §3.1 | **不用（否决）** | 实验性 + 不可审计 + 无嵌套 fan-out | 违反红线，见 §8 |
-| OS 沙箱 Seatbelt / bwrap | CLI.md §3.2 | **不用** | macOS / Linux 专属，主环境是 Windows | 不适用 |
-| Playwright / Figma / Notion MCP | CLI.md §5.2 | **不用** | 非本域 | 不适用 |
-| CLI.md 一切未核验声称 | CLI.md 全文 | **§4/§5 依赖项已核（§7）；其余仍谨慎** | 本文依赖项已核验；`--json-schema`/`--bare`/`--max-turns`/`/batch`/`/simplify` 已确认真实，不再标疑似不实；未纳入本文的其它声称仍以 CLI.md 低置信度对待 | 见 §7 |
+| OS 沙箱 Seatbelt / bwrap | Gemini-CLI_archive.md §3.2 | **不用** | macOS / Linux 专属，主环境是 Windows | 不适用 |
+| Playwright / Figma / Notion MCP | Gemini-CLI_archive.md §5.2 | **不用** | 非本域 | 不适用 |
+| Gemini-CLI_archive.md 一切未核验声称 | Gemini-CLI_archive.md 全文 | **§4/§5 依赖项已核（§7）；其余仍谨慎** | 本文依赖项已核验；`--json-schema`/`--bare`/`--max-turns`/`/batch`/`/simplify` 已确认真实，不再标疑似不实；未纳入本文的其它声称仍以 Gemini-CLI_archive.md 低置信度对待 | 见 §7 |
 
 ---
 
@@ -142,7 +139,7 @@ SEPR 近期只面向 Claude Code 一套执行系统，暂时放弃对 OpenCode�
 
 ### 4.4 `disable-model-invocation: true`（危险 skill，**skill frontmatter**）
 
-- **现状**：提交作业类 skill 可能被模型在闲聊中语义误触发（CLI.md §5.1）。
+- **现状**：提交作业类 skill 可能被模型在闲聊中语义误触发（Gemini-CLI_archive.md §5.1）。
 - **改动**：给「提交 Magnus / COMSOL 作业」类高危 skill 的 **`SKILL.md` frontmatter** 设 `disable-model-invocation: true`，强制只能用户显式 `/skill` 触发。**注意：这是 skill 字段，不是 `.claude/agents/*.md` 的 subagent 字段**——不要写进 agent 定义。
 - **堵哪个 gap**：硬化 BORROWABLE 主题六「specification gaming / 误触发」防线。
 - **验收标准**：模型在普通对话中无法自动触发该 skill；仅用户显式调用生效。
@@ -218,7 +215,7 @@ SEPR 近期只面向 Claude Code 一套执行系统，暂时放弃对 OpenCode�
 | 位置 | 内容 | 优先级 | 后续动作（本次不做） |
 |---|---|---|---|
 | `CLAUDE.md` / `AGENTS.md`（约第 50 行，两者 hard link） | 「SEPR 双系统 + 三文件同步」声明 | P0 | 改为「SEPR 仅 Claude Code」，删除三文件同步表述；因 hard link，改一处即同步 |
-| `notes/workflow_v2_plan-CN.md`（§42–102 附近） | 「CLI 选型 opencode」相关段落 | P1 | 标注 OpenCode 已暂缓，或加撤销注记 |
+| `notes/workflow_v2_plan-CN_archive.md`（§42–102 附近） | 「CLI 选型 opencode」相关段落 | P1 | 标注 OpenCode 已暂缓，或加撤销注记 |
 
 ### 6.2 SEPR 本体侧（`self-evo-paper-repro`）
 
@@ -227,7 +224,7 @@ SEPR 近期只面向 Claude Code 一套执行系统，暂时放弃对 OpenCode�
 | `CLAUDE.md` + `AGENTS.md` | 「三文件同步规则」节 | P0 | 改为「仅 Claude Code」，规则主源收敛到 CLAUDE.md |
 | `opencode.json` | OpenCode permission / agent 配置 | P1 | 标 deprecated（不删，留恢复用） |
 | `.opencode/prompts/` 目录 | OpenCode 侧 prompt（含 `sepr-sub-leaf` / `sepr-sub-e-leaf`） | P1 | 可归档（不删） |
-| `DESIGN-GAP-AUDIT-CN.md` 相关条目 | B4 / C1 中 OpenCode 相关状态 | P1 | 更新状态为「随 OpenCode 暂缓而降级 / 简化」 |
+| `DESIGN-GAP-AUDIT-CN_latest.md` 相关条目 | B4 / C1 中 OpenCode 相关状态 | P1 | 更新状态为「随 OpenCode 暂缓而降级 / 简化」 |
 
 ### 6.3 恢复 OpenCode 时需重做的点
 
@@ -237,7 +234,7 @@ SEPR 近期只面向 Claude Code 一套执行系统，暂时放弃对 OpenCode�
 
 ## 7. 官方文档核验结果（2026-07-03，已完成）
 
-§4/§5 依赖的能力已由 `claude-code-docs-agent` 对照官方文档（`code.claude.com/docs/en`，changelog 至 `2.1.199` / 2026-07-02）逐条核验。完整逐条结论与汇总表见 `../notes/Gemini/CLI.md` 末尾。核心结论：**§4 四项第一层改动全部成立可落地**，另有若干写法需修正（已在 §3/§4/§5 更新）。
+§4/§5 依赖的能力已由 `claude-code-docs-agent` 对照官方文档（`code.claude.com/docs/en`，changelog 至 `2.1.199` / 2026-07-02）逐条核验。完整逐条结论与汇总表见 `Gemini-CLI_archive.md` 末尾。核心结论：**§4 四项第一层改动全部成立可落地**，另有若干写法需修正（已在 §3/§4/§5 更新）。
 
 ### 7.1 成立可落地（无需改方案）
 
@@ -245,11 +242,11 @@ SEPR 近期只面向 Claude Code 一套执行系统，暂时放弃对 OpenCode�
 - **`skills:` 预加载**（§4.2）：官方确认为 subagent frontmatter 字段，写成 YAML list、值为 skill **name**（非路径），启动时注入 skill 全文。
 - **三类 hooks 红线**（§5）：`PreToolUse` 可阻断工具调用；`Stop`/`SubagentStop` 可阻断「完成/停止」；均为官方事件。
 - **`disable-model-invocation: true`**（§4.4）：官方确认，但**属 skill frontmatter 字段，不属 subagent**。
-- **`context: fork`**、无头模式 `-p`/`--output-format json`/`--resume`、`--json-schema`/`--bare`/`--max-turns`、`/batch`、`/simplify`：均为官方真实能力（原 CLI.md 综述低估，不应再标疑似不实）。
+- **`context: fork`**、无头模式 `-p`/`--output-format json`/`--resume`、`--json-schema`/`--bare`/`--max-turns`、`/batch`、`/simplify`：均为官方真实能力（原 Gemini-CLI_archive.md 综述低估，不应再标疑似不实）。
 
 ### 7.2 需修正的写法（已在本文对应节更新）
 
-- **hooks 不是「25 种」，官方是 30 个事件**（`SessionStart`/`PreToolUse`/`PostToolUse`/`SubagentStart`/`SubagentStop`/`Stop`/`TaskCompleted`/`PreCompact`/`CwdChanged` 等）；CLI.md 点名的四个名称均属实。
+- **hooks 不是「25 种」，官方是 30 个事件**（`SessionStart`/`PreToolUse`/`PostToolUse`/`SubagentStart`/`SubagentStop`/`Stop`/`TaskCompleted`/`PreCompact`/`CwdChanged` 等）；Gemini-CLI_archive.md 点名的四个名称均属实。
 - **`disable-model-invocation` 放 skill 的 `SKILL.md` frontmatter，不放 `.claude/agents/*.md`。** 且它会同时阻止该 skill 被 subagent 预加载——即高危 submit skill 设了它就不能进 §4.2 的 `skills:` 预加载列表（本就不该预加载，无冲突）。
 - **subagent 完成门禁用 `SubagentStop`（或 `Stop`），不是 Agent Teams 的 `TeammateIdle`/`TaskCompleted`**；`TaskCompleted` 存在但非普通 subagent 完成的首选。
 - **预加载不要用 `tools: Skill(<name>)`。** `skills:` 负责预加载；`Skill(name)`/`Skill(name *)` 是权限规则语法，用于限制可调用哪些 skill。
@@ -269,7 +266,7 @@ SEPR 近期只面向 Claude Code 一套执行系统，暂时放弃对 OpenCode�
 - **不把 Agent Teams 放进复现主路径。** 否决理由：实验性、teammate 不能嵌套 spawn（无法替代 SEPR 多层 fan-out，agent-team §4-2）、状态文件用户级且不可手改（agent-team §1.6、§2）。Agent Teams 仅作后期人工打开的审查 / devil's-advocate 模式，且须 plan approval + 禁改规则文件 + 禁提交高风险作业 + 结论回主 agent / human gate（agent-team §3.3）。
 - **不让 agent 自动改规则 / 上限 / 验证器。** hooks、上限、verifier 对 agent 只读，由框架强制（BORROWABLE §2 主题六）。
 - **不自迭代自己。** 自迭代 workflow 的拓扑、节点指令、专用 SKILL 人工写死；本文提出的 hooks / leaf / 预加载不进入自迭代自动改动范围。
-- **不采用 CLI.md 未核验声称做落地依据。** 一切具体标志 / 命令 / 数字 / 模型 ID 先过 §7 核验，未核验前只作设计线索，不写进 SEPR 本体。
+- **不采用 Gemini-CLI_archive.md 未核验声称做落地依据。** 一切具体标志 / 命令 / 数字 / 模型 ID 先过 §7 核验，未核验前只作设计线索，不写进 SEPR 本体。
 - **不删 OpenCode 文件。** 本次仅 §6 登记 deprecated / 撤销点。
 
 ---

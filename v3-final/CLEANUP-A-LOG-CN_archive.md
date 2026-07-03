@@ -1,10 +1,7 @@
-> **[_moved] 此文件已移动。** 正式版（canonical）在 `optics_agent/v3-final/CLEANUP-A-LOG-CN_archive.md`，此处为冻结面包屑，不再更新。
-> 后缀约定见 `v3-final/README.md` 与两侧 CLAUDE.md「v3-final 归档」节。
-
 # SEPR Cleanup A 清理日志
 
 > 日期：2026-07-02  
-> 范围：按 `DESIGN-GAP-AUDIT-CN.md` 的精确定位，清理 SEPR 纯文本/口径 bug。  
+> 范围：按 `DESIGN-GAP-AUDIT-CN_latest.md` 的精确定位，清理 SEPR 纯文本/口径 bug。  
 > 约束：不改架构、不改 workflow 拓扑、不处理 capsule 契约、路径统一、leaf 深度硬约束或治理增量；未 commit。
 
 ## 1. result_class 旧口径

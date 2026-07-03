@@ -1,6 +1,3 @@
-> **[_moved] 此文件已移动。** 正式版（canonical）在 `optics_agent/v3-final/V3-CHANGELOG-SINCE-HUMAN-CN_latest.md`，此处为冻结面包屑，不再更新。
-> 后缀约定见 `v3-final/README.md` 与两侧 CLAUDE.md「v3-final 归档」节。
-
 # SEPR 设计变更总览：从 `.human` 到现在（说人话）
 
 > **用途**：你只清楚记得最早的 `.human` 设计，中间迭代了好几轮已经记不清。这份把「从 `.human/DESIGN.md` 那版 → 现在」的所有改动，按主题重新讲成人话，替代散落各处的零碎报告。
@@ -46,14 +43,14 @@
 
 | 阶段 | 时间 | 干了什么 | 记录在哪 |
 |---|---|---|---|
-| 六 | 2026-06-29 | 94 篇 v3 文献审查（A–K 11 类），出 REVIEW-REPORT | `papers/SEPR/REVIEW-REPORT.md`，已并入 `.human` §15 |
+| 六 | 2026-06-29 | 94 篇 v3 文献审查（A–K 11 类），出 REVIEW-REPORT | `REVIEW-REPORT_archive.md`，已并入 `.human` §15 |
 | 七 | 2026-06-29 | 16 条风险建议全部落地（P0/P1/P2）+ 失败防护 | `.human` §15 表格 + 各 skill |
 | 八 | 2026-06-30 | **写出 `.claude/skills/` 中文详版 6465 行** + **加 OpenCode 双系统** + 三文件同步规则 | WORK_LOG 阶段八 |
 | 九 | 2026-06-30 | 子 agent 深度/工具落成 `.claude/agents/` 配置（+ OpenCode 6 agent 对齐） | WORK_LOG 阶段九 |
-| 审计A | 2026-07-02 | 设计审计：发现 capsule 断裂/路径漂移/文档过时/深度软约束等 gap | `papers/SEPR/DESIGN-GAP-AUDIT-CN.md` |
-| 审计B | 2026-07-02 | 6 路文献「可借鉴经验+风险」总汇，8 条铁律 | `papers/SEPR/BORROWABLE-EXPERIENCE-CN.md` |
-| 清理 | 2026-07-02 | 修 7 处口径 bug（result_class 旧口径、四选一残留等） | `papers/SEPR/CLEANUP-A-LOG-CN.md` |
-| **十（本次）** | 2026-07-03 | **放弃 OpenCode + V3 加固提案（hooks 红线/leaf 硬化/skills 预加载）+ 官方核验** | `papers/SEPR/V3-HARDENING-DESIGN-CN.md` |
+| 审计A | 2026-07-02 | 设计审计：发现 capsule 断裂/路径漂移/文档过时/深度软约束等 gap | `DESIGN-GAP-AUDIT-CN_latest.md` |
+| 审计B | 2026-07-02 | 6 路文献「可借鉴经验+风险」总汇，8 条铁律 | `BORROWABLE-EXPERIENCE-CN_latest.md` |
+| 清理 | 2026-07-02 | 修 7 处口径 bug（result_class 旧口径、四选一残留等） | `CLEANUP-A-LOG-CN_archive.md` |
+| **十（本次）** | 2026-07-03 | **放弃 OpenCode + V3 加固提案（hooks 红线/leaf 硬化/skills 预加载）+ 官方核验** | `V3-HARDENING-DESIGN-CN_latest.md` |
 
 ---
 
@@ -97,24 +94,24 @@
 
 这两轮是**分析**，不是改代码——所以发现的 gap **大多还没修**，等你拍板：
 
-**设计审计**（`DESIGN-GAP-AUDIT-CN.md`）抓到的主要洞：
+**设计审计**（`DESIGN-GAP-AUDIT-CN_latest.md`）抓到的主要洞：
 - **A1（首跑阻断级）**：自迭代要读 `capsule.md`，但复现流程从不产出它，路径也不在目录约定里——**E-flow 首跑会找不到输入**。
 - **A2**：路径约定三套打架（`.work/.todo/<paper>/` vs `.work/<case>/` vs `.work/self-iteration/`）。
 - **B 级漂移**：`.human`/PROJECT_STATUS 说 `.claude` 是「待写英文版」（其实中文详版已完成）；evolution skill 里还残留「四选一裁决」（实为六维）；todo 模板还用违禁旧口径。
 - **C1**：就是 3.4 说的深度软约束不对称。
 - **C2/D**：PyMieScatt 已弃用但残留脚本；`pdf`/`magnus` 域 skill 是空骨架（预制脚本「待填」不存在），首跑 Mie 会缺脚本。
 
-**文献可借鉴经验**（`BORROWABLE-EXPERIENCE-CN.md`）提炼的 8 条铁律，最关键几条：裁判权归外部确定性 verifier（AI 自评只出候选不定论）；跑通≠物理复现；AI 自动攒技能几乎无用、human gate 才是价值来源；记忆会被过期经验语义污染；**红线要写死成代码不靠 prompt**（← 这条直接催生了本次的 hooks 方向）。还有个扎心结论：**「先跑通再加治理」——SEPR 有 6465 行治理却一篇 Mie 没跑通，属于在验证价值前过度投资治理**。
+**文献可借鉴经验**（`BORROWABLE-EXPERIENCE-CN_latest.md`）提炼的 8 条铁律，最关键几条：裁判权归外部确定性 verifier（AI 自评只出候选不定论）；跑通≠物理复现；AI 自动攒技能几乎无用、human gate 才是价值来源；记忆会被过期经验语义污染；**红线要写死成代码不靠 prompt**（← 这条直接催生了本次的 hooks 方向）。还有个扎心结论：**「先跑通再加治理」——SEPR 有 6465 行治理却一篇 Mie 没跑通，属于在验证价值前过度投资治理**。
 
 **状态：发现了，多数未修**（尤其 A1 是首跑阻断级，最该先处理）。
 
 ### 3.6 清理了 7 处口径 bug（阶段清理）
 
-`CLEANUP-A-LOG-CN.md`：把纯文本级的口径 bug 修了——result_class 旧口径→7 级、四选一→六维、step11 矛盾块删除、PyMieScatt 脚本删除、OpenCode skill 白名单补齐等。**不动架构/拓扑，已执行未 commit**。
+`CLEANUP-A-LOG-CN_archive.md`：把纯文本级的口径 bug 修了——result_class 旧口径→7 级、四选一→六维、step11 矛盾块删除、PyMieScatt 脚本删除、OpenCode skill 白名单补齐等。**不动架构/拓扑，已执行未 commit**。
 
 ### 3.7 【本次，阶段十】V3 加固提案
 
-方向：**把红线从「求 agent 遵守」下沉到「Claude 框架强制」**，非重架构。详见 `V3-HARDENING-DESIGN-CN.md`。四项第一层改动（**均已过官方文档核验，成立可落地**）：
+方向：**把红线从「求 agent 遵守」下沉到「Claude 框架强制」**，非重架构。详见 `V3-HARDENING-DESIGN-CN_latest.md`。四项第一层改动（**均已过官方文档核验，成立可落地**）：
 
 1. **新增 `sub-leaf`/`sub-e-leaf`**（`tools` 省略 `Agent`）→ 从框架层禁止第 3 层再 spawn，**堵 C1**。
 2. **`skills:` 预加载** → 替掉「子 agent 跑起来自己 `skill-print.py` 手动读」的脆弱启动。
@@ -161,8 +158,8 @@
 
 1. **先处理 A1**（首跑阻断级）：让复现流程真产出 `capsule.md`、统一路径约定——否则自迭代根本跑不起来。
 2. **补 `pdf`/`magnus` 空骨架 skill**（D）：否则首跑 Mie 会缺脚本。
-3. **落地 V3 加固**：按 `V3-HARDENING-DESIGN-CN.md` §4 逐条走 human gate（先做低风险的 sub-leaf + skills 预加载，hooks 是 Tier-3 谨慎上）。
+3. **落地 V3 加固**：按 `V3-HARDENING-DESIGN-CN_latest.md` §4 逐条走 human gate（先做低风险的 sub-leaf + skills 预加载，hooks 是 Tier-3 谨慎上）。
 4. **执行 OpenCode 撤销**：按提案 §6 清单。
 5. **然后才是真跑 Mie 第一阶段**——用真复现去检验前面所有加固到底值不值。
 
-> 相关文档：起点 `self-evo-paper-repro/.human/DESIGN.md`；过程 `WORK_LOG.md` 阶段六–十；体检 `papers/SEPR/DESIGN-GAP-AUDIT-CN.md` + `BORROWABLE-EXPERIENCE-CN.md`；本次提案 `papers/SEPR/V3-HARDENING-DESIGN-CN.md`。
+> 相关文档：起点 `self-evo-paper-repro/.human/DESIGN.md`；过程 `WORK_LOG.md` 阶段六–十；体检 `DESIGN-GAP-AUDIT-CN_latest.md` + `BORROWABLE-EXPERIENCE-CN_latest.md`；本次提案 `V3-HARDENING-DESIGN-CN_latest.md`。
