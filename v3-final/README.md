@@ -26,6 +26,8 @@
 | `V4-ROADMAP-CN_latest.md` | 跑完 Mie 后 V3→V4 改进路线 |
 | `DESIGN-GAP-AUDIT-CN_latest.md` | 2026-07-02 设计 gap 审计（A1/C1/D 等） |
 | `BORROWABLE-EXPERIENCE-CN_latest.md` | 6 路文献可借鉴经验 + 8 条铁律 + §6.1「先跑通再加治理」 |
+| `V3-EXTERNAL-REVIEW-DELTA-2026-07_latest.md` | V3 外部证据增量审查（v2 深度版，6 篇反驳论文全文 + PINN 局限，R1-R4 修正） |
+| `V3-AUDIT-2026-07_latest.md` | V3 实现+计划对抗性静态审计（声称vs实际、A1/A2/D 仍开、C1 半修、无真跑数据） |
 
 **完结报告 `_archive`**
 | 文件 | 内容 |
