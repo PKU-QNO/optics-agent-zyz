@@ -1,6 +1,6 @@
 # Claude Code Agent Teams 功能核验笔记
 
-> 来源说明：原始内容来自 Gemini 低置信度总结，已按 Claude Code 官方文档重新整理。本文仍是工作笔记，不是项目规则。使用前请让 `claude-code-docs-agent` 再次核对最新官方文档。
+> 来源说明：原始内容来自 Gemini 低置信度总结，已按 Claude Code 官方文档重新整理。本文仍是工作笔记，不是项目规则。已核对至官方 ~v2.1.196（code.claude.com/docs/en 的 agent-teams / sub-agents / model-config / hooks），最后核对 2026-07-03；再次改动前请复核最新官方文档。
 
 ## 0. 结论摘要
 

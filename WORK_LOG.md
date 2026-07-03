@@ -1,8 +1,9 @@
 # SEPR 工作日志（完整交接文档）
 
 > **用途**：本文档是 SEPR 工作区从创建到 2026-06-30 的完整工作记录。供上下文压缩或新开对话时快速恢复。如需修改，尽量对工作过程只增不减。
-> **最后更新**：2026-06-30
-> **当前阶段**：设计阶段 + 风险审查 + 16 条落地 + 双系统适配（Claude Code + OpenCode）+ 子 agent 深度/工具限制全部完成。待启动 Mie 第一阶段。
+> **最后更新**：2026-07-03
+> **当前阶段**：设计阶段 + 风险审查 + 16 条落地 + 子 agent 深度/工具限制全部完成。**2026-07-03 新增：核验 Claude Code 新能力（notes/Gemini 三份）→ 决定暂时放弃 OpenCode 兼容 + 分层采纳 Claude 新能力，产出 V3 加固设计提案（未落地 SEPR 本体）。** 待启动 Mie 第一阶段。
+> **注**：本文档 §2 阶段八/九及 §5.18–5.20 关于「双系统 / 三文件同步」的表述，自 2026-07-03「暂时放弃 OpenCode 兼容」决定起进入撤销队列（见阶段十与 `papers/SEPR/V3-HARDENING-DESIGN-CN.md` §6），本次未逐条改写，落地时统一处理。
 
 ---
 
@@ -105,6 +106,24 @@ SEPR 采用 Claude Code 3 层子 agent 架构（main-agent → sub-agent → sub
 - **OpenCode `opencode.json` 细化为 6 agent**：`sepr-main` / `sepr-evolution` 为编排层 `maxTurns=50`，只放行对应执行层和 leaf；`sepr-sub` / `sepr-sub-e` 为执行层 `maxTurns=15`，只放行对应 leaf；新增 `sepr-sub-leaf` / `sepr-sub-e-leaf` 两个叶子角色，`maxTurns=15` 且 `permission.task: deny`。
 - **两系统对齐表**：编排层可 spawn，执行层只 spawn 叶子，叶子层禁止 spawn；工具 allowlist 统一为 `Read/Write/Edit/Bash/Glob/Grep/ToolSearch/Skill/Agent`（OpenCode 对应 read/glob/grep/list/edit/bash/skill/task），`edit/bash` 默认 `ask`。
 - **文档同步完成**：`CLAUDE.md` 新增“子 Agent 深度与工具限制”节，`AGENTS.md` 更新 Tool/Spawn Policy，`.opencode/prompts/` 6 个 prompt 明确 leaf 机制与“不再委派”。
+
+### 阶段十：Claude Code 新能力核验 + V3 加固设计提案（2026-07-03，optics_agent 侧）
+
+本阶段全部在 **optics_agent 元工作区**进行，产出的是**设计提案**，**未落地 SEPR 本体**。SEPR 落地走后续 human gate。
+
+- **核验 Claude Code 新能力（`notes/Gemini/` 三份笔记）**：
+  - `pre-subagent.md`（subagent 预配置/嵌套）+ `agent-team.md`（Agent Teams）——原为 Gemini 低置信度稿，已按官方文档核对至 **~v2.1.196（2026-07-03）**。本轮补齐：上下文隔离细节（subagent 收整条 CLAUDE.md/memory + git status 快照，Explore/Plan 例外）、`tools` vs `disallowedTools` 生效顺序、Agent Teams teammate 复用 subagent 定义时 `skills`/`mcpServers` 被忽略、teammate 不能嵌套 spawn。
+  - `CLI.md`（Claude Code CLI 综述）——派子 agent 把 3 行压块重排为 200 行结构化 Markdown，标注**低置信度、未核验**，附 14 条待核清单（benchmark 数字、`--json-schema`/`--bare`/`/batch`、“25 种 hooks”、`.claude/teams/<id>/inbox/`、模型 ID 等）。
+- **两个决定（用户拍板）**：
+  1. **暂时放弃 OpenCode 兼容** → 可放心用 Claude 专属能力（尤其 hooks），卸下「CLAUDE.md/AGENTS.md/opencode.json 三文件同步」的账；审计 **C1（深度上限双系统不对称）大半消解**、**B4（OpenCode skill 白名单不对称）降级为非问题**。仅「暂时」，本次不删 SEPR 的 opencode 文件，只登记撤销点。
+  2. **分层采纳 Claude 新能力**（三层结论已定）：
+     - **第一层直接用**：`.claude/agents/*.md` 预制配置（已有 4 身份，继续用）、`skills:` frontmatter 预加载（替 `skill-print.py` 脆弱 bootstrap）、新增 `sub-leaf`/`sub-e-leaf`（`tools` 省略 `Agent`，堵 C1）、**hooks 做红线（本轮最高价值）**、`disable-model-invocation` 防误触发危险 skill。
+     - **第二层参考/择机**：无头模式 `-p`+JSON 输出+`--resume`、`context: fork` skill、plan approval、token 经济学实践、Agent Teams 仅作后期人工审查模式。
+     - **第三层不用**：Agent Teams 进复现主路径（否决）、OS 沙箱（Windows 不适用）、非本域 MCP、CLI.md 未核验声称。
+- **本轮最高价值 = hooks 红线**：把红线从 prompt「求它遵守」下沉成 CLI 框架层确定性代码，对齐 BORROWABLE 铁律 #8/#1/#2。三类 hook：① PreToolUse 拦 sub/leaf 提交 Magnus/COMSOL 作业；② 完成门禁拦「无 verifier 产物却报 physical_reproduction_success」；③ 报告字段校验（6+8 字段 + result_class 合法枚举）。放弃 OpenCode 后无双系统同步负担。**注意**：hook 机制真实存在（PreToolUse/PostToolUse 是稳定功能），但具体名称/payload/“25 种”等待官方核验（见提案 §7，8 条）。
+- **产出**：新建设计提案 `papers/SEPR/V3-HARDENING-DESIGN-CN.md`（245 行，0–8 节）。§3 分层采纳表；§4 登记 5 项 SEPR 改动 + human gate 级别（4.1 sub-leaf/sub-e-leaf **Tier-2**；4.2 skills: 预加载 **Tier-1**；4.3 hooks 红线 **Tier-3**；4.4 disable-model-invocation **Tier-1**；4.5 移除/deprecate OpenCode，本次仅登记 **Tier-2**）；§5 hooks 红线详设；§6 OpenCode 撤销登记（optics_agent 侧 + SEPR 本体侧，本次不改）；§7 8 条待官方核验；§8 红线复述。
+- **未改**：不动 SEPR 本体、不动 `papers/SEPR/` 三份历史文档（DESIGN-GAP-AUDIT / BORROWABLE / CLEANUP）、不动 CLAUDE.md/AGENTS.md。仅 `notes/Gemini/` 两份补丁 + 新建 CLI.md 重排 + 新建提案。
+- **下一步**：人工在 SEPR 工作区按提案 §4 逐条走 human gate 落地；落地前 §7 待核验项必过 `claude-code-docs-agent`；OpenCode 撤销按 §6 清单统一处理。
 
 ---
 
@@ -592,6 +611,8 @@ OpenCode 配置口径：
 | sepr-*.md | SEPR/.opencode/prompts/ | OpenCode 6 角色 prompt（强制先加载 skill，含 leaf） |
 | sepr-sub-leaf.md / sepr-sub-e-leaf.md | SEPR/.opencode/prompts/ | OpenCode 叶子角色 prompt（task deny，不再委派） |
 | start-opencode-sepr.ps1 | SEPR/scripts/ | OpenCode 启动脚本 |
+| V3-HARDENING-DESIGN-CN.md | optics_agent/papers/SEPR/ | **V3 加固设计提案（2026-07-03）：放弃 OpenCode + 分层采纳 Claude 新能力 + hooks 红线；提案非落地** |
+| CLI.md / agent-team.md / pre-subagent.md | optics_agent/notes/Gemini/ | Claude Code 新能力核验笔记（前两份已核 v2.1.196，CLI.md 低置信度待核） |
 | REVIEW-REPORT.md | optics_agent/papers/SEPR/ | 94篇v3风险报告 |
 | CATEGORY-READING-NOTES.md | 同上 | 分类阅读笔记 |
 | CONTEXT-for-subagent.md | 同上 | 子agent上下文 |

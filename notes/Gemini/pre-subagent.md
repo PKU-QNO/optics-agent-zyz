@@ -1,6 +1,6 @@
 # Claude Code Subagents 预配置与嵌套能力核验笔记
 
-> 来源说明：原始内容来自 Gemini 低置信度总结，已按 Claude Code 官方文档重新整理。本文用于 SEPR 设计核验，不是最终项目规则。使用前请让 `claude-code-docs-agent` 再次核对最新官方文档。
+> 来源说明：原始内容来自 Gemini 低置信度总结，已按 Claude Code 官方文档重新整理。本文用于 SEPR 设计核验，不是最终项目规则。已核对至官方 ~v2.1.196（code.claude.com/docs/en 的 sub-agents / model-config / agent-teams），最后核对 2026-07-03；再次改动前请复核最新官方文档。
 
 ## 0. 结论摘要
 
@@ -101,7 +101,7 @@ main-agent / evolution-agent     depth 0, 编排层
 
 ## 7. 上下文隔离
 
-官方文档说明 subagent 收到自己的 system prompt、Agent tool prompt、项目 `CLAUDE.md`、可用工具定义；不接收父对话历史或父工具结果。除非通过 `skills` 字段预加载，否则不接收父会话中已加载的 skill 完整内容。
+官方文档说明 subagent 的初始上下文包含：自身 system prompt + 环境细节（不是完整 Claude Code 系统提示）、委派任务消息、整条 `CLAUDE.md`/memory 层级（`~/.claude/CLAUDE.md`、项目规则、`CLAUDE.local.md`、managed policy）、启动时的 git status 快照、以及可用工具定义；不接收父对话历史或父工具结果。除非通过 `skills` 字段预加载，否则不接收父会话中已加载的 skill 完整内容。（内建 Explore/Plan 例外：跳过 `CLAUDE.md` 与 git status 以保持轻量。）
 
 subagent 完成后只把最终结果返回给调用者。这个机制正适合 SEPR：用 subagent 隔离 PDF 读取、搜索、日志、验证输出，避免污染 main-agent 的上下文。
 
@@ -109,7 +109,7 @@ subagent 完成后只把最终结果返回给调用者。这个机制正适合 S
 
 ## 8. 工具限制与 MCP 注意事项
 
-官方文档支持 `tools` allowlist 和 `disallowedTools` denylist。`mcp__server` 或 `mcp__server__*` 可用于移除某个 MCP server；`mcp__*` 可移除所有 MCP tools。
+官方文档支持 `tools` allowlist 和 `disallowedTools` denylist。`mcp__server` 或 `mcp__server__*` 可用于移除某个 MCP server；`mcp__*` 可移除所有 MCP tools。两者同设时官方顺序是：**`disallowedTools` 先生效，再用 `tools` 在剩余池里筛**；同时出现在两边的工具被移除。
 
 对 SEPR 的关键影响：如果 agent frontmatter 写 `disallowedTools: mcp__*`，就不要在该 agent 的 skill 或 spawn template 中要求它调用 memento MCP。否则规则自相矛盾。
 
@@ -126,6 +126,8 @@ subagent 完成后只把最终结果返回给调用者。这个机制正适合 S
 Agent Teams 是另一套实验性多会话协作机制。它使用 lead、teammates、shared task list、inter-agent messaging。它不等价于 nested subagents，也不应混入 SEPR 当前 `.claude/agents/` 三层设计。
 
 当前建议：SEPR 主路径用 custom subagents；Agent Teams 仅作为后期人工打开的审查/研究模式。
+
+注意：若把同一份 `.claude/agents/*.md` 复用为 Agent Teams teammate，官方只应用其 `tools` + `model`，**`skills` 与 `mcpServers` frontmatter 会被忽略**（teammate 的 skills/MCP 从项目+用户设置加载），body 追加进 teammate 的 system prompt。因此 subagent 定义与 teammate 定义不完全等价。
 
 ## 10. CLI 适配器 agent 的可行性与风险
 
