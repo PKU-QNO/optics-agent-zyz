@@ -120,10 +120,11 @@ SEPR 采用 Claude Code 3 层子 agent 架构（main-agent → sub-agent → sub
      - **第一层直接用**：`.claude/agents/*.md` 预制配置（已有 4 身份，继续用）、`skills:` frontmatter 预加载（替 `skill-print.py` 脆弱 bootstrap）、新增 `sub-leaf`/`sub-e-leaf`（`tools` 省略 `Agent`，堵 C1）、**hooks 做红线（本轮最高价值）**、`disable-model-invocation` 防误触发危险 skill。
      - **第二层参考/择机**：无头模式 `-p`+JSON 输出+`--resume`、`context: fork` skill、plan approval、token 经济学实践、Agent Teams 仅作后期人工审查模式。
      - **第三层不用**：Agent Teams 进复现主路径（否决）、OS 沙箱（Windows 不适用）、非本域 MCP、CLI.md 未核验声称。
-- **本轮最高价值 = hooks 红线**：把红线从 prompt「求它遵守」下沉成 CLI 框架层确定性代码，对齐 BORROWABLE 铁律 #8/#1/#2。三类 hook：① PreToolUse 拦 sub/leaf 提交 Magnus/COMSOL 作业；② 完成门禁拦「无 verifier 产物却报 physical_reproduction_success」；③ 报告字段校验（6+8 字段 + result_class 合法枚举）。放弃 OpenCode 后无双系统同步负担。**注意**：hook 机制真实存在（PreToolUse/PostToolUse 是稳定功能），但具体名称/payload/“25 种”等待官方核验（见提案 §7，8 条）。
+- **本轮最高价值 = hooks 红线**：把红线从 prompt「求它遵守」下沉成 CLI 框架层确定性代码，对齐 BORROWABLE 铁律 #8/#1/#2。三类 hook：① `PreToolUse` 拦 sub/leaf 提交 Magnus/COMSOL 作业；② `SubagentStop`/`Stop` 门禁拦「无 verifier 产物却报 physical_reproduction_success」；③ `PostToolUse` 报告字段校验（6+8 字段 + result_class 合法枚举）。放弃 OpenCode 后无双系统同步负担。
+- **官方文档核验（2026-07-03，已完成）**：派 `claude-code-docs-agent` 对照 `code.claude.com/docs/en`（changelog 至 2.1.199）核验 13 项，结论**第一层四项全部成立可落地**，5 处写法修正已回填提案 §3/§4/§5/§7：① hooks 是 **30 个事件**非 25；② `disable-model-invocation` 属 **skill frontmatter** 非 agent 字段；③ subagent 完成门禁用 **`SubagentStop`/`Stop`** 非 `TeammateIdle`/`TaskCompleted`；④ 无头 JSON 字段用 **`total_cost_usd`** 非 `cost_usd`（`num_turns`/`duration_ms` 官方未确认）；⑤ 预加载用 `skills:` list 非 `tools: Skill(name)`。另确认 `--json-schema`/`--bare`/`--max-turns`/`/batch`/`/simplify` 均真实。核验全文附在 `notes/Gemini/CLI.md` 末尾。
 - **产出**：新建设计提案 `papers/SEPR/V3-HARDENING-DESIGN-CN.md`（245 行，0–8 节）。§3 分层采纳表；§4 登记 5 项 SEPR 改动 + human gate 级别（4.1 sub-leaf/sub-e-leaf **Tier-2**；4.2 skills: 预加载 **Tier-1**；4.3 hooks 红线 **Tier-3**；4.4 disable-model-invocation **Tier-1**；4.5 移除/deprecate OpenCode，本次仅登记 **Tier-2**）；§5 hooks 红线详设；§6 OpenCode 撤销登记（optics_agent 侧 + SEPR 本体侧，本次不改）；§7 8 条待官方核验；§8 红线复述。
 - **未改**：不动 SEPR 本体、不动 `papers/SEPR/` 三份历史文档（DESIGN-GAP-AUDIT / BORROWABLE / CLEANUP）、不动 CLAUDE.md/AGENTS.md。仅 `notes/Gemini/` 两份补丁 + 新建 CLI.md 重排 + 新建提案。
-- **下一步**：人工在 SEPR 工作区按提案 §4 逐条走 human gate 落地；落地前 §7 待核验项必过 `claude-code-docs-agent`；OpenCode 撤销按 §6 清单统一处理。
+- **下一步**：§7 官方核验已完成，可进入落地——人工在 SEPR 工作区按提案 §4 逐条走 human gate（4.1 sub-leaf / 4.2 skills: 预加载 / 4.3 hooks / 4.4 disable-model-invocation）；OpenCode 撤销按 §6 清单统一处理。
 
 ---
 

@@ -235,3 +235,102 @@ MCP 协议使 Claude Code 能以标准化方式与各种复杂系统交互。与
 - [ ] MCP：`claude mcp add`、`claude mcp add playwright -- npx -y @playwright/mcp@latest`，以及 Notion/Linear/Jira/Figma/`WebFetch`/`ccsearch`/`mcp-omnisearch`/LiteLLM 集成描述。
 - [ ] Git 能力：底层内存 Checkpoint、`Esc+Esc` 双击回滚、`gh pr create` 闭环、Conventional Commits 摘要。
 - [ ] Andrej Karpathy 四大黄金法则的归属与措辞。
+
+---
+
+## 10. 官方文档核验更新（2026-07-03）
+
+本节只核验与 SEPR V3 加固设计落地直接相关的 Claude Code 能力声称。权威来源为 Claude Code 官方文档 `https://code.claude.com/docs/en/`，实际查阅页面包括 `sub-agents`、`hooks`、`skills`、`headless`、`cli-reference`、`commands`、`settings`、`changelog`。官方 changelog 最新条目为 Claude Code `2.1.199`，日期 `July 2, 2026`。
+
+### 10.1 Subagent 配置
+
+- `skills:` subagent frontmatter 字段真实存在。官方说明为 “Skills to preload into the subagent's context at startup. The full skill content is injected”。写法是 YAML list，值为 skill name，不是路径：
+
+```yaml
+---
+name: api-developer
+description: Implement API endpoints following team conventions
+skills:
+  - api-conventions
+  - error-handling-patterns
+---
+```
+
+- `skills:` 的语义是启动时把完整 skill 内容注入 subagent context，不只是描述。官方同时说明：不能预加载设置了 `disable-model-invocation: true` 的 skill；若列出的 skill 缺失或被禁用，Claude Code 会跳过并写 debug warning。
+- `Skill` 工具真实存在，但预加载 skill 不应通过 `tools: Skill(...)` 实现。官方 `sub-agents` 页明确说：“To preload Skills into context, use the `skills` field rather than listing `Skill` here”。
+- `Skill(name)` 是官方 permission rule syntax，用于允许或拒绝特定 skill 调用。官方 `skills` 页给出：`Skill`、`Skill(commit)`、`Skill(review-pr *)`，并说明 `Skill(name)` 为 exact match，`Skill(name *)` 为带参数前缀匹配。
+- subagent frontmatter 官方支持字段为：`name`、`description`、`tools`、`disallowedTools`、`model`、`permissionMode`、`maxTurns`、`skills`、`mcpServers`、`hooks`、`memory`、`background`、`effort`、`isolation`、`color`、`initialPrompt`。
+- `hooks`、`disallowedTools`、`maxTurns`、`permissionMode`、`isolation: worktree`、`model` 都是真实 subagent 字段。
+- `disable-model-invocation` 不是 subagent frontmatter 字段，而是 skill frontmatter 字段。
+- `tools` 与 `disallowedTools` 同时设置时，官方顺序是先应用 `disallowedTools`，再在剩余工具池里解析 `tools`；两边都列出的工具会被移除。
+
+### 10.2 嵌套 Subagent 深度
+
+- nested subagents 官方支持。官方 `sub-agents` 页写明：自 Claude Code `v2.1.172` 起，subagent 可以 spawn 自己的 subagents。
+- depth 计数方式：从 main conversation 往下的 subagent 层数；foreground/background 不影响 depth 计数。
+- 最大 depth 为 5，固定且不可配置。depth five 的 subagent 不会收到 `Agent` tool，因此不能继续 spawn。
+- 自 Claude Code `v2.1.187` 起，background subagent 的 depth 在首次 spawn 时固定；后续从更浅上下文 resume 不会改变 depth，也不能绕过 depth limit。
+- 要禁止某个 subagent 继续 spawn，官方方法是从它的 `tools` list 省略 `Agent`，或把 `Agent` 加入 `disallowedTools`。
+- `Agent(agent_type)` allowlist 语法只适用于 agent 作为 main thread 通过 `claude --agent` 运行的场景；在 subagent definition 里列 `Agent` 可以允许 nested spawn，但括号内类型列表会被忽略。
+
+### 10.3 Hooks
+
+- “Hooks 共 25 种”这个数字不准确。当前官方 `hooks` 页列出 30 个事件：`SessionStart`、`Setup`、`UserPromptSubmit`、`UserPromptExpansion`、`PreToolUse`、`PermissionRequest`、`PermissionDenied`、`PostToolUse`、`PostToolUseFailure`、`PostToolBatch`、`Notification`、`MessageDisplay`、`SubagentStart`、`SubagentStop`、`TaskCreated`、`TaskCompleted`、`Stop`、`StopFailure`、`TeammateIdle`、`InstructionsLoaded`、`ConfigChange`、`CwdChanged`、`FileChanged`、`WorktreeCreate`、`WorktreeRemove`、`PreCompact`、`PostCompact`、`Elicitation`、`ElicitationResult`、`SessionEnd`。
+- `PreToolUse`、`PostToolUse`、`PreCompact`、`CwdChanged` 这些事件名均为官方准确名称。
+- `PreToolUse` 可阻断工具调用。官方阻断方式有两类：命令 hook `exit 2`，或 exit 0 并输出 JSON `hookSpecificOutput`。
+- `exit 2` 语义：Claude Code 忽略 stdout 和其中 JSON，stderr 文本反馈给 Claude；对 `PreToolUse` 的效果是 blocks the tool call。普通 `exit 1` 对多数 hook 只是 non-blocking error。
+- `PreToolUse` JSON 决策字段：
+
+```json
+{
+  "hookSpecificOutput": {
+    "hookEventName": "PreToolUse",
+    "permissionDecision": "deny",
+    "permissionDecisionReason": "Destructive command blocked by hook"
+  }
+}
+```
+
+- `permissionDecision` 官方列为 `allow`、`deny`、`ask`、`defer`。
+- 完成/停止类可阻断 hook 存在。`Stop` 在 Claude finishes responding 时触发，`SubagentStop` 在 subagent finishes 时触发。官方 exit code 2 行为表写明：`Stop` 可 prevent Claude from stopping and continue the conversation；`SubagentStop` 可 prevent the subagent from stopping。
+- `TaskCompleted` 也存在且可阻止 task being marked as completed，但普通 subagent 路径下用于“完成门禁”的直接事件应优先是 `SubagentStop`。
+- `TeammateIdle` 属 agent team teammate about to go idle，不应混同为普通 subagent 完成入口。
+- hooks 定义位置不只 `.claude/settings.json`。官方 hook locations 包括 `~/.claude/settings.json`、`.claude/settings.json`、`.claude/settings.local.json`、managed policy settings、plugin `hooks/hooks.json`、skill or agent frontmatter。
+- skill/agent frontmatter hooks 是 component active 期间的 scoped hooks。subagent frontmatter 里的 `Stop` hooks 在作为 subagent 调用时会自动转换为 `SubagentStop`。
+
+### 10.4 无头模式与 CLI 标志
+
+- `-p` / `--print` 官方确认存在，含义是 non-interactive print mode。
+- `--output-format json` 官方确认存在。官方 `headless` 页描述 JSON 为 “structured JSON with result, session ID, and metadata”。
+- 官方确认的 JSON 字段包括 `result`、`session_id`、`total_cost_usd`、`structured_output`。原文表中 `cost_usd` 字段名应改为 `total_cost_usd`。本次官方页未查到 `num_turns`、`duration_ms` 的明确字段定义，不能作为已核验字段写入落地方案。
+- `--resume "<session_id>"` 官方确认存在。官方 `headless` 页示例：
+
+```bash
+session_id=$(claude -p "Start a review" --output-format json | jq -r '.session_id')
+claude -p "Continue that review" --resume "$session_id"
+```
+
+- `--json-schema` 官方确认存在，需配合 `--output-format json` 使用，结构化结果放在 `structured_output` 字段。
+- `--bare` 官方确认存在，作用是跳过 hooks、skills、plugins、MCP servers、auto memory、CLAUDE.md 的自动发现；官方说明它适合 CI/scripts，并会在未来成为 `-p` 默认模式。
+- `--max-turns` 官方确认存在，含义是 print mode 下限制 agentic turns，达到上限后 error；默认无限制。
+- `/batch` 官方确认存在，是 bundled skill。官方描述包括：把任务拆成 5 到 30 个 independent units，批准后为每个 unit spawn 一个 background subagent，在 isolated git worktree 中执行，运行测试并打开 PR。要求 git repository。
+- `/simplify` 官方确认存在，是 bundled skill。官方描述为四个 review agents 并行，关注复用现有 helper、simplification、efficiency、抽象层级是否合适。自 `v2.1.154` 起不再查 correctness bugs；查 bug 应用 `/code-review`。
+- `/compact`、`/clear`、`/model` 也在官方 commands 页确认存在。`/deploy` 不是固定内置命令，而通常是自定义 skill/command 名称；官方示例使用 `deploy` skill 展示 `disable-model-invocation: true`。`/effort max` 未在本次官方 commands 页确认为 slash command；官方确认的是 CLI flag `--effort max` 和 `/model` picker 中可调整 effort。
+
+### 10.5 Skills Frontmatter
+
+- skill frontmatter 官方支持字段包括：`name`、`description`、`when_to_use`、`argument-hint`、`arguments`、`disable-model-invocation`、`user-invocable`、`allowed-tools`、`disallowed-tools`、`model`、`effort`、`context`、`agent`、`hooks`、`paths`、`shell`。
+- `disable-model-invocation: true` 是准确键名。官方语义：阻止 Claude 自动加载/调用该 skill，用于只希望用户通过 `/name` 手动触发的 workflow；同时阻止该 skill 被 preloaded into subagents。自 `v2.1.196` 起，也阻止 scheduled task 用该 skill 作为 prompt 时运行。
+- `context: fork` 是真实 skill frontmatter 参数。官方语义：让 skill 在 forked subagent context 中运行；skill content 变成驱动 subagent 的 prompt；不会访问当前 conversation history。
+- `agent` 字段用于 `context: fork` 时指定 subagent type；可用 built-in agents 如 `Explore`、`Plan`、`general-purpose`，也可用 `.claude/agents/` 自定义 subagent；省略时默认 `general-purpose`。
+
+### 10.6 对 SEPR V3 加固设计的影响
+
+- `sub-leaf` 去 `Agent` 成立可落地：官方明确省略 `Agent` 后不能 spawn subagents。
+- `skills:` 预加载成立可落地：应写在 subagent frontmatter，值为 skill name list，效果是启动时注入完整 skill 内容。
+- 三类 hooks 红线成立可落地：`PreToolUse` 可阻断工具调用；`Stop`/`SubagentStop` 可阻断完成/停止；`PreCompact` 可阻断 compact；`CwdChanged` 可用于目录切换响应。
+- `disable-model-invocation` 成立但需放在 skill frontmatter，不能放在 subagent frontmatter。
+- 方案需改写：“hooks 共 25 种”应改为当前官方 30 个事件。
+- 方案需改写：不要把 `Skill(<name>)` 当作 subagent 预加载机制；预加载用 `skills:`，`Skill(name)` 用于权限规则。
+- 方案需改写：JSON 输出字段用 `total_cost_usd`，不要写未核验的 `cost_usd`；`num_turns`、`duration_ms` 若要用，应做运行时 schema 探测或标为可选字段。
+- 原综述中 `--json-schema`、`--bare`、`--max-turns`、`/batch`、`/simplify` 不是疑似不实，当前官方文档确认它们存在。

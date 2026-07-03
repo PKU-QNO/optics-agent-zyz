@@ -8,6 +8,7 @@
 > - 能力核验来源：`../notes/Gemini/pre-subagent.md`（subagent 能力，已核至官方 ~v2.1.196）、`../notes/Gemini/agent-team.md`（Agent Teams 能力，已核）、`../notes/Gemini/CLI.md`（CLI 综述，**低置信度、未核验**，尤其其 §9 待核验清单）
 > - **文档性质：设计提案（design proposal）。本文不修改 SEPR 本体任何文件，落地一律走后续 human gate。本文只新增这一份提案。**
 > - V3 定义：SEPR 的 Claude Code 三层子 agent 方案（`main`/`evolution` → `sub`/`sub-e` → `leaf`）。
+> - **核验状态（2026-07-03）**：本文 §4/§5 依赖的能力已由 `claude-code-docs-agent` 对照官方文档（`code.claude.com/docs/en`，changelog 至 `2.1.199`）逐条核验。结论：第一层四项均**成立可落地**，另有若干写法修正已回填 §3/§4/§5/§7。完整逐条结论见 §7 与 `../notes/Gemini/CLI.md` 末尾。
 
 ---
 
@@ -22,6 +23,8 @@
   - **第三层不用/谨慎**：Agent Teams 进复现主路径、OS 沙箱（Windows 不适用）、非本域 MCP、CLI.md 一切未核验声称。
 
 **本轮最高价值项 = hooks 红线**：把红线从 prompt「求它遵守」下沉成 CLI 框架层的确定性代码，对齐 BORROWABLE §3 铁律 #8「红线/控制流写死成代码，不靠 prompt」。放弃 OpenCode 后 hooks 无双系统同步负担，是本轮性价比最高的加固。
+
+**核验后确认（2026-07-03）**：第一层四项经官方文档核验均**成立可落地**，仅写法有小修正——`disable-model-invocation` 属 **skill frontmatter**（非 agent 字段）；hooks 是 **30 个事件**（非 25）；subagent 停止门禁用 **`SubagentStop`/`Stop`**（非 Agent Teams 的 `TeammateIdle`/`TaskCompleted`）；无头 JSON 字段用 **`total_cost_usd`**（非 `cost_usd`）；预加载用 `skills:`（非 `tools: Skill(name)`）。详见 §7。
 
 **红线复述（本文不违反、SEPR 落地也不得违反）**：拓扑写死人工管；agent 不得自动改拓扑 / 规则；自迭代只碰经验层、全走 human gate；不把 Agent Teams 放进复现主路径。
 
@@ -90,17 +93,17 @@ SEPR 近期只面向 Claude Code 一套执行系统，暂时放弃对 OpenCode�
 | `.claude/agents/*.md` 预制配置 | pre-subagent §1–2 | **用** | SEPR 已有 4 身份，继续用；项目级 scope 绑定 workspace | 维持现状，无退化 |
 | `skills:` frontmatter 预加载 | pre-subagent §2、§5 | **用** | 替掉「子 agent 跑起来自己 `skill-print.py` 手动读」的脆弱 bootstrap；每身份只预加载自己那份 + 当前领域 skill | 加固 bootstrap 可靠性；对齐 pre-subagent §11 建议 2 |
 | 新增 `sub-leaf` / `sub-e-leaf`（`tools` 省略 `Agent`） | pre-subagent §6、§11 建议 4 | **用** | 从框架层禁止第 3 层继续 spawn，取代 prompt 软约束 | **C1（P0）**，放弃 OpenCode 后为 Claude 侧单点改动 |
-| **Hooks 做红线**（PreToolUse 拦作业 / 完成门禁 / 报告字段校验） | pre-subagent §2、agent-team §1.9、CLI.md §3（数字未核验） | **用（最高价值）** | 把红线从 prompt 下沉成确定性代码 | 硬化 BORROWABLE 铁律 #8 / #1 / #2；对应 DESIGN-GAP-AUDIT 落地清单 #8「失败防护硬化」 |
-| `disable-model-invocation: true` | CLI.md §5.1（待核验语法） | **用** | 防模型闲聊误触发危险 skill（如提交作业的 skill），强制只能用户显式 `/skill` 触发 | 硬化 BORROWABLE 主题六「specification gaming 零样本出现」防线 |
-| 无头模式 `-p` + `--output-format json` + `--resume` | CLI.md §1（标志未核验） | **参考/择机** | 可审计 / 可 replay 脚本化流水线，契合核心卖点；标志真实性待核验 | 跑通后用于 baseline / CI 化 |
-| `context: fork` skill | CLI.md §5.1（待核验） | **参考/择机** | 重 PDF / 数据 skill 隔离，避免污染主上下文 | 与 pre-subagent §7 上下文隔离同向 |
+| **Hooks 做红线**（PreToolUse 拦作业 / 完成门禁 / 报告字段校验） | pre-subagent §2、agent-team §1.9、CLI.md §3；**已核验（§7）：官方 30 事件，PreToolUse/Stop/SubagentStop 属实** | **用（最高价值）** | 把红线从 prompt 下沉成确定性代码 | 硬化 BORROWABLE 铁律 #8 / #1 / #2；对应 DESIGN-GAP-AUDIT 落地清单 #8「失败防护硬化」 |
+| `disable-model-invocation: true` | CLI.md §5.1；**已核验（§7）：属 skill frontmatter（非 agent 字段）** | **用** | 防模型闲聊误触发危险 skill（如提交作业的 skill），强制只能用户显式 `/skill` 触发 | 硬化 BORROWABLE 主题六「specification gaming 零样本出现」防线 |
+| 无头模式 `-p` + `--output-format json` + `--resume` | CLI.md §1；**已核验（§7）：真实标志，JSON 字段用 `total_cost_usd`** | **参考/择机** | 可审计 / 可 replay 脚本化流水线，契合核心卖点 | 跑通后用于 baseline / CI 化 |
+| `context: fork` skill | CLI.md §5.1；**已核验（§7）：真实 skill frontmatter** | **参考/择机** | 重 PDF / 数据 skill 隔离，避免污染主上下文 | 与 pre-subagent §7 上下文隔离同向 |
 | plan approval / read-only plan mode | agent-team §1.8、CLI.md §4.1 | **参考** | 治理范式，可用 human gate 模拟；无需引入 Agent Teams | 已有 human gate 覆盖 |
 | Token 经济学实践（定向 `/compact`、plan mode、`/model` 分层） | CLI.md §4（数字未核验） | **参考** | 控成本；具体百分比未核验，仅作实践习惯 | 不作硬约束 |
 | Agent Teams | agent-team 全文 | **仅后期人工审查 / devil's-advocate** | 实验性、teammate 不能嵌套 spawn、状态文件不可手改；绝不进复现主路径 | 见 §8 |
 | Agent Teams 进复现主路径 | agent-team §3.1 | **不用（否决）** | 实验性 + 不可审计 + 无嵌套 fan-out | 违反红线，见 §8 |
 | OS 沙箱 Seatbelt / bwrap | CLI.md §3.2 | **不用** | macOS / Linux 专属，主环境是 Windows | 不适用 |
 | Playwright / Figma / Notion MCP | CLI.md §5.2 | **不用** | 非本域 | 不适用 |
-| CLI.md 一切未核验声称 | CLI.md 全文 | **谨慎，用前必核** | CLI.md 自标低置信度、未核验 | 见 §7 |
+| CLI.md 一切未核验声称 | CLI.md 全文 | **§4/§5 依赖项已核（§7）；其余仍谨慎** | 本文依赖项已核验；`--json-schema`/`--bare`/`--max-turns`/`/batch`/`/simplify` 已确认真实，不再标疑似不实；未纳入本文的其它声称仍以 CLI.md 低置信度对待 | 见 §7 |
 
 ---
 
@@ -122,7 +125,7 @@ SEPR 近期只面向 Claude Code 一套执行系统，暂时放弃对 OpenCode�
 - **改动**：给 4 身份加 `skills:` 预加载——`main-agent` 预加载 `main-agent`；`sub-agent` 预加载 `sub-agent` + 当前领域 skill（如 `optics-mie-reproduction`）；`evolution-agent` 预加载 `evolution-agent`；`sub-e-agent` 预加载 `sub-e-agent`。**每身份只加载自己那份 + 当前领域 skill，禁止全量预加载**（会撑爆上下文）。是否保留 `skill-print.py` 作兜底需实测决定。
 - **堵哪个 gap**：不是 §0.1 的自洽 bug，是加固 bootstrap 可靠性（间接降低「子 agent 缺 skill 上下文靠猜」的风险）。
 - **验收标准**：子 agent 启动即持有对应 skill 正文，无需运行期手动读取；上下文未因全量预加载膨胀。
-- **待核验**：`skills:` 在 file-based `.claude/agents/*.md` 的准确 YAML 写法（列表 / skill name 而非路径），见 §7。
+- **已核验（§7）**：`skills:` 是 subagent frontmatter 字段，写成 YAML list、值为 skill **name**（非路径）；**不要**用 `tools: Skill(name)` 做预加载（那是权限规则语法）。注意：设了 `disable-model-invocation: true` 的 skill **不能**被预加载（官方限制）——与 §4.4 的高危 submit skill 无冲突（它本就不该预加载）。
 - **human gate 级别**：**Tier-1**（配置项替换，行为等价或更稳，例行审阅 + 实测）。
 
 ### 4.3 Hooks 做红线（详见 §5）
@@ -131,16 +134,16 @@ SEPR 近期只面向 Claude Code 一套执行系统，暂时放弃对 OpenCode�
 - **改动**：新增 3 类 hook（PreToolUse 拦作业 / 完成停止门禁 / 报告字段校验），把红线下沉到 CLI 框架层。详见 §5。
 - **堵哪个 gap**：硬化 BORROWABLE 铁律 #8 / #1 / #2；对应 DESIGN-GAP-AUDIT 落地清单 #8「失败防护硬化：限制和 verifier 对 agent 只读隔离」，把「prompt 级上限」升级为「框架级强制」。
 - **验收标准**：见 §5 各 hook 的拦截行为可被测试用例触发（构造违规动作被 hook 挡下 + 记审计）。
-- **待核验**：hook 机制真实存在（PreToolUse / PostToolUse 是 Claude Code 稳定功能），但 CLI.md 的「25 种 hooks」等具体数字 / 名称未核验，落地前必过 `claude-code-docs-agent`（§7）。
+- **已核验（§7）**：hook 机制与阻断语义官方确认——官方共 **30 个事件**（非「25 种」）；`PreToolUse` 可阻断工具调用（`exit 2` 或 JSON `hookSpecificOutput.permissionDecision: deny`）；完成门禁用 **`SubagentStop`/`Stop`**（非 `TeammateIdle`/`TaskCompleted`）。落地细节见 §7.3。
 - **human gate 级别**：**Tier-3**（新增框架级强制护栏，改变执行边界，需人工评审 hook 逻辑 + 首跑验证不误伤正常流程）。
 
-### 4.4 `disable-model-invocation: true`（危险 skill）
+### 4.4 `disable-model-invocation: true`（危险 skill，**skill frontmatter**）
 
 - **现状**：提交作业类 skill 可能被模型在闲聊中语义误触发（CLI.md §5.1）。
-- **改动**：给「提交 Magnus / COMSOL 作业」类高危 skill 设 `disable-model-invocation: true`，强制只能用户显式 `/skill` 触发。
+- **改动**：给「提交 Magnus / COMSOL 作业」类高危 skill 的 **`SKILL.md` frontmatter** 设 `disable-model-invocation: true`，强制只能用户显式 `/skill` 触发。**注意：这是 skill 字段，不是 `.claude/agents/*.md` 的 subagent 字段**——不要写进 agent 定义。
 - **堵哪个 gap**：硬化 BORROWABLE 主题六「specification gaming / 误触发」防线。
 - **验收标准**：模型在普通对话中无法自动触发该 skill；仅用户显式调用生效。
-- **待核验**：该 frontmatter 键名与语义（CLI.md §9 列为待核验），见 §7。
+- **已核验（§7）**：官方确认为 skill frontmatter 字段；副作用是该 skill 同时无法被 subagent 预加载（与 §4.2 一致，无冲突）。
 - **human gate 级别**：**Tier-1**（单键配置，收紧触发面，例行审阅）。
 
 ### 4.5 移除 / deprecate OpenCode（本次仅登记，不改文件）
@@ -155,18 +158,19 @@ SEPR 近期只面向 Claude Code 一套执行系统，暂时放弃对 OpenCode�
 
 ## 5. Hooks 红线设计
 
-本节详展 §4.3。三类 hook 各自的触发点、拦什么、对齐哪条铁律。**hook 机制本身真实存在（PreToolUse / PostToolUse 是 Claude Code 稳定功能）；但下述具体 hook 名称、payload 字段、拦截返回码等 API 细节以 CLI.md / agent-team 为线索，落地前必过 `claude-code-docs-agent` 核官方文档（§7）。**
+本节详展 §4.3。三类 hook 各自的触发点、拦什么、对齐哪条铁律。**下述 hook 名称、阻断语义、payload 已于 2026-07-03 经官方文档核验（§7.3）：官方共 30 个事件；阻断用 `exit 2`（stderr 反馈）或退出码 0 时的 JSON `hookSpecificOutput.permissionDecision`（`allow`/`deny`/`ask`/`defer`）；hooks 可定义在 `.claude/settings.json` 或 skill/agent frontmatter 的 `hooks` 字段。**
 
 ### 5.1 Hook #1：PreToolUse 拦截 sub / leaf 提交 Magnus / COMSOL 作业
 
-- **触发点**：任一 agent 尝试调用可提交远程作业的工具 / Bash 命令之前（PreToolUse）。
+- **触发点**：任一 agent 尝试调用可提交远程作业的工具 / Bash 命令之前（`PreToolUse`）。
 - **拦什么**：执行层 / 叶子层（sub / sub-e / leaf）提交 Magnus / COMSOL 作业的动作一律拦下并记审计；作业提交权收敛到编排层 + human gate。等价于「把资源上限 / 作业提交权对 agent 设为只读」。
+- **阻断实现（已核验）**：`PreToolUse` 官方支持阻断——`exit 2` 阻断并把 stderr 反馈给 Claude，或退出码 0 输出 `hookSpecificOutput.permissionDecision: "deny"` + `permissionDecisionReason`。
 - **对齐铁律**：BORROWABLE §2 主题六「失败防护把上限设 agent 只读、框架强制、禁 self-restart」；铁律 #8「控制流写死成代码」。
 - **落地注意**：需精确枚举「提交作业」的命令 / 工具指纹（避免漏网或误伤只读查询）；hook 逻辑本身对 agent 只读。
 
 ### 5.2 Hook #2：完成 / 停止门禁——拦「无 verifier 产物却报物理成功」
 
-- **触发点**：agent 声明任务完成 / 会话停止时（完成门禁 / 停止 hook；agent-team §1.9 的 TaskCompleted / TeammateIdle 是同类治理入口，但那是 Agent Teams 侧，SEPR 主路径用 subagent，需用 subagent 侧对应停止 hook——具体 hook 名待核验）。
+- **触发点**：subagent 完成 / Claude 停止响应时。**已核验：SEPR 主路径用 subagent，完成门禁用 `SubagentStop`（子 agent 完成）或 `Stop`（主 agent 停止），其 `exit 2` 可阻止停止、继续对话。`TaskCompleted`/`TeammateIdle` 属 Agent Teams 侧，非本路径首选。**
 - **拦什么**：拦住「没有 verifier 产物（如物理验证输出 / benchmark 比对结果）却在报告写 `result_class = physical_reproduction_success`」的假完成。无合规产物 → 禁止升到物理复现成功档。
 - **对齐铁律**：BORROWABLE 铁律 #1「裁判权归外部确定性检查器，AI 自评不定论」、#2「跑通 / 无报错 / 数值对上 / 收敛都 ≠ 物理复现成功」。
 - **落地注意**：需定义「verifier 产物存在」的确定性判据（文件路径 + 非空 + schema 合法），hook 只做存在性 / 格式校验，不做物理判断（物理判断仍归 verifier 脚本）。
@@ -180,11 +184,11 @@ SEPR 近期只面向 Claude Code 一套执行系统，暂时放弃对 OpenCode�
 
 ### 5.4 三 hook 与红线的对应小结
 
-| Hook | 触发点 | 拦什么 | 对齐铁律 |
-|---|---|---|---|
-| #1 PreToolUse | 提交作业前 | sub/leaf 提交 Magnus/COMSOL 作业 | 失败防护只读 / #8 |
-| #2 完成门禁 | 声明完成 / 停止 | 无 verifier 产物却报 physical success | #1 / #2 |
-| #3 报告字段校验 | 写报告时 | 缺 6+8 字段 / result_class 非法枚举 | 主题二 schema 锁死 |
+| Hook | 官方事件名 | 触发点 | 拦什么 | 对齐铁律 |
+|---|---|---|---|---|
+| #1 | `PreToolUse` | 提交作业前 | sub/leaf 提交 Magnus/COMSOL 作业 | 失败防护只读 / #8 |
+| #2 | `SubagentStop` / `Stop` | 声明完成 / 停止 | 无 verifier 产物却报 physical success | #1 / #2 |
+| #3 | `PostToolUse`(Write/Edit) | 写报告时 | 缺 6+8 字段 / result_class 非法枚举 | 主题二 schema 锁死 |
 
 > 共同前提：三类 hook 的逻辑与配置对 agent 只读，由 CLI 框架（不是 agent）强制；agent 不能改 hook 自身。这正是「红线写死成代码不靠 prompt」在 SEPR 的落点。
 
@@ -216,18 +220,31 @@ SEPR 近期只面向 Claude Code 一套执行系统，暂时放弃对 OpenCode�
 
 ---
 
-## 7. 待官方核验清单
+## 7. 官方文档核验结果（2026-07-03，已完成）
 
-以下条目落地前必须交 `claude-code-docs-agent` 核官方文档。来源为 CLI.md §9 待核验清单中与 subagent / hooks / headless 相关项，以及 pre-subagent §12 / agent-team §4 的遗留核验点。
+§4/§5 依赖的能力已由 `claude-code-docs-agent` 对照官方文档（`code.claude.com/docs/en`，changelog 至 `2.1.199` / 2026-07-02）逐条核验。完整逐条结论与汇总表见 `../notes/Gemini/CLI.md` 末尾。核心结论：**§4 四项第一层改动全部成立可落地**，另有若干写法需修正（已在 §3/§4/§5 更新）。
 
-1. `skills:` 字段在 file-based `.claude/agents/*.md` 的准确 YAML 写法：是否为列表、用 skill name 还是路径（pre-subagent §12-1）。
-2. `Skill` 工具名在 `tools` allowlist 中的正确写法；是否需 `Skill(<name>)` specifier 控制（pre-subagent §12-2）。
-3. nested subagents 的 depth 计数、background 子 agent 恢复后 depth 是否固定、是否仍最高 5 层——确认 leaf 省略 `Agent` 即无法再 spawn（pre-subagent §12-4）。
-4. Hooks 具体清单与名称：CLI.md 声称的「25 种 hooks」及 `PreToolUse` / `PostToolUse` / `PreCompact` / `CwdChanged` 触发语义是否准确（CLI.md §9）。
-5. subagent 侧「完成 / 停止」门禁 hook 的确切事件名与可阻断语义（Hook #2 依赖；对照 agent-team §1.9 的 TaskCompleted / TeammateIdle 属 Agent Teams 侧，需确认 subagent 侧对应入口）。
-6. PreToolUse hook 拦截返回码 / payload 字段（Hook #1 / #3 依赖，确认「退出码 2 反馈并阻断」类语义）。
-7. 无头模式标志真实性：`-p` / `--print`、`--output-format json`、`--resume "$SESSION_ID"`、JSON 元数据字段 `session_id` 等（CLI.md §9）。
-8. `disable-model-invocation: true` 与 `context: fork` 的 frontmatter 键名与语义（CLI.md §9 Skills 项）。
+### 7.1 成立可落地（无需改方案）
+
+- **`sub-leaf` 去 `Agent`**（§4.1）：官方确认 `tools` 省略 `Agent` 后 agent 不能 spawn 任何子 agent；depth 5 时也不再收到 Agent 工具。nested subagent 自 v2.1.172 起支持、最多 5 层；background 子 agent depth 自 v2.1.187 起在首次 spawn 时固定。
+- **`skills:` 预加载**（§4.2）：官方确认为 subagent frontmatter 字段，写成 YAML list、值为 skill **name**（非路径），启动时注入 skill 全文。
+- **三类 hooks 红线**（§5）：`PreToolUse` 可阻断工具调用；`Stop`/`SubagentStop` 可阻断「完成/停止」；均为官方事件。
+- **`disable-model-invocation: true`**（§4.4）：官方确认，但**属 skill frontmatter 字段，不属 subagent**。
+- **`context: fork`**、无头模式 `-p`/`--output-format json`/`--resume`、`--json-schema`/`--bare`/`--max-turns`、`/batch`、`/simplify`：均为官方真实能力（原 CLI.md 综述低估，不应再标疑似不实）。
+
+### 7.2 需修正的写法（已在本文对应节更新）
+
+- **hooks 不是「25 种」，官方是 30 个事件**（`SessionStart`/`PreToolUse`/`PostToolUse`/`SubagentStart`/`SubagentStop`/`Stop`/`TaskCompleted`/`PreCompact`/`CwdChanged` 等）；CLI.md 点名的四个名称均属实。
+- **`disable-model-invocation` 放 skill 的 `SKILL.md` frontmatter，不放 `.claude/agents/*.md`。** 且它会同时阻止该 skill 被 subagent 预加载——即高危 submit skill 设了它就不能进 §4.2 的 `skills:` 预加载列表（本就不该预加载，无冲突）。
+- **subagent 完成门禁用 `SubagentStop`（或 `Stop`），不是 Agent Teams 的 `TeammateIdle`/`TaskCompleted`**；`TaskCompleted` 存在但非普通 subagent 完成的首选。
+- **预加载不要用 `tools: Skill(<name>)`。** `skills:` 负责预加载；`Skill(name)`/`Skill(name *)` 是权限规则语法，用于限制可调用哪些 skill。
+- **无头 JSON 字段用 `total_cost_usd`（非 `cost_usd`）。** 已确认字段：`result`/`session_id`/`total_cost_usd`/`structured_output`；`num_turns`/`duration_ms` 官方页未找到明确定义，若方案依赖需运行时探测。
+
+### 7.3 hooks 阻断机制细节（供 §5 落地）
+
+- **退出码**：`exit 2` = blocking error；`PreToolUse` 阻断工具调用并把 stderr 反馈给 Claude；`Stop`/`SubagentStop` 的 `exit 2` 阻止停止、继续对话。
+- **JSON**：退出码 0 时可输出 `hookSpecificOutput.permissionDecision`（`allow`/`deny`/`ask`/`defer`）+ `permissionDecisionReason`。
+- **定义位置**：`.claude/settings.json`（会话/项目级）或 skill/agent frontmatter 的 `hooks` 字段（组件生命周期内 scoped），官方两者都支持。
 
 ---
 
