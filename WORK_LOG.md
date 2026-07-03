@@ -126,6 +126,26 @@ SEPR 采用 Claude Code 3 层子 agent 架构（main-agent → sub-agent → sub
 - **未改**：不动 SEPR 本体、不动 `papers/SEPR/` 三份历史文档（DESIGN-GAP-AUDIT / BORROWABLE / CLEANUP）、不动 CLAUDE.md/AGENTS.md。仅 `notes/Gemini/` 两份补丁 + 新建 CLI.md 重排 + 新建提案。
 - **下一步**：§7 官方核验已完成，可进入落地——人工在 SEPR 工作区按提案 §4 逐条走 human gate（4.1 sub-leaf / 4.2 skills: 预加载 / 4.3 hooks / 4.4 disable-model-invocation）；OpenCode 撤销按 §6 清单统一处理。
 
+### 阶段十一：V3 加固基础版落地 SEPR（2026-07-03，进行中）
+
+**授权范围**（用户 2026-07-03 确认）：可碰三文件、放弃 OpenCode（Opus 不稳时改 Claude Code 的 URL/API 换 DeepSeek 应急，非 OpenAI-specific response 接口顶得住）、不碰用户全局 `27370\.claude`、不碰 hooks（搁置到 Mie 跑通后）。**这是实操 SEPR 本体**（非提案），走用户 human gate。
+
+**本批实现 4 项**（全在 `self-evo-paper-repro/`，disable-model-invocation 已决定搁置）：
+
+- **1a sub-leaf 硬化（堵审计 C1）**：现状是 subsubagent 复用 sub-agent/sub-e-agent 身份（带 Agent）+ prompt 提醒不 spawn=软约束。改为新增独立 leaf agent（无 Agent 工具，框架层硬约束）。
+  - 新增 `.claude/agents/sub-leaf.md`、`sub-e-leaf.md`（tools 无 Agent）
+  - 改 `.claude/agents/sub-agent.md` L17-19、`sub-E-agent.md` L17-19（改派 leaf 身份）
+  - 改 `.claude/skills/sub-agent/SKILL.md` L54、`sub-E-agent/SKILL.md` L60（identity-reuse 表述）
+  - 双写镜像 `.human/skills/sub-agent/SKILL.md` L54、`sub-E-agent/SKILL.md` L60
+- **1b skills: 预加载**：4 个 `.claude/agents/*.md` frontmatter 加 `skills:` 只预加载身份 skill（main→main-agent…），领域 skill 留 spawn 时；保留 skill-print.py 兜底。leaf 不预加载（保持轻）。
+- **1c spawn 模板**：检查 `.claude/skills/main-agent|evolution-agent/references/spawn_template_global.md` 是否提 subsubagent 身份，若提则改 leaf + 双写 .human。
+- **1d OpenCode 撤销**：删 `opencode.json` + `.opencode/`（含 node_modules）+ `scripts/start-opencode-sepr.ps1`；SEPR `AGENTS.md` 改为指向 CLAUDE.md 的 stub；SEPR `CLAUDE.md` 删「三文件同步规则」节(L14-30)、重写「子 Agent 深度」节(L32-41)为 Claude-only、删 L246 OpenCode permission 注；optics_agent 侧 CLAUDE.md/AGENTS.md（hardlink）的「SEPR 双系统+三文件同步」段改为「仅 Claude Code + DeepSeek 应急」（改后验 hardlink）。
+- **搁置**：disable-model-invocation（提交作业能力在 magnus 工作流 skill 内，blanket disable 会破坏 COMSOL case 自动加载；正解是 hooks 批的 PreToolUse 拦 submit 命令）。
+
+**并行**：两个后台子 agent 在写 Mie 复现执行手册（`reproduction_test/mie/MIE-复现执行手册-CN.md`）和 V4 路线图（`papers/SEPR/V4-ROADMAP-CN.md`）。
+
+**进度**：☑1a（sub-leaf/sub-e-leaf 新增 + sub/sub-E agent+SKILL 双写改 leaf 身份）☑1b（4 agent skills: 预加载）☑1c（no-op：spawn 模板不含 leaf 指令）☑1d（删 opencode.json/.opencode/scripts；SEPR CLAUDE.md 去三文件同步+子Agent深度改 Claude-only+leaf；SEPR AGENTS.md→stub；optics_agent CLAUDE/AGENTS 双系统段改写 + hardlink 重建 inode 11821949022236575）☑验证（6 agent frontmatter OK/leaf 无 Agent/quick_validate 通过/无残留）☑doc-sync（PROJECT_STATUS + .human/DESIGN L99 + SEPR WORK_LOG 阶段十一）。**本批全部完成。** 未 commit（用户 C6）。遗留低优先级：notes/opencode-adaptation-CN.md 与 notes/self_iteration_design-CN.md L152 仍是历史稿（非 active，未改）。
+
 ---
 
 ## 3. 当前状态（2026-06-30）

@@ -47,7 +47,7 @@ paper reproduction
 
 **给 optics_agent 的 CC 的提醒**：你要改进 SEPR 设计时，读 `C:\Users\27370\Desktop\project\self-evo-paper-repro\WORK_LOG.md` 恢复 SEPR 上下文，不要照搬 SEPR 的复现机制到 optics_agent（optics_agent 是 Magnus+COMSOL 工作区，不是复现 agent）。
 
-**SEPR 双系统 + 三文件同步**：SEPR 同时支持 Claude Code（Opus，读 `.claude/skills/` 预加载）和 OpenCode（GPT-5.5 备选，读 `.opencode/prompts/` + skill tool 懒加载同一份 SKILL.md）。SEPR 有三个根配置文件必须同步改：`CLAUDE.md`（规则主源）/ `AGENTS.md`（OpenCode 本地隔离入口）/ `opencode.json`（OpenCode permission/agent 配置）。改任何一个必须同步审改其它两个，否则 Claude Code 和 OpenCode 行为分叉。详细规则见 SEPR `CLAUDE.md` 的"三文件同步规则"节。OA 的 CC 改 SEPR 时务必遵守。
+**SEPR 仅 Claude Code（OpenCode 已撤销 2026-07-03）**：SEPR 现只面向 Claude Code（读 `.claude/skills/` + `.claude/agents/`）。OpenCode（GPT-5.5 备选）已撤销：`opencode.json` / `.opencode/` / `scripts/start-opencode-sepr.ps1` 已删除，SEPR `AGENTS.md` 降为 stub，"三文件同步"约束随之取消（规则主源就是 SEPR `CLAUDE.md` 一处）。Opus 不稳定时的应急方案是改 Claude Code 的 URL/API 指向 DeepSeek（非 OpenAI-specific 的 response 接口可顶），不再维护第二套 agent 配置。
 
 ## Current Project Status
 

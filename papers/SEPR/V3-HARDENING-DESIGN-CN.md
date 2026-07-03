@@ -192,6 +192,18 @@ SEPR 近期只面向 Claude Code 一套执行系统，暂时放弃对 OpenCode�
 
 > 共同前提：三类 hook 的逻辑与配置对 agent 只读，由 CLI 框架（不是 agent）强制；agent 不能改 hook 自身。这正是「红线写死成代码不靠 prompt」在 SEPR 的落点。
 
+### 5.5 Hooks 作用域：用 agent 级而非全局（重要改进）
+
+官方 hooks 支持多作用域（已核验）：用户全局 `~/.claude/settings.json`、**项目 `.claude/settings.json`（文件夹级）**、项目本地、组织策略、插件 `hooks/hooks.json`，以及 **agent frontmatter** 和 **skill frontmatter**（后两者「只在该 subagent / skill 活跃期间运行」）。
+
+**对本方案的关键改进**：Hook #1（拦作业提交）**不写全局**，而是挂在 `sub-agent.md` / `sub-leaf.md`（及 `sub-e` / `sub-e-leaf`）的 frontmatter `hooks:` 字段——编排层 `main-agent` 不挂就仍可提交作业，执行层 / 叶子挂了即被拦。**用作用域实现「作业提交权收敛到编排层」，取代脆弱的全局命令指纹匹配。**
+
+风险缓解：
+- 「靠命令指纹区分谁在调」的脆弱性 → agent 级作用域绕开它，部分缓解。
+- 「全局 hook 在深层子 agent 是否触发」的不确定 → per-agent hook 语义即「该 agent 活跃时才跑」，部分缓解。
+
+**仍需核验（见 §9.3）**：agent frontmatter 的 `PreToolUse` 能否阻断该 agent **自身**发起的工具调用——「位置存在 + 只在 active 时跑 + PreToolUse 可阻断」三者已分别确认，但这个精确组合未单独验过。此条成立与否，决定 Hook #1 是「叶子定向硬拦」还是要退回全局方案。
+
 ---
 
 ## 6. OpenCode 撤销登记
@@ -256,6 +268,58 @@ SEPR 近期只面向 Claude Code 一套执行系统，暂时放弃对 OpenCode�
 - **不自迭代自己。** 自迭代 workflow 的拓扑、节点指令、专用 SKILL 人工写死；本文提出的 hooks / leaf / 预加载不进入自迭代自动改动范围。
 - **不采用 CLI.md 未核验声称做落地依据。** 一切具体标志 / 命令 / 数字 / 模型 ID 先过 §7 核验，未核验前只作设计线索，不写进 SEPR 本体。
 - **不删 OpenCode 文件。** 本次仅 §6 登记 deprecated / 撤销点。
+
+---
+
+## 9. 落实前的待决问题与再排序（自审）
+
+### 9.1 自审结论：拆包 + 再排序
+
+本轮方向对（红线下沉、堵 C1、稳 bootstrap 都是真价值），但**打包和排序需要调整**：
+
+- **hooks 应从「第一层直接用」拆出，推迟到首篇 Mie 跑通后**。理由：它是新的框架级强制层（非「低成本堵 gap」，与 §1.3 的自我论证有张力，撞 BORROWABLE §6.1「跑通前别过度投资治理」）；且 Hook #2/#3 要 gate 的 verifier 脚本**现在还不存在**（审计 D），等于给还没造出来的东西装门禁。
+- **sub-leaf + skills 预加载**是真·低成本，可先做。
+- **关键纠正**：跑 Mie = W-flow（复现），审计 A1 只阻断 E-flow（自迭代）——**跑 Mie 不必先修 A1**，A1 是复现完想开 evolution session 时才炸。
+- 回归铁律：**先跑通，再加治理**。让第一次真复现告诉我们该硬化什么。
+
+### 9.2 需要你（用户）决定的（judgment call，非我能定）
+
+| # | 决策项 | 选项 | 我的建议 |
+|---|---|---|---|
+| D1 | hooks 何时做 | 现在 / 推迟到 Mie 跑通后 | **推迟** |
+| D2 | sub-leaf 何时做 | 跑 Mie 前 / 后 | 跑前（给第一次真 fan-out 加硬安全带），可选 |
+| D3 | skills 预加载 | 采纳 / 不采纳；留不留 `skill-print.py` 兜底；预加载哪个领域 skill | 采纳但留兜底；领域 skill 用 per-invocation 覆盖避免耦合 |
+| D4 | OpenCode | 真放弃 / 保留备选 | 若放弃：**CLAUDE.md/AGENTS.md 三文件同步红线必须现在就改**，否则规则自相矛盾（见 §9.4）；opencode.json 等配置可留 deprecated |
+| D5 | 盲批边界 | 哪些允许我不逐条 review 直接落地 | sub-leaf/skills 可；hooks/OpenCode 不可 |
+| D6 | Hook #1「作业提交」定义 | —（仅当 hooks 推进） | 由你枚举哪些命令/工具算提交、哪层 agent 可提交 |
+| D7 | Hook #2「合法 verifier 产物」判据 | —（仅当 hooks 推进） | 依赖 verifier 先存在，Mie 跑通后再定 |
+
+### 9.3 需要解决 / 核验的技术未知（verify，不是 decide）
+
+1. **agent-frontmatter `PreToolUse` 能否阻断该 agent 自身工具调用**（Hook #1 定向方案的前提，见 §5.5）。
+2. hooks 在 **Windows / Git Bash** 下 shell out 脚本是否可靠（WORK_LOG 记过多处路径/PowerShell 坑）。
+3. `skills:` 预加载在 **fan-out 下的实际上下文成本**（sub skill 1650 行 × N 并发）——需实测权衡「可靠 vs 上下文膨胀」。
+4. **Mie 一阶段是否触及 `pdf`/`magnus` 空骨架 skill**（开跑前 5 分钟核；纯 Python 解析大概率不碰 magnus）。
+5. headless `num_turns`/`duration_ms` 字段官方未确认（仅当未来做 headless 流水线才需要）。
+
+### 9.4 前置依赖 / 顺序（硬约束）
+
+1. **A1（capsule 产/消断裂）**：首次 E-flow/自迭代前**必修**；不卡 Mie（W-flow）。
+2. **verifier 脚本存在（补 D gap）**：Hook #2/#3 才能建 → hooks 天然排在首次复现之后。
+3. **加 sub-leaf → spawn 模板必须同步改用 leaf 身份**，否则「派 sub 省略 Agent」与「派 leaf」两套机制并存，成新漂移源。
+4. **放弃 OpenCode → 三文件同步红线必须同步处理**，否则 CLAUDE.md 一边写「必须三文件同步」、我们一边只面向 Claude，规则与现实打架。
+
+### 9.5 推荐落地顺序
+
+```
+1.（可选）实现 sub-leaf + 改 spawn 模板改用 leaf 身份     ← 低风险，第一次 fan-out 安全带
+2. 5 分钟核 Mie 一阶段 skill 依赖（pdf/magnus 碰不碰）
+3. 你去跑 Mie（W-flow，A1 不挡）
+4. 跑通拿真经验回来后，再定：
+   - hooks（含 §5.5 agent 级作用域，先核 §9.3-1）
+   - 修 A1（想开 evolution 前）
+   - OpenCode 撤销（连带三文件同步红线）
+```
 
 ---
 
