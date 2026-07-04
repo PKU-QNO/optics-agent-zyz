@@ -13,6 +13,7 @@ comsol/local-runs/
 # Private local-only files.
 comsol/runtime/secrets/comsol/license.dat
 .codex/config.toml
+.mcp.json
 
 # Local agent backups, not active project skills.
 .claude/skills.backup-*/

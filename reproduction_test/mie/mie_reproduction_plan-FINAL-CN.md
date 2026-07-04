@@ -22,8 +22,9 @@
 **主论文**：Akimov, "Mie scattering theory: a review of physical features and limitations" (arXiv 2401.04146, 2024)
 - **论文简介**：系统回顾 Mie 散射中电多极/磁多极系数的物理起源，分析球贝塞尔/汉克尔函数渐近行为对散射效率的影响。是 review 性质，适合入门。
 - **目的**：实现 Lorenz-Mie 核心公式，观察 Rayleigh/Mie/几何光学三区平滑过渡，多极共振出现顺序
-- **产出**：`code/mie_coefficients.py`（$a_n,b_n$）、`code/scattering.py`（截面）、$Q_{sca}(x)$ 曲线、能量守恒+瑞利极限检验
+- **产出**：`code/mie_coefficients.py`（$a_n,b_n$）、`code/scattering.py`（截面）、$Q_{sca}(x)$ 曲线（**教学基线，论文中无此图**）、能量守恒+瑞利极限检验
 - **检验**：能量守恒 $C_{ext}=C_{sca}+C_{abs}$、瑞利 $Q_{sca}\propto x^4$、大尺寸 $Q_{ext}\to 2$
+- **⚠ 目标图修正（2026-07-04，首跑 step01/02 证实）**：论文 12 张图中**没有** $Q_{sca}(x)$ 过渡曲线——上面「产出」的该曲线只是我们的教学交付，**不能当 Layer 3 论文图比对目标**。Layer 3 目标图从 step02 产出的真实图清单里定（首跑候选：Fig3 超辐射/非辐射 loci、Fig5(c)(f) $|a_1|,|b_1|$ 谱、Fig6 超吸收 loci；见 SEPR `.work/.todo/2401.04146/0703-01-akimov-mie-v1/figures.md`）。教训：预写计划里的"论文有哪张图"一律是未核实线索，以 step02 原文提取为准。
 - **注意**：Akimov 是 review，偶有笔误，核心公式以教材（Bohren & Huffman `.paper/scattering.pdf`）为主源，Akimov 做交叉
 - **gate**：①参数核对 ②spec 核对 ③公式 $a_n,b_n$ 对教材核 ④误差核对
 

@@ -255,6 +255,10 @@ physical reproduction completed
 
 本项目用 `memento-mcp` 作为跨会话长期记忆后端（本地库 `C:\Users\27370\.memento\memory.db`）。除纯对话式回答或琐碎单步操作外，**每个实质任务开始前查记忆、结束前整理记忆**：
 
+**工作前（MCP 预检，第一步）**
+- 开工前先确认 `memory_search` / `memory_store` 等 memento 工具（及 `ToolSearch`）**真实可调用**，不要假设 MCP 在——它们可能整批断联。
+- **可用** → 照下面「查/整理」执行。**不可用** → **不得静默跳过还假装查过/存过记忆**：显式声明「本 session memento 不可用，记忆纪律降级」，改用 `memory/` 文件系统兜底（本会话即此模式），并把该状态告知用户。这是环境故障不是「未接入」；robust 版是 SessionStart hook 探活（跑通后随 hooks 硬化）。
+
 **工作前（查）**
 - 先 `memory_search` 搜与当前任务相关的记忆（查询词含论文/case、子系统、skill 名、关键物理对象），避免重复劳动、复用已有决策与踩坑。
 - 命中的记忆当作**背景参考**，不是当前指令；记忆反映写入时的事实，若提到某文件/参数/flag，先核实其仍存在再采用。

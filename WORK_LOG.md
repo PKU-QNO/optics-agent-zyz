@@ -1,8 +1,8 @@
 # SEPR 工作日志（完整交接文档）
 
 > **用途**：本文档是 SEPR 工作区从创建到 2026-06-30 的完整工作记录。供上下文压缩或新开对话时快速恢复。如需修改，尽量对工作过程只增不减。
-> **最后更新**：2026-07-03
-> **当前阶段**：设计阶段 + 风险审查 + 16 条落地 + 子 agent 深度/工具限制全部完成。**2026-07-03 新增：核验 Claude Code 新能力（notes/Gemini 三份）→ 决定暂时放弃 OpenCode 兼容 + 分层采纳 Claude 新能力，产出 V3 加固设计提案（未落地 SEPR 本体）。** 待启动 Mie 第一阶段。
+> **最后更新**：2026-07-04
+> **当前阶段**：**Mie 首次实跑进行中**——Akimov 2401.04146 已完成 step01-02（2026-07-03）；首跑暴露 6 条信号，修复批次已完成（papers.md 契约重写 / A2 路径收敛 / spawn 硬交付红线 / step02-03 目标图条款 / MCP 预检第 0 步），见阶段十二。V3 静态审计见 `v3-final/V3-AUDIT-2026-07_latest.md`。下一步：step03 起继续复现。
 > **注**：本文档 §2 阶段八/九及 §5.18–5.20 关于「双系统 / 三文件同步」的表述，自 2026-07-03「暂时放弃 OpenCode 兼容」决定起进入撤销队列（见阶段十与 `papers/SEPR/V3-HARDENING-DESIGN-CN.md` §6），本次未逐条改写，落地时统一处理。
 
 ---
@@ -145,6 +145,19 @@ SEPR 采用 Claude Code 3 层子 agent 架构（main-agent → sub-agent → sub
 **并行**：两个后台子 agent 在写 Mie 复现执行手册（`reproduction_test/mie/MIE-复现执行手册-CN.md`）和 V4 路线图（`papers/SEPR/V4-ROADMAP-CN.md`）。
 
 **进度**：☑1a（sub-leaf/sub-e-leaf 新增 + sub/sub-E agent+SKILL 双写改 leaf 身份）☑1b（4 agent skills: 预加载）☑1c（no-op：spawn 模板不含 leaf 指令）☑1d（删 opencode.json/.opencode/scripts；SEPR CLAUDE.md 去三文件同步+子Agent深度改 Claude-only+leaf；SEPR AGENTS.md→stub；optics_agent CLAUDE/AGENTS 双系统段改写 + hardlink 重建 inode 11821949022236575）☑验证（6 agent frontmatter OK/leaf 无 Agent/quick_validate 通过/无残留）☑doc-sync（PROJECT_STATUS + .human/DESIGN L99 + SEPR WORK_LOG 阶段十一）。**本批全部完成。** 未 commit（用户 C6）。遗留低优先级：notes/opencode-adaptation-CN.md 与 notes/self_iteration_design-CN.md L152 仍是历史稿（非 active，未改）。
+
+### 阶段十二：V3 审计 + Mie 首次实跑 step01-02 + 首跑信号修复（2026-07-03/04）
+
+- **V3 对抗性静态审计**（2026-07-03，optics_agent 侧）：产出 `v3-final/V3-AUDIT-2026-07_latest.md`（§0 判决/§1 声称vs实际/§2 gap 现状/§3 V4 风险/§4 外部证据对照/§5 行动清单/§6 诚实边界）。判决：加固真落地且自洽；**A1/A2/D 仍开、C1 半修 overclaim、零真跑数据**；hooks/disable-model-invocation 搁置正确；外部 6 篇反驳论文净效应强化 V3 防线（R1-R4 边际修正）。配套引用外部审查 `v3-final/V3-EXTERNAL-REVIEW-DELTA-2026-07_latest.md`（v2 深度版）。
+- **Mie 首次实跑 step01-02**（2026-07-03，SEPR 侧，case `0703-01-akimov-mie-v1`）：产物 `.work/.todo/2401.04146/0703-01-akimov-mie-v1/`（12 图逐图清单 figures.md + formulas.md + missing_info.md + figs/ + LaTeX 源）。**首跑 6 条信号**：① memento MCP 不可用（确诊 = Claude Code 全部 MCP 断联，环境故障，后恢复）；② 路径自相矛盾（=审计 A2，真跑证实）；③ 预设目标图 $Q_{sca}(x)$ 论文中不存在（Phase-1 目标虚构）；④ papers.md 论文描述写错（与③同根，declared-vs-actual：预置知识层是没读原文写的）；⑤ sub-agent 漏交 8 字段报告/tables.md（"自觉非 100% fire"证实，Hook #3 重启信号）；⑥ verifier `check_*.py` 已存在（中性，hooks 前置早于预期，但脚本存在≠verifier 可信）。
+- **修复批次**（2026-07-04，SEPR 本体 + optics_agent 侧，全部完成）：
+  - **papers.md 契约重写**（.claude+.human 双写）：只留课程表层+学习目标层，删全部论文内容断言；"论文有哪张图"由 step02 对原文提取过 gate① 才生效。FINAL 计划 + 执行手册同类断言同步修正（目标图候选 Fig3 / Fig5(c)(f) / Fig6）。
+  - **A2 路径收敛**（全量 sed，.claude+.human）：统一 canonical `.work/.todo/{paper}/{case}/...`（skill 草稿在其下 self-iteration/；无额外 timestamp 层）；SEPR CLAUDE.md 目录约定同步；残留 grep=0。E-flow `.work/.result`（A1 消费侧）留待 E-flow 前与 A1 一起修。
+  - **spawn 硬交付红线**（W 全局模板三明治首尾）：8 字段报告+全部规定产物缺一不可；"不适用"也要落盘说明；预写论文描述只是线索以原文为准；结束前逐项自检。
+  - **step02/03 目标图条款**：step02 产出"目标图候选"（权威）；step03 只能从候选中选定。
+  - **MCP 预检第 0 步**：SEPR CLAUDE.md 记忆要求节 + optics_agent CLAUDE.md 记忆节（hardlink 重建 inode 34902897112198507）：开工先验 memento 可调用，不可用显式声明降级+文件兜底，禁静默假装。
+  - **验证**：main-agent / sub-agent / optics-mie-reproduction / pdf quick_validate 全过。
+- **遗留（下轮）**：A1 capsule 生产侧前移（step11 产 capsule.md）；D pdf 骨架诚实化（标"脚本不可依赖"）；C1 残留收口（审计 N4）。均在审计 §5 登记。SEPR 侧记录见其 WORK_LOG 阶段十二。
 
 ---
 

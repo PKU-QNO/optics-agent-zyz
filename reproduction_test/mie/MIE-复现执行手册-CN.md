@@ -39,12 +39,12 @@
 
 | 步 | 名 | Mie 场景具体动作 | spawn 子 agent? | 人工 gate? | 纯 Python 带来的简化 |
 |---|---|---|---|---|---|
-| 01 | pdf_preprocessing | 提取 Akimov 2401.04146 的正文/公式/图（$Q_{sca}(x)$ 曲线所在图）；`_src.tar.gz` 有 LaTeX 源，公式直接从源取比 OCR 准 | 是 | 否 | 无 COMSOL 参数表要抽，只抽物理公式与图数据 |
+| 01 | pdf_preprocessing | 提取 Akimov 2401.04146 的正文/公式/**全部图清单**（⚠ 2026-07-04 修订：论文实际**无** $Q_{sca}(x)$ 过渡曲线图，目标图由 step02/03 从真实图清单定，首跑候选为 Fig3 loci / Fig5(c)(f) $\|a_1\|,\|b_1\|$ / Fig6）；`_src.tar.gz` 有 LaTeX 源，公式直接从源取比 OCR 准 | 是 | 否 | 无 COMSOL 参数表要抽，只抽物理公式与图数据 |
 | 02 | paper_reading | 读论文+WoS 补经典，抽物理参数（半径、折射率、波长/尺寸参数范围、介质）成参数表 | 是 | **Gate 1（参数核对）** | 参数少（单球只有 $n$、$x$ 或半径+波长），无网格/求解器/license 参数 |
 | 03 | reproduction_design | 定复现目标（复现哪张图/哪个量），写结构化 formalization spec（geometry/materials/equations/BC） | 是 | **Gate 2（spec 核对）** | geometry 只是"一个球"，无 COMSOL 几何/网格设计；直接定死"纯解析、不上 magnus" |
 | 04 | theory_and_implementation | 从 Maxwell 推到 $a_n,b_n$ 与截面公式；写 `code/mie_coefficients.py`+`scattering.py`+`tests/`；`scipy.special` 求 Bessel/Hankel | 是 | Gate 3 前置 | 无 `.java`/`.mph`，无 Magnus 提交；本地秒级跑完，不需要云计算 |
 | 05 | theory_check | 对抗式审查：$a_n,b_n$ 分子分母、阶数、符号、切/法向 BC 双向归因核 | 是 | **Gate 3（公式核对）** | 审查对象是解析公式而非 COMSOL 设置，审查面更小但更关键 |
-| 06 | run_and_monitor | 跑 `code/` 生成 $Q_{sca}(x)$ 等 CSV；本地跑 | 是 | 否 | **最大简化**：无 Magnus 排队/日志监控/job retry，本地直接跑出数 |
+| 06 | run_and_monitor | 跑 `code/` 生成目标量 CSV（$Q_{sca}(x)$ 基线曲线 + step03 定的论文目标图数据）；本地跑 | 是 | 否 | **最大简化**：无 Magnus 排队/日志监控/job retry，本地直接跑出数 |
 | 07 | physical_verification | 跑预制 verifier（能量守恒/瑞利/大尺寸）= Layer 1；再 Layer 2 极限退化 | 是 | fail 时停问 | 无"Magnus success ≠ COMSOL success"的多态歧义，只剩物理对错 |
 | 08 | result_analysis | 数字化 Akimov 图，算 RMSE/峰位误差 = Layer 3；四类偏差归因 | 是 | **Gate 4（误差核对）** | 无 COMSOL 数值收敛伪影要排，偏差来源更干净 |
 | 09 | reproducibility_selfcheck | 换 $n_{\max}$ 截断/波长网格/随机种子重跑，排除"瞎猫碰死耗子" | 是 | 否 | 解析结果对网格不敏感，自检快 |
@@ -57,7 +57,7 @@
 
 - 每步 main-agent 走"模版拼接"：全局模版（`references/spawn_template_global.md`）+ 局部模版（该步 `main-agent/workflow/0X-*/SKILL.md` 的 spawn 局部模版块）+ 本篇论文的具体参数/注意。拼成一条完整 spawn 指令给 sub-agent。
 - sub-agent 读 `sub-agent/workflow/0X-*/SKILL.md`（怎么干+预制脚本），写 8 字段报告到 `.work/.sub-report/`，**第 6 字段"决策性回答"**是 main-agent 拍板依据。
-- **并发**：一篇论文若有两张互相独立的图（如 Akimov 的 $Q_{sca}(x)$ 与角分布），main-agent 可在同一步 fan-out 多个 sub-agent，各写各的报告文件。**必须真独立**（无数据/文件/逻辑依赖），有依赖就串行。唯一汇聚点是 main-agent，无 supervisor/worker 双对话。
+- **并发**：一篇论文若有两张互相独立的图（如 Akimov 的 Fig3 loci 与 Fig5 系数谱），main-agent 可在同一步 fan-out 多个 sub-agent，各写各的报告文件。**必须真独立**（无数据/文件/逻辑依赖），有依赖就串行。唯一汇聚点是 main-agent，无 supervisor/worker 双对话。
 - **失败防护**：同一步重跑 5 轮仍不过 → 标 blocked 写失败报告，不硬跑；重跑必须带新证据（相同 fingerprint 第二次失败即 blocker）；case 级超限（4h / spawn 20 / 搜索 30）→ 停问用户。
 
 ---
@@ -90,7 +90,7 @@
 
 排序原则：**单球解析核 → 加色散 → 加介质多极 → 加第二层边界 → 加周期耦合 → 加第二材料 → 抽等效参数**。每篇只在前一篇能力上加一个新维度。选做篇挂在与其最近的主篇之后（能力就绪时再做，非阻塞）。
 
-1. **`2401.04146` Akimov（阶段 1，第一篇 / benchmark 基石）** — 复现 $Q_{sca}(x)$ 单球消光/散射曲线，观察 Rayleigh→Mie→几何光学过渡。依赖：无（从 Maxwell + 教材 $a_n,b_n$ 起）。新增能力：Lorenz-Mie 系数 + 截面 + 能量守恒/瑞利/大尺寸 verifier。**这一篇跑通即建立整个 Mie benchmark 与 verifier 基础设施。**
+1. **`2401.04146` Akimov（阶段 1，第一篇 / benchmark 基石）** — 交付单球 Mie 核（$a_n,b_n$+截面+$Q_{sca}(x)$ 教学基线曲线），**论文图比对目标从 step02 真实图清单定**（⚠ 2026-07-04 修订：论文无 $Q_{sca}(x)$ 过渡曲线图；首跑候选 Fig3 loci / Fig5(c)(f) $|a_1|,|b_1|$ / Fig6，见 SEPR `.work/.todo/2401.04146/0703-01-akimov-mie-v1/figures.md`）。依赖：无（从 Maxwell + 教材 $a_n,b_n$ 起）。新增能力：Lorenz-Mie 系数 + 截面 + 能量守恒/瑞利/大尺寸 verifier。**这一篇跑通即建立整个 Mie benchmark 与 verifier 基础设施。**
 2. **`1112.2814` Colas des Francs（阶段 2）** — 复现金属球 LSPR 波长-半径关系、Purcell 谱。依赖：#1 的 Mie 核。新增能力：Drude 色散 `drude.py`、LSPR、准静态 vs 完整 Mie 对比。
 3. **`1201.6146` Nieto-Vesperinas（选做，接阶段 2/3 之间）** — 复现 Si 球第一 Kerker 条件（前向/后向散射比、$a_1=b_1$）。依赖：#1 核 + 介质材料参数。新增能力：电/磁偶极相对相位、角分布、Kerker 判据。**放这里是因为它是"单球定向散射"，比周期阵列简单，且为阶段 3 介质多极热身。**
 4. **阶段 3 介质球 Mie 模式（先 WoS 补 PDF，如 García-Etxarri 2011 / Kuznetsov 2012）** — 复现高折射率介质球磁偶极/电偶极多极分解消光谱。依赖：#1 核 + #3 的介质 Kerker 直觉。新增能力：多极分解、磁偶极可视化。**阻塞点：PDF 未在库，需先下载。**
