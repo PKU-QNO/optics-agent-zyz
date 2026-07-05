@@ -1,0 +1,97 @@
+# benchmark.yaml — frozen standard-answer file
+# Rules: append-only within a case; never overwrite a frozen value.
+# 首次创建：case 0703-01-akimov-mie-v1（SEPR 首次真实论文复现），2026-07-05
+
+version: 1
+last_updated: "2026-07-05"
+cases:
+  - case_id: akimov_2401.04146_fig3_loci
+    stage: 1
+    paper: "Akimov arXiv 2401.04146"
+    figure_ref: "Fig.3 (superradiant a_l=1 / non-radiating a_l=0 loci, l=1,2,3, TM/TE, 6 panels)"
+    parameters:
+      geometry:
+        description: "单一均匀各向同性球，完全无量纲化，无需具体半径 R"
+        q_e_range: [0.0, 10.0]
+      materials:
+        eps_ratio_range: [-10.0, 15.0]
+        eps_ratio_type: "纯实（无耗散、无色散）"
+      environment:
+        description: "外介质无吸收 Im(eps_e)=0"
+    expected:
+      observable: "loci curves: {a_l=1} and {a_l=0} in (q_e, eps_i/eps_e) plane, l=1,2,3, TM(a_l)/TE(b_l)"
+      values:
+        - point: {panel: "TM_l1", type: "sr", q_e: 1.0}
+          value: "eps_ratio ≈ -4.640 (superradiant root, step03 试算，与 Fig3 面板1虚线低谷位置一致)"
+      trends:
+        - "无损球酉性: |a_l|^2 = Re(a_l)，故 Im(a_l)=0 <=> a_l in {0,1}"
+        - "eps_ratio=1 为平凡非辐射线 a_l=b_l=0 对所有 l/q_e 恒成立（阻抗匹配）"
+        - "q_e->0 轴为平凡非辐射线（Rayleigh 极限 a_l->0）"
+    tolerance:
+      layer1_energy_conservation_rel: 1.0e-10
+      layer1_rayleigh_slope: 4.0
+      layer1_rayleigh_slope_tol: 0.01
+      layer1_large_size_trend_tol: 0.05
+      layer2_self_consistency_abs: 1.0e-8
+      t2_cross_check_bh_vs_akimov: 1.0e-12
+      layer3_normalized_distance_median: 0.01
+      layer3_normalized_distance_p95: 0.03
+      completeness_branch_count: "逐面板一致（Gate2 强制附加判据）"
+      completeness_coverage_pct: 95.0
+    provenance:
+      our_impl:
+        layer1_energy_conservation: "max rel err = 0.000e+00 (PASS)"
+        layer1_rayleigh_slope: "4.0001 (PASS)"
+        layer1_large_size_trend: "|Q_ext-2|=0.0163 @ x=800, 单调趋2 (PASS, verifier 经 Gate3 改为趋势判据)"
+        t2_cross_check: "max|Δa|=2.221e-15, max|Δb|=4.775e-16 over 3300 points (PASS)"
+        layer2_self_consistency: "sr max|a-1|=9.3e-9, nr max|a|=9.2e-10, 平凡线 max=8.6e-15 (PASS)"
+        completeness: "TM 12/12,12/12,11/11; TE 12/12,11/11,11/11 逐面板一致，contour覆盖>99.8% (PASS)"
+        layer3_global_median: 0.007463
+        layer3_global_p95: 0.042580
+        layer3_per_panel:
+          TM1_sr: {median: 0.012328, p95: 0.127159, max: 0.178846, n: 173, pass: false}
+          TM1_nr: {median: 0.007361, p95: 0.018669, max: 0.060468, n: 179, pass: true}
+          TM2_sr: {median: 0.011692, p95: 0.059969, max: 0.185116, n: 171, pass: false}
+          TM2_nr: {median: 0.006864, p95: 0.021204, max: 0.061024, n: 171, pass: true}
+          TM3_sr: {median: 0.011051, p95: 0.052281, max: 0.200080, n: 149, pass: false}
+          TM3_nr: {median: 0.006659, p95: 0.018196, max: 0.060984, n: 171, pass: true}
+          TE1_sr: {median: 0.009863, p95: 0.087898, max: 0.165279, n: 163, pass: false}
+          TE1_nr: {median: 0.005845, p95: 0.018917, max: 0.061432, n: 173, pass: true}
+          TE2_sr: {median: 0.008879, p95: 0.131477, max: 0.172272, n: 143, pass: false}
+          TE2_nr: {median: 0.005437, p95: 0.016942, max: 0.060956, n: 172, pass: true}
+          TE3_sr: {median: 0.007273, p95: 0.021092, max: 0.031482, n: 147, pass: true}
+          TE3_nr: {median: 0.005508, p95: 0.020592, max: 0.069932, n: 170, pass: true}
+        independent_reroot_verification:
+          method: "optics_agent CC 用 Gate3 验证过的 scattering.py 完全绕开 fig3_loci.py 独立重新求 sr locus 根"
+          delta: 0.0000
+          points_checked: "TM l=1 @ q_e=1/4/7; TM l=2 @ q_e=1/4/7; TE l=2 @ q_e=4/7（多切片全部根）"
+          significance: "决定性证据：复现曲线数学正确，超标非画错，归因数字化读图误差"
+      paper_figure:
+        digitized_points_total: 1982
+        digitized_points_per_group_range: [143, 179]
+        digitization_uncertainty_normalized_nominal: [0.005, 0.006]
+    two_way_agreement: partial
+    verifier_results:
+      energy_conservation: pass
+      rayleigh_limit: pass
+      large_size_limit: pass
+      t2_cross_check: pass
+      layer2_self_consistency: pass
+      completeness: pass
+      layer3_global: conditional
+      layer3_nr_all_panels: pass
+      layer3_sr_median: "partial (TE1/TE2/TE3 pass, TM1/TM2/TM3 fail)"
+      layer3_sr_p95: "known/accepted — 5/6 面板超标 (仅 TE3 pass)，Gate4 裁决为 known/accepted，
+        归因数字化读图误差 + loci 陡峭区几何度量放大效应，非复现数值偏差。
+        依据: GATE4-决定.md（独立求根 Δ=0.0000 决定性证据）。不改阈值（Gate4 否决放宽选项）。"
+    human_gate_4: pass
+    result_class: partial_physical_match
+    notes: >
+      SEPR 首次真实论文复现（case 0703-01-akimov-mie-v1）。Layer3 阈值（median<0.01,
+      p95<0.03）为 SEPR 自定，loci 图无社区先例，本记录作为后续同类论文的校准基线，
+      不作为权威门槛。sr 分支 p95 长尾超标经 Gate4 裁决标记为 known/accepted：
+      归因链 = 独立求根验证(Δ=0.0000,决定性) + nr全达标(佐证曲线整体位置正确) +
+      完备性PASS(排除漏根/伪根) + 长尾集中于陡峭密集分支区(几何度量放大效应) 共同支持
+      "数字化读图误差"归因。方向性检验（数字化偏差单/双侧分布）未完成，不影响本次
+      裁决但记为遗留项。详见 .work/.todo/2401.04146/0703-01-akimov-mie-v1/GATE4-决定.md
+      和 .result/0703-01-akimov-mie-v1/capsule.md。

@@ -193,6 +193,7 @@ Claude 和 Agents 的 skills 通过 Windows junction 同步：
 
 | 任务 | Skill |
 |---|---|
+| **SEPR 上游审核 / 交接文档核对 / gate 上游裁决 / SEPR workflow·框架设计与演进 / v3-final 谱系维护 / optics_agent 自身 COMSOL·Magnus 编排（= 本工作区对话顶端身份）** | **`optics-lead`**（`.claude/agents/optics-lead.md` + skill；这是元工作区主 agent 身份，其它 skill 在其之下调用） |
 | 项目路由、目标、工作区边界、credentials、安全规则、重要文件 | `optics-agent-core` |
 | Mie 理论解析/半解析计算、Lorenz-Mie 系数、散射/吸收/消光截面、LSPR、介质 Mie 模式、core-shell、CDA、SLR、二元阵列、S 参数反演、Maxwell-Garnett、Mie-vs-Bragg 相图、Python-only benchmark、3 层物理验证（能量守恒、Rayleigh/large-size 极限、论文图定量比较；PyMieScatt 已废弃） | `optics-mie-reproduction` + `reproduction_test/mie/mie_reproduction_plan-FINAL-CN.md` |
 | 非 Mie 的论文图复现、参数表、缺失信息分析、复现报告、handoff、COMSOL/Magnus 复现 | `optics-paper-reproduction` |
@@ -396,6 +397,14 @@ Use the global MCP routing rules first, then apply these project-specific refine
 - Use `semantic-scholar`, `openalex`, or `crossref`-based MCPs to fill missing abstracts, citation graph context, DOI metadata, or author/institution metadata after the primary source.
 - Use `firecrawl` for known URLs that need reliable extraction, and browser automation only when the page requires interaction.
 - Do not rely on training data alone for API syntax, model/library versions, paper claims, or current platform behavior.
+
+## 模型路由与 codex 委托（2026-07-05 用户拍板，两工作区通用）
+
+codex（GPT-5.5，`codex-cli` MCP）单价约 Opus 4.8 的 1/50。原则：**判断密度决定谁干活**。**默认 Claude 不亲自读写文件——机械读写与执行委托 codex**（读文件内容不进 Claude context）；**白名单豁免仅两类**：① 裁决必需的读（gate 停机点亲读 GATE 决定/verifier 输出/关键报告，裁决依据不得经转述）；② 契约文件的写（8 字段报告、capsule、GATE 决定、WORK_LOG、run_manifest 由 Claude 亲写自校）。物理推导、gate 裁决、编排留 Claude；代码实现 codex 写 Claude 验（verifier 兜底）；对抗审查 codex+Claude 双审（异构防 self-preference）。codex 安全硬约束：`sandbox: workspace-write` + `approval-policy: untrusted`，永不 `danger-full-access`；cwd 限任务文件夹；secrets 在可达范围外；产物落盘经 Claude 验收才作数；计入资源上限。详表见 SEPR `CLAUDE.md`「模型路由与 codex 委托」节。
+
+## Malformed tool-call 熔断（2026-07-05，两工作区通用）
+
+Opus 4.8 长上下文偶发 tool call 格式坏 + harness 留坏文本于 transcript → 模型自回归模仿自己的坏格式级联（官方 issues #61367/#62344/#64097；用户实测错 3 次后几乎写不出正确调用）。**熔断**：同 session 累计 **2 次** malformed → 立即停、写 handoff（写文件也失败就在对话里输出全文）、开新对话，**绝不** `--resume`。缓解：长任务每个自然停机点（gate/阶段界）默认断 session。
 
 ## Development Practices
 

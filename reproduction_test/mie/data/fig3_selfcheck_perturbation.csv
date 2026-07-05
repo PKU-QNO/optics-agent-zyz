@@ -1,0 +1,47 @@
+perturbation,panel,config,scope,n_sr_branch,n_nr_branch,n_sr_pts,n_nr_pts,max_root_offset,median_root_offset,root_count_delta,note
+n_max截断,ALL,nmax+5,structural,,,,,0.000e+00,0.000e+00,0,loci单阶求根不含n_max; 多算高阶单阶偏移=0.0e+00(无耦合)
+n_max截断,ALL,nmax+15,structural,,,,,0.000e+00,0.000e+00,0,loci单阶求根不含n_max; 多算高阶单阶偏移=0.0e+00(无耦合)
+n_max截断,ALL,nmax x2,structural,,,,,0.000e+00,0.000e+00,0,loci单阶求根不含n_max; 多算高阶单阶偏移=0.0e+00(无耦合)
+eps网格密度,TM_l1,eps2000,slice_subset,,,,,2.491e-11,3.872e-13,unmatched=0;count_delta=0,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+eps网格密度,TM_l1,eps8000,slice_subset,,,,,2.494e-11,5.596e-14,unmatched=0;count_delta=0,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+eps网格密度,TM_l2,eps2000,slice_subset,,,,,2.490e-11,8.135e-13,unmatched=1;count_delta=1,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+eps网格密度,TM_l2,eps8000,slice_subset,,,,,4.543e-11,4.508e-14,unmatched=1;count_delta=1,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+eps网格密度,TM_l3,eps2000,slice_subset,,,,,2.334e-11,2.585e-13,unmatched=1;count_delta=1,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+eps网格密度,TM_l3,eps8000,slice_subset,,,,,2.539e-11,9.734e-13,unmatched=0;count_delta=0,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+eps网格密度,TE_l1,eps2000,slice_subset,,,,,2.505e-11,3.464e-13,unmatched=0;count_delta=0,Gate4区(q_e>=8;eps>10)sr根 基准7/扰动7 净变0
+eps网格密度,TE_l1,eps8000,slice_subset,,,,,3.623e-11,1.119e-12,unmatched=0;count_delta=0,Gate4区(q_e>=8;eps>10)sr根 基准7/扰动7 净变0
+eps网格密度,TE_l2,eps2000,slice_subset,,,,,2.514e-11,1.847e-13,unmatched=0;count_delta=0,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+eps网格密度,TE_l2,eps8000,slice_subset,,,,,2.830e-11,1.776e-14,unmatched=0;count_delta=0,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+eps网格密度,TE_l3,eps2000,slice_subset,,,,,2.320e-11,2.802e-13,unmatched=0;count_delta=0,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+eps网格密度,TE_l3,eps8000,slice_subset,,,,,3.609e-11,8.722e-13,unmatched=0;count_delta=0,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+brentq容差,TM_l1,xtol1e-8,slice_subset,,,,,2.439e-09,5.135e-11,unmatched=4;count_delta=4,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+brentq容差,TM_l1,xtol1e-13,slice_subset,,,,,2.490e-11,0.000e+00,unmatched=0;count_delta=0,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+brentq容差,TM_l2,xtol1e-8,slice_subset,,,,,2.317e-09,0.000e+00,unmatched=3;count_delta=3,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+brentq容差,TM_l2,xtol1e-13,slice_subset,,,,,2.488e-11,0.000e+00,unmatched=1;count_delta=1,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+brentq容差,TM_l3,xtol1e-8,slice_subset,,,,,2.303e-09,0.000e+00,unmatched=4;count_delta=4,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+brentq容差,TM_l3,xtol1e-13,slice_subset,,,,,2.334e-11,0.000e+00,unmatched=0;count_delta=0,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+brentq容差,TE_l1,xtol1e-8,slice_subset,,,,,2.460e-09,0.000e+00,unmatched=3;count_delta=3,Gate4区(q_e>=8;eps>10)sr根 基准7/扰动7 净变0
+brentq容差,TE_l1,xtol1e-13,slice_subset,,,,,2.488e-11,0.000e+00,unmatched=0;count_delta=0,Gate4区(q_e>=8;eps>10)sr根 基准7/扰动7 净变0
+brentq容差,TE_l2,xtol1e-8,slice_subset,,,,,2.368e-09,5.000e-11,unmatched=4;count_delta=4,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+brentq容差,TE_l2,xtol1e-13,slice_subset,,,,,2.339e-11,0.000e+00,unmatched=0;count_delta=0,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+brentq容差,TE_l3,xtol1e-8,slice_subset,,,,,1.936e-09,5.000e-11,unmatched=0;count_delta=0,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+brentq容差,TE_l3,xtol1e-13,slice_subset,,,,,2.320e-11,0.000e+00,unmatched=0;count_delta=0,Gate4区(q_e>=8;eps>10)sr根 基准8/扰动8 净变0
+q_e网格密度,TM_l1,qe400,full_panel,12,11,2465,2043,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TM_l1,qe800_base,full_panel,12,11,4930,4084,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TM_l1,qe1600,full_panel,12,11,9860,8166,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TM_l2,qe400,full_panel,12,11,2292,1883,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TM_l2,qe800_base,full_panel,12,11,4586,3767,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TM_l2,qe1600,full_panel,12,11,9158,7529,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TM_l3,qe400,full_panel,11,10,2138,1721,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TM_l3,qe800_base,full_panel,11,10,4276,3441,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TM_l3,qe1600,full_panel,11,10,8547,6880,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TE_l1,qe400,full_panel,12,11,2239,1900,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TE_l1,qe800_base,full_panel,12,11,4477,3800,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TE_l1,qe1600,full_panel,12,11,8953,7601,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TE_l2,qe400,full_panel,11,10,2077,1740,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TE_l2,qe800_base,full_panel,11,10,4150,3480,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TE_l2,qe1600,full_panel,11,10,8303,6958,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TE_l3,qe400,full_panel,11,10,1913,1601,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TE_l3,qe800_base,full_panel,11,10,3823,3201,,,,Gate4区(eps>10)sr支数=9
+q_e网格密度,TE_l3,qe1600,full_panel,11,10,7644,6400,,,,Gate4区(eps>10)sr支数=9
+随机种子,ALL,determinism_check,structural,,,,,0.000e+00,0.000e+00,0,源码含random=False; 求根纯确定性，无随机成分，种子无关
