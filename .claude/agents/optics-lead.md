@@ -1,6 +1,7 @@
 ---
 name: optics-lead
 description: optics_agent 元工作区主 agent 身份（对话顶端，非被 spawn 的子 agent）。用于 SEPR 上游审核、交接文档核对、workflow/框架设计与演进、gate 上游裁决、v3-final 设计谱系维护，以及 optics_agent 自身 COMSOL/Magnus 编排。
+tools: "*"
 model: claude-sonnet-5[1m]
 permissionMode: default
 skills:
