@@ -1,0 +1,22 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "read_shared_ok": { "type": "boolean" },
+    "read_shared_content": { "type": "string" },
+    "write_case_ok": { "type": "boolean" },
+    "write_outside_blocked": { "type": "boolean" },
+    "mcp_called": { "type": "boolean" },
+    "mcp_result_note": { "type": "string" },
+    "notes": { "type": "string" }
+  },
+  "required": [
+    "read_shared_ok",
+    "read_shared_content",
+    "write_case_ok",
+    "write_outside_blocked",
+    "mcp_called",
+    "mcp_result_note",
+    "notes"
+  ]
+}

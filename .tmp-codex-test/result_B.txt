@@ -1,0 +1,12 @@
+实际 spawn 成功了，不是模拟。
+
+- 子 agent 1：`019f3b24-a257-7091-96d0-c3d820371ff5`，nickname `Plato`
+  - 写入 `agent1_out.txt`
+  - 内容确认：它说精确模型名在子 agent 内不可见；按继承指令识别为 `Codex, based on GPT-5`；并确认自己是子 agent。
+- 子 agent 2：`019f3b24-a69c-7d73-919c-3dcd158a3df7`，nickname `Singer`
+  - 写入 `agent2_out.txt`
+  - 内容确认：`2 to the 10th power equals 1024.`
+
+模型结论：我没有给两个子 agent 设置 `model` override；`spawn_agent` 工具说明默认继承父 agent 当前模型。子 agent 1 自己无法看到精确模型版本，所以我不能假装确认更细的版本名，只能确认它们使用了默认继承模型，并且子 agent 自报为 Codex/GPT-5 系列。
+
+我也已直接读取两个文件核对内容，并关闭了两个子 agent。会话总结已存储。

@@ -1,0 +1,2 @@
+Model: Exact model name is not visible to me. I am Codex, a coding agent based on GPT-5, per inherited system/developer instructions.
+Sub-agent: Yes; I am acting as sub-agent 1.

@@ -400,7 +400,11 @@ Use the global MCP routing rules first, then apply these project-specific refine
 
 ## 模型路由与 codex 委托（2026-07-05 用户拍板，两工作区通用）
 
-codex（GPT-5.5，`codex-cli` MCP）单价约 Opus 4.8 的 1/50。原则：**判断密度决定谁干活**。**默认 Claude 不亲自读写文件——机械读写与执行委托 codex**（读文件内容不进 Claude context）；**白名单豁免仅两类**：① 裁决必需的读（gate 停机点亲读 GATE 决定/verifier 输出/关键报告，裁决依据不得经转述）；② 契约文件的写（8 字段报告、capsule、GATE 决定、WORK_LOG、run_manifest 由 Claude 亲写自校）。物理推导、gate 裁决、编排留 Claude；代码实现 codex 写 Claude 验（verifier 兜底）；对抗审查 codex+Claude 双审（异构防 self-preference）。codex 安全硬约束：`sandbox: workspace-write` + `approval-policy: untrusted`，永不 `danger-full-access`；cwd 限任务文件夹；secrets 在可达范围外；产物落盘经 Claude 验收才作数；计入资源上限。详表见 SEPR `CLAUDE.md`「模型路由与 codex 委托」节。
+codex（GPT-5.5）单价约 Opus 4.8 的 1/50。原则：**判断密度决定谁干活**。**默认 Claude 不亲自读写文件——机械读写与执行委托 codex**（读文件内容不进 Claude context）；**白名单豁免仅两类**：① 裁决必需的读（gate 停机点亲读 GATE 决定/verifier 输出/关键报告，裁决依据不得经转述）；② 契约文件的写（8 字段报告、capsule、GATE 决定、WORK_LOG、run_manifest 由 Claude 亲写自校）。物理推导、gate 裁决、编排留 Claude；代码实现 codex 写 Claude 验（verifier 兜底）；对抗审查 codex+Claude 双审（异构防 self-preference）。
+
+**两条委托通道（2026-07-07 精化，实测确立）**：① **架构委托走 bash `codex exec`**——产物要落盘、要被后续步骤消费的委托全走它（`-C <case> --add-dir <shared> -s workspace-write -c approval_policy=never --output-schema <s> -o <out> --json`）；`codex exec` 独有 `--add-dir`/`--output-schema`/`-o`/`--json`/`-p profile`，MCP 都没有。② **一次性问答走 `codex-cli` MCP**——仅当 Claude 顶端身份要**当场读 codex 的答案**（核 API 语法/查文档）时用。**非交互 exec 的 approval 必须 `never`**（不是 `untrusted`——那会在非交互流卡等批准挂死；安全靠 `workspace-write` sandbox 兜底，实测越界写被拦）。codex 产物一律落盘不走 stdout（防截断，读 `-o` 文件）。
+
+codex 安全硬约束：`sandbox: workspace-write` + `approval_policy=never`（非交互 exec）/`untrusted`（交互 MCP），**永不** `danger-full-access`；cwd 限任务文件夹；secrets 在可达范围外；产物落盘经 Claude 验收才作数；计入资源上限。SEPR 复现 11 步分档（A档整步交/B档绝不交/C档拆开）+ codex exec 模板 + `.codex/agents/*.toml` 详见 `notes/codex_exec_delegation_plan-CN.md` 与 SEPR `CLAUDE.md`「模型路由与 codex 委托」节。
 
 ## Malformed tool-call 熔断（2026-07-05，两工作区通用）
 

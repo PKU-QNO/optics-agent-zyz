@@ -1,8 +1,8 @@
 # SEPR 工作日志（完整交接文档）
 
 > **用途**：本文档是 SEPR 工作区从创建到 2026-06-30 的完整工作记录。供上下文压缩或新开对话时快速恢复。如需修改，尽量对工作过程只增不减。
-> **最后更新**：2026-07-05
-> **当前阶段**：**SEPR 首篇复现完整闭环 + main-agent 自我诊断 human_intervention 落地**——Akimov Fig3（case `0703-01-akimov-mie-v1`）10 步 W-flow + 第11步 + 最终交付 gate 全部完成，`result_class = partial_physical_match` 全程锁定，optics-lead 磁盘核实汇报属实无造假。main-agent 主动自我复盘暴露"用反补救方向"（跳过校验层而非加独立核对）等 8 点问题，其中"main 复述纪律缺失"判定不适用三级治理泛化门槛、已 human_intervention 直接落地 `main-agent/SKILL.md`（`.claude`+`.human` 双写，quick_validate 通过）。**codex 委托规则本 session 违规项按用户要求暂缓，另有新方案待提出**。此前一轮：optics-lead 常驻主 agent 身份建立 + 模型全收敛 Sonnet 5 + 启动机制洞修复。见阶段十三、十四。
+> **最后更新**：2026-07-07
+> **当前阶段**：**codex exec 委托方案落地**（阶段十五）——阶段十四遗留的"codex 委托新方案"由用户提出并落地：架构委托走 bash `codex exec`（一次性问答走 MCP），SEPR 11 步分档（A档01/06/07整步交、B档05/08/09/11绝不交、C档02/03/04/10拆开），旁路架构不改三层 Claude 结构，codex 预制 agent 建 `.codex/agents/*.toml`。codex exec 六点能力实测全绿（记忆 `c9ebdf3d`）。方案+两侧CLAUDE.md+toml原型已落盘，记忆 `74c52808` supersedes 旧 `5cf2c7b0`（approval untrusted→exec用never 精化）。`result_class = pipeline_completed`（规则落地，真case物理质量待二期）。前序：阶段十四 SEPR 首篇复现闭环+human_intervention；阶段十三 optics-lead 身份+全Sonnet收敛。见阶段十三、十四、十五。
 > **注**：本文档 §2 阶段八/九及 §5.18–5.20 关于「双系统 / 三文件同步」的表述，自 2026-07-03「暂时放弃 OpenCode 兼容」决定起进入撤销队列（见阶段十与 `papers/SEPR/V3-HARDENING-DESIGN-CN.md` §6），本次未逐条改写，落地时统一处理。
 
 ---
@@ -187,6 +187,18 @@ SEPR 采用 Claude Code 3 层子 agent 架构（main-agent → sub-agent → sub
 - **optics-lead 裁决**：对第⑧点——`GATE4-决定.md` 是 optics-lead 一手写的原始文件非转引，两处更正均为当场核对原始数据所写，main 引用无失真风险，可放心沿用。对第①点——诊断准确但补救方案不认可，不要求"以后必须spawn sub-agent"（形式主义），而要求**程序性硬约束**：main-agent 判断需偏离既定 workflow 步骤（尤其跳过任何校验层）时必须先停下问 human gate，不得自主决定、事后声明代价了事。对④⑤⑦——就地修补不需要新开gate。对治理路径——**建议1（复述纪律）不适用三级治理"攒够case再泛化"逻辑**（那是给"要不要泛化临场发明的做法"设计的门槛，用在"显而易见的结构性漏洞"上只会让风险重演），判定为 **human_intervention 立即落地**，不等 evolution batch。
 - **human_intervention 落地**（非 evolution-agent 自迭代）：`main-agent/SKILL.md`（`.claude`+`.human` 双写）新增"关键节点必须停"第5条（偏离流程先问gate，含反例）+ 独立小节"复述纪律"（复述量化/方向性结论须现场核对原文+标来源+禁自然语言转写）。`PYTHONUTF8=1 python quick_validate.py` 全通过（默认 GBK 解码在含中文 UTF-8 SKILL.md 上报错非内容问题，已存 pitfall `aabfddd2`）。同步补登记 `run_manifest.yaml`（新增"最终交付gate"记录）+ `capsule.md`（§8/§9 新增落地状态与自我诊断记录）+ `toEflow/2401.04146.skill-suggestion.md`（追加"状态更新"节，标注建议1已落地不再candidate pending，只增不删）。
 - **遗留（下轮）**：① codex 委托规则违规项的新方案（用户已表示"有新想法"，待其提出）；② SEPR 侧 skill-suggestion 建议2/3/4（Layer3 loci 度量陷阱文档化、独立复算验证协议固化）仍是 Tier-2 candidate pending，等 evolution batch 或攒够 case；③ 更早遗留的 `toEflow/记忆分层架构-扶正需求.md` 仍未处理；④ Fig5(c)(f)/Fig6 复现留第二轮；⑤ 数字化偏差方向性检验未做透（Gate4 已知遗留，不阻塞）。
+
+### 阶段十五：codex exec 委托方案设计 + 落地（2026-07-07，optics_agent 侧，optics-lead 身份）
+
+- **背景**：阶段十四遗留①"codex 委托新方案"由用户提出——把 SEPR sub-agent/sub-sub-agent 迁到 codex，保留 Claude 子 agent 特定情况用。本阶段设计+自审+落地一条龙（用户授权"直接写完方案自行审查实现"）。
+- **codex exec 能力实测**（`.tmp-codex-test/`，六点全绿，每项客观落盘核实不信 codex 自述）：① `--add-dir` 跨目录读 case 外共享代码 ✓；② `workspace-write` 写 case 内 ✓；③ **sandbox 拦 case 外写**（`should_fail.txt` 磁盘确无）✓；④ `--output-schema` 结构化产物 ✓；⑤ **codex 真 spawn 子 agent**（两子 agent 各落盘，UUID/nickname Plato/Singer）✓；⑥ **exec 非交互调 MCP**（memento 查 SEPR 返回 3 条）✓。附带 `--json` 51 行事件流可审计（spawn 15/mcp 6/command 4）。实测已存记忆 `c9ebdf3d`。
+- **核心设计结论**：**架构委托走 bash `codex exec`，一次性问答走 `codex-cli` MCP**——exec 独有 `--add-dir`/`--output-schema`/`-o`/`--json`/`-p profile`（MCP 全缺），是这架构的命门。**approval 口径修正**：非交互 exec 必须 `never`（非 `untrusted`——那会在非交互流卡等批准挂死），安全靠 `workspace-write` sandbox 兜底。
+- **SEPR 11 步分档**（用户批准）：A 档整步交 codex（01 pdf/06 run/07 physical_verification，全 `agent→script` 脚本判定）；B 档绝不交保留 Claude（05 theory_check/08 result_analysis/09 selfcheck/11 main_report，高判断+错误难抓+压 gate3/gate4/result_class）；C 档拆开（02/03/04/10 机械层交 codex + 判断层/契约写留 Claude）。「保留 Claude 特定情况」= B 档 + C 档判断层。
+- **旁路架构（关键，不改已审计结构）**：codex exec 给 main-agent **加一条委托旁路**，不替换 `main→sub→leaf` 三层 Claude 架构；codex sub-sub 在 codex 侧原生 spawn，不碰 Claude 叶子层硬化（C1）。codex 预制 agent 定义 `.codex/agents/*.toml`，与 `.claude/agents/*.md` 并存。
+- **落盘**：`notes/codex_exec_delegation_plan-CN.md`（完整方案 188 行）+ optics_agent `CLAUDE.md`（委托节精化，hardlink 断裂后重建 inode `10696049115271462`）+ SEPR `CLAUDE.md`（详表：approval 修正+exec 模板+11 步 3 档表+旁路架构）+ SEPR `.codex/agents/`（`codex-exec-worker.toml` gpt-5.5-high + `codex-leaf-mechanical.toml` gpt-5.4-mini + README）。记忆 `74c52808` `supersedes` 旧决策 `5cf2c7b0`（approval untrusted→exec 用 never 的精化，非推翻）。
+- **自审修复 3 点**：① grep 全仓确认 `untrusted` 只剩交互 MCP 语境无矛盾；② hardlink 断裂已重建；③ 诚实边界补全——**未实测项全标 pending 二期验**：codex 子 agent 精确 model 名不可自证、toml `model` 字段能否真 pin 未验、exec 靠 prompt 触发预制 agent 的实际机制未跑通、`-p profile` 未单测、真实复现步物理质量未验。
+- **分期落地**：一期=写死规则不改架构（本阶段完成，`result_class = pipeline_completed`）；二期=下个真 case 用 01 pdf_preprocessing 试 codex exec，Claude 验收后扩 06/07；三期=C 档拆分+profile 锁 mini+沉淀 evolution skill。
+- **遗留（下轮）**：① **codex exec 方案二期实测**（真 case 验 toml pin model + exec 触发机制 + 物理质量）——这是新的最高优先级技术验证项；② `.tmp-codex-test/` 测试目录暂留（二期或可复用），未 commit；③ 阶段十四遗留②③④⑤ 仍在（skill-suggestion 建议2/3/4、记忆分层扶正、Fig5/Fig6 第二轮、数字化方向性检验）。
 
 ---
 
