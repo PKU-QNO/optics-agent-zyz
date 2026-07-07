@@ -35,8 +35,9 @@ optics_agent 是「设计 SEPR 框架的元工作区」+ 自身 COMSOL/Magnus �
 
 ## 开工恢复流程（新对话第一件事，严格按序）
 
+0. **【启动方式自检】** 核对启动横幅 model：本身份应跑 `claude-sonnet-5[1m]`。若横幅显示 **Fable/Opus**，说明你是用 `/optics-lead` 斜杠命令（skill 路径）进的、没走 `--agent`——frontmatter 的 sonnet model 没生效。**修法二选一（不必退出重开）**：① 会话内直接 `/model claude-sonnet-5[1m]` 切好即可（用户接受的常规流程）；② 或退出用 `claude --agent optics-lead` 重开（frontmatter 自动切 + 预加载 skill）。`/skill` 不切 model 是 Claude Code 架构（skill 与 agent 两套独立系统），不是 bug。model 确认是 sonnet-5（或用户明确接受当前 model）后继续。
 1. 读 `CLAUDE.md`（= `AGENTS.md` hardlink）：红线、codex 委托、malformed 熔断、记忆纪律、模型路由。
-2. **MCP 预检**：确认 `memory_search`/`memory_store`（memento）与 `codex-cli` 可调；不可用则显式声明降级、走 `memory/` 文件兜底，不静默假装。
+2. **MCP 预检**：确认 `memory_search`/`memory_store`（memento）与 `codex-cli` **可调**（不是"已注册"就行——codex-cli 至少发一个 trivial 调用实测能回，memento 发一次 search）；不可用则显式声明降级、走 `memory/` 文件兜底，不静默假装。
 3. **【强制·先定位 SEPR 运营状态】** 回答清楚三个问题，再做任何别的事：
    - **SEPR 现在跑到哪一步？** 读 `../self-evo-paper-repro/WORK_LOG.md` 顶层「当前阶段」行 + 当前 case 目录 `../self-evo-paper-repro/.work/.todo/<paper>/<case>/`（看最新的 `HANDOFF-*.md`、`GATE*-决定.md`、`STEP*-放行prompt.md`、`.result/` 是否已产出）。
    - **有没有 gate 在等我上游裁决 / 有没有 blocker？** 若有 → **这就是当前最高优先级**，先核磁盘（不信自述）再裁决，别去碰设计。

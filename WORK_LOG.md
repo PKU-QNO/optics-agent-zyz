@@ -1,8 +1,8 @@
 # SEPR 工作日志（完整交接文档）
 
 > **用途**：本文档是 SEPR 工作区从创建到 2026-06-30 的完整工作记录。供上下文压缩或新开对话时快速恢复。如需修改，尽量对工作过程只增不减。
-> **最后更新**：2026-07-04
-> **当前阶段**：**Mie 首次实跑进行中**——Akimov 2401.04146 已完成 step01-02（2026-07-03）；首跑暴露 6 条信号，修复批次已完成（papers.md 契约重写 / A2 路径收敛 / spawn 硬交付红线 / step02-03 目标图条款 / MCP 预检第 0 步），见阶段十二。V3 静态审计见 `v3-final/V3-AUDIT-2026-07_latest.md`。下一步：step03 起继续复现。
+> **最后更新**：2026-07-05
+> **当前阶段**：**SEPR 首篇复现完整闭环 + main-agent 自我诊断 human_intervention 落地**——Akimov Fig3（case `0703-01-akimov-mie-v1`）10 步 W-flow + 第11步 + 最终交付 gate 全部完成，`result_class = partial_physical_match` 全程锁定，optics-lead 磁盘核实汇报属实无造假。main-agent 主动自我复盘暴露"用反补救方向"（跳过校验层而非加独立核对）等 8 点问题，其中"main 复述纪律缺失"判定不适用三级治理泛化门槛、已 human_intervention 直接落地 `main-agent/SKILL.md`（`.claude`+`.human` 双写，quick_validate 通过）。**codex 委托规则本 session 违规项按用户要求暂缓，另有新方案待提出**。此前一轮：optics-lead 常驻主 agent 身份建立 + 模型全收敛 Sonnet 5 + 启动机制洞修复。见阶段十三、十四。
 > **注**：本文档 §2 阶段八/九及 §5.18–5.20 关于「双系统 / 三文件同步」的表述，自 2026-07-03「暂时放弃 OpenCode 兼容」决定起进入撤销队列（见阶段十与 `papers/SEPR/V3-HARDENING-DESIGN-CN.md` §6），本次未逐条改写，落地时统一处理。
 
 ---
@@ -158,6 +158,35 @@ SEPR 采用 Claude Code 3 层子 agent 架构（main-agent → sub-agent → sub
   - **MCP 预检第 0 步**：SEPR CLAUDE.md 记忆要求节 + optics_agent CLAUDE.md 记忆节（hardlink 重建 inode 34902897112198507）：开工先验 memento 可调用，不可用显式声明降级+文件兜底，禁静默假装。
   - **验证**：main-agent / sub-agent / optics-mie-reproduction / pdf quick_validate 全过。
 - **遗留（下轮）**：A1 capsule 生产侧前移（step11 产 capsule.md）；D pdf 骨架诚实化（标"脚本不可依赖"）；C1 残留收口（审计 N4）。均在审计 §5 登记。SEPR 侧记录见其 WORK_LOG 阶段十二。
+
+---
+
+### 阶段十三：Akimov Fig3 Gate1-4 裁决 + optics-lead 身份建立 + 全 Sonnet 收敛 + 启动机制洞修复（2026-07-05，optics_agent 侧）
+
+本阶段全在 **optics_agent 元工作区**（optics-lead 上游身份），跨两轮对话。SEPR 侧只跑复现，裁决与治理在此。
+
+- **Akimov Fig3（case `0703-01-akimov-mie-v1`）Gate1-4 上游裁决全部完成**（result_class 全程锁 `partial_physical_match`，CLAUDE.md 红线封顶，绝不 physical_reproduction_success）：
+  - **Gate1**：目标图 = Fig3（超辐射 $a_l=1$/非辐射 $a_l=0$ 态 loci，六面板 TM/TE×l=1,2,3）；6 条首跑信号全解决。
+  - **Gate2**：完备性强制——切片法 vs contour 支数逐面板一致，覆盖 >99.8%。
+  - **Gate3**：BH 主源公式对教材核正确；**大尺寸 verifier 从点阈值改为趋势判据**（Q_ext 单调趋 2 + 末点 x=800 |Q-2|<0.05；原点阈值误判合法收敛为 FAIL——我提的 m=1.5+0.01i 参数自己复算也过不了，因主偏离是代数慢收敛非 ripple，故改趋势）。
+  - **Gate4**：optics-lead 用 Gate3 验过的 scattering.py **完全独立重求 sr locus 根**，与 SEPR CSV 逐点 **Δ=0.0000** → 证复现曲线数学正确、超标归因数字化读图。**纠 main-agent 两处转述漂移**："负 ε"实为正大 ε≈14.6；"仅 p95 长尾"实为 TM 三面板中位数也略超（0.011-0.012）。方向性检验未做透 → 记 capsule。不改阈值（否决选项2）。
+- **optics-lead 常驻主 agent 身份建立**（`.claude/agents/optics-lead.md` + `.codex/skills/optics-lead/SKILL.md`）：optics_agent 元工作区对话顶端身份 = SEPR main-agent 上游。三支柱职责（SEPR 上游审核+gate 裁决 / 框架设计+v3-final 谱系 / 自身 COMSOL·Magnus）。**2 次行为修正**：① 运营优先于设计（开工先定位 SEPR 运营状态，不抢先扎 V4）；② 授权边界（加载身份≠授权开工，恢复上下文=只读，执行要用户明确指派，default=汇报现状+列待办+问用户）。
+- **模型全收敛 Sonnet 5**（用户拍板）：7 个 agent frontmatter `model` 从"fable 编排/sonnet 执行"两档 → 全 `claude-sonnet-5[1m]`。理由：Fable refusal-fallback 降级 Opus 重缓存+太贵；Opus 4.8 malformed ~1.5%；Sonnet 无 fallback+长上下文稳+$2/$10 便宜 3-5×，性能用 effort 分档补（全局 high / 复杂推导 xhigh / 最终裁决 max，跟 session 走）。安全阀：E05 反复不足才单点临时升 Fable。同步 SEPR CLAUDE.md「Claude 侧 agent 模型分配」节 + 两份 note 落地状态/override 头。
+- **codex 委托 + malformed 熔断规则落地**（两工作区通用，前一轮）：默认 Claude 不亲自读写文件、机械活委托 codex（sandbox: workspace-write + approval-policy: untrusted，永不 danger-full-access，cwd 限 case，secrets 隔离）；豁免仅裁决必需的读+契约文件的写。同 session 2 次 malformed → 停+handoff+开新对话+绝不 --resume。
+- **🔴 启动机制洞发现并修复**（本阶段最重要）：审 optics-lead 首次真跑记录，从启动横幅 `Fable 5 with xhigh effort` 发现——用户 `claude`(全局 Fable)+`/optics-lead` 进身份，**model 全程没切 sonnet**。claude-code-guide 核官方文档确认机制：`.claude/skills/` 与 `.claude/agents/` 两套独立系统，`/斜杠命令`走 skill 路径、**不读 agent frontmatter**；frontmatter model 只在 ① `claude --agent <name>`（v2.1.201 验证支持）② Agent tool spawn 两路生效。**边界**：subagent/leaf(spawn)已自动生效无问题；只顶端身份(main/evolution/optics-lead)手动进身份中招。**修法（用户接受，两条路都行）**：先 `/model claude-sonnet-5[1m]` 再 `/身份名`，或直接 `--agent`。已写入 4 处：SEPR CLAUDE.md §55（含对照+subagent 无此问题注）、optics-lead agent.md 顶部、SKILL.md 开工 step 0、optics_agent README.md「本地使用注意」节（启动方式对照表）。
+- **上轮 2 行为修正已验证生效**：审第二次真跑记录确认 optics-lead 开工直接定位 SEPR 状态（磁盘核实 .result 0 文件）、结尾停下问"要做哪件"，未重犯自发扎 V4/自作主张开工。
+- **遗留（下轮）**：① SEPR main-agent 平时实际启动方式未核实——下次在 SEPR 开对话看横幅确认 6 agent sonnet 是否真生效；② 全局 settings.json effortLevel 未设（note 建议 high，属用户全局配置未擅改）；③ 用户主对话全局 model 仍 opus-4-8[1m]（agent 身份不受影响，但主对话有 malformed 风险）；④ SEPR step10-11 待续跑（HANDOFF-step10起.md 已备）。
+
+---
+
+### 阶段十四：SEPR 首篇复现完整闭环 + main-agent 自我诊断 + human_intervention 落地（2026-07-05，optics_agent 侧，optics-lead 身份）
+
+- **SEPR step10-11 + 最终交付 gate 全部跑完**（SEPR 侧执行，本阶段是 optics-lead 上游核实+治理）：Akimov Fig3 10 步 W-flow + 第11步完整闭环，`.result/2401.04146/` 含双报告+代码(10)+数据(9CSV+benchmark)+图(4)+中文 LaTeX arXiv 论文（main.tex+main.pdf，13页，用户额外要求，非标准产物）。**result_class 全程锁定 partial_physical_match**。
+- **optics-lead 磁盘逐项核实 SEPR 汇报**（不信自述纪律的一次完整实践）：核对 `.result` 目录树、`run_manifest.yaml`（9 spawn + 4 gate 记录）、`capsule.md`（Gate4 三强制条件+9条信号盘+候选经验完整）、**LaTeX 论文口径**（摘要/引言/讨论/结论四处均正确体现 Gate4 更正后口径：正大ε≈14.6非负ε、TM中位数也超阈非仅长尾、阈值未放宽，无 overclaim）、`benchmark.yaml` 双份 diff 逐字节一致、3 条 memento 记忆真实存在。**结论：汇报属实，无造假无漏报**。已存审计记忆 `a05e33ec`。
+- **main-agent 主动自我诊断**（用户要求，质量较高，主动发现 optics-lead 审计未发现的问题）：① step10"跳过sub-agent改自己全写"的补救方向本身有误（砍掉防错的两级结构而非增加独立核对，且先斩后奏未问gate）；② **本 session 全程未遵守当天生效的 codex 委托规则**（LaTeX撰写/文件复制等机械操作全部亲自做，**用户决定暂缓处理，另有新方案，本轮不改**）；③ 路径想当然写错后 rmdir 重建；④ 审计产物滞后（gate 后追加交付未回填 run_manifest/capsule）；⑤ PDF 未肉眼核验（环境缺 poppler-utils，optics_agent 侧同样缺装不了）；⑥ AskUserQuestion 选项设计漏"写论文"这一项；⑦ 图片三处冗余拷贝；⑧ **认识论隐忧**："main转述漂移过两次"的说法是从 GATE4-决定.md 转引，未核实原始措辞是否失真。
+- **optics-lead 裁决**：对第⑧点——`GATE4-决定.md` 是 optics-lead 一手写的原始文件非转引，两处更正均为当场核对原始数据所写，main 引用无失真风险，可放心沿用。对第①点——诊断准确但补救方案不认可，不要求"以后必须spawn sub-agent"（形式主义），而要求**程序性硬约束**：main-agent 判断需偏离既定 workflow 步骤（尤其跳过任何校验层）时必须先停下问 human gate，不得自主决定、事后声明代价了事。对④⑤⑦——就地修补不需要新开gate。对治理路径——**建议1（复述纪律）不适用三级治理"攒够case再泛化"逻辑**（那是给"要不要泛化临场发明的做法"设计的门槛，用在"显而易见的结构性漏洞"上只会让风险重演），判定为 **human_intervention 立即落地**，不等 evolution batch。
+- **human_intervention 落地**（非 evolution-agent 自迭代）：`main-agent/SKILL.md`（`.claude`+`.human` 双写）新增"关键节点必须停"第5条（偏离流程先问gate，含反例）+ 独立小节"复述纪律"（复述量化/方向性结论须现场核对原文+标来源+禁自然语言转写）。`PYTHONUTF8=1 python quick_validate.py` 全通过（默认 GBK 解码在含中文 UTF-8 SKILL.md 上报错非内容问题，已存 pitfall `aabfddd2`）。同步补登记 `run_manifest.yaml`（新增"最终交付gate"记录）+ `capsule.md`（§8/§9 新增落地状态与自我诊断记录）+ `toEflow/2401.04146.skill-suggestion.md`（追加"状态更新"节，标注建议1已落地不再candidate pending，只增不删）。
+- **遗留（下轮）**：① codex 委托规则违规项的新方案（用户已表示"有新想法"，待其提出）；② SEPR 侧 skill-suggestion 建议2/3/4（Layer3 loci 度量陷阱文档化、独立复算验证协议固化）仍是 Tier-2 candidate pending，等 evolution batch 或攒够 case；③ 更早遗留的 `toEflow/记忆分层架构-扶正需求.md` 仍未处理；④ Fig5(c)(f)/Fig6 复现留第二轮；⑤ 数字化偏差方向性检验未做透（Gate4 已知遗留，不阻塞）。
 
 ---
 

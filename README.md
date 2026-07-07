@@ -28,7 +28,23 @@
 - `papers/private/` 和 `reproduction_test/private/` 可能包含私有论文、截图、原始日志或本地实验记录，公开前必须人工检查。
 - `README.md` 可以说明这些目录的用途，但不要依赖私有文件作为公开仓库的必要输入。
 
-## 顶层目录说明
+## 本地使用注意：开 agent 对话时确认 model
+
+本工作区（及姊妹工作区 SEPR）的 agent 身份 frontmatter 里写死了 `model: claude-sonnet-5[1m]`（2026-07 起全 Sonnet 5 + effort 分档，避开 Fable 降级重缓存 / Opus 长会话 malformed）。但 **frontmatter 的 model 只在特定启动方式下才自动生效**，容易踩坑：
+
+| 启动方式 | model 是否自动切 sonnet |
+|---|---|
+| `claude --agent optics-lead`（或 `--agent main-agent` 等） | ✅ 自动生效 + 预加载 skill |
+| Agent tool spawn 出来的 subagent / leaf | ✅ 自动生效（读 frontmatter） |
+| `claude` 普通启动 + `/optics-lead` 斜杠命令进身份 | ❌ **不生效**，会话仍是启动时的全局 model（可能 Fable/Opus） |
+
+**斜杠命令（`/身份名`）走 skill 路径，只注入 skill 内容、不读 agent frontmatter**——这是 Claude Code 架构（skill 与 agent 两套独立系统），不是 bug。
+
+**习惯用斜杠进身份的话，标准动作是：先 `/model claude-sonnet-5[1m]`，再 `/身份名`。** 或者直接用 `claude --agent <name> --effort <档>` 启动，一步到位。
+
+**每次开对话先瞄一眼启动横幅的 model**：非 sonnet-5 且你走的是斜杠路径，补一句 `/model claude-sonnet-5[1m]` 即可，不必退出重开。effort 建议：普通 `high`、复杂推导 `xhigh`、gate 终裁 `max`（`/effort max` 或启动 `--effort max`）。
+
+
 
 | 路径 | 说明 |
 |---|---|
