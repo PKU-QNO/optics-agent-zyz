@@ -1,0 +1,518 @@
+kind: magnus/skill
+version: '1.0'
+payload:
+  id: optics-agent-claude-skills-optics-mie-reproduction
+  title: Optics Mie Reproduction
+  description: Mie theory analytical/semi-analytical scattering calculations for optics_agent — single sphere, metal LSPR,
+    dielectric modes, core-shell, periodic arrays, binary arrays, effective medium. Use when the task involves Mie scattering,
+    Lorenz-Mie coefficients, scattering/absorption/extinction cross sections, Drude dispersion LSPR, dielectric nanosphere
+    magnetic dipole modes, core-shell recursive Mie, coupled dipole approximation (CDA), surface lattice resonances (SLR),
+    Rayleigh anomaly, binary nanoparticle arrays, S-parameter retrieval effective medium, Maxwell-Garnett, Mie-vs-Bragg phase
+    diagram, or building Python-only scattering benchmark data for later COMSOL validation. Also use when writing Mie physical
+    verifiers (energy conservation, Rayleigh limit, large-size extinction paradox, optical theorem) or building Python-only
+    scattering benchmark data for later COMSOL validation.
+  files:
+    - path: agents/openai.yaml
+      content: |
+        display_name: Optics Mie Reproduction
+        short_description: Mie theory analytical scattering — single sphere, LSPR, dielectric modes, core-shell, arrays, effective medium, with physical verifiers and quantitative paper-figure checks.
+        default_prompt: Reproduce a Mie scattering paper figure with Python, following the 3-layer verification workflow in optics-mie-reproduction.
+    - path: references/benchmark_format.md
+      content: |
+        # benchmark.yaml Format
+
+        `reproduction_test/mie/data/benchmark.yaml` is the frozen standard-answer file. Start it at stage 1 and append per stage — never overwrite. This file is the validation target for later COMSOL runs and the reward signal for workflow self-iteration experiments.
+
+        ## Schema
+
+        ```yaml
+        version: 1
+        last_updated: <YYYY-MM-DD>
+        cases:
+          - case_id: <string>          # e.g. akimov_single_sphere_n1p5
+            stage: <int>               # 1-7
+            paper: <string>            # short name, e.g. Akimov
+            figure_ref: <string>       # paper figure identifier
+            parameters:
+              geometry:                # radius, layer stack, etc.
+              materials:               # wavelength range, complex permittivity, dispersion source
+              environment:             # background index
+            expected:
+              observable: <string>     # e.g. Q_sca, C_ext, LSPR_wavelength, n_eff
+              values:                  # list of (param, expected_value) points
+                - point: {x: 0.1}
+                  value: 0.0009
+                - point: {x: 1.0}
+                  value: 0.21
+              trends:                  # qualitative trends to check
+                - "Q_sca proportional to x^4 at small x"
+                - "Q_ext approaches 2 at large x"
+            tolerance:
+              cross_section_relative: 1.0e-6
+              peak_wavelength_nm: 5
+              q_factor_relative: 0.10
+              rmse_peak_fraction: 0.05
+            provenance:
+              our_impl:                # values from our code
+              paper_figure:            # values digitized from paper
+            two_way_agreement: <pass|partial|fail|pending>
+            verifier_results:
+              energy_conservation: <pass|fail>
+              rayleigh_limit: <pass|fail>
+              large_size_limit: <pass|fail|na>
+            human_gate_4: <pass|fail|pending>   # human reviewed quantitative comparison
+            notes: <string>            # caveats, simplifications, missing info
+        ```
+
+        ## Example Entry (stage 1, placeholder until implementation runs)
+
+        ```yaml
+        cases:
+          - case_id: akimov_single_sphere_n1p5
+            stage: 1
+            paper: Akimov
+            figure_ref: "Fig. Q_sca(x)"
+            parameters:
+              geometry: {sphere_radius_m: 1.0e-6}
+              materials: {sphere_index: 1.5, background_index: 1.0, loss_imag: 0.0}
+              environment: {wavelength_range_m: [0.1e-6, 30e-6]}
+            expected:
+              observable: Q_sca
+              values:
+                - point: {x: 0.1}
+                  value: 0.0009
+                - point: {x: 1.0}
+                  value: 0.21
+              trends:
+                - "Q_sca proportional to x^4 at small x"
+                - "Q_ext approaches 2 at large x"
+            tolerance:
+              cross_section_relative: 1.0e-6
+              peak_wavelength_nm: 5
+              q_factor_relative: 0.10
+              rmse_peak_fraction: 0.05
+            provenance:
+              our_impl: pending
+              paper_figure: pending
+            two_way_agreement: pending
+            verifier_results:
+              energy_conservation: pending
+              rayleigh_limit: pending
+              large_size_limit: pending
+            human_gate_4: pending
+            notes: "Stage 1 baseline; values to be filled after implementation."
+        ```
+
+        ## Rules
+
+        - Append-only within a case; never overwrite a frozen value. If a value is corrected, add a new case_id suffix `_v2` and mark the old one `superseded_by`.
+        - `two_way_agreement` becomes `pass` only when our impl and the paper figure agree within tolerance. `partial` means they disagree — investigate, do not proceed.
+        - `human_gate_4` is set by the human after reviewing quantitative numbers, never by the AI.
+        - Tolerances are set by the human, not auto-derived from the implementation.
+    - path: references/papers.md
+      content: |
+        # Mie Reproduction Papers
+
+        11 papers, executed in 7 stages by increasing difficulty. Each stage has one main paper plus optional references. Non-arXiv PDFs are in `papers/mie/`; arXiv papers are accessible directly.
+
+        ## Stage 1 — Single-sphere Mie basics
+
+        ### Akimov — Mie scattering theory: a review (arXiv 2401.04146, 2024)
+
+        Systematic review of the physical origin of electric/magnetic multipole coefficients in Mie scattering; analyzes asymptotic behavior of spherical Bessel/Hankel functions and its effect on scattering efficiency.
+
+        - **Goal**: implement Lorenz-Mie core formulas; observe smooth transition across Rayleigh / Mie / geometric-optics regimes and the emergence order of multipoles.
+        - **Outputs**: `code/mie_coefficients.py` ($a_n, b_n$), `code/scattering.py` (cross sections), $Q_{sca}(x)$ curve for $n=1.5,2,3,4$, multipole decomposition.
+        - **Verification**: energy conservation, Rayleigh $x^4$, large-size $Q\to2$.
+        - **Caveat**: Akimov is a review and may have typos; verify $a_n,b_n$ against Bohren & Huffman or Kerker, use Akimov only as cross-check.
+
+        ## Stage 2 — Metal sphere LSPR
+
+        ### Colas des Francs — Mie plasmons: modes volumes, quality factors and coupling strengths (arXiv 1112.2814, 2011)
+
+        Mie expansion for metal nanosphere LSPR; closed-form expressions for mode volume, quality factor, Purcell factor.
+
+        - **Goal**: introduce Drude dispersion; examine how real/imaginary parts of the dielectric function set LSPR position and linewidth.
+        - **Outputs**: `code/drude.py` (Au/Ag Drude), `code/lspr.py`, LSPR wavelength vs radius ($R=10,20,50,100$ nm), Purcell factor spectrum.
+        - **Verification**: quasi-static LSPR $\mathrm{Re}(\varepsilon)=-2\varepsilon_d$.
+        - **Physics**: difference between quasi-static ($a_1$-dominated) and full Mie expansion.
+
+        ## Stage 3 — Dielectric sphere Mie modes
+
+        ### Main paper: to be supplemented via Web of Science
+
+        References: García-Etxarri et al. (2011); Kuznetsov et al. "Magnetic light" (Sci. Rep. 2012); Evlyukhin et al. "Demonstration of Magnetic Dipole Resonances of Dielectric Nanospheres" (Nano Lett. 2012); Kuznetsov et al. "Optically resonant dielectric nanostructures" (Science 2016).
+
+        High-index dielectric spheres support richer Mie modes (magnetic/electric dipole and quadrupole) via internal displacement current, with lower loss than plasmonic structures.
+
+        - **Goal**: compare metal LSPR vs dielectric Mie resonance; understand richer electric/magnetic multipole structure.
+        - **Outputs**: dielectric sphere extinction spectrum, multipole decomposition, magnetic dipole mode visualization.
+        - **Physics**: magnetic dipole from internal circulating displacement current; resonance set by size parameter and refractive index; electric/magnetic dipole ratio sets Kerker condition.
+
+        ## Stage 4 — Core-shell Mie
+
+        ### Tam — Mesoscopic nanoshells (JCP 127, 2007) — `papers/mie/204703_1_online.pdf`
+
+        Two-layer Lorenz-Mie for core-shell extinction; quasi-static fails for both thick and thin shells, requiring full series.
+
+        - **Goal**: extend single-sphere to core-shell; understand recursive boundary conditions between two layers.
+        - **Outputs**: `code/core_shell_mie.py`, extinction spectra vs shell thickness, shell-thickness–resonance-wavelength map, quasi-static vs full Mie comparison.
+        - **Verification**: shell-thickness→∞ collapses to single sphere (core material); core→0 collapses to single sphere (shell material).
+        - **Reference**: Arruda, "Toroidal dipole in core-shell spheres" (arXiv 2406.06800).
+
+        ## Stage 5 — Periodic array collective resonance (SLR)
+
+        ### Auguie & Barnes — Collective Resonances in Gold Nanoparticle Arrays (PRL 101, 2008) — `papers/mie/PhysRevLett.101.143902.pdf`
+
+        Coupling of Rayleigh anomaly and LSPR in periodic arrays produces high-Q surface lattice resonances whose linewidth is set by array period.
+
+        - **Goal**: transition from single sphere to periodic system; understand how diffraction coupling modifies resonance.
+        - **Outputs**: `code/coupled_dipole.py` (CDA), extinction spectra vs period (annotated Rayleigh anomaly and SLR), linewidth-vs-period curve.
+        - **Verification**: Rayleigh anomaly $\lambda=P\cdot n_{\text{eff}}$; large period collapses to single sphere.
+        - **Reference**: Gerasimov, "Plasmonic lattice Kerker effect" (arXiv 2007.13317).
+
+        ## Stage 6 — Binary array geometric resonance
+
+        ### Li J et al. — Tuning of narrow geometric resonances in Ag/Au binary nanoparticle arrays (Opt. Express 18, 2010) — `papers/mie/Li_J_OE2010.pdf` or `papers/mie/oe-18-17-17684.pdf`
+
+        Binary arrays of two particle materials/sizes tune geometric resonance position and linewidth independently via size ratio.
+
+        - **Goal**: introduce two single-particle polarizabilities into CDA; understand material dispersion and geometric coupling.
+        - **Outputs**: `code/binary_cda.py`, extinction spectra vs size ratio, linewidth-vs-size-ratio curve.
+        - **Verification**: large period collapses to single-particle result.
+
+        ## Stage 7 — Effective refractive index and phase diagram
+
+        ### Rybin — Phase diagram for the transition from photonic crystals to dielectric metamaterials (Nat. Commun. 6, 2015) — `papers/mie/Rybin_NatComm2015.pdf`
+
+        Compares Mie resonance wavelength vs Bragg resonance wavelength to build a phase diagram separating photonic-crystal and metamaterial regimes on the permittivity–filling-fraction plane.
+
+        - **Goal**: condense array scattering response into effective optical parameters; obtain effective refractive index dispersion.
+        - **Outputs**: `code/effective_medium.py` (S-parameter retrieval of $\varepsilon_{\text{eff}}, \mu_{\text{eff}}$), `code/phase_diagram.py`, $n_{\text{eff}}$ dispersion, $(\varepsilon, P/\lambda)$ phase diagram.
+        - **Verification**: low filling fraction → Maxwell-Garnett.
+
+        ## Optional Papers (clear attachment points)
+
+        | Paper | arXiv | Content | Attachment |
+        |---|---|---|---|
+        | Tagviashvili | 0910.3305 | ENZ-limit Mie scattering | effective medium $n_{\text{eff}}\to0$ |
+        | Shamkhi | 1808.10708 | generalized Kerker transverse scattering | array angular scattering |
+        | Arruda | 2406.06800 | core-shell toroidal dipole | core-shell extension |
+        | Nieto-Vesperinas | 1201.6146 | Si sphere Kerker condition | single-sphere directional scattering |
+
+        ## Execution Order Summary
+
+        Stage 1 (single sphere) → Stage 2 (metal LSPR) → Stage 3 (dielectric modes) → Stage 4 (core-shell) → Stage 5 (SLR) → Stage 6 (binary array) → Stage 7 (effective medium). Optional papers attach to their stated stages. Do not skip ahead — each stage's verifier depends on the previous stage's implementation being correct.
+    - path: references/verification.md
+      content: |
+        # Mie Verification — 3 Layers
+
+        Never judge success by eye against paper figures. Run the 3 layers easiest-first. A stage passes only when all applicable layers pass.
+
+        ## Layer 1 — Physical Hard Constraints (parameter-independent)
+
+        These hold for any parameters; AI cannot fake them; a human without Mie knowledge can judge them because they are common-sense physics.
+
+        | # | Constraint | Check | Tolerance |
+        |---|---|---|---|
+        | 1.1 | Energy conservation | $C_{ext}=C_{sca}+C_{abs}$ | $10^{-10}$ relative |
+        | 1.2 | Zero absorption when lossless | $\mathrm{Im}(\varepsilon)=0 \Rightarrow C_{abs}=0$ | $10^{-12}$ |
+        | 1.3 | Optical theorem | $C_{ext}=\frac{4\pi}{k}\mathrm{Im}\,S(0)$ | $10^{-8}$ relative |
+        | 1.4 | Rayleigh limit | $Q_{sca}\propto x^4$ as $x\to0$ | log-log slope $=4\pm0.01$ |
+        | 1.5 | Large-size extinction paradox | $Q_{ext}\to2$ as $x\to\infty$ | $\|Q_{ext}-2\|<0.05$ for $x>50$ |
+        | 1.6 | Spherical symmetry | scattering independent of incident polarization | exact |
+
+        Layer 1 passing only means "no big mistake"; it does NOT certify numerical accuracy. Layers 2-3 are still required.
+
+        ## Layer 2 — Known Limits / Degeneracies
+
+        | # | Limit | Expected behavior |
+        |---|---|---|
+        | 2.1 | Metal sphere quasi-static LSPR | $\mathrm{Re}(\varepsilon)=-2\varepsilon_d$ (textbook formula) |
+        | 2.2 | Core-shell shell-thickness→∞ | collapses to single sphere of core material |
+        | 2.3 | Core-shell core→0 | collapses to single sphere of shell material |
+        | 2.4 | Array period→∞ | collapses to single-sphere result |
+        | 2.5 | Low filling fraction | effective parameters → Maxwell-Garnett formula |
+
+        These are "known-answer limits". A mismatch signals a structural implementation error.
+
+        ## Layer 3 — Quantitative Paper-Figure Comparison
+
+        Not "overlay and eyeball". Compute numeric metrics:
+
+        | Metric | Default tolerance |
+        |---|---|
+        | Curve RMSE vs digitized paper curve | $<5\%$ of peak value |
+        | Resonance peak wavelength error | $<5$ nm (visible) or $<1\%$ (IR) |
+        | Q-factor relative error | $<10\%$ |
+        | Peak amplitude relative error | $<10\%$ |
+
+        Tolerances are written into `data/benchmark.yaml` per case. The human sets tolerances, not the AI.
+
+        Report must distinguish "visual overlay consistent" from "within quantitative tolerance" — the former does not count as passing.
+
+        ## Verifier Scripts
+
+        All scripts live in `scripts/` and import from `reproduction_test/mie/code/`. They fail with a clear message if the implementation is not yet present.
+
+        - `check_energy_conservation.py` — Layer 1.1, sweeps a parameter range and reports max relative error.
+        - `check_rayleigh_limit.py` — Layer 1.4, fits log-log slope at small $x$.
+        - `check_large_size_limit.py` — Layer 1.5, checks $Q_{ext}$ at large $x$.
+
+        Each script exits 0 on PASS, non-zero on FAIL, and prints a one-line verdict plus the numeric evidence.
+
+        ## The 30-Minute Human Check Per Paper
+
+        1. Run 3 physical verifier scripts (auto, 5 min) — all must pass.
+        2. Verify core formula 2-3 lines against textbook (human, 10 min) — the most critical 10 minutes.
+        3. Quantitative paper-figure comparison (auto + human, 5 min) — read RMSE and peak-error numbers.
+        4. Physical intuition check (human, 5 min) — is the peak where it should be? Is the shape right?
+
+        Steps 2 and 4 are irreplaceable human work. Steps 1, 3 are automated but the human reads the results.
+    - path: scripts/check_energy_conservation.py
+      content: |
+        """Layer 1.1 verifier: energy conservation C_ext = C_sca + C_abs.
+
+        Imports from reproduction_test/mie/code/. Fails with a clear message if the
+        implementation is not yet present. Exits 0 on PASS, non-zero on FAIL.
+        """
+        from __future__ import annotations
+        import sys
+        import numpy as np
+
+        CODE_DIR = "reproduction_test/mie/code"
+        if CODE_DIR not in sys.path:
+            sys.path.insert(0, CODE_DIR)
+
+        TOL_REL = 1e-10
+
+
+        def main() -> int:
+            try:
+                from scattering import compute_cross_sections  # type: ignore
+            except ImportError as e:
+                print(f"FAIL: implementation not found ({e}). Run after stage 1 code is written.")
+                return 2
+
+            # Sweep a representative parameter range: dielectric and metal, small and large x.
+            test_cases = [
+                {"m": 1.5 + 0.0j, "x": 1.0, "label": "dielectric x=1"},
+                {"m": 1.5 + 0.1j, "x": 1.0, "label": "lossy dielectric x=1"},
+                {"m": 0.05 + 3.0j, "x": 2.0, "label": "metal x=2"},
+                {"m": 1.5 + 0.0j, "x": 20.0, "label": "dielectric x=20"},
+            ]
+
+            max_err = 0.0
+            worst = ""
+            for c in test_cases:
+                try:
+                    cext, csca, cabs = compute_cross_sections(m=c["m"], x=c["x"])
+                except Exception as e:
+                    print(f"FAIL: compute_cross_sections raised {e} for {c['label']}")
+                    return 1
+                err = abs(cext - (csca + cabs))
+                rel = err / max(abs(cext), 1e-30)
+                if rel > max_err:
+                    max_err = rel
+                    worst = c["label"]
+
+            if max_err < TOL_REL:
+                print(f"PASS energy_conservation: max relative error {max_err:.3e} (worst: {worst})")
+                return 0
+            print(f"FAIL energy_conservation: max relative error {max_err:.3e} (worst: {worst}), tol {TOL_REL:.0e}")
+            return 1
+
+
+        if __name__ == "__main__":
+            sys.exit(main())
+    - path: scripts/check_large_size_limit.py
+      content: |
+        """Layer 1.5 verifier: large-size extinction paradox Q_ext -> 2 at large x.
+
+        Checks Q_ext over a large-x range; expects |Q_ext - 2| < 0.05 for x > 50.
+        Imports from reproduction_test/mie/code/. Exits 0 on PASS, non-zero on FAIL.
+        """
+        from __future__ import annotations
+        import sys
+        import numpy as np
+
+        CODE_DIR = "reproduction_test/mie/code"
+        if CODE_DIR not in sys.path:
+            sys.path.insert(0, CODE_DIR)
+
+        TARGET = 2.0
+        TOL = 0.05
+        X_MIN = 50.0
+
+
+        def main() -> int:
+            try:
+                from scattering import compute_Q_ext  # type: ignore
+            except ImportError as e:
+                print(f"FAIL: implementation not found ({e}). Run after stage 1 code is written.")
+                return 2
+
+            xs = np.array([50.0, 80.0, 120.0, 200.0])
+            m = 1.5 + 0.0j
+            try:
+                qext = np.array([compute_Q_ext(m=m, x=x) for x in xs])
+            except Exception as e:
+                print(f"FAIL: compute_Q_ext raised {e}")
+                return 1
+
+            deviations = np.abs(qext - TARGET)
+            max_dev = float(np.max(deviations))
+            worst_x = float(xs[int(np.argmax(deviations))])
+
+            if max_dev < TOL:
+                print(f"PASS large_size_limit: max |Q_ext - 2| {max_dev:.4f} at x={worst_x} (tol {TOL})")
+                return 0
+            print(f"FAIL large_size_limit: max |Q_ext - 2| {max_dev:.4f} at x={worst_x}, tol {TOL}")
+            return 1
+
+
+        if __name__ == "__main__":
+            sys.exit(main())
+    - path: scripts/check_rayleigh_limit.py
+      content: |
+        """Layer 1.4 verifier: Rayleigh limit Q_sca proportional to x^4 at small x.
+
+        Fits log-log slope of Q_sca vs x over a small-x range; expects slope = 4.
+        Imports from reproduction_test/mie/code/. Exits 0 on PASS, non-zero on FAIL.
+        """
+        from __future__ import annotations
+        import sys
+        import numpy as np
+
+        CODE_DIR = "reproduction_test/mie/code"
+        if CODE_DIR not in sys.path:
+            sys.path.insert(0, CODE_DIR)
+
+        EXPECTED_SLOPE = 4.0
+        SLOPE_TOL = 0.01
+
+
+        def main() -> int:
+            try:
+                from scattering import compute_Q_sca  # type: ignore
+            except ImportError as e:
+                print(f"FAIL: implementation not found ({e}). Run after stage 1 code is written.")
+                return 2
+
+            xs = np.logspace(-3, -1, 20)  # small x regime
+            m = 1.5 + 0.0j
+            try:
+                qsca = np.array([compute_Q_sca(m=m, x=x) for x in xs])
+            except Exception as e:
+                print(f"FAIL: compute_Q_sca raised {e}")
+                return 1
+
+            log_x = np.log10(xs)
+            log_q = np.log10(qsca)
+            slope, _ = np.polyfit(log_x, log_q, 1)
+
+            if abs(slope - EXPECTED_SLOPE) < SLOPE_TOL:
+                print(f"PASS rayleigh_limit: fitted slope {slope:.4f} (expected {EXPECTED_SLOPE}, tol {SLOPE_TOL})")
+                return 0
+            print(f"FAIL rayleigh_limit: fitted slope {slope:.4f}, expected {EXPECTED_SLOPE} +/- {SLOPE_TOL}")
+            return 1
+
+
+        if __name__ == "__main__":
+            sys.exit(main())
+    - path: SKILL.md
+      content: |
+        ---
+        name: optics-mie-reproduction
+        description: Mie theory analytical/semi-analytical scattering calculations for optics_agent — single sphere, metal LSPR, dielectric modes, core-shell, periodic arrays, binary arrays, effective medium. Use when the task involves Mie scattering, Lorenz-Mie coefficients, scattering/absorption/extinction cross sections, Drude dispersion LSPR, dielectric nanosphere magnetic dipole modes, core-shell recursive Mie, coupled dipole approximation (CDA), surface lattice resonances (SLR), Rayleigh anomaly, binary nanoparticle arrays, S-parameter retrieval effective medium, Maxwell-Garnett, Mie-vs-Bragg phase diagram, or building Python-only scattering benchmark data for later COMSOL validation. Also use when writing Mie physical verifiers (energy conservation, Rayleigh limit, large-size extinction paradox, optical theorem) or building Python-only scattering benchmark data for later COMSOL validation.
+        ---
+
+        # Optics Mie Reproduction
+
+        ## Purpose
+
+        Produce auditable, verifier-checked Mie scattering benchmark data in Python. No COMSOL. In optics_agent, the plan and shared code live under `reproduction_test/mie/`; execution now happens in the SEPR workspace (`../self-evo-paper-repro`) as the paper-reproduction execution workspace. This is both a physics reproduction task and the low-cost benchmark for later workflow self-iteration experiments.
+
+        Authoritative human-facing plan: `reproduction_test/mie/mie_reproduction_plan-FINAL-CN.md`. Task list for the executing agent: `reproduction_test/mie/todolist.md`. Papers in `papers/mie/` and mirrored into SEPR `.paper/mie/`. Bohren & Huffman textbook is staged in SEPR as `.paper/scattering.pdf`.
+
+        ## Core Principle: How A Human Knows The AI Got It Right
+
+        Never judge success by eye against paper figures. Use 3 verification layers, easiest-first. Full detail in `references/verification.md`.
+
+        1. **Physical hard constraints** (parameter-independent, AI cannot fake): energy conservation $C_{ext}=C_{sca}+C_{abs}$, zero absorption when $\mathrm{Im}(\varepsilon)=0$, optical theorem $C_{ext}=\frac{4\pi}{k}\mathrm{Im}\,S(0)$, Rayleigh $Q_{sca}\propto x^4$, large-size $Q_{ext}\to2$, spherical symmetry.
+        2. **Known limits / degeneracies**: quasi-static LSPR $\mathrm{Re}(\varepsilon)=-2\varepsilon_d$, core-shell shell-thickness→∞ collapses to single sphere, array period→∞ collapses to single sphere, low-filling→Maxwell-Garnett.
+        3. **Quantitative paper-figure comparison**: RMSE, resonance peak error (nm), Q-factor relative error. "Looks similar" does not count.
+
+        ## What To Trust Vs Not Trust About AI-Generated Work
+
+        **Trust AI (low risk, glance at result)**: PDF text extraction, formula OCR, special-function evaluation via `scipy.special` (trust scipy, not AI-generated special functions), code scaffolding, plotting templates, unit conversions, literature search.
+
+        **Do NOT trust AI (high risk, human must confirm)**:
+        - Final Mie coefficient expressions $a_n, b_n$ — the core 2-3 lines; AI frequently inverts numerator/denominator or drops the $n$ order. Verify against textbook (Bohren & Huffman or Kerker), not against the review paper alone.
+        - Boundary condition application (tangential vs normal continuity).
+        - Physical parameter selection — units (nm vs m), real/imaginary index, wavelength range. One order-of-magnitude unit error invalidates everything.
+        - "Success" declaration — AI tends to say "looks good". Never let AI self-declare success.
+        - Tolerance thresholds — the human sets "how much error passes", not the AI.
+        - Paper-figure comparison conclusions — read the quantitative numbers, not AI's "basically consistent".
+        - Promoting a single-case lesson to a general rule — single reproduction experience must NOT become a long-term skill without repeated evidence.
+
+        ## Workflow Per Paper
+
+        1. **Read paper** — abstract, modeling section, target figure, caption, nearby text.
+        2. **Extract parameters** → `formalization/<case>.yaml` (human gate ①: units, ranges, indices).
+        3. **Physics formalization** → structured spec: geometry, materials, equations, boundary conditions, sources, solver, observables, assumptions, missing fields (human gate ②).
+        4. **Derive core formulas** — full derivation in `notes/<case>.md`; the Mie coefficient expressions $a_n,b_n$ are checked against a textbook, not the review paper (human gate ③).
+        5. **Implement** — `code/<case>.py` using `scipy.special` for spherical Bessel/Legendre. Write `tests/test_<case>.py` at the same time (TDD: physical constraints are hardcoded, code must satisfy tests).
+        6. **Run 3-layer verification** — physical hard constraints → known limits → quantitative paper comparison.
+        7. **Append to benchmark** — `data/benchmark.yaml` entry with parameters, expected values, tolerance, two-way agreement status.
+        8. **Human gate ④** — review quantitative comparison numbers; do not accept "looks similar".
+
+        ## Required Artifacts Per Stage
+
+        ```text
+        reproduction_test/mie/
+          code/<case>.py
+          tests/test_<case>.py
+          formalization/<case>.yaml
+          notes/<case>.md          # derivation, Markdown + PDF
+          data/benchmark.yaml      # appended, never overwritten
+          figs/<case>_<observable>.png
+        ```
+
+        ## 4 Human Gates (agent runs freely between them)
+
+        1. After parameter extraction — units, ranges, indices correct.
+        2. After physics formalization — structured spec matches the paper's physical problem.
+        3. After core formula derivation — $a_n,b_n$ verified against textbook.
+        4. After paper-figure comparison — quantitative error numbers reviewed.
+
+        ## Skill Lifecycle (avoid Degiron lesson)
+
+        This skill stays as optics_agent design/reference knowledge. Promote any new general lesson to long-term skill text only after repeated SEPR reproduction evidence, not from a single case. Every skill item should carry `applies_when` / `does_not_apply_when` / `source_cases` when it becomes procedural guidance.
+
+        ## References (load when needed)
+
+        - `references/papers.md` — the 11-paper list with abstracts, reproduction points, verification criteria, and execution order.
+        - `references/verification.md` — 3-layer verification detail, verifier script usage, tolerance defaults.
+        - `references/benchmark_format.md` — `benchmark.yaml` schema and example entries.
+
+        ## Scripts
+
+        - `scripts/check_energy_conservation.py` — verify $C_{ext}=C_{sca}+C_{abs}$ within 1e-10.
+        - `scripts/check_rayleigh_limit.py` — verify $Q_{sca}\propto x^4$ slope in log-log at small $x$.
+        - `scripts/check_large_size_limit.py` — verify $Q_{ext}\to2$ at large $x$.
+
+        Scripts import from `reproduction_test/mie/code/`; they fail with a clear message if the implementation is not yet present.
+
+        ## Textbook Dependency
+
+        Core formulas (especially $a_n,b_n$) use a textbook as primary source:
+        - Bohren & Huffman, *Absorption and Scattering of Light by Small Particles* (preferred)
+        - Kerker, *The Scattering of Light* (fallback)
+
+        Review papers (Akimov etc.) are cross-checks, not the single source — reviews occasionally have typos.
+
+        ## COMSOL Boundary
+
+        This skill is Python-only. When a task needs COMSOL/Magnus execution, switch to `optics-comsol-runtime` + `optics-comsol-batch` + `optics-magnus-platform`. The benchmark data produced here is the validation target for those COMSOL runs.
+exported_at: '2026-07-09T10:33:32.127Z'

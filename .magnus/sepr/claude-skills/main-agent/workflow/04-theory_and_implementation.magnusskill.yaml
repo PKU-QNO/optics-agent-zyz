@@ -1,0 +1,147 @@
+kind: magnus/skill
+version: '1.0'
+payload:
+  id: sepr-claude-skills-main-agent-workflow-04-theory_and_implementation
+  title: 04-theory_and_implementation（主 agent 视角）
+  description: ''
+  files:
+    - path: SKILL.md
+      content: |+
+        # 04-theory_and_implementation（主 agent 视角）
+
+        ## 这步干什么
+
+        理论推导 + 代码实现。从 Maxwell 方程到最终表达式的完整推导，然后用 Python 实现。核心公式 $a_n, b_n$ 必须以教材为主源，review 论文做交叉。
+
+        ## 输出要求
+
+        - 推导笔记（`.work/.todo/{paper}/{case}/derivation.md`）：完整推导，核心公式标来源页码（教材或论文）
+        - 代码（`.work/.todo/{paper}/{case}/code/*.py`）：用 scipy.special，不自写特殊函数
+        - 测试（`.work/.todo/{paper}/{case}/tests/test_*.py`）：和代码同步写，物理约束硬编码
+
+        ## 要传达给子 agent 的约定
+
+        - **核心公式 $a_n, b_n$ 必须对着教材核**，不能只靠 review 论文
+        - 特殊函数用 `scipy.special`，不自己实现
+        - 单位 SI
+        - 代码和测试同步写（TDD：物理约束测试值先写死，代码迁就测试）
+        - 不自己宣布成功
+
+        ## 本步子 agent 必须回答的决策问题
+
+        1. **需不需要数值计算脚本？还是纯解析够？**（如果 step 03 没定清，这里定）
+        2. **需不需要 magnus 云计算？本地跑得动吗？**（同上）
+        3. 代码复杂度预估？哪些用 scipy.special、哪些要自写？
+        4. 核心公式来源是哪本教材第几页？review 论文有没有冲突？
+        5. 级数截断 $n_{\max}$ 怎么定？
+
+        ## 人工 gate ③ 前置
+
+        这步产出核心公式后，准备进 step 05 对抗式审查。用户在 step 04/05 末核对公式。
+
+        ## 下一步
+
+        → 05-theory_check
+
+        ## 本步 sub-agent spawn 局部模版
+
+        ```
+        【第 04 步：theory_and_implementation】
+        【任务】理论推导 + 代码实现。从 Maxwell 方程到最终表达式，用 Python 实现。
+        【输入】.work/.todo/{paper}/{case}/formalization.yaml / repro_plan.md
+        【输出】.work/.todo/{paper}/{case}/derivation.md / code/*.py / tests/test_*.py
+        【要传达的约定】核心公式 $a_n, b_n$ 必须对着教材核，不能只靠 review 论文；特殊函数用 scipy.special 不自写；单位 SI；代码和测试同步写（TDD：物理约束测试值先写死，代码迁就测试）；不自己宣布成功。
+        【必须回答的决策问题】1.需不需要数值计算脚本？还是纯解析够？2.需不需要 magnus 云计算？本地跑得动吗？3.代码复杂度预估？哪些用 scipy.special、哪些要自写？4.核心公式来源是哪本教材第几页？review 论文有没有冲突？5.级数截断 $n_{\max}$ 怎么定？
+        【人工 gate】③ 前置——产出核心公式后准备进 step 05 对抗式审查，用户在 step 04/05 末核对公式。
+        【retry_budget】本步最多重跑 5 轮，每轮必须有新证据/新假设。
+        【blocker_condition】核心公式无法定位主源；教材/review 冲突无法裁决；代码无法通过基础物理约束测试；需要的数值方法超出本步可实现范围。
+        【预制脚本】无
+        ```
+
+        ## 执行版字段补全
+
+        ### 详细任务
+        1. 先确认本步编号为 `04`，步骤名为 `theory_and_implementation`，并在报告固定头中复述。
+        2. 读取父 agent spawn 指令中的 `{paper}`、`{case}`、`{timestamp}`、输入路径和输出路径。
+        3. 对照上方 `.human` 原始设计逐条执行，不得跳过输出项。
+        4. 如果原始设计只写概念性动作，必须落到 artifact：表格、报告、脚本输出、verifier 日志或草稿 diff。
+        5. 完成本步后写结构化报告，并给父 agent 一个可执行的 `recommended_action`。
+
+        ### 输入路径
+        - 论文原文：`.paper/{paper}` 或 spawn 指令指定 PDF。
+        - 本 case 工作区：`.work/.todo/{paper}/{case}/` 或 spawn 指令指定路径。
+        - 子报告读取：`.work/.sub-report/` 或 `.work/.evolution/{timestamp}/sub-reports/`。
+        - 待治理输入：`toEflow/`、`.work/.todo/`、`.E-history/`（仅自迭代步骤）。
+        - 缺路径时先在报告写 `blocked_by: missing_input_path`，不要猜。
+
+        ### 输出路径
+        - 主报告或子报告目录：`.work/.sub-report/`。
+        - 本步中间产物：`.work/.todo/{paper}/{case}/04-theory_and_implementation/` 或 `.work/.evolution/{timestamp}/04-theory_and_implementation/`。
+        - 草稿文件：只写 `.work/` 沙箱；正式 `.claude/skills/` 和 `.human/skills/` 只能在 human gate 后同步。
+        - 输出文件名带 `04-theory_and_implementation-{timestamp}`，避免覆盖。
+
+        ### 决策问题
+        - 本步是否具备继续下一步的最低证据？若否，缺什么？
+        - 本步 result_class 的上限是什么，为什么？
+        - 是否触发 human gate、blocker_condition 或 retry？
+        - 是否需要并发拆分、subsubagent、外部搜索或人工输入？
+        - 产物是否可 replay、可审计、可复用？
+
+
+        ### gate
+        - 按本步 gate 规则；参数/spec/公式/误差 gate 必停。
+        - gate 前必须给用户可审查摘要：证据、风险、建议选项、默认不继续的条件。
+        - 不得把沉默当同意。
+
+        ### retry_budget
+        - `retry_budget=5`。
+        - 每轮必须写 retry_fingerprint。
+        - 无新证据或相同 fingerprint 二次失败时转 blocked。
+
+        ### blocker_condition
+        - 输入 artifact 缺失或路径不明确。
+        - 关键参数、单位、公式来源冲突且无法用证据消解。
+        - verifier 不适用或失败但仍会影响物理声明。
+        - 输出 schema 缺字段，尤其缺 evidence_refs、uncertainty、missing_evidence、result_class。
+        - 超出 case/evolution 预算或工具权限不足。
+
+        ### 拼接好的完整 spawn 指令
+
+        ```text
+        你是 sub-agent（W-sub，复现执行者），不是编排者。你被 spawn 做第 04 步 `theory_and_implementation`。
+
+        paper=`{paper}`
+        case=`{case}`
+        timestamp=`{timestamp}`
+        task_scope=`执行 04-theory_and_implementation，只完成本步，不替父 agent 决定 workflow 走向。`
+        input_paths=`{input_paths}`
+        output_paths=`{output_paths}`
+
+        先做：运行 `python .claude/skill-print.py`；搜索 memento；读取你自己的身份 skill；读取本步 workflow skill。
+        执行：按本文件“详细任务/输入路径/输出路径/决策问题/gate/retry_budget/blocker_condition”逐条完成。
+        禁止：写 .result；直接改正式 skill；跳过 verifier；把 fallback/diagnostic/pipeline 当成功；删除沙箱草稿；越权读 secret。
+        报告：写到 `.work/.sub-report/04-theory_and_implementation-{timestamp}.md`，包含固定头 6 字段、8 字段主体、uncertainty、missing_evidence、result_class、retry_fingerprint、provenance 五字段。
+        结束：先 memory_dedup_check，再按需 memory_store/decisions_log/pitfalls_log。
+        ```
+
+        ## result_class 判定硬规则
+
+        - 必须只使用 `not_run`、`pipeline_completed`、`simulation_completed`、`diagnostic_only`、`surrogate_fallback`、`partial_physical_match`、`physical_reproduction_success` 七级枚举。
+        - 只要本步没有真实执行仿真或数值验证，最高只能写 `pipeline_completed`。
+        - 只要仿真完成但没有物理判断，最高只能写 `simulation_completed`。
+        - 只要任一适用 Layer 1 物理硬约束失败，最高只能写 `diagnostic_only`，不得写 `partial_physical_match` 或 `physical_reproduction_success`。
+        - 只要用了代理模型、简化公式、占位数据、不可比替代流程，必须写 `surrogate_fallback`，不得向上包装。
+        - 只有硬约束、极限退化、论文图量化、人审 gate 全过，才允许写 `physical_reproduction_success`。
+        - 缺证据时写更低等级，并在 `missing_evidence` 明确缺哪份 artifact。
+
+
+        ## 失败处理与 retry fingerprint
+
+        - 本步 `retry_budget=5`，每轮重跑必须先写 `retry_fingerprint`。
+        - `retry_fingerprint` 格式：`step=<step>;round=<n>;changed=<变更>;new_evidence=<证据>;hypothesis=<假设>;expected_signal=<预期可观察变化>`。
+        - 相同 fingerprint 第二次失败即转 `blocked`，不要继续空跑。
+        - 没有新证据或新假设时不得重跑，直接在报告中写 blocker。
+        - 达到 5 轮仍失败时停止，保留已有 artifact，写清下一次需要的人类输入或外部证据。
+        - 失败不是删除产物；失败报告仍进入 `.work`，可转 `toEflow/` 或 `.E-history/` 作为 Archive 负面知识。
+
+exported_at: '2026-07-09T10:33:32.127Z'

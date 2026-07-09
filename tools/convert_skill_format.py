@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import base64
 from datetime import datetime, timezone
 from pathlib import Path, PurePosixPath
 from typing import Any
@@ -112,11 +113,18 @@ def iter_skill_files(source_dir: Path) -> list[Path]:
     return sorted(files, key=lambda p: p.relative_to(source_dir).as_posix().lower())
 
 
-def read_text_file(path: Path) -> str:
+def package_file_entry(path: Path, source_dir: Path) -> dict[str, str]:
+    relative = path.relative_to(source_dir).as_posix()
+    data = path.read_bytes()
     try:
-        return path.read_text(encoding="utf-8")
-    except UnicodeDecodeError as exc:
-        raise ValueError(f"Skill package files must be UTF-8 text, but {path} is not decodable") from exc
+        content = data.decode("utf-8")
+    except UnicodeDecodeError:
+        return {
+            "path": relative,
+            "encoding": "base64",
+            "content": base64.b64encode(data).decode("ascii"),
+        }
+    return {"path": relative, "content": content}
 
 
 def codex_to_magnus(args: argparse.Namespace) -> int:
@@ -134,15 +142,7 @@ def codex_to_magnus(args: argparse.Namespace) -> int:
     description = args.description or frontmatter.get("description") or ""
     title = args.title or first_markdown_heading(skill_md) or skill_id
 
-    payload_files = []
-    for path in iter_skill_files(source_dir):
-        relative = path.relative_to(source_dir).as_posix()
-        payload_files.append(
-            {
-                "path": relative,
-                "content": read_text_file(path),
-            }
-        )
+    payload_files = [package_file_entry(path, source_dir) for path in iter_skill_files(source_dir)]
 
     package = {
         "kind": "magnus/skill",
@@ -185,14 +185,20 @@ def magnus_to_codex(args: argparse.Namespace) -> int:
             raise ValueError("Each payload.files entry must be a mapping")
         package_path = item.get("path")
         content = item.get("content")
+        encoding = item.get("encoding")
         if not isinstance(package_path, str):
             raise ValueError("Each payload.files entry requires a string path")
         if not isinstance(content, str):
             raise ValueError(f"payload.files entry {package_path!r} requires string content")
+        if encoding is not None and encoding != "base64":
+            raise ValueError(f"Unsupported encoding for payload.files entry {package_path!r}: {encoding!r}")
 
         destination = destination_for_package_path(output_dir, package_path)
         destination.parent.mkdir(parents=True, exist_ok=True)
-        destination.write_text(content, encoding="utf-8", newline="\n")
+        if encoding == "base64":
+            destination.write_bytes(base64.b64decode(content))
+        else:
+            destination.write_text(content, encoding="utf-8", newline="\n")
         written += 1
 
     if not (output_dir / "SKILL.md").is_file():

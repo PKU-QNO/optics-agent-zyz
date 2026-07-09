@@ -49,6 +49,7 @@ Rules:
 - Put every packaged file under `payload.files[]` with `path` and `content`.
 - Use one `SKILL.md` for small skills; add extra `.md` files for complex workflows.
 - `content: |` may contain Codex/Claude-style `SKILL.md` frontmatter.
+- For rare binary assets, use `encoding: base64` plus base64 text in `content`; local `tools/convert_skill_format.py` can restore these entries.
 - Keep file paths relative; do not include local absolute paths.
 - Do not include tokens, SSH keys, registry passwords, license content, or private logs.
 

@@ -1,0 +1,51 @@
+kind: magnus/skill
+version: '1.0'
+payload:
+  id: sepr-claude-skills-pdf
+  title: PDF Skill（占位骨架——⚠ 预制脚本不存在，不可依赖）
+  description: PDF processing for SEPR — text/formula/figure/table extraction, OCR for scanned PDFs, figure digitization.
+    Use when the task involves reading or extracting content from PDF files (papers, textbooks), classifying data figures
+    vs schematic figures, or digitizing paper figures for quantitative comparison.
+  files:
+    - path: SKILL.md
+      content: |
+        ---
+        name: pdf
+        description: PDF processing for SEPR — text/formula/figure/table extraction, OCR for scanned PDFs, figure digitization. Use when the task involves reading or extracting content from PDF files (papers, textbooks), classifying data figures vs schematic figures, or digitizing paper figures for quantitative comparison.
+        ---
+
+        # PDF Skill（占位骨架——⚠ 预制脚本不存在，不可依赖）
+
+        > 现阶段是占位骨架。这个 skill 给 sub-agent 用，处理 PDF 提取（workflow step 01 pdf_preprocessing）。
+        > **⚠ declared-vs-actual 警示（2026-07-04）**：下方"预制脚本"清单是**规划，一个都不存在**（`scripts/*.py` 未落地）。sub-agent **不得假设脚本存在**，须用现有工具临时实现（pymupdf / Read 工具看渲染图等——2026-07-03 首跑 step01 即此模式，可行）。等积累 2-3 篇后按真实需求再固化脚本。
+
+        ## 职责（方向性，非承诺）
+
+        - PDF 文字提取（电子版优先 pymupdf；arXiv 论文优先下载 LaTeX 源 `_src.tar.gz`，公式从源取比 OCR 准——首跑验证有效）
+        - 公式提取/识别（pix2tex 或图片化保留）
+        - 图表分离（数据图 vs 示意图分类）
+        - 表格数值逐字保留
+        - 扫描版 OCR（ocrmypdf / pytesseract）
+        - 论文图数字化（为 step08 量化对比准备）
+
+        ## 预制脚本（**全部不存在，待实现，不可依赖**）
+
+        - `scripts/extract_pdf.py` — 提取文字+图片（未实现）
+        - `scripts/classify_figures.py` — 数据图/示意图分类（未实现）
+        - `scripts/extract_tables.py` — 表格数值提取（未实现）
+        - `scripts/digitize_figure.py` — 论文图数字化（未实现；step08 数字化需临时实现，如 matplotlib 手动标定或 WebPlotDigitizer 流程）
+
+        ## 输出约定（待填）
+
+        - 正文 → `.work/.todo/{paper}/{case}/paper_text.md`
+        - 公式 → `.work/.todo/{paper}/{case}/formulas.md`
+        - 图 → `.work/.todo/{paper}/{case}/figures.md` + `figs/`
+        - 表 → `.work/.todo/{paper}/{case}/tables.md`
+
+        ## 常见坑（待填）
+
+        - 两栏 PDF 文字流顺序乱
+        - 公式 OCR 不准的图片化保留
+        - 表格数值别四舍五入
+        - caption 跨页要合并
+exported_at: '2026-07-09T10:33:32.127Z'

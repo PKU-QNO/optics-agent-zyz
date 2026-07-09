@@ -1,0 +1,159 @@
+kind: magnus/skill
+version: '1.0'
+payload:
+  id: sepr-claude-skills-sub-agent-workflow-02-paper_reading
+  title: 02-paper_reading（子 agent 视角）
+  description: ''
+  files:
+    - path: SKILL.md
+      content: |+
+        # 02-paper_reading（子 agent 视角）
+
+        ## 具体怎么干
+
+        ### 阅读重点（按顺序）
+        1. abstract — 物理问题是什么
+        2. introduction — 背景和动机
+        3. modeling section — 数值/理论方法
+        4. target figure + caption + nearby text — 目标图算什么
+        5. 参数段 — 半径/折射率/波长/边界条件
+
+        ### 参数抽取规范
+        - 每个参数标：值、单位、来源（论文第 X 页第 Y 段）
+        - 单位核对：论文常用 nm，公式常用 m，统一记录原文单位，换算在代码阶段做
+        - 缺失参数明确列进 missing_info.md，不假装有
+
+        ### 搜索补充（需要时）
+        - 物理论文优先 `paper-search-wos` / Web of Science
+        - AI 相关用 `arxiv-research`
+        - 非论文用 `exa`
+        - 搜索结果标 trust score（教材>经典论文>近期 arXiv>博客）
+
+        ### Gustation 集群资源搜索
+        - 目的：找别人公开的 Magnus 蓝图和 SKILL，看有没有同类物理问题的复现可借鉴
+        - 怎么查：
+          1. SSH 到 Gustation：`ssh zhangyuanzheng@Gustation`
+          2. 查 `/data/public/` 下各目录的 `*.magnus.blueprint.yaml` / `*.magnus.skill.yaml` 文件：
+             ```bash
+             find /data/public -name "*.magnus.blueprint.yaml" -o -name "*.magnus.skill.yaml" 2>/dev/null
+             ```
+          3. 用 Magnus CLI 查公开蓝图库（需要 magnus SDK 配置 token，`magnus address` + `magnus token` 从 secret.json 取）：
+             ```python
+             import magnus
+             magnus.list_blueprints()
+             ```
+          4. 看名含关键词的，下载描述或源码判断是否相关
+        - trust score：
+          - 同类物理问题 + 经过 COMSOL Magnns 成功运行的蓝图：高
+          - 同类物理问题但仅定义未验证：中
+          - 同平台（Magnus/COMSOL）但不同物理：低参考
+          - 目录结构/工程组织方式：可不打分，当作模板参考
+        - 注意：Gustation 是校园内网集群，不能访问公网，所有搜索限在集群文件系统和 Magnus API 范围内
+
+        ### 预制脚本（scripts/）
+        - `build_param_table.py` — 把抽取的参数格式化成 parameter_table.md
+
+        ## 输出约定
+
+        - 理解笔记：`.work/.todo/{paper}/{case}/paper_understanding.md`
+        - 参数表：`.work/.todo/{paper}/{case}/parameter_table.md`（值+单位+来源）
+        - 缺失信息：`.work/.todo/{paper}/{case}/missing_info.md`
+
+        ## 常见坑
+
+        - 别凭印象记参数，必须回原文核
+        - 单位错一个量级全错，重点核对
+        - 论文 sometimes 用 μm 有时用 nm，混用时要标清
+        - "implicit parameter"（如背景折射率默认 1）也要记
+
+        ## 人工 gate ①
+
+        这步末停下来，让用户核对参数和单位。你在报告第 6 字段列出"建议用户重点核对哪些参数"。
+
+        ## 执行版字段补全
+
+        ### 详细任务
+        1. 先确认本步编号为 `02`，步骤名为 `paper_reading`，并在报告固定头中复述。
+        2. 读取父 agent spawn 指令中的 `{paper}`、`{case}`、`{timestamp}`、输入路径和输出路径。
+        3. 对照上方 `.human` 原始设计逐条执行，不得跳过输出项。
+        4. 如果原始设计只写概念性动作，必须落到 artifact：表格、报告、脚本输出、verifier 日志或草稿 diff。
+        5. 完成本步后写结构化报告，并给父 agent 一个可执行的 `recommended_action`。
+
+        ### 输入路径
+        - 论文原文：`.paper/{paper}` 或 spawn 指令指定 PDF。
+        - 本 case 工作区：`.work/.todo/{paper}/{case}/` 或 spawn 指令指定路径。
+        - 子报告读取：`.work/.sub-report/` 或 `.work/.evolution/{timestamp}/sub-reports/`。
+        - 待治理输入：`toEflow/`、`.work/.todo/`、`.E-history/`（仅自迭代步骤）。
+        - 缺路径时先在报告写 `blocked_by: missing_input_path`，不要猜。
+
+        ### 输出路径
+        - 主报告或子报告目录：`.work/.sub-report/`。
+        - 本步中间产物：`.work/.todo/{paper}/{case}/02-paper_reading/` 或 `.work/.evolution/{timestamp}/02-paper_reading/`。
+        - 草稿文件：只写 `.work/` 沙箱；正式 `.claude/skills/` 和 `.human/skills/` 只能在 human gate 后同步。
+        - 输出文件名带 `02-paper_reading-{timestamp}`，避免覆盖。
+
+        ### 决策问题
+        - 本步是否具备继续下一步的最低证据？若否，缺什么？
+        - 本步 result_class 的上限是什么，为什么？
+        - 是否触发 human gate、blocker_condition 或 retry？
+        - 是否需要并发拆分、subsubagent、外部搜索或人工输入？
+        - 产物是否可 replay、可审计、可复用？
+
+
+        ### gate
+        - 按本步 gate 规则；参数/spec/公式/误差 gate 必停。
+        - gate 前必须给用户可审查摘要：证据、风险、建议选项、默认不继续的条件。
+        - 不得把沉默当同意。
+
+        ### retry_budget
+        - `retry_budget=5`。
+        - 每轮必须写 retry_fingerprint。
+        - 无新证据或相同 fingerprint 二次失败时转 blocked。
+
+        ### blocker_condition
+        - 输入 artifact 缺失或路径不明确。
+        - 关键参数、单位、公式来源冲突且无法用证据消解。
+        - verifier 不适用或失败但仍会影响物理声明。
+        - 输出 schema 缺字段，尤其缺 evidence_refs、uncertainty、missing_evidence、result_class。
+        - 超出 case/evolution 预算或工具权限不足。
+
+        ### 拼接好的完整 spawn 指令
+
+        ```text
+        你是 sub-agent（W-sub，复现执行者），不是编排者。你被 spawn 做第 02 步 `paper_reading`。
+
+        paper=`{paper}`
+        case=`{case}`
+        timestamp=`{timestamp}`
+        task_scope=`执行 02-paper_reading，只完成本步，不替父 agent 决定 workflow 走向。`
+        input_paths=`{input_paths}`
+        output_paths=`{output_paths}`
+
+        先做：运行 `python .claude/skill-print.py`；搜索 memento；读取你自己的身份 skill；读取本步 workflow skill。
+        执行：按本文件“详细任务/输入路径/输出路径/决策问题/gate/retry_budget/blocker_condition”逐条完成。
+        禁止：写 .result；直接改正式 skill；跳过 verifier；把 fallback/diagnostic/pipeline 当成功；删除沙箱草稿；越权读 secret。
+        报告：写到 `.work/.sub-report/02-paper_reading-{timestamp}.md`，包含固定头 6 字段、8 字段主体、uncertainty、missing_evidence、result_class、retry_fingerprint、provenance 五字段。
+        结束：先 memory_dedup_check，再按需 memory_store/decisions_log/pitfalls_log。
+        ```
+
+        ## result_class 判定硬规则
+
+        - 必须只使用 `not_run`、`pipeline_completed`、`simulation_completed`、`diagnostic_only`、`surrogate_fallback`、`partial_physical_match`、`physical_reproduction_success` 七级枚举。
+        - 只要本步没有真实执行仿真或数值验证，最高只能写 `pipeline_completed`。
+        - 只要仿真完成但没有物理判断，最高只能写 `simulation_completed`。
+        - 只要任一适用 Layer 1 物理硬约束失败，最高只能写 `diagnostic_only`，不得写 `partial_physical_match` 或 `physical_reproduction_success`。
+        - 只要用了代理模型、简化公式、占位数据、不可比替代流程，必须写 `surrogate_fallback`，不得向上包装。
+        - 只有硬约束、极限退化、论文图量化、人审 gate 全过，才允许写 `physical_reproduction_success`。
+        - 缺证据时写更低等级，并在 `missing_evidence` 明确缺哪份 artifact。
+
+
+        ## 失败处理与 retry fingerprint
+
+        - 本步 `retry_budget=5`，每轮重跑必须先写 `retry_fingerprint`。
+        - `retry_fingerprint` 格式：`step=<step>;round=<n>;changed=<变更>;new_evidence=<证据>;hypothesis=<假设>;expected_signal=<预期可观察变化>`。
+        - 相同 fingerprint 第二次失败即转 `blocked`，不要继续空跑。
+        - 没有新证据或新假设时不得重跑，直接在报告中写 blocker。
+        - 达到 5 轮仍失败时停止，保留已有 artifact，写清下一次需要的人类输入或外部证据。
+        - 失败不是删除产物；失败报告仍进入 `.work`，可转 `toEflow/` 或 `.E-history/` 作为 Archive 负面知识。
+
+exported_at: '2026-07-09T10:33:32.127Z'

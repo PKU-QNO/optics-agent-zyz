@@ -1,0 +1,1080 @@
+kind: magnus/skill
+version: '1.0'
+payload:
+  id: sepr-claude-skills-skill-creator
+  title: Skill Creator
+  description: Guide for creating effective skills. This skill should be used when users want to create a new skill (or update
+    an existing skill) that extends Codex's capabilities with specialized knowledge, workflows, or tool integrations.
+  files:
+    - path: agents/openai.yaml
+      content: "interface:\r\n  display_name: \"Skill Creator\"\r\n  short_description: \"Create or update a skill\"\r\n \
+        \ icon_small: \"./assets/skill-creator-small.svg\"\r\n  icon_large: \"./assets/skill-creator.png\"\r\n"
+    - path: assets/skill-creator-small.svg
+      content: "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" viewBox=\"0 0 20\
+        \ 20\">\r\n  <path fill=\"#0D0D0D\" d=\"M12.03 4.113a3.612 3.612 0 0 1 5.108 5.108l-6.292 6.29c-.324.324-.56.561-.791.752l-.235.176c-.205.14-.422.261-.65.36l-.229.093a4.136\
+        \ 4.136 0 0 1-.586.16l-.764.134-2.394.4c-.142.024-.294.05-.423.06-.098.007-.232.01-.378-.026l-.149-.05a1.081 1.081\
+        \ 0 0 1-.521-.474l-.046-.093a1.104 1.104 0 0 1-.075-.527c.01-.129.035-.28.06-.422l.398-2.394c.1-.602.162-.987.295-1.35l.093-.23c.1-.228.22-.445.36-.65l.176-.235c.19-.232.428-.467.751-.79l6.292-6.292Zm-5.35\
+        \ 7.232c-.35.35-.534.535-.66.688l-.11.147a2.67 2.67 0 0 0-.24.433l-.062.154c-.08.22-.124.462-.232 1.112l-.398 2.394-.001.001h.003l2.393-.399.717-.126a2.63\
+        \ 2.63 0 0 0 .394-.105l.154-.063a2.65 2.65 0 0 0 .433-.24l.147-.11c.153-.126.339-.31.688-.66l4.988-4.988-3.227-3.226-4.987\
+        \ 4.988Zm9.517-6.291a2.281 2.281 0 0 0-3.225 0l-.364.362 3.226 3.227.363-.364c.89-.89.89-2.334 0-3.225ZM4.583 1.783a.3.3\
+        \ 0 0 1 .294.241c.117.585.347 1.092.707 1.48.357.385.859.668 1.549.783a.3.3 0 0 1 0 .592c-.69.115-1.192.398-1.549.783-.315.34-.53.77-.657\
+        \ 1.265l-.05.215a.3.3 0 0 1-.588 0c-.117-.585-.347-1.092-.707-1.48-.357-.384-.859-.668-1.549-.783a.3.3 0 0 1 0-.592c.69-.115\
+        \ 1.192-.398 1.549-.783.36-.388.59-.895.707-1.48l.015-.05a.3.3 0 0 1 .279-.19Z\"/>\r\n</svg>\r\n"
+    - path: assets/skill-creator.png
+      encoding: base64
+      content: iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAWwSURBVHgB7d1daxxVHMfx35mZbdM2adambUJoZKv2IhYxIkLqTROpUCGFBW+8M8FoEbwweOdNE5AKFokPgSJF2r4ASXwBJUEvrAi6WiUXPmSqNTZaato06WZ3M8c5mxy7eZ4587CzM/8vlM1mn8p++M+cze4kAEVRFEVRFEVRFEVRFEVRlEIM1P/x8+9mUEp1gLN0+Rt1/wCLTSbqjRzrG5hFCCUehH98rgvG/MsoNmTtc+lNr6gvmNCsCaBxiL0+YCKgEgvCP3krC75jGIWmDNymsUvQtUBgEgfCLw6ncX9uFKXdXfCSngeM/CA7/c4QfCxRIPz8cAZFa9z+KgO/qpsZw5ELfax71pd9jIaEFAiGKN+cxc+nR+FTiQAJDEOWP9DFR96/CB+KPcjk5GTm96ePjVspI4Mgs3gv/+jcm/BYrPchAkPTNHsykNk5dwdt33wFrVhEgM0ipT/lZfUV2wmpxBDnFxsa8cczx2ClUgiwNJasM/BQLCdkLUZloUzKkv4QG1B7ZR+7CdkKQxTKpGgl5X1JrEC2w5AFjqKx41AsNpssPjWYKfDG8RvF45kS9ji6TaCbL8XNViwmRGCAG+M7cC/TZkzAwLyj2wU7KcUMFKp5EIkhX/Sl2DwigaLrHVCopkHWYsgig6JQzYJshiGrOgrjyVn2bochqy5KQkCcYsiqhlIyclCopkDcYsjCR2Fm7F+pq2LIQkaZgGI1AeIVQxYayq6py1As8iB+YcgCR2GYYK+OTECxSIP4jSEroyy8B6M07ej6rlDqfxyAhyILEhRG+b7//RLG7TEcuvWKvygcH7K+S0qrK1kkQYLGwOwX5a9TNoZ/KMyEpQ/CYzoiVlgYMt2aQ31+HPfqnoOlNWx7H0s76zC//wD23pwGs6yV79oYS1q3vdS9CY9FCiRsDJk3FC4xTPhQZECqhSFTQVnY12Q2Xv/TNwxRJN6gqjZGZUWjFTf2f2r/5KN1u6ualmV1t7e3m/Cxqk9IlDBEDiclEIzy46OKRQ1Dtg1KYBjlx0aViiqGbBOUQDHKj4sqFHUM2RqUwDFEoe/UawWjsoLxsDl18PPAMUShgtQihp3JNHSz7ryJEAoNhDCcFQoIYTgvcBDCcFegIIThvsBACEOtQEAIQz3fQQjDW76+Y8i/O0kYHvP3LdzGE6OE4S3fQPjUlWHw9g5gJ/wsSRgiX/Yh/JcrvWB85cD5Rftef1o+9Xq/CcMQ+TMhDBWHAtsTwo/C66QkEUPkGaQ8Hev2G95Qkooh8j4hq6ajMjWUJGOIPIHwqfGOrVdV7lCSjiHyNiGF6ez2V3KGQhjLeQPRmx0eIL81CmE8yBsIg4tDfzdGIYzVKYMs7z+Qdner1SiEsT71CSmVXGLIllH4nR8IY4PUPwa0K519/JHWk3t2qbzWMMD0NmDha8BydiSTw2oaQ6QM0tjU8tLVa792dj7xKJRQtHqw3Z1+otQ8hkh9H8L5k3/fvou3Rz6DOFXKaAZrOVs+9VgsMETKIIyx8gorAiixwRApbbKy2WzasqxBeX7+/iKuXvsNVdh8xQpDpDQhpVJp3euPKkxK7DBESiByc7W2EFFiiSFSBclsdlkIKLHFECmBiBXWVpcHiBJrDJGvm6zKAkCJPYbI9Spr7Qprq/xafbH8tznG774QdwyR6wnZaIW1VZ4nRW++jEMXYj8ZMtcg9ubK9Q8V1VDYLCw+wB470csOd4fyB7miUGi/68Q5ShliCJp2mB15/gMkLNefyxL7EF3X/yoUCnVQ6OC+vTj7xovl05X/wiwYz1mFW99retOYjTCBBKf0Qbn+/v7BmZmZMy5vZtr/cvaS+fqpZ1vM104dzaG+I5ekzZGTlD+52NPTM2jvTzZCMbHyxNuX5+xpEr8/yhwbG6Mn3kGePkoqNl9y1WUYhnjC6YmnKIqiKIqiKIqiKIqiqIT0H0FJ9NKf7GqQAAAAAElFTkSuQmCC
+    - path: license.txt
+      content: "\r\n                                 Apache License\r\n                           Version 2.0, January 2004\r\
+        \n                        http://www.apache.org/licenses/\r\n\r\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND\
+        \ DISTRIBUTION\r\n\r\n   1. Definitions.\r\n\r\n      \"License\" shall mean the terms and conditions for use, reproduction,\r\
+        \n      and distribution as defined by Sections 1 through 9 of this document.\r\n\r\n      \"Licensor\" shall mean\
+        \ the copyright owner or entity authorized by\r\n      the copyright owner that is granting the License.\r\n\r\n \
+        \     \"Legal Entity\" shall mean the union of the acting entity and all\r\n      other entities that control, are\
+        \ controlled by, or are under common\r\n      control with that entity. For the purposes of this definition,\r\n \
+        \     \"control\" means (i) the power, direct or indirect, to cause the\r\n      direction or management of such entity,\
+        \ whether by contract or\r\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\r\n      outstanding\
+        \ shares, or (iii) beneficial ownership of such entity.\r\n\r\n      \"You\" (or \"Your\") shall mean an individual\
+        \ or Legal Entity\r\n      exercising permissions granted by this License.\r\n\r\n      \"Source\" form shall mean\
+        \ the preferred form for making modifications,\r\n      including but not limited to software source code, documentation\r\
+        \n      source, and configuration files.\r\n\r\n      \"Object\" form shall mean any form resulting from mechanical\r\
+        \n      transformation or translation of a Source form, including but\r\n      not limited to compiled object code,\
+        \ generated documentation,\r\n      and conversions to other media types.\r\n\r\n      \"Work\" shall mean the work\
+        \ of authorship, whether in Source or\r\n      Object form, made available under the License, as indicated by a\r\n\
+        \      copyright notice that is included in or attached to the work\r\n      (an example is provided in the Appendix\
+        \ below).\r\n\r\n      \"Derivative Works\" shall mean any work, whether in Source or Object\r\n      form, that is\
+        \ based on (or derived from) the Work and for which the\r\n      editorial revisions, annotations, elaborations, or\
+        \ other modifications\r\n      represent, as a whole, an original work of authorship. For the purposes\r\n      of\
+        \ this License, Derivative Works shall not include works that remain\r\n      separable from, or merely link (or bind\
+        \ by name) to the interfaces of,\r\n      the Work and Derivative Works thereof.\r\n\r\n      \"Contribution\" shall\
+        \ mean any work of authorship, including\r\n      the original version of the Work and any modifications or additions\r\
+        \n      to that Work or Derivative Works thereof, that is intentionally\r\n      submitted to Licensor for inclusion\
+        \ in the Work by the copyright owner\r\n      or by an individual or Legal Entity authorized to submit on behalf of\r\
+        \n      the copyright owner. For the purposes of this definition, \"submitted\"\r\n      means any form of electronic,\
+        \ verbal, or written communication sent\r\n      to the Licensor or its representatives, including but not limited\
+        \ to\r\n      communication on electronic mailing lists, source code control systems,\r\n      and issue tracking\
+        \ systems that are managed by, or on behalf of, the\r\n      Licensor for the purpose of discussing and improving\
+        \ the Work, but\r\n      excluding communication that is conspicuously marked or otherwise\r\n      designated in\
+        \ writing by the copyright owner as \"Not a Contribution.\"\r\n\r\n      \"Contributor\" shall mean Licensor and any\
+        \ individual or Legal Entity\r\n      on behalf of whom a Contribution has been received by Licensor and\r\n     \
+        \ subsequently incorporated within the Work.\r\n\r\n   2. Grant of Copyright License. Subject to the terms and conditions\
+        \ of\r\n      this License, each Contributor hereby grants to You a perpetual,\r\n      worldwide, non-exclusive,\
+        \ no-charge, royalty-free, irrevocable\r\n      copyright license to reproduce, prepare Derivative Works of,\r\n \
+        \     publicly display, publicly perform, sublicense, and distribute the\r\n      Work and such Derivative Works in\
+        \ Source or Object form.\r\n\r\n   3. Grant of Patent License. Subject to the terms and conditions of\r\n      this\
+        \ License, each Contributor hereby grants to You a perpetual,\r\n      worldwide, non-exclusive, no-charge, royalty-free,\
+        \ irrevocable\r\n      (except as stated in this section) patent license to make, have made,\r\n      use, offer to\
+        \ sell, sell, import, and otherwise transfer the Work,\r\n      where such license applies only to those patent claims\
+        \ licensable\r\n      by such Contributor that are necessarily infringed by their\r\n      Contribution(s) alone or\
+        \ by combination of their Contribution(s)\r\n      with the Work to which such Contribution(s) was submitted. If You\r\
+        \n      institute patent litigation against any entity (including a\r\n      cross-claim or counterclaim in a lawsuit)\
+        \ alleging that the Work\r\n      or a Contribution incorporated within the Work constitutes direct\r\n      or contributory\
+        \ patent infringement, then any patent licenses\r\n      granted to You under this License for that Work shall terminate\r\
+        \n      as of the date such litigation is filed.\r\n\r\n   4. Redistribution. You may reproduce and distribute copies\
+        \ of the\r\n      Work or Derivative Works thereof in any medium, with or without\r\n      modifications, and in Source\
+        \ or Object form, provided that You\r\n      meet the following conditions:\r\n\r\n      (a) You must give any other\
+        \ recipients of the Work or\r\n          Derivative Works a copy of this License; and\r\n\r\n      (b) You must cause\
+        \ any modified files to carry prominent notices\r\n          stating that You changed the files; and\r\n\r\n     \
+        \ (c) You must retain, in the Source form of any Derivative Works\r\n          that You distribute, all copyright,\
+        \ patent, trademark, and\r\n          attribution notices from the Source form of the Work,\r\n          excluding\
+        \ those notices that do not pertain to any part of\r\n          the Derivative Works; and\r\n\r\n      (d) If the\
+        \ Work includes a \"NOTICE\" text file as part of its\r\n          distribution, then any Derivative Works that You\
+        \ distribute must\r\n          include a readable copy of the attribution notices contained\r\n          within such\
+        \ NOTICE file, excluding those notices that do not\r\n          pertain to any part of the Derivative Works, in at\
+        \ least one\r\n          of the following places: within a NOTICE text file distributed\r\n          as part of the\
+        \ Derivative Works; within the Source form or\r\n          documentation, if provided along with the Derivative Works;\
+        \ or,\r\n          within a display generated by the Derivative Works, if and\r\n          wherever such third-party\
+        \ notices normally appear. The contents\r\n          of the NOTICE file are for informational purposes only and\r\n\
+        \          do not modify the License. You may add Your own attribution\r\n          notices within Derivative Works\
+        \ that You distribute, alongside\r\n          or as an addendum to the NOTICE text from the Work, provided\r\n   \
+        \       that such additional attribution notices cannot be construed\r\n          as modifying the License.\r\n\r\n\
+        \      You may add Your own copyright statement to Your modifications and\r\n      may provide additional or different\
+        \ license terms and conditions\r\n      for use, reproduction, or distribution of Your modifications, or\r\n     \
+        \ for any such Derivative Works as a whole, provided Your use,\r\n      reproduction, and distribution of the Work\
+        \ otherwise complies with\r\n      the conditions stated in this License.\r\n\r\n   5. Submission of Contributions.\
+        \ Unless You explicitly state otherwise,\r\n      any Contribution intentionally submitted for inclusion in the Work\r\
+        \n      by You to the Licensor shall be under the terms and conditions of\r\n      this License, without any additional\
+        \ terms or conditions.\r\n      Notwithstanding the above, nothing herein shall supersede or modify\r\n      the terms\
+        \ of any separate license agreement you may have executed\r\n      with Licensor regarding such Contributions.\r\n\
+        \r\n   6. Trademarks. This License does not grant permission to use the trade\r\n      names, trademarks, service\
+        \ marks, or product names of the Licensor,\r\n      except as required for reasonable and customary use in describing\
+        \ the\r\n      origin of the Work and reproducing the content of the NOTICE file.\r\n\r\n   7. Disclaimer of Warranty.\
+        \ Unless required by applicable law or\r\n      agreed to in writing, Licensor provides the Work (and each\r\n   \
+        \   Contributor provides its Contributions) on an \"AS IS\" BASIS,\r\n      WITHOUT WARRANTIES OR CONDITIONS OF ANY\
+        \ KIND, either express or\r\n      implied, including, without limitation, any warranties or conditions\r\n      of\
+        \ TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A\r\n      PARTICULAR PURPOSE. You are solely responsible\
+        \ for determining the\r\n      appropriateness of using or redistributing the Work and assume any\r\n      risks associated\
+        \ with Your exercise of permissions under this License.\r\n\r\n   8. Limitation of Liability. In no event and under\
+        \ no legal theory,\r\n      whether in tort (including negligence), contract, or otherwise,\r\n      unless required\
+        \ by applicable law (such as deliberate and grossly\r\n      negligent acts) or agreed to in writing, shall any Contributor\
+        \ be\r\n      liable to You for damages, including any direct, indirect, special,\r\n      incidental, or consequential\
+        \ damages of any character arising as a\r\n      result of this License or out of the use or inability to use the\r\
+        \n      Work (including but not limited to damages for loss of goodwill,\r\n      work stoppage, computer failure\
+        \ or malfunction, or any and all\r\n      other commercial damages or losses), even if such Contributor\r\n      has\
+        \ been advised of the possibility of such damages.\r\n\r\n   9. Accepting Warranty or Additional Liability. While\
+        \ redistributing\r\n      the Work or Derivative Works thereof, You may choose to offer,\r\n      and charge a fee\
+        \ for, acceptance of support, warranty, indemnity,\r\n      or other liability obligations and/or rights consistent\
+        \ with this\r\n      License. However, in accepting such obligations, You may act only\r\n      on Your own behalf\
+        \ and on Your sole responsibility, not on behalf\r\n      of any other Contributor, and only if You agree to indemnify,\r\
+        \n      defend, and hold each Contributor harmless for any liability\r\n      incurred by, or claims asserted against,\
+        \ such Contributor by reason\r\n      of your accepting any such warranty or additional liability.\r\n\r\n   END OF\
+        \ TERMS AND CONDITIONS\r\n\r\n   APPENDIX: How to apply the Apache License to your work.\r\n\r\n      To apply the\
+        \ Apache License to your work, attach the following\r\n      boilerplate notice, with the fields enclosed by brackets\
+        \ \"[]\"\r\n      replaced with your own identifying information. (Don't include\r\n      the brackets!)  The text\
+        \ should be enclosed in the appropriate\r\n      comment syntax for the file format. We also recommend that a\r\n\
+        \      file or class name and description of purpose be included on the\r\n      same \"printed page\" as the copyright\
+        \ notice for easier\r\n      identification within third-party archives.\r\n\r\n   Copyright [yyyy] [name of copyright\
+        \ owner]\r\n\r\n   Licensed under the Apache License, Version 2.0 (the \"License\");\r\n   you may not use this file\
+        \ except in compliance with the License.\r\n   You may obtain a copy of the License at\r\n\r\n       http://www.apache.org/licenses/LICENSE-2.0\r\
+        \n\r\n   Unless required by applicable law or agreed to in writing, software\r\n   distributed under the License is\
+        \ distributed on an \"AS IS\" BASIS,\r\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\r\
+        \n   See the License for the specific language governing permissions and\r\n   limitations under the License.\r\n"
+    - path: references/openai_yaml.md
+      content: |
+        # openai.yaml fields (full example + descriptions)
+
+        `agents/openai.yaml` is an extended, product-specific config intended for the machine/harness to read, not the agent. Other product-specific config can also live in the `agents/` folder.
+
+        ## Full example
+
+        ```yaml
+        interface:
+          display_name: "Optional user-facing name"
+          short_description: "Optional user-facing description"
+          icon_small: "./assets/small-400px.png"
+          icon_large: "./assets/large-logo.svg"
+          brand_color: "#3B82F6"
+          default_prompt: "Optional surrounding prompt to use the skill with"
+
+        dependencies:
+          tools:
+            - type: "mcp"
+              value: "github"
+              description: "GitHub MCP server"
+              transport: "streamable_http"
+              url: "https://api.githubcopilot.com/mcp/"
+
+        policy:
+          allow_implicit_invocation: true
+        ```
+
+        ## Field descriptions and constraints
+
+        Top-level constraints:
+
+        - Quote all string values.
+        - Keep keys unquoted.
+        - For `interface.default_prompt`: generate a helpful, short (typically 1 sentence) example starting prompt based on the skill. It must explicitly mention the skill as `$skill-name` (e.g., "Use $skill-name-here to draft a concise weekly status update.").
+
+        - `interface.display_name`: Human-facing title shown in UI skill lists and chips.
+        - `interface.short_description`: Human-facing short UI blurb (25–64 chars) for quick scanning.
+        - `interface.icon_small`: Path to a small icon asset (relative to skill dir). Default to `./assets/` and place icons in the skill's `assets/` folder.
+        - `interface.icon_large`: Path to a larger logo asset (relative to skill dir). Default to `./assets/` and place icons in the skill's `assets/` folder.
+        - `interface.brand_color`: Hex color used for UI accents (e.g., badges).
+        - `interface.default_prompt`: Default prompt snippet inserted when invoking the skill.
+        - `dependencies.tools[].type`: Dependency category. Only `mcp` is supported for now.
+        - `dependencies.tools[].value`: Identifier of the tool or dependency.
+        - `dependencies.tools[].description`: Human-readable explanation of the dependency.
+        - `dependencies.tools[].transport`: Connection type when `type` is `mcp`.
+        - `dependencies.tools[].url`: MCP server URL when `type` is `mcp`.
+        - `policy.allow_implicit_invocation`: When false, the skill is not injected into
+          the model context by default, but can still be invoked explicitly via `$skill`.
+          Defaults to true.
+    - path: scripts/generate_openai_yaml.py
+      content: "#!/usr/bin/env python3\r\n\"\"\"\r\nOpenAI YAML Generator - Creates agents/openai.yaml for a skill folder.\r\
+        \n\r\nUsage:\r\n    generate_openai_yaml.py <skill_dir> [--name <skill_name>] [--interface key=value]\r\n\"\"\"\r\n\
+        \r\nimport argparse\r\nimport re\r\nimport sys\r\nfrom pathlib import Path\r\n\r\nACRONYMS = {\r\n    \"GH\",\r\n\
+        \    \"MCP\",\r\n    \"API\",\r\n    \"CI\",\r\n    \"CLI\",\r\n    \"LLM\",\r\n    \"PDF\",\r\n    \"PR\",\r\n  \
+        \  \"UI\",\r\n    \"URL\",\r\n    \"SQL\",\r\n}\r\n\r\nBRANDS = {\r\n    \"openai\": \"OpenAI\",\r\n    \"openapi\"\
+        : \"OpenAPI\",\r\n    \"github\": \"GitHub\",\r\n    \"pagerduty\": \"PagerDuty\",\r\n    \"datadog\": \"DataDog\"\
+        ,\r\n    \"sqlite\": \"SQLite\",\r\n    \"fastapi\": \"FastAPI\",\r\n}\r\n\r\nSMALL_WORDS = {\"and\", \"or\", \"to\"\
+        , \"up\", \"with\"}\r\n\r\nALLOWED_INTERFACE_KEYS = {\r\n    \"display_name\",\r\n    \"short_description\",\r\n \
+        \   \"icon_small\",\r\n    \"icon_large\",\r\n    \"brand_color\",\r\n    \"default_prompt\",\r\n}\r\n\r\n\r\ndef\
+        \ yaml_quote(value):\r\n    escaped = value.replace(\"\\\\\", \"\\\\\\\\\").replace('\"', '\\\\\"').replace(\"\\n\"\
+        , \"\\\\n\")\r\n    return f'\"{escaped}\"'\r\n\r\n\r\ndef format_display_name(skill_name):\r\n    words = [word for\
+        \ word in skill_name.split(\"-\") if word]\r\n    formatted = []\r\n    for index, word in enumerate(words):\r\n \
+        \       lower = word.lower()\r\n        upper = word.upper()\r\n        if upper in ACRONYMS:\r\n            formatted.append(upper)\r\
+        \n            continue\r\n        if lower in BRANDS:\r\n            formatted.append(BRANDS[lower])\r\n         \
+        \   continue\r\n        if index > 0 and lower in SMALL_WORDS:\r\n            formatted.append(lower)\r\n        \
+        \    continue\r\n        formatted.append(word.capitalize())\r\n    return \" \".join(formatted)\r\n\r\n\r\ndef generate_short_description(display_name):\r\
+        \n    description = f\"Help with {display_name} tasks\"\r\n\r\n    if len(description) < 25:\r\n        description\
+        \ = f\"Help with {display_name} tasks and workflows\"\r\n    if len(description) < 25:\r\n        description = f\"\
+        Help with {display_name} tasks with guidance\"\r\n\r\n    if len(description) > 64:\r\n        description = f\"Help\
+        \ with {display_name}\"\r\n    if len(description) > 64:\r\n        description = f\"{display_name} helper\"\r\n \
+        \   if len(description) > 64:\r\n        description = f\"{display_name} tools\"\r\n    if len(description) > 64:\r\
+        \n        suffix = \" helper\"\r\n        max_name_length = 64 - len(suffix)\r\n        trimmed = display_name[:max_name_length].rstrip()\r\
+        \n        description = f\"{trimmed}{suffix}\"\r\n    if len(description) > 64:\r\n        description = description[:64].rstrip()\r\
+        \n\r\n    if len(description) < 25:\r\n        description = f\"{description} workflows\"\r\n        if len(description)\
+        \ > 64:\r\n            description = description[:64].rstrip()\r\n\r\n    return description\r\n\r\n\r\ndef read_frontmatter_name(skill_dir):\r\
+        \n    skill_md = Path(skill_dir) / \"SKILL.md\"\r\n    if not skill_md.exists():\r\n        print(f\"[ERROR] SKILL.md\
+        \ not found in {skill_dir}\")\r\n        return None\r\n    content = skill_md.read_text()\r\n    match = re.match(r\"\
+        ^---\\n(.*?)\\n---\", content, re.DOTALL)\r\n    if not match:\r\n        print(\"[ERROR] Invalid SKILL.md frontmatter\
+        \ format.\")\r\n        return None\r\n    frontmatter_text = match.group(1)\r\n\r\n    import yaml\r\n\r\n    try:\r\
+        \n        frontmatter = yaml.safe_load(frontmatter_text)\r\n    except yaml.YAMLError as exc:\r\n        print(f\"\
+        [ERROR] Invalid YAML frontmatter: {exc}\")\r\n        return None\r\n    if not isinstance(frontmatter, dict):\r\n\
+        \        print(\"[ERROR] Frontmatter must be a YAML dictionary.\")\r\n        return None\r\n    name = frontmatter.get(\"\
+        name\", \"\")\r\n    if not isinstance(name, str) or not name.strip():\r\n        print(\"[ERROR] Frontmatter 'name'\
+        \ is missing or invalid.\")\r\n        return None\r\n    return name.strip()\r\n\r\n\r\ndef parse_interface_overrides(raw_overrides):\r\
+        \n    overrides = {}\r\n    optional_order = []\r\n    for item in raw_overrides:\r\n        if \"=\" not in item:\r\
+        \n            print(f\"[ERROR] Invalid interface override '{item}'. Use key=value.\")\r\n            return None,\
+        \ None\r\n        key, value = item.split(\"=\", 1)\r\n        key = key.strip()\r\n        value = value.strip()\r\
+        \n        if not key:\r\n            print(f\"[ERROR] Invalid interface override '{item}'. Key is empty.\")\r\n  \
+        \          return None, None\r\n        if key not in ALLOWED_INTERFACE_KEYS:\r\n            allowed = \", \".join(sorted(ALLOWED_INTERFACE_KEYS))\r\
+        \n            print(f\"[ERROR] Unknown interface field '{key}'. Allowed: {allowed}\")\r\n            return None,\
+        \ None\r\n        overrides[key] = value\r\n        if key not in (\"display_name\", \"short_description\") and key\
+        \ not in optional_order:\r\n            optional_order.append(key)\r\n    return overrides, optional_order\r\n\r\n\
+        \r\ndef write_openai_yaml(skill_dir, skill_name, raw_overrides):\r\n    overrides, optional_order = parse_interface_overrides(raw_overrides)\r\
+        \n    if overrides is None:\r\n        return None\r\n\r\n    display_name = overrides.get(\"display_name\") or format_display_name(skill_name)\r\
+        \n    short_description = overrides.get(\"short_description\") or generate_short_description(display_name)\r\n\r\n\
+        \    if not (25 <= len(short_description) <= 64):\r\n        print(\r\n            \"[ERROR] short_description must\
+        \ be 25-64 characters \"\r\n            f\"(got {len(short_description)}).\"\r\n        )\r\n        return None\r\
+        \n\r\n    interface_lines = [\r\n        \"interface:\",\r\n        f\"  display_name: {yaml_quote(display_name)}\"\
+        ,\r\n        f\"  short_description: {yaml_quote(short_description)}\",\r\n    ]\r\n\r\n    for key in optional_order:\r\
+        \n        value = overrides.get(key)\r\n        if value is not None:\r\n            interface_lines.append(f\"  {key}:\
+        \ {yaml_quote(value)}\")\r\n\r\n    agents_dir = Path(skill_dir) / \"agents\"\r\n    agents_dir.mkdir(parents=True,\
+        \ exist_ok=True)\r\n    output_path = agents_dir / \"openai.yaml\"\r\n    output_path.write_text(\"\\n\".join(interface_lines)\
+        \ + \"\\n\")\r\n    print(f\"[OK] Created agents/openai.yaml\")\r\n    return output_path\r\n\r\n\r\ndef main():\r\
+        \n    parser = argparse.ArgumentParser(\r\n        description=\"Create agents/openai.yaml for a skill directory.\"\
+        ,\r\n    )\r\n    parser.add_argument(\"skill_dir\", help=\"Path to the skill directory\")\r\n    parser.add_argument(\r\
+        \n        \"--name\",\r\n        help=\"Skill name override (defaults to SKILL.md frontmatter)\",\r\n    )\r\n   \
+        \ parser.add_argument(\r\n        \"--interface\",\r\n        action=\"append\",\r\n        default=[],\r\n      \
+        \  help=\"Interface override in key=value format (repeatable)\",\r\n    )\r\n    args = parser.parse_args()\r\n\r\n\
+        \    skill_dir = Path(args.skill_dir).resolve()\r\n    if not skill_dir.exists():\r\n        print(f\"[ERROR] Skill\
+        \ directory not found: {skill_dir}\")\r\n        sys.exit(1)\r\n    if not skill_dir.is_dir():\r\n        print(f\"\
+        [ERROR] Path is not a directory: {skill_dir}\")\r\n        sys.exit(1)\r\n\r\n    skill_name = args.name or read_frontmatter_name(skill_dir)\r\
+        \n    if not skill_name:\r\n        sys.exit(1)\r\n\r\n    result = write_openai_yaml(skill_dir, skill_name, args.interface)\r\
+        \n    if result:\r\n        sys.exit(0)\r\n    sys.exit(1)\r\n\r\n\r\nif __name__ == \"__main__\":\r\n    main()\r\
+        \n"
+    - path: scripts/init_skill.py
+      content: "#!/usr/bin/env python3\r\n\"\"\"\r\nSkill Initializer - Creates a new skill from template\r\n\r\nUsage:\r\n\
+        \    init_skill.py <skill-name> --path <path> [--resources scripts,references,assets] [--examples] [--interface key=value]\r\
+        \n\r\nExamples:\r\n    init_skill.py my-new-skill --path skills/public\r\n    init_skill.py my-new-skill --path skills/public\
+        \ --resources scripts,references\r\n    init_skill.py my-api-helper --path skills/private --resources scripts --examples\r\
+        \n    init_skill.py custom-skill --path /custom/location\r\n    init_skill.py my-skill --path skills/public --interface\
+        \ short_description=\"Short UI label\"\r\n\"\"\"\r\n\r\nimport argparse\r\nimport re\r\nimport sys\r\nfrom pathlib\
+        \ import Path\r\n\r\nfrom generate_openai_yaml import write_openai_yaml\r\n\r\nMAX_SKILL_NAME_LENGTH = 64\r\nALLOWED_RESOURCES\
+        \ = {\"scripts\", \"references\", \"assets\"}\r\n\r\nSKILL_TEMPLATE = \"\"\"---\r\nname: {skill_name}\r\ndescription:\
+        \ [TODO: Complete and informative explanation of what the skill does and when to use it. Include WHEN to use this\
+        \ skill - specific scenarios, file types, or tasks that trigger it.]\r\n---\r\n\r\n# {skill_title}\r\n\r\n## Overview\r\
+        \n\r\n[TODO: 1-2 sentences explaining what this skill enables]\r\n\r\n## Structuring This Skill\r\n\r\n[TODO: Choose\
+        \ the structure that best fits this skill's purpose. Common patterns:\r\n\r\n**1. Workflow-Based** (best for sequential\
+        \ processes)\r\n- Works well when there are clear step-by-step procedures\r\n- Example: DOCX skill with \"Workflow\
+        \ Decision Tree\" -> \"Reading\" -> \"Creating\" -> \"Editing\"\r\n- Structure: ## Overview -> ## Workflow Decision\
+        \ Tree -> ## Step 1 -> ## Step 2...\r\n\r\n**2. Task-Based** (best for tool collections)\r\n- Works well when the\
+        \ skill offers different operations/capabilities\r\n- Example: PDF skill with \"Quick Start\" -> \"Merge PDFs\" ->\
+        \ \"Split PDFs\" -> \"Extract Text\"\r\n- Structure: ## Overview -> ## Quick Start -> ## Task Category 1 -> ## Task\
+        \ Category 2...\r\n\r\n**3. Reference/Guidelines** (best for standards or specifications)\r\n- Works well for brand\
+        \ guidelines, coding standards, or requirements\r\n- Example: Brand styling with \"Brand Guidelines\" -> \"Colors\"\
+        \ -> \"Typography\" -> \"Features\"\r\n- Structure: ## Overview -> ## Guidelines -> ## Specifications -> ## Usage...\r\
+        \n\r\n**4. Capabilities-Based** (best for integrated systems)\r\n- Works well when the skill provides multiple interrelated\
+        \ features\r\n- Example: Product Management with \"Core Capabilities\" -> numbered capability list\r\n- Structure:\
+        \ ## Overview -> ## Core Capabilities -> ### 1. Feature -> ### 2. Feature...\r\n\r\nPatterns can be mixed and matched\
+        \ as needed. Most skills combine patterns (e.g., start with task-based, add workflow for complex operations).\r\n\r\
+        \nDelete this entire \"Structuring This Skill\" section when done - it's just guidance.]\r\n\r\n## [TODO: Replace\
+        \ with the first main section based on chosen structure]\r\n\r\n[TODO: Add content here. See examples in existing\
+        \ skills:\r\n- Code samples for technical skills\r\n- Decision trees for complex workflows\r\n- Concrete examples\
+        \ with realistic user requests\r\n- References to scripts/templates/references as needed]\r\n\r\n## Resources (optional)\r\
+        \n\r\nCreate only the resource directories this skill actually needs. Delete this section if no resources are required.\r\
+        \n\r\n### scripts/\r\nExecutable code (Python/Bash/etc.) that can be run directly to perform specific operations.\r\
+        \n\r\n**Examples from other skills:**\r\n- PDF skill: `fill_fillable_fields.py`, `extract_form_field_info.py` - utilities\
+        \ for PDF manipulation\r\n- DOCX skill: `document.py`, `utilities.py` - Python modules for document processing\r\n\
+        \r\n**Appropriate for:** Python scripts, shell scripts, or any executable code that performs automation, data processing,\
+        \ or specific operations.\r\n\r\n**Note:** Scripts may be executed without loading into context, but can still be\
+        \ read by Codex for patching or environment adjustments.\r\n\r\n### references/\r\nDocumentation and reference material\
+        \ intended to be loaded into context to inform Codex's process and thinking.\r\n\r\n**Examples from other skills:**\r\
+        \n- Product management: `communication.md`, `context_building.md` - detailed workflow guides\r\n- BigQuery: API reference\
+        \ documentation and query examples\r\n- Finance: Schema documentation, company policies\r\n\r\n**Appropriate for:**\
+        \ In-depth documentation, API references, database schemas, comprehensive guides, or any detailed information that\
+        \ Codex should reference while working.\r\n\r\n### assets/\r\nFiles not intended to be loaded into context, but rather\
+        \ used within the output Codex produces.\r\n\r\n**Examples from other skills:**\r\n- Brand styling: PowerPoint template\
+        \ files (.pptx), logo files\r\n- Frontend builder: HTML/React boilerplate project directories\r\n- Typography: Font\
+        \ files (.ttf, .woff2)\r\n\r\n**Appropriate for:** Templates, boilerplate code, document templates, images, icons,\
+        \ fonts, or any files meant to be copied or used in the final output.\r\n\r\n---\r\n\r\n**Not every skill requires\
+        \ all three types of resources.**\r\n\"\"\"\r\n\r\nEXAMPLE_SCRIPT = '''#!/usr/bin/env python3\r\n\"\"\"\r\nExample\
+        \ helper script for {skill_name}\r\n\r\nThis is a placeholder script that can be executed directly.\r\nReplace with\
+        \ actual implementation or delete if not needed.\r\n\r\nExample real scripts from other skills:\r\n- pdf/scripts/fill_fillable_fields.py\
+        \ - Fills PDF form fields\r\n- pdf/scripts/convert_pdf_to_images.py - Converts PDF pages to images\r\n\"\"\"\r\n\r\
+        \ndef main():\r\n    print(\"This is an example script for {skill_name}\")\r\n    # TODO: Add actual script logic\
+        \ here\r\n    # This could be data processing, file conversion, API calls, etc.\r\n\r\nif __name__ == \"__main__\"\
+        :\r\n    main()\r\n'''\r\n\r\nEXAMPLE_REFERENCE = \"\"\"# Reference Documentation for {skill_title}\r\n\r\nThis is\
+        \ a placeholder for detailed reference documentation.\r\nReplace with actual reference content or delete if not needed.\r\
+        \n\r\nExample real reference docs from other skills:\r\n- product-management/references/communication.md - Comprehensive\
+        \ guide for status updates\r\n- product-management/references/context_building.md - Deep-dive on gathering context\r\
+        \n- bigquery/references/ - API references and query examples\r\n\r\n## When Reference Docs Are Useful\r\n\r\nReference\
+        \ docs are ideal for:\r\n- Comprehensive API documentation\r\n- Detailed workflow guides\r\n- Complex multi-step processes\r\
+        \n- Information too lengthy for main SKILL.md\r\n- Content that's only needed for specific use cases\r\n\r\n## Structure\
+        \ Suggestions\r\n\r\n### API Reference Example\r\n- Overview\r\n- Authentication\r\n- Endpoints with examples\r\n\
+        - Error codes\r\n- Rate limits\r\n\r\n### Workflow Guide Example\r\n- Prerequisites\r\n- Step-by-step instructions\r\
+        \n- Common patterns\r\n- Troubleshooting\r\n- Best practices\r\n\"\"\"\r\n\r\nEXAMPLE_ASSET = \"\"\"# Example Asset\
+        \ File\r\n\r\nThis placeholder represents where asset files would be stored.\r\nReplace with actual asset files (templates,\
+        \ images, fonts, etc.) or delete if not needed.\r\n\r\nAsset files are NOT intended to be loaded into context, but\
+        \ rather used within\r\nthe output Codex produces.\r\n\r\nExample asset files from other skills:\r\n- Brand guidelines:\
+        \ logo.png, slides_template.pptx\r\n- Frontend builder: hello-world/ directory with HTML/React boilerplate\r\n- Typography:\
+        \ custom-font.ttf, font-family.woff2\r\n- Data: sample_data.csv, test_dataset.json\r\n\r\n## Common Asset Types\r\n\
+        \r\n- Templates: .pptx, .docx, boilerplate directories\r\n- Images: .png, .jpg, .svg, .gif\r\n- Fonts: .ttf, .otf,\
+        \ .woff, .woff2\r\n- Boilerplate code: Project directories, starter files\r\n- Icons: .ico, .svg\r\n- Data files:\
+        \ .csv, .json, .xml, .yaml\r\n\r\nNote: This is a text placeholder. Actual assets can be any file type.\r\n\"\"\"\r\
+        \n\r\n\r\ndef normalize_skill_name(skill_name):\r\n    \"\"\"Normalize a skill name to lowercase hyphen-case.\"\"\"\
+        \r\n    normalized = skill_name.strip().lower()\r\n    normalized = re.sub(r\"[^a-z0-9]+\", \"-\", normalized)\r\n\
+        \    normalized = normalized.strip(\"-\")\r\n    normalized = re.sub(r\"-{2,}\", \"-\", normalized)\r\n    return\
+        \ normalized\r\n\r\n\r\ndef title_case_skill_name(skill_name):\r\n    \"\"\"Convert hyphenated skill name to Title\
+        \ Case for display.\"\"\"\r\n    return \" \".join(word.capitalize() for word in skill_name.split(\"-\"))\r\n\r\n\r\
+        \ndef parse_resources(raw_resources):\r\n    if not raw_resources:\r\n        return []\r\n    resources = [item.strip()\
+        \ for item in raw_resources.split(\",\") if item.strip()]\r\n    invalid = sorted({item for item in resources if item\
+        \ not in ALLOWED_RESOURCES})\r\n    if invalid:\r\n        allowed = \", \".join(sorted(ALLOWED_RESOURCES))\r\n  \
+        \      print(f\"[ERROR] Unknown resource type(s): {', '.join(invalid)}\")\r\n        print(f\"   Allowed: {allowed}\"\
+        )\r\n        sys.exit(1)\r\n    deduped = []\r\n    seen = set()\r\n    for resource in resources:\r\n        if resource\
+        \ not in seen:\r\n            deduped.append(resource)\r\n            seen.add(resource)\r\n    return deduped\r\n\
+        \r\n\r\ndef create_resource_dirs(skill_dir, skill_name, skill_title, resources, include_examples):\r\n    for resource\
+        \ in resources:\r\n        resource_dir = skill_dir / resource\r\n        resource_dir.mkdir(exist_ok=True)\r\n  \
+        \      if resource == \"scripts\":\r\n            if include_examples:\r\n                example_script = resource_dir\
+        \ / \"example.py\"\r\n                example_script.write_text(EXAMPLE_SCRIPT.format(skill_name=skill_name))\r\n\
+        \                example_script.chmod(0o755)\r\n                print(\"[OK] Created scripts/example.py\")\r\n   \
+        \         else:\r\n                print(\"[OK] Created scripts/\")\r\n        elif resource == \"references\":\r\n\
+        \            if include_examples:\r\n                example_reference = resource_dir / \"api_reference.md\"\r\n \
+        \               example_reference.write_text(EXAMPLE_REFERENCE.format(skill_title=skill_title))\r\n              \
+        \  print(\"[OK] Created references/api_reference.md\")\r\n            else:\r\n                print(\"[OK] Created\
+        \ references/\")\r\n        elif resource == \"assets\":\r\n            if include_examples:\r\n                example_asset\
+        \ = resource_dir / \"example_asset.txt\"\r\n                example_asset.write_text(EXAMPLE_ASSET)\r\n          \
+        \      print(\"[OK] Created assets/example_asset.txt\")\r\n            else:\r\n                print(\"[OK] Created\
+        \ assets/\")\r\n\r\n\r\ndef init_skill(skill_name, path, resources, include_examples, interface_overrides):\r\n  \
+        \  \"\"\"\r\n    Initialize a new skill directory with template SKILL.md.\r\n\r\n    Args:\r\n        skill_name:\
+        \ Name of the skill\r\n        path: Path where the skill directory should be created\r\n        resources: Resource\
+        \ directories to create\r\n        include_examples: Whether to create example files in resource directories\r\n\r\
+        \n    Returns:\r\n        Path to created skill directory, or None if error\r\n    \"\"\"\r\n    # Determine skill\
+        \ directory path\r\n    skill_dir = Path(path).resolve() / skill_name\r\n\r\n    # Check if directory already exists\r\
+        \n    if skill_dir.exists():\r\n        print(f\"[ERROR] Skill directory already exists: {skill_dir}\")\r\n      \
+        \  return None\r\n\r\n    # Create skill directory\r\n    try:\r\n        skill_dir.mkdir(parents=True, exist_ok=False)\r\
+        \n        print(f\"[OK] Created skill directory: {skill_dir}\")\r\n    except Exception as e:\r\n        print(f\"\
+        [ERROR] Error creating directory: {e}\")\r\n        return None\r\n\r\n    # Create SKILL.md from template\r\n   \
+        \ skill_title = title_case_skill_name(skill_name)\r\n    skill_content = SKILL_TEMPLATE.format(skill_name=skill_name,\
+        \ skill_title=skill_title)\r\n\r\n    skill_md_path = skill_dir / \"SKILL.md\"\r\n    try:\r\n        skill_md_path.write_text(skill_content)\r\
+        \n        print(\"[OK] Created SKILL.md\")\r\n    except Exception as e:\r\n        print(f\"[ERROR] Error creating\
+        \ SKILL.md: {e}\")\r\n        return None\r\n\r\n    # Create agents/openai.yaml\r\n    try:\r\n        result = write_openai_yaml(skill_dir,\
+        \ skill_name, interface_overrides)\r\n        if not result:\r\n            return None\r\n    except Exception as\
+        \ e:\r\n        print(f\"[ERROR] Error creating agents/openai.yaml: {e}\")\r\n        return None\r\n\r\n    # Create\
+        \ resource directories if requested\r\n    if resources:\r\n        try:\r\n            create_resource_dirs(skill_dir,\
+        \ skill_name, skill_title, resources, include_examples)\r\n        except Exception as e:\r\n            print(f\"\
+        [ERROR] Error creating resource directories: {e}\")\r\n            return None\r\n\r\n    # Print next steps\r\n \
+        \   print(f\"\\n[OK] Skill '{skill_name}' initialized successfully at {skill_dir}\")\r\n    print(\"\\nNext steps:\"\
+        )\r\n    print(\"1. Edit SKILL.md to complete the TODO items and update the description\")\r\n    if resources:\r\n\
+        \        if include_examples:\r\n            print(\"2. Customize or delete the example files in scripts/, references/,\
+        \ and assets/\")\r\n        else:\r\n            print(\"2. Add resources to scripts/, references/, and assets/ as\
+        \ needed\")\r\n    else:\r\n        print(\"2. Create resource directories only if needed (scripts/, references/,\
+        \ assets/)\")\r\n    print(\"3. Update agents/openai.yaml if the UI metadata should differ\")\r\n    print(\"4. Run\
+        \ the validator when ready to check the skill structure\")\r\n    print(\r\n        \"5. Forward-test complex skills\
+        \ with realistic user requests to ensure they work as intended\"\r\n    )\r\n\r\n    return skill_dir\r\n\r\n\r\n\
+        def main():\r\n    parser = argparse.ArgumentParser(\r\n        description=\"Create a new skill directory with a\
+        \ SKILL.md template.\",\r\n    )\r\n    parser.add_argument(\"skill_name\", help=\"Skill name (normalized to hyphen-case)\"\
+        )\r\n    parser.add_argument(\"--path\", required=True, help=\"Output directory for the skill\")\r\n    parser.add_argument(\r\
+        \n        \"--resources\",\r\n        default=\"\",\r\n        help=\"Comma-separated list: scripts,references,assets\"\
+        ,\r\n    )\r\n    parser.add_argument(\r\n        \"--examples\",\r\n        action=\"store_true\",\r\n        help=\"\
+        Create example files inside the selected resource directories\",\r\n    )\r\n    parser.add_argument(\r\n        \"\
+        --interface\",\r\n        action=\"append\",\r\n        default=[],\r\n        help=\"Interface override in key=value\
+        \ format (repeatable)\",\r\n    )\r\n    args = parser.parse_args()\r\n\r\n    raw_skill_name = args.skill_name\r\n\
+        \    skill_name = normalize_skill_name(raw_skill_name)\r\n    if not skill_name:\r\n        print(\"[ERROR] Skill\
+        \ name must include at least one letter or digit.\")\r\n        sys.exit(1)\r\n    if len(skill_name) > MAX_SKILL_NAME_LENGTH:\r\
+        \n        print(\r\n            f\"[ERROR] Skill name '{skill_name}' is too long ({len(skill_name)} characters). \"\
+        \r\n            f\"Maximum is {MAX_SKILL_NAME_LENGTH} characters.\"\r\n        )\r\n        sys.exit(1)\r\n    if\
+        \ skill_name != raw_skill_name:\r\n        print(f\"Note: Normalized skill name from '{raw_skill_name}' to '{skill_name}'.\"\
+        )\r\n\r\n    resources = parse_resources(args.resources)\r\n    if args.examples and not resources:\r\n        print(\"\
+        [ERROR] --examples requires --resources to be set.\")\r\n        sys.exit(1)\r\n\r\n    path = args.path\r\n\r\n \
+        \   print(f\"Initializing skill: {skill_name}\")\r\n    print(f\"   Location: {path}\")\r\n    if resources:\r\n \
+        \       print(f\"   Resources: {', '.join(resources)}\")\r\n        if args.examples:\r\n            print(\"   Examples:\
+        \ enabled\")\r\n    else:\r\n        print(\"   Resources: none (create as needed)\")\r\n    print()\r\n\r\n    result\
+        \ = init_skill(skill_name, path, resources, args.examples, args.interface)\r\n\r\n    if result:\r\n        sys.exit(0)\r\
+        \n    else:\r\n        sys.exit(1)\r\n\r\n\r\nif __name__ == \"__main__\":\r\n    main()\r\n"
+    - path: scripts/quick_validate.py
+      content: "#!/usr/bin/env python3\r\n\"\"\"\r\nQuick validation script for skills - minimal version\r\n\"\"\"\r\n\r\n\
+        import re\r\nimport sys\r\nfrom pathlib import Path\r\n\r\nimport yaml\r\n\r\nMAX_SKILL_NAME_LENGTH = 64\r\n\r\n\r\
+        \ndef validate_skill(skill_path):\r\n    \"\"\"Basic validation of a skill\"\"\"\r\n    skill_path = Path(skill_path)\r\
+        \n\r\n    skill_md = skill_path / \"SKILL.md\"\r\n    if not skill_md.exists():\r\n        return False, \"SKILL.md\
+        \ not found\"\r\n\r\n    content = skill_md.read_text()\r\n    if not content.startswith(\"---\"):\r\n        return\
+        \ False, \"No YAML frontmatter found\"\r\n\r\n    match = re.match(r\"^---\\n(.*?)\\n---\", content, re.DOTALL)\r\n\
+        \    if not match:\r\n        return False, \"Invalid frontmatter format\"\r\n\r\n    frontmatter_text = match.group(1)\r\
+        \n\r\n    try:\r\n        frontmatter = yaml.safe_load(frontmatter_text)\r\n        if not isinstance(frontmatter,\
+        \ dict):\r\n            return False, \"Frontmatter must be a YAML dictionary\"\r\n    except yaml.YAMLError as e:\r\
+        \n        return False, f\"Invalid YAML in frontmatter: {e}\"\r\n\r\n    allowed_properties = {\"name\", \"description\"\
+        , \"license\", \"allowed-tools\", \"metadata\"}\r\n\r\n    unexpected_keys = set(frontmatter.keys()) - allowed_properties\r\
+        \n    if unexpected_keys:\r\n        allowed = \", \".join(sorted(allowed_properties))\r\n        unexpected = \"\
+        , \".join(sorted(unexpected_keys))\r\n        return (\r\n            False,\r\n            f\"Unexpected key(s) in\
+        \ SKILL.md frontmatter: {unexpected}. Allowed properties are: {allowed}\",\r\n        )\r\n\r\n    if \"name\" not\
+        \ in frontmatter:\r\n        return False, \"Missing 'name' in frontmatter\"\r\n    if \"description\" not in frontmatter:\r\
+        \n        return False, \"Missing 'description' in frontmatter\"\r\n\r\n    name = frontmatter.get(\"name\", \"\"\
+        )\r\n    if not isinstance(name, str):\r\n        return False, f\"Name must be a string, got {type(name).__name__}\"\
+        \r\n    name = name.strip()\r\n    if name:\r\n        if not re.match(r\"^[a-z0-9-]+$\", name):\r\n            return\
+        \ (\r\n                False,\r\n                f\"Name '{name}' should be hyphen-case (lowercase letters, digits,\
+        \ and hyphens only)\",\r\n            )\r\n        if name.startswith(\"-\") or name.endswith(\"-\") or \"--\" in\
+        \ name:\r\n            return (\r\n                False,\r\n                f\"Name '{name}' cannot start/end with\
+        \ hyphen or contain consecutive hyphens\",\r\n            )\r\n        if len(name) > MAX_SKILL_NAME_LENGTH:\r\n \
+        \           return (\r\n                False,\r\n                f\"Name is too long ({len(name)} characters). \"\
+        \r\n                f\"Maximum is {MAX_SKILL_NAME_LENGTH} characters.\",\r\n            )\r\n\r\n    description =\
+        \ frontmatter.get(\"description\", \"\")\r\n    if not isinstance(description, str):\r\n        return False, f\"\
+        Description must be a string, got {type(description).__name__}\"\r\n    description = description.strip()\r\n    if\
+        \ description:\r\n        if \"<\" in description or \">\" in description:\r\n            return False, \"Description\
+        \ cannot contain angle brackets (< or >)\"\r\n        if len(description) > 1024:\r\n            return (\r\n    \
+        \            False,\r\n                f\"Description is too long ({len(description)} characters). Maximum is 1024\
+        \ characters.\",\r\n            )\r\n\r\n    return True, \"Skill is valid!\"\r\n\r\n\r\nif __name__ == \"__main__\"\
+        :\r\n    if len(sys.argv) != 2:\r\n        print(\"Usage: python quick_validate.py <skill_directory>\")\r\n      \
+        \  sys.exit(1)\r\n\r\n    valid, message = validate_skill(sys.argv[1])\r\n    print(message)\r\n    sys.exit(0 if\
+        \ valid else 1)\r\n"
+    - path: scripts/skill_to_yaml.py
+      content: |
+        """skill_to_yaml.py — 文件夹形式 skill → .skill.yaml
+
+        把一个 skill 文件夹（含 SKILL.md + references/ + scripts/ + assets/ 等）
+        打包成单个 .skill.yaml 文件，格式参考 Magnus skill yaml 并精简。
+
+        用法:
+          python skill_to_yaml.py <skill_folder> [-o output.yaml]
+
+        不指定 -o 则输出到当前目录，文件名为 <skill_name>.skill.yaml。
+
+        yaml 格式:
+          kind: optics/skill
+          version: "1.0"
+          exported_at: <ISO 时间>
+          payload:
+            id: <skill 名>
+            title: <人类可读名>
+            description: <从 SKILL.md frontmatter 提取>
+            files:
+              - path: SKILL.md
+                content: |
+                  <完整文件内容>
+              - path: references/xxx.md
+                content: |
+                  ...
+        """
+        from __future__ import annotations
+        import argparse
+        import datetime
+        import os
+        import sys
+        import re
+        from pathlib import Path
+
+
+        def read_frontmatter(skill_md: Path) -> dict:
+            """从 SKILL.md 的 YAML frontmatter 提取 name 和 description。"""
+            text = skill_md.read_text(encoding="utf-8")
+            m = re.match(r"^---\s*\n(.*?)\n---\s*\n", text, re.DOTALL)
+            if not m:
+                return {"name": skill_md.parent.name, "description": ""}
+            fm = m.group(1)
+            name = ""
+            desc = ""
+            for line in fm.splitlines():
+                if line.startswith("name:"):
+                    name = line.split(":", 1)[1].strip()
+                elif line.startswith("description:"):
+                    desc = line.split(":", 1)[1].strip()
+            return {"name": name or skill_md.parent.name, "description": desc}
+
+
+        def collect_files(skill_folder: Path) -> list[dict]:
+            """收集 skill 文件夹下所有文件，返回 [{path, content}]。"""
+            files = []
+            for root, _, names in os.walk(skill_folder):
+                for n in names:
+                    fp = Path(root) / n
+                    rel = fp.relative_to(skill_folder).as_posix()
+                    # 跳过 __pycache__、.pyc
+                    if "__pycache__" in rel or rel.endswith(".pyc"):
+                        continue
+                    content = fp.read_text(encoding="utf-8", errors="replace")
+                    files.append({"path": rel, "content": content})
+            return files
+
+
+        def yaml_escape(text: str) -> str:
+            """用 YAML 字面量块标量 | 方式转义，保证多行内容安全。"""
+            # 检测内容里是否有特殊结尾，用 |+ 保留所有换行
+            if not text.endswith("\n"):
+                text = text + "\n"
+            return text
+
+
+        def build_yaml(skill_folder: Path) -> str:
+            skill_md = skill_folder / "SKILL.md"
+            if not skill_md.exists():
+                raise FileNotFoundError(f"SKILL.md not found in {skill_folder}")
+            fm = read_frontmatter(skill_md)
+            files = collect_files(skill_folder)
+            now = datetime.datetime.now().isoformat(timespec="seconds")
+
+            lines = []
+            lines.append('kind: optics/skill')
+            lines.append(f'version: "1.0"')
+            lines.append(f'exported_at: "{now}"')
+            lines.append('payload:')
+            lines.append(f'  id: "{fm["name"]}"')
+            # title 用 name 转 title case 简化
+            lines.append(f'  title: "{fm["name"].replace("-", " ").title()}"')
+            # description 可能含特殊字符，用双引号包，转义内部双引号
+            desc = fm["description"].replace('"', '\\"')
+            lines.append(f'  description: "{desc}"')
+            lines.append(f'  files:')
+            for f in files:
+                lines.append(f'    - path: "{f["path"]}"')
+                lines.append('      content: |')
+                for cl in f["content"].splitlines(keepends=True):
+                    lines.append(f"        {cl}" if cl != "\n" else "        ")
+            return "\n".join(lines) + "\n"
+
+
+        def main() -> int:
+            ap = argparse.ArgumentParser(description="文件夹 skill → .skill.yaml")
+            ap.add_argument("skill_folder", help="skill 文件夹路径（含 SKILL.md）")
+            ap.add_argument("-o", "--output", help="输出 yaml 路径，不指定则输出到当前目录")
+            args = ap.parse_args()
+
+            skill_folder = Path(args.skill_folder).resolve()
+            if not skill_folder.is_dir():
+                print(f"ERROR: {skill_folder} 不是目录", file=sys.stderr)
+                return 1
+
+            yaml_text = build_yaml(skill_folder)
+            if args.output:
+                out = Path(args.output)
+            else:
+                out = Path.cwd() / f"{skill_folder.name}.skill.yaml"
+            out.write_text(yaml_text, encoding="utf-8")
+            print(f"OK: {skill_folder.name} -> {out} ({len(yaml_text)} bytes)")
+            return 0
+
+
+        if __name__ == "__main__":
+            sys.exit(main())
+    - path: scripts/yaml_to_skill.py
+      content: |
+        """yaml_to_skill.py — .skill.yaml → 文件夹形式 skill
+
+        把 skill_to_yaml.py 产生的 .skill.yaml 还原成 skill 文件夹。
+        用于从沙箱草稿 .skill.yaml 同步回 .claude/skills/。
+
+        用法:
+          python yaml_to_skill.py <input.skill.yaml> [-o output_folder]
+
+        不指定 -o 则输出到当前目录下与 skill id 同名的文件夹。
+
+        注意:
+          - 会覆盖输出目录下同名文件
+          - 还原后 SKILL.md 的 frontmatter 完整保留
+          - 脚本/二进制文件用 errors=replace 读取，适合文本类 skill
+        """
+        from __future__ import annotations
+        import argparse
+        import re
+        import sys
+        from pathlib import Path
+
+
+        def parse_yaml_blocks(text: str) -> dict:
+            """简易解析：提取 kind/version/exported_at/payload.id/title/description/files。
+
+            不依赖 PyYAML，用结构匹配避免安装依赖。
+            """
+            result = {}
+
+            # 顶层标量
+            m = re.search(r'^kind:\s*(.+)$', text, re.MULTILINE)
+            result["kind"] = m.group(1).strip().strip('"') if m else ""
+            m = re.search(r'^version:\s*(.+)$', text, re.MULTILINE)
+            result["version"] = m.group(1).strip().strip('"') if m else ""
+            m = re.search(r'^exported_at:\s*(.+)$', text, re.MULTILINE)
+            result["exported_at"] = m.group(1).strip().strip('"') if m else ""
+
+            # payload.id / title / description
+            m = re.search(r'^\s+id:\s*"?(.+?)"?\s*$', text, re.MULTILINE)
+            result["id"] = m.group(1).strip() if m else ""
+            m = re.search(r'^\s+title:\s*"?(.+?)"?\s*$', text, re.MULTILINE)
+            result["title"] = m.group(1).strip() if m else ""
+            m = re.search(r'^\s+description:\s*"(.*?)"\s*$', text, re.MULTILINE | re.DOTALL)
+            result["description"] = m.group(1) if m else ""
+
+            # files: 提取每个 - path: + content: | 块
+            files = []
+            # 找 files: 行位置
+            fm = re.search(r'^\s+files:\s*$', text, re.MULTILINE)
+            if fm:
+                body = text[fm.end():]
+                # 每个 path 块
+                pat = re.compile(
+                    r'^\s+-\s+path:\s*"(.+?)"\s*\n\s+content:\s*\|\n((?:        .*\n|\n)*)',
+                    re.MULTILINE,
+                )
+                for pm in pat.finditer(body):
+                    path = pm.group(1)
+                    raw = pm.group(2)
+                    # 去掉 8 空格缩进
+                    content_lines = []
+                    for cl in raw.splitlines(keepends=True):
+                        if cl.startswith("        "):
+                            content_lines.append(cl[8:])
+                        elif cl.strip() == "":
+                            content_lines.append("\n")
+                        else:
+                            content_lines.append(cl)
+                    content = "".join(content_lines)
+                    files.append({"path": path, "content": content})
+            result["files"] = files
+            return result
+
+
+        def restore_files(parsed: dict, out_folder: Path) -> int:
+            out_folder.mkdir(parents=True, exist_ok=True)
+            count = 0
+            for f in parsed["files"]:
+                fp = out_folder / f["path"]
+                fp.parent.mkdir(parents=True, exist_ok=True)
+                fp.write_text(f["content"], encoding="utf-8")
+                count += 1
+            return count
+
+
+        def main() -> int:
+            ap = argparse.ArgumentParser(description=".skill.yaml → 文件夹 skill")
+            ap.add_argument("input_yaml", help="输入 .skill.yaml 路径")
+            ap.add_argument("-o", "--output", help="输出文件夹路径，不指定则用 skill id 在当前目录建")
+            args = ap.parse_args()
+
+            inp = Path(args.input_yaml).resolve()
+            if not inp.is_file():
+                print(f"ERROR: {inp} 不是文件", file=sys.stderr)
+                return 1
+
+            text = inp.read_text(encoding="utf-8")
+            parsed = parse_yaml_blocks(text)
+            if not parsed["files"]:
+                print("ERROR: 未解析出任何文件，检查 yaml 格式", file=sys.stderr)
+                return 1
+
+            if args.output:
+                out = Path(args.output)
+            else:
+                out = Path.cwd() / (parsed["id"] or inp.stem.replace(".skill", ""))
+
+            n = restore_files(parsed, out)
+            print(f"OK: {inp.name} -> {out} ({n} files)")
+            return 0
+
+
+        if __name__ == "__main__":
+            sys.exit(main())
+    - path: SKILL.md
+      content: |
+        ---
+        name: skill-creator
+        description: Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Codex's capabilities with specialized knowledge, workflows, or tool integrations.
+        ---
+
+        # Skill Creator
+
+        This skill provides guidance for creating effective skills.
+
+        ## About Skills
+
+        Skills are modular, self-contained folders that extend Codex's capabilities by providing
+        specialized knowledge, workflows, and tools. Think of them as "onboarding guides" for specific
+        domains or tasks—they transform Codex from a general-purpose agent into a specialized agent
+        equipped with procedural knowledge that no model can fully possess.
+
+        ### What Skills Provide
+
+        1. Specialized workflows - Multi-step procedures for specific domains
+        2. Tool integrations - Instructions for working with specific file formats or APIs
+        3. Domain expertise - Company-specific knowledge, schemas, business logic
+        4. Bundled resources - Scripts, references, and assets for complex and repetitive tasks
+
+        ## Core Principles
+
+        ### Concise is Key
+
+        The context window is a public good. Skills share the context window with everything else Codex needs: system prompt, conversation history, other Skills' metadata, and the actual user request.
+
+        **Default assumption: Codex is already very smart.** Only add context Codex doesn't already have. Challenge each piece of information: "Does Codex really need this explanation?" and "Does this paragraph justify its token cost?"
+
+        Prefer concise examples over verbose explanations.
+
+        ### Set Appropriate Degrees of Freedom
+
+        Match the level of specificity to the task's fragility and variability:
+
+        **High freedom (text-based instructions)**: Use when multiple approaches are valid, decisions depend on context, or heuristics guide the approach.
+
+        **Medium freedom (pseudocode or scripts with parameters)**: Use when a preferred pattern exists, some variation is acceptable, or configuration affects behavior.
+
+        **Low freedom (specific scripts, few parameters)**: Use when operations are fragile and error-prone, consistency is critical, or a specific sequence must be followed.
+
+        Think of Codex as exploring a path: a narrow bridge with cliffs needs specific guardrails (low freedom), while an open field allows many routes (high freedom).
+
+        ### Protect Validation Integrity
+
+        You may use subagents during iteration to validate whether a skill works on realistic tasks or whether a suspected problem is real. This is most useful when you want an independent pass on the skill's behavior, outputs, or failure modes after a revision.  Only do this when it is possible to start new subagents.
+
+        When using subagents for validation, treat that as an evaluation surface. The goal is to learn whether the skill generalizes, not whether another agent can reconstruct the answer from leaked context.
+
+        Prefer raw artifacts such as example prompts, outputs, diffs, logs, or traces. Give the minimum task-local context needed to perform the validation. Avoid passing the intended answer, suspected bug, intended fix, or your prior conclusions unless the validation explicitly requires them.
+
+        ### Anatomy of a Skill
+
+        Every skill consists of a required SKILL.md file and optional bundled resources:
+
+        ```
+        skill-name/
+        ├── SKILL.md (required)
+        │   ├── YAML frontmatter metadata (required)
+        │   │   ├── name: (required)
+        │   │   └── description: (required)
+        │   └── Markdown instructions (required)
+        ├── agents/ (recommended)
+        │   └── openai.yaml - UI metadata for skill lists and chips
+        └── Bundled Resources (optional)
+            ├── scripts/          - Executable code (Python/Bash/etc.)
+            ├── references/       - Documentation intended to be loaded into context as needed
+            └── assets/           - Files used in output (templates, icons, fonts, etc.)
+        ```
+
+        #### SKILL.md (required)
+
+        Every SKILL.md consists of:
+
+        - **Frontmatter** (YAML): Contains `name` and `description` fields. These are the only fields that Codex reads to determine when the skill gets used, thus it is very important to be clear and comprehensive in describing what the skill is, and when it should be used.
+        - **Body** (Markdown): Instructions and guidance for using the skill. Only loaded AFTER the skill triggers (if at all).
+
+        #### Agents metadata (recommended)
+
+        - UI-facing metadata for skill lists and chips
+        - Read references/openai_yaml.md before generating values and follow its descriptions and constraints
+        - Create: human-facing `display_name`, `short_description`, and `default_prompt` by reading the skill
+        - Generate deterministically by passing the values as `--interface key=value` to `scripts/generate_openai_yaml.py` or `scripts/init_skill.py`
+        - On updates: validate `agents/openai.yaml` still matches SKILL.md; regenerate if stale
+        - Only include other optional interface fields (icons, brand color) if explicitly provided
+        - See references/openai_yaml.md for field definitions and examples
+
+        #### Bundled Resources (optional)
+
+        ##### Scripts (`scripts/`)
+
+        Executable code (Python/Bash/etc.) for tasks that require deterministic reliability or are repeatedly rewritten.
+
+        - **When to include**: When the same code is being rewritten repeatedly or deterministic reliability is needed
+        - **Example**: `scripts/rotate_pdf.py` for PDF rotation tasks
+        - **Benefits**: Token efficient, deterministic, may be executed without loading into context
+        - **Note**: Scripts may still need to be read by Codex for patching or environment-specific adjustments
+
+        ##### References (`references/`)
+
+        Documentation and reference material intended to be loaded as needed into context to inform Codex's process and thinking.
+
+        - **When to include**: For documentation that Codex should reference while working
+        - **Examples**: `references/finance.md` for financial schemas, `references/mnda.md` for company NDA template, `references/policies.md` for company policies, `references/api_docs.md` for API specifications
+        - **Use cases**: Database schemas, API documentation, domain knowledge, company policies, detailed workflow guides
+        - **Benefits**: Keeps SKILL.md lean, loaded only when Codex determines it's needed
+        - **Best practice**: If files are large (>10k words), include grep search patterns in SKILL.md
+        - **Avoid duplication**: Information should live in either SKILL.md or references files, not both. Prefer references files for detailed information unless it's truly core to the skill—this keeps SKILL.md lean while making information discoverable without hogging the context window. Keep only essential procedural instructions and workflow guidance in SKILL.md; move detailed reference material, schemas, and examples to references files.
+
+        ##### Assets (`assets/`)
+
+        Files not intended to be loaded into context, but rather used within the output Codex produces.
+
+        - **When to include**: When the skill needs files that will be used in the final output
+        - **Examples**: `assets/logo.png` for brand assets, `assets/slides.pptx` for PowerPoint templates, `assets/frontend-template/` for HTML/React boilerplate, `assets/font.ttf` for typography
+        - **Use cases**: Templates, images, icons, boilerplate code, fonts, sample documents that get copied or modified
+        - **Benefits**: Separates output resources from documentation, enables Codex to use files without loading them into context
+
+        #### What to Not Include in a Skill
+
+        A skill should only contain essential files that directly support its functionality. Do NOT create extraneous documentation or auxiliary files, including:
+
+        - README.md
+        - INSTALLATION_GUIDE.md
+        - QUICK_REFERENCE.md
+        - CHANGELOG.md
+        - etc.
+
+        The skill should only contain the information needed for an AI agent to do the job at hand. It should not contain auxiliary context about the process that went into creating it, setup and testing procedures, user-facing documentation, etc. Creating additional documentation files just adds clutter and confusion.
+
+        ### Progressive Disclosure Design Principle
+
+        Skills use a three-level loading system to manage context efficiently:
+
+        1. **Metadata (name + description)** - Always in context (~100 words)
+        2. **SKILL.md body** - When skill triggers (<5k words)
+        3. **Bundled resources** - As needed by Codex (Unlimited because scripts can be executed without reading into context window)
+
+        #### Progressive Disclosure Patterns
+
+        Keep SKILL.md body to the essentials and under 500 lines to minimize context bloat. Split content into separate files when approaching this limit. When splitting out content into other files, it is very important to reference them from SKILL.md and describe clearly when to read them, to ensure the reader of the skill knows they exist and when to use them.
+
+        **Key principle:** When a skill supports multiple variations, frameworks, or options, keep only the core workflow and selection guidance in SKILL.md. Move variant-specific details (patterns, examples, configuration) into separate reference files.
+
+        **Pattern 1: High-level guide with references**
+
+        ```markdown
+        # PDF Processing
+
+        ## Quick start
+
+        Extract text with pdfplumber:
+        [code example]
+
+        ## Advanced features
+
+        - **Form filling**: See [FORMS.md](FORMS.md) for complete guide
+        - **API reference**: See [REFERENCE.md](REFERENCE.md) for all methods
+        - **Examples**: See [EXAMPLES.md](EXAMPLES.md) for common patterns
+        ```
+
+        Codex loads FORMS.md, REFERENCE.md, or EXAMPLES.md only when needed.
+
+        **Pattern 2: Domain-specific organization**
+
+        For Skills with multiple domains, organize content by domain to avoid loading irrelevant context:
+
+        ```
+        bigquery-skill/
+        ├── SKILL.md (overview and navigation)
+        └── reference/
+            ├── finance.md (revenue, billing metrics)
+            ├── sales.md (opportunities, pipeline)
+            ├── product.md (API usage, features)
+            └── marketing.md (campaigns, attribution)
+        ```
+
+        When a user asks about sales metrics, Codex only reads sales.md.
+
+        Similarly, for skills supporting multiple frameworks or variants, organize by variant:
+
+        ```
+        cloud-deploy/
+        ├── SKILL.md (workflow + provider selection)
+        └── references/
+            ├── aws.md (AWS deployment patterns)
+            ├── gcp.md (GCP deployment patterns)
+            └── azure.md (Azure deployment patterns)
+        ```
+
+        When the user chooses AWS, Codex only reads aws.md.
+
+        **Pattern 3: Conditional details**
+
+        Show basic content, link to advanced content:
+
+        ```markdown
+        # DOCX Processing
+
+        ## Creating documents
+
+        Use docx-js for new documents. See [DOCX-JS.md](DOCX-JS.md).
+
+        ## Editing documents
+
+        For simple edits, modify the XML directly.
+
+        **For tracked changes**: See [REDLINING.md](REDLINING.md)
+        **For OOXML details**: See [OOXML.md](OOXML.md)
+        ```
+
+        Codex reads REDLINING.md or OOXML.md only when the user needs those features.
+
+        **Important guidelines:**
+
+        - **Avoid deeply nested references** - Keep references one level deep from SKILL.md. All reference files should link directly from SKILL.md.
+        - **Structure longer reference files** - For files longer than 100 lines, include a table of contents at the top so Codex can see the full scope when previewing.
+
+        ## Skill Creation Process
+
+        Skill creation involves these steps:
+
+        1. Understand the skill with concrete examples
+        2. Plan reusable skill contents (scripts, references, assets)
+        3. Initialize the skill (run init_skill.py)
+        4. Edit the skill (implement resources and write SKILL.md)
+        5. Validate the skill (run quick_validate.py)
+        6. Iterate based on real usage and forward-test complex skills.
+
+        Follow these steps in order, skipping only if there is a clear reason why they are not applicable.
+
+        ### Skill Naming
+
+        - Use lowercase letters, digits, and hyphens only; normalize user-provided titles to hyphen-case (e.g., "Plan Mode" -> `plan-mode`).
+        - When generating names, generate a name under 64 characters (letters, digits, hyphens).
+        - Prefer short, verb-led phrases that describe the action.
+        - Namespace by tool when it improves clarity or triggering (e.g., `gh-address-comments`, `linear-address-issue`).
+        - Name the skill folder exactly after the skill name.
+
+        ### Step 1: Understanding the Skill with Concrete Examples
+
+        Skip this step only when the skill's usage patterns are already clearly understood. It remains valuable even when working with an existing skill.
+
+        To create an effective skill, clearly understand concrete examples of how the skill will be used. This understanding can come from either direct user examples or generated examples that are validated with user feedback.
+
+        For example, when building an image-editor skill, relevant questions include:
+
+        - "What functionality should the image-editor skill support? Editing, rotating, anything else?"
+        - "Can you give some examples of how this skill would be used?"
+        - "I can imagine users asking for things like 'Remove the red-eye from this image' or 'Rotate this image'. Are there other ways you imagine this skill being used?"
+        - "What would a user say that should trigger this skill?"
+        - "Where should I create this skill? If you do not have a preference, I will place it in `$CODEX_HOME/skills` (or `~/.codex/skills` when `CODEX_HOME` is unset) so Codex can discover it automatically."
+
+        To avoid overwhelming users, avoid asking too many questions in a single message. Start with the most important questions and follow up as needed for better effectiveness.
+
+        Conclude this step when there is a clear sense of the functionality the skill should support.
+
+        ### Step 2: Planning the Reusable Skill Contents
+
+        To turn concrete examples into an effective skill, analyze each example by:
+
+        1. Considering how to execute on the example from scratch
+        2. Identifying what scripts, references, and assets would be helpful when executing these workflows repeatedly
+
+        Example: When building a `pdf-editor` skill to handle queries like "Help me rotate this PDF," the analysis shows:
+
+        1. Rotating a PDF requires re-writing the same code each time
+        2. A `scripts/rotate_pdf.py` script would be helpful to store in the skill
+
+        Example: When designing a `frontend-webapp-builder` skill for queries like "Build me a todo app" or "Build me a dashboard to track my steps," the analysis shows:
+
+        1. Writing a frontend webapp requires the same boilerplate HTML/React each time
+        2. An `assets/hello-world/` template containing the boilerplate HTML/React project files would be helpful to store in the skill
+
+        Example: When building a `big-query` skill to handle queries like "How many users have logged in today?" the analysis shows:
+
+        1. Querying BigQuery requires re-discovering the table schemas and relationships each time
+        2. A `references/schema.md` file documenting the table schemas would be helpful to store in the skill
+
+        To establish the skill's contents, analyze each concrete example to create a list of the reusable resources to include: scripts, references, and assets.
+
+        ### Step 3: Initializing the Skill
+
+        At this point, it is time to actually create the skill.
+
+        Skip this step only if the skill being developed already exists. In this case, continue to the next step.
+
+        Before running `init_skill.py`, ask where the user wants the skill created. If they do not specify a location, default to `$CODEX_HOME/skills`; when `CODEX_HOME` is unset, fall back to `~/.codex/skills` so the skill is auto-discovered.
+
+        When creating a new skill from scratch, always run the `init_skill.py` script. The script conveniently generates a new template skill directory that automatically includes everything a skill requires, making the skill creation process much more efficient and reliable.
+
+        Usage:
+
+        ```bash
+        scripts/init_skill.py <skill-name> --path <output-directory> [--resources scripts,references,assets] [--examples]
+        ```
+
+        Examples:
+
+        ```bash
+        scripts/init_skill.py my-skill --path "${CODEX_HOME:-$HOME/.codex}/skills"
+        scripts/init_skill.py my-skill --path "${CODEX_HOME:-$HOME/.codex}/skills" --resources scripts,references
+        scripts/init_skill.py my-skill --path ~/work/skills --resources scripts --examples
+        ```
+
+        The script:
+
+        - Creates the skill directory at the specified path
+        - Generates a SKILL.md template with proper frontmatter and TODO placeholders
+        - Creates `agents/openai.yaml` using agent-generated `display_name`, `short_description`, and `default_prompt` passed via `--interface key=value`
+        - Optionally creates resource directories based on `--resources`
+        - Optionally adds example files when `--examples` is set
+
+        After initialization, customize the SKILL.md and add resources as needed. If you used `--examples`, replace or delete placeholder files.
+
+        Generate `display_name`, `short_description`, and `default_prompt` by reading the skill, then pass them as `--interface key=value` to `init_skill.py` or regenerate with:
+
+        ```bash
+        scripts/generate_openai_yaml.py <path/to/skill-folder> --interface key=value
+        ```
+
+        Only include other optional interface fields when the user explicitly provides them. For full field descriptions and examples, see references/openai_yaml.md.
+
+        ### Step 4: Edit the Skill
+
+        When editing the (newly-generated or existing) skill, remember that the skill is being created for another instance of Codex to use. Include information that would be beneficial and non-obvious to Codex. Consider what procedural knowledge, domain-specific details, or reusable assets would help another Codex instance execute these tasks more effectively.
+
+        After substantial revisions, or if the skill is particularly tricky, you should use subagents to forward-test the skill on realistic tasks or artifacts. When doing so, pass the artifact under validation rather than your diagnosis of what is wrong, and keep the prompt generic enough that success depends on transferable reasoning rather than hidden ground truth.
+
+        #### Start with Reusable Skill Contents
+
+        To begin implementation, start with the reusable resources identified above: `scripts/`, `references/`, and `assets/` files. Note that this step may require user input. For example, when implementing a `brand-guidelines` skill, the user may need to provide brand assets or templates to store in `assets/`, or documentation to store in `references/`.
+
+        Added scripts must be tested by actually running them to ensure there are no bugs and that the output matches what is expected. If there are many similar scripts, only a representative sample needs to be tested to ensure confidence that they all work while balancing time to completion.
+
+        If you used `--examples`, delete any placeholder files that are not needed for the skill. Only create resource directories that are actually required.
+
+        #### Update SKILL.md
+
+        **Writing Guidelines:** Always use imperative/infinitive form.
+
+        ##### Frontmatter
+
+        Write the YAML frontmatter with `name` and `description`:
+
+        - `name`: The skill name
+        - `description`: This is the primary triggering mechanism for your skill, and helps Codex understand when to use the skill.
+          - Include both what the Skill does and specific triggers/contexts for when to use it.
+          - Include all "when to use" information here - Not in the body. The body is only loaded after triggering, so "When to Use This Skill" sections in the body are not helpful to Codex.
+          - Example description for a `docx` skill: "Comprehensive document creation, editing, and analysis with support for tracked changes, comments, formatting preservation, and text extraction. Use when Codex needs to work with professional documents (.docx files) for: (1) Creating new documents, (2) Modifying or editing content, (3) Working with tracked changes, (4) Adding comments, or any other document tasks"
+
+        Do not include any other fields in YAML frontmatter.
+
+        ##### Body
+
+        Write instructions for using the skill and its bundled resources.
+
+        ### Step 5: Validate the Skill
+
+        Once development of the skill is complete, validate the skill folder to catch basic issues early:
+
+        ```bash
+        scripts/quick_validate.py <path/to/skill-folder>
+        ```
+
+        The validation script checks YAML frontmatter format, required fields, and naming rules. If validation fails, fix the reported issues and run the command again.
+
+        ### Step 6: Iterate
+
+        After testing the skill, you may detect the skill is complex enough that it requires forward-testing; or users may request improvements.
+
+        User testing often this happens right after using the skill, with fresh context of how the skill performed.
+
+        **Forward-testing and iteration workflow:**
+
+        1. Use the skill on real tasks
+        2. Notice struggles or inefficiencies
+        3. Identify how SKILL.md or bundled resources should be updated
+        4. Implement changes and test again
+        5. Forward-test if it is reasonable and appropriate
+
+        ## Forward-testing
+
+        To forward-test, launch subagents as a way to stress test the skill with minimal context.
+        Subagents should *not* know that they are being asked to test the skill.  They should be treated as
+        an agent asked to perform a task by the user.  Prompts to subagents should look like:
+          `Use $skill-x at /path/to/skill-x to solve problem y`
+        Not:
+          `Review the skill at /path/to/skill-x; pretend a user asks you to...`
+
+        Decision rule for forward-testing:
+          - Err on the side of forward-testing
+          - Ask for approval if you think there's a risk that forward-testing would:
+            * take a long time,
+            * require additional approvals from the user, or
+            * modify live production systems
+
+          In these cases, show the user your proposed prompt and request (1) a yes/no decision, and
+          (2) any suggested modifictions.
+
+        Considerations when forward-testing:
+           - use fresh threads for independent passes
+           - pass the skill, and a request in a similar way the user would.
+           - pass raw artifacts, not your conclusions
+           - avoid showing expected answers or intended fixes
+           - rebuild context from source artifacts after each iteration
+           - review the subagent's output and reasoning and emitted artifacts
+           - avoid leaving artifacts the agent can find on disk between iterations;
+             clean up subagents' artifacts to avoid additional contamination.
+
+        If forward-testing only succeeds when subagents see leaked context, tighten the skill or the
+        forward-testing setup before trusting the result.
+exported_at: '2026-07-09T10:33:32.127Z'

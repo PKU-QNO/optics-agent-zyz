@@ -1,0 +1,33 @@
+kind: magnus/skill
+version: '1.0'
+payload:
+  id: sepr-claude-skills-magnus
+  title: Magnus Skill（占位骨架——⚠ 预制脚本不存在，不可依赖；Mie 纯 Python 阶段不用本 skill）
+  description: Magnus HPC execution for SEPR — blueprint submission, job monitoring, resource management on Gustation cluster.
+    Use when the task involves running blueprints on Magnus (SLURM framework, max 973G RAM / 256G per task, large disk, 128
+    cores), submitting/monitoring jobs, or managing HPC resources for COMSOL/simulation work.
+  files:
+    - path: SKILL.md
+      content: "---\r\nname: magnus\r\ndescription: Magnus HPC execution for SEPR — blueprint submission, job monitoring,\
+        \ resource management on Gustation cluster. Use when the task involves running blueprints on Magnus (SLURM framework,\
+        \ max 973G RAM / 256G per task, large disk, 128 cores), submitting/monitoring jobs, or managing HPC resources for\
+        \ COMSOL/simulation work.\r\n---\r\n\r\n# Magnus Skill（占位骨架——⚠ 预制脚本不存在，不可依赖；Mie 纯 Python 阶段不用本 skill）\r\n\r\n> **⚠\
+        \ declared-vs-actual 警示（2026-07-04）**：下方\"预制脚本\"是规划，一个都不存在（`scripts/*.py` 未落地）。sub-agent 不得假设脚本存在；SEPR 真要提交远程作业时再实现（Mie\
+        \ 阶段 1-7 纯 Python 解析，大概率不触发）。实际 Magnus 操作参考 `.human/skills/optics-magnus-platform/`。\r\n> 现阶段是占位骨架。详细中文设计稿在 `.human/skills/optics-magnus-platform/`\
+        \ 和 `optics-magnus-artifacts/`（已从 optics_agent 复制）。后期整合成英文 prompt-engineered 版。\r\n> 这个 skill 给 sub-agent 用，处理 Magnus\
+        \ 蓝图提交和作业监控（workflow step 06 run_and_monitor 走 Magnus 时）。\r\n\r\n## Magnus 集群关键参数\r\n\r\n- **框架**：SLURM\r\n- **最大资源**：973G\
+        \ RAM（单任务上限 256G）、大磁盘、128 核心\r\n- **访问**：SSH 到 Gustation（校园内网，不能访问公网）\r\n- **凭据**：secret.json（magnus_address-gu /\
+        \ magnus_token-gu），不读内容\r\n- **保守提交原则**：CPU/内存不过半，gpu_type=cpu 默认，查现有 job 复用\r\n\r\n## 职责（待填）\r\n\r\n- 蓝图提交（blueprint\
+        \ ≠ script，是 Magnus 执行的参数化任务模板）\r\n- 作业监控（查 run_id，复用 active/success job）\r\n- 资源管理（cpu/ram/disk/gpu 配置，不超限）\r\n-\
+        \ 日志收集、结果回传\r\n- 失败诊断（逐因，区分 Magnus 成功 ≠ COMSOL 成功 ≠ 物理复现成功）\r\n\r\n## 蓝图与 script 的区别（重要）\r\n\r\n- **script**：本地 Python\
+        \ 跑，轻量，sub-agent 直接执行\r\n- **blueprint**：Magnus 负责执行的参数化任务模板，不是本地 script；跑在 SLURM 上，有大资源（973G RAM、单任务 256G RAM、128\
+        \ 核、大磁盘）\r\n- 蓝图必须有完整 typed schema，字段至少包括：\r\n  - `parameters`：全部输入参数、类型、默认值、含义\r\n  - `units`：每个物理/数值参数的单位\r\n  -\
+        \ `bounds`：每个可变参数的允许范围和非法值\r\n  - `fixed_assumptions`：固定物理假设、材料模型、边界条件、近似条件\r\n  - `resource_policy`：cpu/ram/disk/gpu\
+        \ 的默认值和上限，默认保守提交且不过半\r\n  - `expected_outputs`：CSV、图、日志、checkpoint、报告等预期产物\r\n  - `verifier_hooks`：运行后必须调用的验证脚本/物理检查入口\r\
+        \n  - `stop_rules`：NaN/Inf、非物理值、资源超限、verifier fail 等停止条件\r\n  - `scan_parameters`：可扫参数、范围、步长、总点数估算和 replay 支持\r\n\
+        - evolution 迭代蓝图时检查扫描参数泛用能力\r\n\r\n## 参数扫描 manifest（强制）\r\n\r\n所有通过 Magnus blueprint 发起的参数扫描都必须写 `sweep_manifest.yaml`，用于复跑单点和复现整图。至少包含：\r\
+        \n- `sweep_id`、`blueprint_id`\r\n- 扫描参数、范围、步长、总点数\r\n- 每个扫描点的参数值、结果路径、`result_class`\r\n- 单点复跑命令/入口和整图复现入口\r\n- 失败点、跳过点和\
+        \ retry fingerprint\r\n\r\n## 预制脚本（**全部不存在，待实现，不可依赖**）\r\n\r\n- `scripts/submit_magnus.py` — 蓝图提交模板（未实现）\r\n- `scripts/monitor_job.py`\
+        \ — 作业状态查询（未实现）\r\n- `scripts/collect_results.py` — 结果回传（未实现）\r\n\r\n## 安全红线（待填）\r\n\r\n- 不读 secret.json / license\
+        \ / SSH key 内容\r\n- 不重复提交 job（先查 run_id）\r\n- 不超资源（不过半）\r\n- 不改 active COMSOL image 除非用户明确要求\r\n"
+exported_at: '2026-07-09T10:33:32.127Z'

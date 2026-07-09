@@ -1,0 +1,168 @@
+kind: magnus/skill
+version: '1.0'
+payload:
+  id: sepr-claude-skills-main-agent-workflow-11-main_agent_report
+  title: 11-main_agent_report（主 agent 自己写）
+  description: ''
+  files:
+    - path: SKILL.md
+      content: |+
+        # 11-main_agent_report（主 agent 自己写）
+
+        ## 这步干什么
+
+        主 agent 写全局总结报告。子 agent 的 step 10 是经验+记忆+双报告，本步是主 agent 站在编排者视角的总览。
+
+        ## 这是主 agent 你自己做的，不是 spawn 子 agent
+
+        ### 4 类文档汇总定稿
+
+        子 agent step10 产出 4 类文档初稿放沙箱，本步你来做汇总定稿：
+
+        **1. 全过程报告**（`.result/<paper>/full_report.md`）
+        - 基于子 agent 草稿 `.work/.todo/{paper}/{case}/full_report_draft.md`
+        - 补充主 agent 编排视角的全局判断
+        - 每步引用于 agent 报告的路径
+        - 保留决策过程和问题记录
+
+        **2. 简报**（`.result/<paper>/brief.md` + 更新 `todo.md`）
+        - ★ 主 agent 把关：精简到一页，突出 PI 关心的结论
+        - 不要技术细节堆积，要结果 level + 关键数值 + 一句话结论
+        - 同时更新 `todo.md` 中本 case 的状态
+
+        **3. SKILL 更改建议**（`toEflow/<paper>.skill-suggestion.md`）
+        - 基于子 agent 草稿，主 agent 确认 tier 级别和适用边界
+        - 只增不删原则
+        - 如果子 agent 建议多个，主 agent 排序优先级
+
+        **4. 蓝图建议**（`toEflow/<paper>.blueprint-suggestion.md`）
+        - ★ 主 agent 把关：确认是否需要上 Magnus
+        - 如果需要：检查蓝图是否有扫描参数泛化能力（见 template）
+        - 如果纯 Python：明确写"本次无需蓝图"
+
+        ### 填写主 agent 报告
+
+        读 `references/main_report_template.md`，填 8 个字段：
+        1. 本次复现概况
+        2. 10 步执行轨迹（引用各步子 agent 报告路径）
+        3. 关键决策点回顾（你在哪些节点拍了板）
+        4. 人工 gate 记录
+        5. 最终成果（进 .result 的、benchmark、skill 更新）
+        6. 自迭代建议
+        7. 给下一篇的接力
+        8. 长期记忆更新摘要
+
+        ### 写 capsule（E-flow 输入契约，强制，100% fire——2026-07-04 补 A1 生产侧）
+
+        复现 workflow 结束前，主 agent **必须**产出 `.work/.result/<case>/capsule.md`——这是 E-flow（自迭代）step01 的唯一输入。不产 capsule = 本篇复现对未来自迭代不存在。**不靠自觉：本步验收清单含"capsule.md 存在且字段齐全"，缺则本步不算完成。**
+
+        capsule 必须带字段：
+        - `processed: false`（E-flow 消费后置 true，防重复处理）
+        - `run_id` / `case` / `timestamp`
+        - `result_class`（7 级枚举）
+        - `evidence_refs`（指向本 case 的关键报告/verifier 输出/对比图路径）
+        - provenance 五要素（source_artifact / evidence_type / timestamp_version / scope_applicability / confidence_result_class）
+        - 正文：本次复现"什么真的断了/什么有效"清单（对照信号盘逐类，没断的写"未触发"）+ 候选经验（GUIDING/CAUTIONARY/FACT/PROCEDURE 各若干条，可为空但要写明为空）
+
+        ### 写 run manifest
+
+        复现 workflow 结束前，主 agent 必须在 `.work/run_manifest.yaml` 写审计索引：
+        - `run_id`、`timestamp`、`case`
+        - `spawned_agents`：数量、各 agent 角色、负责节点、depth
+        - `fan_out`：哪个节点并发了几个子 agent
+        - `max_depth_reached`
+        - `result_class`：使用 CLAUDE.md 的 7 级枚举之一
+        - `retry_fingerprints`：每步重跑 fingerprint、修改点、新证据/新假设、结果
+
+        `run_manifest.yaml` 只做索引，证据仍引用各步报告和 artifact。
+
+        ## 写完之后
+
+        1. 从 `.work` 复制有用内容到 `.result/`（问用户哪些确认）
+        2. 通过 gate 的 skill 草稿同步到 `.claude`（用 yaml_to_skill.py）
+        3. 更新 memento 长期记忆（全局结论）
+        4. 报告写到 `.work/.sub-report/main-<case>-<timestamp>.md`，也复制一份到 `.result/reports/`
+        5. 写 `.work/run_manifest.yaml`，记录 fan-out/depth/result_class/retry_fingerprints；`result_class` 使用 CLAUDE.md 的 7 级枚举之一
+        6. **写 `.work/.result/<case>/capsule.md`（见上节，强制）**——结束前自检：capsule 存在？字段齐全？`processed: false`？缺则不得宣布本步完成
+        7. **增量更新 WORK_LOG（强制，见 `CLAUDE.md`「WORK_LOG 维护规范」）**——向该篇 `WORK_LOG/<NN>-<papername>-v<N>.md` 追加本 run 的带日期条目（做了什么/关键决策+为什么/引用 capsule·run_manifest·.result 路径/下一步或停机点）+ 更新"决策台账"节（CC 建议→用户裁决→落点+memento id）+ 顶层 `WORK_LOG.md` 摘要表加/更新该 run 一行。**只增不改历史。** 与 `todo.md` 分工：todo 记待办/状态，WORK_LOG 记叙事+决策，数据只引用不重抄。结束前自检：该篇 WORK_LOG 文件已追加本次条目？顶层摘要表已更新？缺则本步不算完成。
+
+        > WORK_LOG 分文件按论文：一篇一文件，同篇多次复现分多文件（`-v1`/`-v2`…），version 由用户第一句话给定，不自造命名。首次为某篇建文件时用 `WORK_LOG/_TEMPLATE.md` 起头。
+
+        ## 人工 gate
+
+        最终确认。用户看了主 agent 报告后决定哪些进 .result、哪些 skill 草稿通过。
+
+        ## 本步 sub-agent spawn 局部模版
+
+        本步由主 agent 自己执行，不 spawn sub-agent。
+
+        ## workflow 结束
+
+        ## 执行版字段补全
+
+        ### 详细任务
+        1. 先确认本步编号为 `11`，步骤名为 `main_agent_report`，并在报告固定头中复述。
+        2. 读取父 agent spawn 指令中的 `{paper}`、`{case}`、`{timestamp}`、输入路径和输出路径。
+        3. 对照上方 `.human` 原始设计逐条执行，不得跳过输出项。
+        4. 如果原始设计只写概念性动作，必须落到 artifact：表格、报告、脚本输出、verifier 日志或草稿 diff。
+        5. 完成本步后写结构化报告，并给父 agent 一个可执行的 `recommended_action`。
+
+        ### 输入路径
+        - 论文原文：`.paper/{paper}` 或 spawn 指令指定 PDF。
+        - 本 case 工作区：`.work/.todo/{paper}/{case}/` 或 spawn 指令指定路径。
+        - 子报告读取：`.work/.sub-report/` 或 `.work/.evolution/{timestamp}/sub-reports/`。
+        - 待治理输入：`toEflow/`、`.work/.todo/`、`.E-history/`（仅自迭代步骤）。
+        - 缺路径时先在报告写 `blocked_by: missing_input_path`，不要猜。
+
+        ### 输出路径
+        - 主报告或子报告目录：`.work/.sub-report/`。
+        - 本步中间产物：`.work/.todo/{paper}/{case}/11-main_agent_report/` 或 `.work/.evolution/{timestamp}/11-main_agent_report/`。
+        - 草稿文件：只写 `.work/` 沙箱；正式 `.claude/skills/` 和 `.human/skills/` 只能在 human gate 后同步。
+        - 输出文件名带 `11-main_agent_report-{timestamp}`，避免覆盖。
+
+        ### 决策问题
+        - 本步是否具备继续下一步的最低证据？若否，缺什么？
+        - 本步 result_class 的上限是什么，为什么？
+        - 是否触发 human gate、blocker_condition 或 retry？
+        - 是否需要并发拆分、subsubagent、外部搜索或人工输入？
+        - 产物是否可 replay、可审计、可复用？
+
+
+        ### gate
+        - 按本步 gate 规则；参数/spec/公式/误差 gate 必停。
+        - gate 前必须给用户可审查摘要：证据、风险、建议选项、默认不继续的条件。
+        - 不得把沉默当同意。
+
+        ### retry_budget
+        - `retry_budget=5`。
+        - 每轮必须写 retry_fingerprint。
+        - 无新证据或相同 fingerprint 二次失败时转 blocked。
+
+        ### blocker_condition
+        - 输入 artifact 缺失或路径不明确。
+        - 关键参数、单位、公式来源冲突且无法用证据消解。
+        - verifier 不适用或失败但仍会影响物理声明。
+        - 输出 schema 缺字段，尤其缺 evidence_refs、uncertainty、missing_evidence、result_class。
+        - 超出 case/evolution 预算或工具权限不足。
+
+        ## result_class 判定硬规则
+
+        - 必须只使用 `not_run`、`pipeline_completed`、`simulation_completed`、`diagnostic_only`、`surrogate_fallback`、`partial_physical_match`、`physical_reproduction_success` 七级枚举。
+        - 只要本步没有真实执行仿真或数值验证，最高只能写 `pipeline_completed`。
+        - 只要仿真完成但没有物理判断，最高只能写 `simulation_completed`。
+        - 只要任一适用 Layer 1 物理硬约束失败，最高只能写 `diagnostic_only`，不得写 `partial_physical_match` 或 `physical_reproduction_success`。
+        - 只要用了代理模型、简化公式、占位数据、不可比替代流程，必须写 `surrogate_fallback`，不得向上包装。
+        - 只有硬约束、极限退化、论文图量化、人审 gate 全过，才允许写 `physical_reproduction_success`。
+        - 缺证据时写更低等级，并在 `missing_evidence` 明确缺哪份 artifact。
+
+
+        ## 失败处理与 retry fingerprint
+
+        - 本步 `retry_budget=5`，每轮重跑必须先写 `retry_fingerprint`。
+        - `retry_fingerprint` 格式：`step=<step>;round=<n>;changed=<变更>;new_evidence=<证据>;hypothesis=<假设>;expected_signal=<预期可观察变化>`。
+        - 相同 fingerprint 第二次失败即转 `blocked`，不要继续空跑。
+        - 没有新证据或新假设时不得重跑，直接在报告中写 blocker。
+        - 达到 5 轮仍失败时停止，保留已有 artifact，写清下一次需要的人类输入或外部证据。
+        - 失败不是删除产物；失败报告仍进入 `.work`，可转 `toEflow/` 或 `.E-history/` 作为 Archive 负面知识。
+
+exported_at: '2026-07-09T10:33:32.127Z'

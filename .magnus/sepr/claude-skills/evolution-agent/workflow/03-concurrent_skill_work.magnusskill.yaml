@@ -1,0 +1,166 @@
+kind: magnus/skill
+version: '1.0'
+payload:
+  id: sepr-claude-skills-evolution-agent-workflow-03-concurrent_skill_work
+  title: 03-concurrent_skill_work（evolution-agent 视角）
+  description: ''
+  files:
+    - path: SKILL.md
+      content: |+
+        # 03-concurrent_skill_work（evolution-agent 视角）
+
+        ## 这步干什么
+
+        并行 spawn M 个 sub-E-agent，每个负责改一个 skill 的草稿。**每个 sub-E-agent 只碰一个 skill**，不改 workflow 拓扑、蓝图结构、AGENTS.md。
+
+        ## 输入
+
+        - 上一步的修改计划（`plan.md`）
+        - 当前 skill 的最新版本（`.claude/skills/<skill-name>/`）
+        - 相关 capsule 的原始工作报告和审查报告
+        - `.work/.todo/<paper-name>/` 下的单论文草稿（如果有）
+
+        ## 输出要求
+
+        - M 份 skill 草稿（`.work/.evolution/<timestamp>/drafts/<skill-name>.skill.yaml`）：
+          - 改了什么 / 为什么改 / 验证结果 / 来源 case
+          - 每条候选经验/改动必须带 5 字段：`candidate_id`（唯一 ID）、`evidence_ref`（引用 capsule/verifier 结果/数值）、`decision`（Save/Improve/Absorb/Fork/Archive/Drop）、`tier`（Tier-1/2/3）、`rollback_ref`（接受后出问题回滚到哪个版本）
+          - 用 skill_to_yaml.py 导出当前 skill 为 yaml 再改
+          - 改完保存 yaml（不改 `.claude/skills/` 原文）
+        - 如果不需要改某个 skill，在计划里注明"skipped"
+        - 如果本步涉及 Magnus blueprint 参数扫描能力，必须补充 `sweep_manifest.yaml` 规范：记录 `sweep_id`、`blueprint_id`、扫描参数/范围/步长/总点数、每个点的结果路径和 `result_class`，并支持复跑单点和复现整图。
+
+        ## 要传达给 sub-E-agent 的约定
+
+        - **只碰 skill 内容 + 提示词备注**，不碰：
+          - × workflow 拓扑
+          - × 蓝图结构（`.magnus/`）
+          - × AGENTS.md / CLAUDE.md
+          - × 自迭代系统自身
+          - × 其他 skill 的文件
+        - 先读当前 skill 文件，理解它的结构和边界
+        - 用 `skill-creator/scripts/skill_to_yaml.py` 导出 yaml 草稿
+        - 改的时候保留原 skill 的所有字段，只增补或修改相关内容
+        - 每条改动边上标注来源（哪篇 capsule 的哪个发现）
+        - **不能因为"我觉得更好"就改——必须有 capsule 数据支撑**
+        - 涉及参数扫描的 skill/蓝图经验必须要求写 `sweep_manifest.yaml`，否则不能标 Absorb/active
+        - 改完不要恢复成 `.claude/skills/` 格式——保持 yaml 草稿形态
+
+        ## 本步 sub-E-agent 必须回答的决策问题
+
+        1. 你改了什么？为什么改？哪篇 capsule 支撑的？
+        2. 有没有改超出 skill 范围（碰了拓扑/蓝图/AGENTS）？
+        3. 改动会不会导致旧 case 退化？
+        4. 草稿完整性——有没有遗漏原 skill 的关键部分？
+        5. 你觉得还需不需要额外的 case 验证？哪些？
+
+        ## 人工 gate ③
+
+        **每份 skill 草稿给用户看。** 确认：
+        - 改动范围是否合理（有没有碰不该碰的）
+        - 改动了是不是 capsule 数据支撑的
+        - 草稿质量（有没有遗漏、有没有过度修改）
+
+        ## 局部 spawn 模版（供 evolution-agent 拼接用）
+
+        ```
+        【第 03 步：concurrent_skill_work】
+        【任务】并行 spawn M 个 sub-E-agent，每个负责改一个 skill 的草稿。每个 sub-E-agent 只碰一个 skill，不改 workflow 拓扑、蓝图结构、AGENTS.md。
+        【输入】上一步的修改计划（`plan.md`）；当前 skill 最新版本（`.claude/skills/<skill-name>/`）；相关 capsule 的原始工作报告和审查报告；`.work/.todo/<paper-name>/` 下的单论文草稿（如果有）
+        【输出】M 份 skill 草稿（`.work/.evolution/<timestamp>/drafts/<skill-name>.skill.yaml`），每份标明改了什么/为什么改/验证结果/来源 case；每条候选经验/改动必须带 candidate_id/evidence_ref/decision/tier/rollback_ref 五字段；不需要改的注明"skipped"；涉及 Magnus blueprint 参数扫描时补充 `sweep_manifest.yaml` 规范
+        【要传达的约定】只碰 skill 内容+提示词备注，不碰 workflow 拓扑、蓝图结构、AGENTS.md/CLAUDE.md、自迭代系统自身、其他 skill 的文件；先读当前 skill 文件理解结构和边界；用 `skill-creator/scripts/skill_to_yaml.py` 导出 yaml 草稿；改的时候保留原 skill 的所有字段只增补或修改相关内容；每条改动边上标注来源（哪篇 capsule 的哪个发现）；不能因为"我觉得更好"就改——必须有 capsule 数据支撑；涉及参数扫描的 skill/蓝图经验必须要求写 `sweep_manifest.yaml`，记录 `sweep_id`/`blueprint_id`/扫描参数范围步长总点数/每点结果路径+result_class，并支持复跑单点和复现整图；改完保持 yaml 草稿形态，不恢复成 `.claude/skills/` 格式
+        【必须回答的决策问题】1. 你改了什么？为什么改？哪篇 capsule 支撑的？2. 有没有改超出 skill 范围（碰了拓扑/蓝图/AGENTS）？3. 改动会不会导致旧 case 退化？4. 草稿完整性——有没有遗漏原 skill 的关键部分？5. 你觉得还需不需要额外的 case 验证？哪些？
+        【人工 gate】③ 每份 skill 草稿给用户看。确认改动范围是否合理、是否 capsule 数据支撑、草稿质量（有没有遗漏/过度修改）。
+        【并发说明】M 个 sub-E-agent 并行，每人改一个 skill（M = plan.md 中待改 skill 数量）。每个 sub-E-agent 只碰一个 skill，互不干扰。
+        【预制脚本】无（尚未建立）
+        ```
+
+        ## 执行版字段补全
+
+        ### 详细任务
+        1. 先确认本步编号为 `03`，步骤名为 `concurrent_skill_work`，并在报告固定头中复述。
+        2. 读取父 agent spawn 指令中的 `{paper}`、`{case}`、`{timestamp}`、输入路径和输出路径。
+        3. 对照上方 `.human` 原始设计逐条执行，不得跳过输出项。
+        4. 如果原始设计只写概念性动作，必须落到 artifact：表格、报告、脚本输出、verifier 日志或草稿 diff。
+        5. 完成本步后写结构化报告，并给父 agent 一个可执行的 `recommended_action`。
+
+        ### 输入路径
+        - 论文原文：`.paper/{paper}` 或 spawn 指令指定 PDF。
+        - 本 case 工作区：`.work/.todo/{paper}/{case}/` 或 spawn 指令指定路径。
+        - 子报告读取：`.work/.sub-report/` 或 `.work/.evolution/{timestamp}/sub-reports/`。
+        - 待治理输入：`toEflow/`、`.work/.todo/`、`.E-history/`（仅自迭代步骤）。
+        - 缺路径时先在报告写 `blocked_by: missing_input_path`，不要猜。
+
+        ### 输出路径
+        - 主报告或子报告目录：`.work/.evolution/{timestamp}/sub-reports/`。
+        - 本步中间产物：`.work/.todo/{paper}/{case}/03-concurrent_skill_work/` 或 `.work/.evolution/{timestamp}/03-concurrent_skill_work/`。
+        - 草稿文件：只写 `.work/` 沙箱；正式 `.claude/skills/` 和 `.human/skills/` 只能在 human gate 后同步。
+        - 输出文件名带 `03-concurrent_skill_work-{timestamp}`，避免覆盖。
+
+        ### 决策问题
+        - 本步是否具备继续下一步的最低证据？若否，缺什么？
+        - 本步 result_class 的上限是什么，为什么？
+        - 是否触发 human gate、blocker_condition 或 retry？
+        - 是否需要并发拆分、subsubagent、外部搜索或人工输入？
+        - 产物是否可 replay、可审计、可复用？
+        - candidate 固定字段：`candidate_id`、`evidence_ref`、`decision`、`tier`、`rollback_ref`。
+        - 若本步产生经验，必须标 GUIDING/CAUTIONARY/FACT/PROCEDURE。
+
+
+        ### gate
+        - 每步末 human gate，等待用户确认。
+        - gate 前必须给用户可审查摘要：证据、风险、建议选项、默认不继续的条件。
+        - 不得把沉默当同意。
+
+        ### retry_budget
+        - `retry_budget=5`。
+        - 每轮必须写 retry_fingerprint。
+        - 无新证据或相同 fingerprint 二次失败时转 blocked。
+
+        ### blocker_condition
+        - 输入 artifact 缺失或路径不明确。
+        - 关键参数、单位、公式来源冲突且无法用证据消解。
+        - verifier 不适用或失败但仍会影响物理声明。
+        - 输出 schema 缺字段，尤其缺 evidence_refs、uncertainty、missing_evidence、result_class。
+        - 超出 case/evolution 预算或工具权限不足。
+
+        ### 拼接好的完整 spawn 指令
+
+        ```text
+        你是 sub-E-agent（E-sub，自迭代执行者），不是编排者。你被 spawn 做第 03 步 `concurrent_skill_work`。
+
+        paper=`{paper}`
+        case=`{case}`
+        timestamp=`{timestamp}`
+        task_scope=`执行 03-concurrent_skill_work，只完成本步，不替父 agent 决定 workflow 走向。`
+        input_paths=`{input_paths}`
+        output_paths=`{output_paths}`
+
+        先做：运行 `python .claude/skill-print.py`；搜索 memento；读取你自己的身份 skill；读取本步 workflow skill。
+        执行：按本文件“详细任务/输入路径/输出路径/决策问题/gate/retry_budget/blocker_condition”逐条完成。
+        禁止：写 .result；直接改正式 skill；跳过 verifier；把 fallback/diagnostic/pipeline 当成功；删除沙箱草稿；越权读 secret。
+        报告：写到 `.work/.evolution/{timestamp}/sub-reports/03-concurrent_skill_work-{timestamp}.md`，包含固定头 6 字段、8 字段主体、uncertainty、missing_evidence、result_class、retry_fingerprint、provenance 五字段。
+        结束：先 memory_dedup_check，再按需 memory_store/decisions_log/pitfalls_log。
+        ```
+
+        ## result_class 判定硬规则
+
+        - 必须只使用 `not_run`、`pipeline_completed`、`simulation_completed`、`diagnostic_only`、`surrogate_fallback`、`partial_physical_match`、`physical_reproduction_success` 七级枚举。
+        - 只要本步没有真实执行仿真或数值验证，最高只能写 `pipeline_completed`。
+        - 只要仿真完成但没有物理判断，最高只能写 `simulation_completed`。
+        - 只要任一适用 Layer 1 物理硬约束失败，最高只能写 `diagnostic_only`，不得写 `partial_physical_match` 或 `physical_reproduction_success`。
+        - 只要用了代理模型、简化公式、占位数据、不可比替代流程，必须写 `surrogate_fallback`，不得向上包装。
+        - 只有硬约束、极限退化、论文图量化、人审 gate 全过，才允许写 `physical_reproduction_success`。
+        - 缺证据时写更低等级，并在 `missing_evidence` 明确缺哪份 artifact。
+
+
+        ## 失败处理与 retry fingerprint
+
+        - 本步 `retry_budget=5`，每轮重跑必须先写 `retry_fingerprint`。
+        - `retry_fingerprint` 格式：`step=<step>;round=<n>;changed=<变更>;new_evidence=<证据>;hypothesis=<假设>;expected_signal=<预期可观察变化>`。
+        - 相同 fingerprint 第二次失败即转 `blocked`，不要继续空跑。
+        - 没有新证据或新假设时不得重跑，直接在报告中写 blocker。
+        - 达到 5 轮仍失败时停止，保留已有 artifact，写清下一次需要的人类输入或外部证据。
+        - 失败不是删除产物；失败报告仍进入 `.work`，可转 `toEflow/` 或 `.E-history/` 作为 Archive 负面知识。
+
+exported_at: '2026-07-09T10:33:32.127Z'

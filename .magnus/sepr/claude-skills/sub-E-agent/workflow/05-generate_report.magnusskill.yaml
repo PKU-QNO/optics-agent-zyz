@@ -1,0 +1,180 @@
+kind: magnus/skill
+version: '1.0'
+payload:
+  id: sepr-claude-skills-sub-e-agent-workflow-05-generate_report
+  title: 05-generate_report（sub-E-agent 视角）
+  description: ''
+  files:
+    - path: SKILL.md
+      content: |+
+        # 05-generate_report（sub-E-agent 视角）
+
+        ## 具体怎么干
+
+        你写治理报告初稿，对每条候选经验做六维裁决 + 三级治理建议。evolution-agent 读后做最终裁决。
+
+        ### 报告步骤
+
+        1. **读所有材料**：
+           - 审查报告（01 产出）
+           - 聚类报告（02 产出）
+           - skill 草稿（03 产出）
+           - 验证报告（04 产出）
+        2. **整理候选经验清单**：从 clusters.md 提取每条候选经验
+        3. **六维裁决 + 三级治理建议**（核心工作）：
+
+           对每条候选经验，先按六维裁决，再定 tier：
+
+           | 裁决 | 判断依据 |
+           |------|---------|
+           | **Save** | 独特的、具体的、scope 清楚、有 ≥1 case 支撑、不重复现有 skill |
+           | **Improve then Save** | 有价值但不完整：缺适用边界 / 缺具体步骤 / 缺验证方式 → 列出改进点 + 修订版 |
+           | **Absorb (Merge)** | 经验与已有 skill 兼容 → 展示 diff + 建议合并位置 + 合并理由 |
+           | **Fork** | 经验与已有 skill 冲突/不兼容 → 在 skill 内创建 scope 分支，带冲突标注（不强行合并） |
+           | **Archive** | 有价值但不足以进 skill → 存负面知识库，带 source/claim/evidence/why_not_skill/scope 字段 |
+           | **Drop** | 琐碎（"记得调参数"）/ 冗余（skill 已覆盖）/ 太抽象（"提高精度"）→ 说明原因。Drop 不是消失，可能记 memento |
+
+           同时给每条经验定 tier：
+           - **Tier-1**：单 case 无 verifier → Archive，不进 skill
+           - **Tier-2**：≥2 case 或 1 case + verifier 通过 → candidate pending
+           - **Tier-3**：≥3 case + verifier + replay 无退化 → active 升级
+
+        4. **写治理报告**
+
+        ### 工具
+
+        - 预制脚本（`scripts/` 目录）：
+          - （暂无）后续迭代补充
+        - 可 spawn 子子 agent 做 diff 对比：草稿 vs 原 skill
+
+        ### 输出约定
+
+        - 治理报告：`.work/.evolution/<timestamp>/report.md`
+        - 每条候选经验的格式：
+
+        ```markdown
+        ## 候选经验 <编号>
+        - 来源 capsule：<列表>
+        - 类型：GUIDING / CAUTIONARY / FACT / PROCEDURE
+        - 建议裁决：Save / Improve / Absorb / Fork / Archive / Drop
+        - Tier：Tier-1 / Tier-2 / Tier-3（附 case count + verifier 结果）
+        - 置信度：0.3 / 0.5 / 0.7 / 0.85
+        - scope 边界：<此经验适用/不适用的范围>
+        - 冲突清单：<如有冲突经验，列出冲突方向>
+        - 理由：<基于验证数据的解释>
+        - 如 Improve：改进点列表
+        - 如 Absorb：目标 skill + 合并方式 + diff
+        - 如 Fork：冲突边界 + 分支方案
+        - 如 Archive：source / claim / evidence / why_not_skill / scope
+        - 如 Drop：原因（琐碎/冗余/抽象/噪声）
+        ```
+
+        ### 常见坑
+
+        - **Absorb 和 Improve 是高质量路径，不是"偷懒"。** 该合并的合并，不要图省事全 Save
+        - **Improve 要有具体改进点。** "改一下就行"不够，要列"具体改什么、怎么改"
+        - **Fork 不是推卸。** 冲突经验各自正确就要明确分支 scope，不要强行合并
+        - **Archive 不是 Drop。** 五个字段必须完整，否则以后检索不了
+        - **Drop 不是说这经验没用。** 是说"不值得升级为 skill"——可能记到 memento 就行
+        - **六维建议 + tier 都要有验证数据支撑。** 不凭感觉。"因为 replay 显示旧 case 无退化"、"因为仅 1 个 case 支撑不符合 PROCEDURE 门槛"
+        - **注意裁决倾向：** Save 门槛高（独特+完整+scope 清），Improve+Absorb 是主路径，Fork 和 Archive 是创新点
+
+        ## 决策问题重点
+
+        1. **每条经验的六维建议是什么？tier 几级？**
+        2. **Save 的够不够格？**（scope 清不清晰？）
+        3. **Absorb 的合不合理？**（合并后 skill 会不会太臃肿？）
+        4. **Fork 的冲突边界清不清楚？**（不强行合并的理由是否充分？）
+        5. **Archive 的五个字段全不全？**（缺了以后检索不了）
+        6. **Drop 的理由站得住脚吗？**
+        7. **总体建议**：用户如果问"值不值得这次自迭代"，你怎么回答？
+
+        ## 执行版字段补全
+
+        ### 详细任务
+        1. 先确认本步编号为 `05`，步骤名为 `generate_report`，并在报告固定头中复述。
+        2. 读取父 agent spawn 指令中的 `{paper}`、`{case}`、`{timestamp}`、输入路径和输出路径。
+        3. 对照上方 `.human` 原始设计逐条执行，不得跳过输出项。
+        4. 如果原始设计只写概念性动作，必须落到 artifact：表格、报告、脚本输出、verifier 日志或草稿 diff。
+        5. 完成本步后写结构化报告，并给父 agent 一个可执行的 `recommended_action`。
+
+        ### 输入路径
+        - 论文原文：`.paper/{paper}` 或 spawn 指令指定 PDF。
+        - 本 case 工作区：`.work/.todo/{paper}/{case}/` 或 spawn 指令指定路径。
+        - 子报告读取：`.work/.sub-report/` 或 `.work/.evolution/{timestamp}/sub-reports/`。
+        - 待治理输入：`toEflow/`、`.work/.todo/`、`.E-history/`（仅自迭代步骤）。
+        - 缺路径时先在报告写 `blocked_by: missing_input_path`，不要猜。
+
+        ### 输出路径
+        - 主报告或子报告目录：`.work/.evolution/{timestamp}/sub-reports/`。
+        - 本步中间产物：`.work/.todo/{paper}/{case}/05-generate_report/` 或 `.work/.evolution/{timestamp}/05-generate_report/`。
+        - 草稿文件：只写 `.work/` 沙箱；正式 `.claude/skills/` 和 `.human/skills/` 只能在 human gate 后同步。
+        - 输出文件名带 `05-generate_report-{timestamp}`，避免覆盖。
+
+        ### 决策问题
+        - 本步是否具备继续下一步的最低证据？若否，缺什么？
+        - 本步 result_class 的上限是什么，为什么？
+        - 是否触发 human gate、blocker_condition 或 retry？
+        - 是否需要并发拆分、subsubagent、外部搜索或人工输入？
+        - 产物是否可 replay、可审计、可复用？
+        - candidate 固定字段：`candidate_id`、`evidence_ref`、`decision`、`tier`、`rollback_ref`。
+        - 若本步产生经验，必须标 GUIDING/CAUTIONARY/FACT/PROCEDURE。
+
+
+        ### gate
+        - 按本步 gate 规则；参数/spec/公式/误差 gate 必停。
+        - gate 前必须给用户可审查摘要：证据、风险、建议选项、默认不继续的条件。
+        - 不得把沉默当同意。
+
+        ### retry_budget
+        - `retry_budget=5`。
+        - 每轮必须写 retry_fingerprint。
+        - 无新证据或相同 fingerprint 二次失败时转 blocked。
+
+        ### blocker_condition
+        - 输入 artifact 缺失或路径不明确。
+        - 关键参数、单位、公式来源冲突且无法用证据消解。
+        - verifier 不适用或失败但仍会影响物理声明。
+        - 输出 schema 缺字段，尤其缺 evidence_refs、uncertainty、missing_evidence、result_class。
+        - 超出 case/evolution 预算或工具权限不足。
+
+        ### 拼接好的完整 spawn 指令
+
+        ```text
+        你是 sub-E-agent（E-sub，自迭代执行者），不是编排者。你被 spawn 做第 05 步 `generate_report`。
+
+        paper=`{paper}`
+        case=`{case}`
+        timestamp=`{timestamp}`
+        task_scope=`执行 05-generate_report，只完成本步，不替父 agent 决定 workflow 走向。`
+        input_paths=`{input_paths}`
+        output_paths=`{output_paths}`
+
+        先做：运行 `python .claude/skill-print.py`；搜索 memento；读取你自己的身份 skill；读取本步 workflow skill。
+        执行：按本文件“详细任务/输入路径/输出路径/决策问题/gate/retry_budget/blocker_condition”逐条完成。
+        禁止：写 .result；直接改正式 skill；跳过 verifier；把 fallback/diagnostic/pipeline 当成功；删除沙箱草稿；越权读 secret。
+        报告：写到 `.work/.evolution/{timestamp}/sub-reports/05-generate_report-{timestamp}.md`，包含固定头 6 字段、8 字段主体、uncertainty、missing_evidence、result_class、retry_fingerprint、provenance 五字段。
+        结束：先 memory_dedup_check，再按需 memory_store/decisions_log/pitfalls_log。
+        ```
+
+        ## result_class 判定硬规则
+
+        - 必须只使用 `not_run`、`pipeline_completed`、`simulation_completed`、`diagnostic_only`、`surrogate_fallback`、`partial_physical_match`、`physical_reproduction_success` 七级枚举。
+        - 只要本步没有真实执行仿真或数值验证，最高只能写 `pipeline_completed`。
+        - 只要仿真完成但没有物理判断，最高只能写 `simulation_completed`。
+        - 只要任一适用 Layer 1 物理硬约束失败，最高只能写 `diagnostic_only`，不得写 `partial_physical_match` 或 `physical_reproduction_success`。
+        - 只要用了代理模型、简化公式、占位数据、不可比替代流程，必须写 `surrogate_fallback`，不得向上包装。
+        - 只有硬约束、极限退化、论文图量化、人审 gate 全过，才允许写 `physical_reproduction_success`。
+        - 缺证据时写更低等级，并在 `missing_evidence` 明确缺哪份 artifact。
+
+
+        ## 失败处理与 retry fingerprint
+
+        - 本步 `retry_budget=5`，每轮重跑必须先写 `retry_fingerprint`。
+        - `retry_fingerprint` 格式：`step=<step>;round=<n>;changed=<变更>;new_evidence=<证据>;hypothesis=<假设>;expected_signal=<预期可观察变化>`。
+        - 相同 fingerprint 第二次失败即转 `blocked`，不要继续空跑。
+        - 没有新证据或新假设时不得重跑，直接在报告中写 blocker。
+        - 达到 5 轮仍失败时停止，保留已有 artifact，写清下一次需要的人类输入或外部证据。
+        - 失败不是删除产物；失败报告仍进入 `.work`，可转 `toEflow/` 或 `.E-history/` 作为 Archive 负面知识。
+
+exported_at: '2026-07-09T10:33:32.127Z'

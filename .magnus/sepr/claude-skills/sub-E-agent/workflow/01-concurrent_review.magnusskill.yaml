@@ -1,0 +1,142 @@
+kind: magnus/skill
+version: '1.0'
+payload:
+  id: sepr-claude-skills-sub-e-agent-workflow-01-concurrent_review
+  title: 01-concurrent_review（sub-E-agent 视角）
+  description: ''
+  files:
+    - path: SKILL.md
+      content: |+
+        # 01-concurrent_review（sub-E-agent 视角）
+
+        ## 具体怎么干
+
+        你被分配审查一篇 capsule。这篇 capsule 不是你参与复现的——如果 evolution-agent 分配错，立即报告。
+
+        ### 审查步骤
+
+        1. **读 capsule**：读 `.work/.result/<case>/capsule.md` 和子 agent 原始工作报告
+        2. **读原始报告**：读子 agent 在 `.work/.sub-report/` 下的工作报告（特别是第 8 字段经验）
+        3. **对抗式审查**：假设 capsule 有遗漏，去找遗漏：
+           - 执行者说"成功"——验证他的通过标准（是不是物理上成功？还是代码跑了就叫成功？）
+           - 执行者说"失败"——确认他归因对了（有没有可能问题出在执行者自己的代码而不是物理？）
+           - 执行者说"经验 X"——这个经验够不够具体？还是笼统废话？
+        4. **判断 self-bias 风险**：执行者有没有自己夸自己？归因有没有偏向自己？
+        5. **提取 skill 改进点**：这篇 capsule 暴露了哪个 skill 的什么问题？
+
+        ### 工具
+
+        - 预制脚本（`scripts/` 目录）：
+          - （暂无）后续迭代补充
+        - 可 spawn 子子 agent 读 capsule 中的代码/数据做辅助验证
+
+        ### 输出约定
+
+        - 审查报告写到 `.work/.evolution/<timestamp>/sub-reports/review-<case>-<timestamp>.md`
+        - 用 8 字段模板
+        - 第 6 字段重点回答：成功/失败根因、skill 缺陷、self-bias 风险
+        - 第 8 字段标经验 type，引用 capsule 编号
+
+        ## 常见坑
+
+        - **不要重做复现。** 你的任务是审查 capsule，不是重新跑一遍。发现证据不足时写"blocked"，不自己补实验
+        - **对抗式不是找茬。** 假设有错去找错，但找到了要归因到具体位置、给出合理怀疑理由
+        - **self-bias 的判断要有依据。** 不说"我觉得他不对"，要说"他在第 X 步报告里说通过了 Y 验证，但 Z 数据显示..."
+        - **注意胶囊是"工作报告 capsule"不是"论文 PDF"。** 审的是执行过程，不是原论文
+
+        ## 决策问题重点
+
+        1. **根因**：成功/失败是真根因还是表面归因？
+        2. **skill 缺陷**：有没有足够证据说这个 skill 有问题？
+        3. **self-bias 风险**：高/中/低？依据？
+        4. **经验 type**：为什么归为这个 type？（因为≥2 case 才 PROCEDURE？1 次就 CAUTIONARY？）
+
+        ## 执行版字段补全
+
+        ### 详细任务
+        1. 先确认本步编号为 `01`，步骤名为 `concurrent_review`，并在报告固定头中复述。
+        2. 读取父 agent spawn 指令中的 `{paper}`、`{case}`、`{timestamp}`、输入路径和输出路径。
+        3. 对照上方 `.human` 原始设计逐条执行，不得跳过输出项。
+        4. 如果原始设计只写概念性动作，必须落到 artifact：表格、报告、脚本输出、verifier 日志或草稿 diff。
+        5. 完成本步后写结构化报告，并给父 agent 一个可执行的 `recommended_action`。
+
+        ### 输入路径
+        - 论文原文：`.paper/{paper}` 或 spawn 指令指定 PDF。
+        - 本 case 工作区：`.work/.todo/{paper}/{case}/` 或 spawn 指令指定路径。
+        - 子报告读取：`.work/.sub-report/` 或 `.work/.evolution/{timestamp}/sub-reports/`。
+        - 待治理输入：`toEflow/`、`.work/.todo/`、`.E-history/`（仅自迭代步骤）。
+        - 缺路径时先在报告写 `blocked_by: missing_input_path`，不要猜。
+
+        ### 输出路径
+        - 主报告或子报告目录：`.work/.evolution/{timestamp}/sub-reports/`。
+        - 本步中间产物：`.work/.todo/{paper}/{case}/01-concurrent_review/` 或 `.work/.evolution/{timestamp}/01-concurrent_review/`。
+        - 草稿文件：只写 `.work/` 沙箱；正式 `.claude/skills/` 和 `.human/skills/` 只能在 human gate 后同步。
+        - 输出文件名带 `01-concurrent_review-{timestamp}`，避免覆盖。
+
+        ### 决策问题
+        - 本步是否具备继续下一步的最低证据？若否，缺什么？
+        - 本步 result_class 的上限是什么，为什么？
+        - 是否触发 human gate、blocker_condition 或 retry？
+        - 是否需要并发拆分、subsubagent、外部搜索或人工输入？
+        - 产物是否可 replay、可审计、可复用？
+        - candidate 固定字段：`candidate_id`、`evidence_ref`、`decision`、`tier`、`rollback_ref`。
+        - 若本步产生经验，必须标 GUIDING/CAUTIONARY/FACT/PROCEDURE。
+
+
+        ### gate
+        - 按本步 gate 规则；参数/spec/公式/误差 gate 必停。
+        - gate 前必须给用户可审查摘要：证据、风险、建议选项、默认不继续的条件。
+        - 不得把沉默当同意。
+
+        ### retry_budget
+        - `retry_budget=5`。
+        - 每轮必须写 retry_fingerprint。
+        - 无新证据或相同 fingerprint 二次失败时转 blocked。
+
+        ### blocker_condition
+        - 输入 artifact 缺失或路径不明确。
+        - 关键参数、单位、公式来源冲突且无法用证据消解。
+        - verifier 不适用或失败但仍会影响物理声明。
+        - 输出 schema 缺字段，尤其缺 evidence_refs、uncertainty、missing_evidence、result_class。
+        - 超出 case/evolution 预算或工具权限不足。
+
+        ### 拼接好的完整 spawn 指令
+
+        ```text
+        你是 sub-E-agent（E-sub，自迭代执行者），不是编排者。你被 spawn 做第 01 步 `concurrent_review`。
+
+        paper=`{paper}`
+        case=`{case}`
+        timestamp=`{timestamp}`
+        task_scope=`执行 01-concurrent_review，只完成本步，不替父 agent 决定 workflow 走向。`
+        input_paths=`{input_paths}`
+        output_paths=`{output_paths}`
+
+        先做：运行 `python .claude/skill-print.py`；搜索 memento；读取你自己的身份 skill；读取本步 workflow skill。
+        执行：按本文件“详细任务/输入路径/输出路径/决策问题/gate/retry_budget/blocker_condition”逐条完成。
+        禁止：写 .result；直接改正式 skill；跳过 verifier；把 fallback/diagnostic/pipeline 当成功；删除沙箱草稿；越权读 secret。
+        报告：写到 `.work/.evolution/{timestamp}/sub-reports/01-concurrent_review-{timestamp}.md`，包含固定头 6 字段、8 字段主体、uncertainty、missing_evidence、result_class、retry_fingerprint、provenance 五字段。
+        结束：先 memory_dedup_check，再按需 memory_store/decisions_log/pitfalls_log。
+        ```
+
+        ## result_class 判定硬规则
+
+        - 必须只使用 `not_run`、`pipeline_completed`、`simulation_completed`、`diagnostic_only`、`surrogate_fallback`、`partial_physical_match`、`physical_reproduction_success` 七级枚举。
+        - 只要本步没有真实执行仿真或数值验证，最高只能写 `pipeline_completed`。
+        - 只要仿真完成但没有物理判断，最高只能写 `simulation_completed`。
+        - 只要任一适用 Layer 1 物理硬约束失败，最高只能写 `diagnostic_only`，不得写 `partial_physical_match` 或 `physical_reproduction_success`。
+        - 只要用了代理模型、简化公式、占位数据、不可比替代流程，必须写 `surrogate_fallback`，不得向上包装。
+        - 只有硬约束、极限退化、论文图量化、人审 gate 全过，才允许写 `physical_reproduction_success`。
+        - 缺证据时写更低等级，并在 `missing_evidence` 明确缺哪份 artifact。
+
+
+        ## 失败处理与 retry fingerprint
+
+        - 本步 `retry_budget=5`，每轮重跑必须先写 `retry_fingerprint`。
+        - `retry_fingerprint` 格式：`step=<step>;round=<n>;changed=<变更>;new_evidence=<证据>;hypothesis=<假设>;expected_signal=<预期可观察变化>`。
+        - 相同 fingerprint 第二次失败即转 `blocked`，不要继续空跑。
+        - 没有新证据或新假设时不得重跑，直接在报告中写 blocker。
+        - 达到 5 轮仍失败时停止，保留已有 artifact，写清下一次需要的人类输入或外部证据。
+        - 失败不是删除产物；失败报告仍进入 `.work`，可转 `toEflow/` 或 `.E-history/` 作为 Archive 负面知识。
+
+exported_at: '2026-07-09T10:33:32.127Z'
