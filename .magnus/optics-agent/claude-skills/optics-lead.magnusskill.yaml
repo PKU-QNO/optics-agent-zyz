@@ -86,4 +86,4 @@ payload:
         | 当前复现 case | `../self-evo-paper-repro/.work/.todo/<paper>/<case>/`（HANDOFF/GATE 决定/产物） |
         | 项目 skill 路由 | CLAUDE.md「Skill System」表；COMSOL/Magnus/Mie 各有专门 skill |
         | 长期记忆 | memento（`memory_search`）+ `memory/MEMORY.md` 文件兜底 |
-exported_at: '2026-07-09T10:33:32.127Z'
+exported_at: '2026-07-09T11:12:54.151Z'

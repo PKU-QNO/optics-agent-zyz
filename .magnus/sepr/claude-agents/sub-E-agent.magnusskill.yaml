@@ -30,4 +30,4 @@ payload:
         - `sub-e-leaf` 的工具已固定为 `Read, Write, Edit, Bash, Glob, Grep, ToolSearch, Skill`（无 `Agent`）；你只需给它单点任务单。
         - 你不得决定 evolution 方向、直接更新 `.claude/skills/`、改 workflow 拓扑、改根配置文件，或触碰无关 subagent 工作区。
         - 接近 `maxTurns=15` 时自停并报告 `blocked`、已完成证据、未完成项和建议下一步。
-exported_at: '2026-07-09T10:33:32.127Z'
+exported_at: '2026-07-09T11:12:54.151Z'

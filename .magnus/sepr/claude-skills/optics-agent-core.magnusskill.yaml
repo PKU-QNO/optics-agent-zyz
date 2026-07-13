@@ -141,4 +141,4 @@ payload:
         - Keep long logs and plans in Markdown files; summarize only the high-signal lines to the user.
         - Treat `AGENTS.md` as the always-on project rulebook. `CLAUDE.md` should be a hard link to `AGENTS.md`; if project rules change, update `AGENTS.md` and the relevant `.codex/skills/*/SKILL.md` together. `.codex/skills` is canonical; `.claude/skills` and `.agents/skills` should remain junctions to it.
         - For long-running reproductions, keep the report state current enough that a PI-facing WeChat update can be generated from `final_report.md`, `workflow_handoff*.md`, and `todo.md` without rereading raw logs.
-exported_at: '2026-07-09T10:33:32.127Z'
+exported_at: '2026-07-09T11:12:54.151Z'

@@ -30,4 +30,4 @@ payload:
         \ retry fingerprint\r\n\r\n## 预制脚本（**全部不存在，待实现，不可依赖**）\r\n\r\n- `scripts/submit_magnus.py` — 蓝图提交模板（未实现）\r\n- `scripts/monitor_job.py`\
         \ — 作业状态查询（未实现）\r\n- `scripts/collect_results.py` — 结果回传（未实现）\r\n\r\n## 安全红线（待填）\r\n\r\n- 不读 secret.json / license\
         \ / SSH key 内容\r\n- 不重复提交 job（先查 run_id）\r\n- 不超资源（不过半）\r\n- 不改 active COMSOL image 除非用户明确要求\r\n"
-exported_at: '2026-07-09T10:33:32.127Z'
+exported_at: '2026-07-09T11:12:54.151Z'

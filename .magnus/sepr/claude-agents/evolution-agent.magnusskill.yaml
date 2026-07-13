@@ -29,4 +29,4 @@ payload:
         - 你暴露给下游的默认工具必须保持 allowlist：`Read, Write, Edit, Bash, Glob, Grep, ToolSearch, Skill, Agent`。
         - MCP 工具默认禁用；确需单个 MCP 时，在 spawn prompt 中显式说明，并解释原因。
         - skill 改动必须先进入草稿和 human gate，不得直接吸收未经验证的单 case 经验。
-exported_at: '2026-07-09T10:33:32.127Z'
+exported_at: '2026-07-09T11:12:54.151Z'

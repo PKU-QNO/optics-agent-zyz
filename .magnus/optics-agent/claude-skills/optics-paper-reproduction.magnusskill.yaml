@@ -214,4 +214,4 @@ payload:
         - what optics collaborators must provide;
         - what a standard answer must contain;
         - what agent modules are needed: paper parser, parameter extractor, missing-info detector, COMSOL generator, mesh/boundary proposer, Magnus submitter, log parser, validator, self-iteration loop, final-report generator.
-exported_at: '2026-07-09T10:33:32.127Z'
+exported_at: '2026-07-09T11:12:54.151Z'

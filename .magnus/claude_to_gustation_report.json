@@ -1,0 +1,989 @@
+{
+  "timestamp": "2026-07-09T11:13:03.323Z",
+  "address": "https://gustation.phybench.cn",
+  "mode": "submit",
+  "remote_count_before": 48,
+  "remote_count_after": 49,
+  "local_package_count": 60,
+  "unique_upload_id_count": 41,
+  "duplicate_group_count": 19,
+  "remote_existing_ids_before": [
+    "01-concurrent_review",
+    "01-pdf_preprocessing",
+    "02-cluster_and_plan",
+    "02-paper_reading",
+    "03-concurrent_skill_work",
+    "03-reproduction_design",
+    "04-theory_and_implementation",
+    "04-validate_and_replay",
+    "05-generate_report",
+    "05-theory_check",
+    "06-evolution_agent_report",
+    "06-run_and_monitor",
+    "07-physical_verification",
+    "08-result_analysis",
+    "09-reproducibility_selfcheck",
+    "10-summary_and_report",
+    "11-main_agent_report",
+    "agent-evolution-agent",
+    "agent-main-agent",
+    "agent-optics-lead",
+    "agent-sub-agent",
+    "agent-sub-e-agent",
+    "agent-sub-e-leaf",
+    "agent-sub-leaf",
+    "comsol-java-api",
+    "evolution-agent",
+    "feynrules-model-generator",
+    "feynrules-model-validator",
+    "madanalysis-analyzer",
+    "madgraph-simulator",
+    "magnus",
+    "main-agent",
+    "my-skill",
+    "neutrino-bsm",
+    "optics-agent-core",
+    "optics-comsol-batch",
+    "optics-comsol-runtime",
+    "optics-docker-images",
+    "optics-lead",
+    "optics-magnus-artifacts",
+    "optics-magnus-platform",
+    "optics-mie-reproduction",
+    "optics-paper-reproduction",
+    "skill-creator",
+    "skill-for-quantum-optics-1",
+    "sub-agent",
+    "sub-e-agent",
+    "ufo-generator"
+  ],
+  "missing_ids_before_submit": [
+    "pdf"
+  ],
+  "submitted_ids": [
+    "pdf"
+  ],
+  "missing_submitted_after": [],
+  "failed": [],
+  "selected": {
+    "01-concurrent_review": {
+      "upload_id": "01-concurrent_review",
+      "source_kind": "skill",
+      "source_name": "01-concurrent_review",
+      "title": "01-concurrent_review（evolution-agent 视角）",
+      "description": "",
+      "package_path": "sepr/claude-skills/evolution-agent/workflow/01-concurrent_review.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 8954,
+      "fingerprint": "88146ee285e4670f69e6571a31d0e0e5dc29c2e46e1c4957279795fa2c2c0d93"
+    },
+    "01-pdf_preprocessing": {
+      "upload_id": "01-pdf_preprocessing",
+      "source_kind": "skill",
+      "source_name": "01-pdf_preprocessing",
+      "title": "01-pdf_preprocessing（主 agent 视角）",
+      "description": "",
+      "package_path": "sepr/claude-skills/main-agent/workflow/01-pdf_preprocessing.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 7453,
+      "fingerprint": "c2c87eddd6c5afc359de566c58a1e1b63be227d8855f5967b02581d4b58d8db7"
+    },
+    "02-cluster_and_plan": {
+      "upload_id": "02-cluster_and_plan",
+      "source_kind": "skill",
+      "source_name": "02-cluster_and_plan",
+      "title": "02-cluster_and_plan（evolution-agent 视角）",
+      "description": "",
+      "package_path": "sepr/claude-skills/evolution-agent/workflow/02-cluster_and_plan.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 11147,
+      "fingerprint": "1109b3975f171b2baa4dc2b2cce9465bc99e66acf2484118df95dfcd0dd1ad2c"
+    },
+    "02-paper_reading": {
+      "upload_id": "02-paper_reading",
+      "source_kind": "skill",
+      "source_name": "02-paper_reading",
+      "title": "02-paper_reading（主 agent 视角）",
+      "description": "",
+      "package_path": "sepr/claude-skills/main-agent/workflow/02-paper_reading.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 8742,
+      "fingerprint": "ee5a0010874963f35710890a4a45428bb9723642b2a6943526d43c24c7cbd196"
+    },
+    "03-concurrent_skill_work": {
+      "upload_id": "03-concurrent_skill_work",
+      "source_kind": "skill",
+      "source_name": "03-concurrent_skill_work",
+      "title": "03-concurrent_skill_work（evolution-agent 视角）",
+      "description": "",
+      "package_path": "sepr/claude-skills/evolution-agent/workflow/03-concurrent_skill_work.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 10531,
+      "fingerprint": "ceef34c85a7e15fc4fa252e7946f7142f4a5892ba22dd5bbdd9a0925501e66c3"
+    },
+    "03-reproduction_design": {
+      "upload_id": "03-reproduction_design",
+      "source_kind": "skill",
+      "source_name": "03-reproduction_design",
+      "title": "03-reproduction_design（主 agent 视角）",
+      "description": "",
+      "package_path": "sepr/claude-skills/main-agent/workflow/03-reproduction_design.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 8268,
+      "fingerprint": "2f7dd0866685710b9c14c32cd4d701963d18dbba09be47c66dbf4ad1c9901d0b"
+    },
+    "04-theory_and_implementation": {
+      "upload_id": "04-theory_and_implementation",
+      "source_kind": "skill",
+      "source_name": "04-theory_and_implementation",
+      "title": "04-theory_and_implementation（主 agent 视角）",
+      "description": "",
+      "package_path": "sepr/claude-skills/main-agent/workflow/04-theory_and_implementation.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 8059,
+      "fingerprint": "96ecad7e1525987d1b7d2a0761468f95e5de88fd0908a0a4b0bb49971350ed35"
+    },
+    "04-validate_and_replay": {
+      "upload_id": "04-validate_and_replay",
+      "source_kind": "skill",
+      "source_name": "04-validate_and_replay",
+      "title": "04-validate_and_replay（evolution-agent 视角）",
+      "description": "",
+      "package_path": "sepr/claude-skills/evolution-agent/workflow/04-validate_and_replay.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 9999,
+      "fingerprint": "23c34dc8778a3181934a75aa1478744cdd73ea22ef813fe747f37ac944bcface"
+    },
+    "05-generate_report": {
+      "upload_id": "05-generate_report",
+      "source_kind": "skill",
+      "source_name": "05-generate_report",
+      "title": "05-generate_report（evolution-agent 视角）",
+      "description": "",
+      "package_path": "sepr/claude-skills/evolution-agent/workflow/05-generate_report.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 14254,
+      "fingerprint": "dd0380853889bfd3ced6d078a77277e1dc926543309fb0696bc6071897d0380a"
+    },
+    "05-theory_check": {
+      "upload_id": "05-theory_check",
+      "source_kind": "skill",
+      "source_name": "05-theory_check",
+      "title": "05-theory_check（主 agent 视角）",
+      "description": "",
+      "package_path": "sepr/claude-skills/main-agent/workflow/05-theory_check.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 7571,
+      "fingerprint": "082b7a3eb9fdf738445fe1bb514650da38eec1dd159ff22fc56906a808b8f89d"
+    },
+    "06-evolution_agent_report": {
+      "upload_id": "06-evolution_agent_report",
+      "source_kind": "skill",
+      "source_name": "06-evolution_agent_report",
+      "title": "06-evolution_agent_report（evolution-agent 自己写）",
+      "description": "",
+      "package_path": "sepr/claude-skills/evolution-agent/workflow/06-evolution_agent_report.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 9093,
+      "fingerprint": "51decaba043b47e9c662567ae4f7b82a27d012007811129ef7095ee028761295"
+    },
+    "06-run_and_monitor": {
+      "upload_id": "06-run_and_monitor",
+      "source_kind": "skill",
+      "source_name": "06-run_and_monitor",
+      "title": "06-run_and_monitor（主 agent 视角）",
+      "description": "",
+      "package_path": "sepr/claude-skills/main-agent/workflow/06-run_and_monitor.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 7393,
+      "fingerprint": "186a2aa79076d10fb63a0357a82aeb2be496f60921ef95da82108e4194570805"
+    },
+    "07-physical_verification": {
+      "upload_id": "07-physical_verification",
+      "source_kind": "skill",
+      "source_name": "07-physical_verification",
+      "title": "07-physical_verification（主 agent 视角）",
+      "description": "",
+      "package_path": "sepr/claude-skills/main-agent/workflow/07-physical_verification.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 8012,
+      "fingerprint": "1269023559d85d2be5d4630f5234c463043326bd7ca70d5ed7a5f99c096fef67"
+    },
+    "08-result_analysis": {
+      "upload_id": "08-result_analysis",
+      "source_kind": "skill",
+      "source_name": "08-result_analysis",
+      "title": "08-result_analysis（主 agent 视角）",
+      "description": "",
+      "package_path": "sepr/claude-skills/main-agent/workflow/08-result_analysis.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 7945,
+      "fingerprint": "6de334d21d667e60023b70620cba858e644de3ec2bce1f2beb6fd77864ec41f2"
+    },
+    "09-reproducibility_selfcheck": {
+      "upload_id": "09-reproducibility_selfcheck",
+      "source_kind": "skill",
+      "source_name": "09-reproducibility_selfcheck",
+      "title": "09-reproducibility_selfcheck（主 agent 视角）",
+      "description": "",
+      "package_path": "sepr/claude-skills/main-agent/workflow/09-reproducibility_selfcheck.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 7392,
+      "fingerprint": "2a6ff0f6a65fb90390c988415b566822eff5480117b66be513987eee6c84a279"
+    },
+    "10-summary_and_report": {
+      "upload_id": "10-summary_and_report",
+      "source_kind": "skill",
+      "source_name": "10-summary_and_report",
+      "title": "10-summary_and_report（主 agent 视角）",
+      "description": "",
+      "package_path": "sepr/claude-skills/main-agent/workflow/10-summary_and_report.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 9312,
+      "fingerprint": "76ab24b440156377c4b8ef777bbe1966b1b39aa2c693613eef2f2ae2b15bd008"
+    },
+    "11-main_agent_report": {
+      "upload_id": "11-main_agent_report",
+      "source_kind": "skill",
+      "source_name": "11-main_agent_report",
+      "title": "11-main_agent_report（主 agent 自己写）",
+      "description": "",
+      "package_path": "sepr/claude-skills/main-agent/workflow/11-main_agent_report.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 9092,
+      "fingerprint": "b884dc5f402802ea720575e15ffc2a9a6ba2e56412c25eaafdcc041ea413f038"
+    },
+    "agent-evolution-agent": {
+      "upload_id": "agent-evolution-agent",
+      "source_kind": "agent",
+      "source_name": "evolution-agent",
+      "title": "Agent: SEPR Evolution Agent",
+      "description": "SEPR self-iteration orchestrator. Use only when the user explicitly starts an evolution or self-iteration run.",
+      "package_path": "sepr/claude-agents/evolution-agent.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 1095,
+      "fingerprint": "0a772a1e580d4f55ee51ef6e9648c04f70445b2cf85a7dfde72865da5ef92c44"
+    },
+    "agent-main-agent": {
+      "upload_id": "agent-main-agent",
+      "source_kind": "agent",
+      "source_name": "main-agent",
+      "title": "Agent: SEPR Main Agent",
+      "description": "SEPR paper-reproduction orchestrator. Use when starting or continuing a new paper or figure reproduction workflow.",
+      "package_path": "sepr/claude-agents/main-agent.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 977,
+      "fingerprint": "452cc586348d148432f1bdc7608f534b3beffcc904b4cf699b84c7509a978fdc"
+    },
+    "agent-optics-lead": {
+      "upload_id": "agent-optics-lead",
+      "source_kind": "agent",
+      "source_name": "optics-lead",
+      "title": "Agent: optics-lead — optics_agent 元工作区主 agent",
+      "description": "optics_agent 元工作区主 agent 身份（对话顶端，非被 spawn 的子 agent）。用于 SEPR 上游审核、交接文档核对、workflow/框架设计与演进、gate 上游裁决、v3-final 设计谱系维护，以及 optics_agent 自身 COMSOL/Magnus 编排。",
+      "package_path": "optics-agent/claude-agents/optics-lead.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 3495,
+      "fingerprint": "3220036a4947b30940ecd98f66afe03ce87d40175a452c8867efac18efbd89f5"
+    },
+    "agent-sub-agent": {
+      "upload_id": "agent-sub-agent",
+      "source_kind": "agent",
+      "source_name": "sub-agent",
+      "title": "Agent: SEPR Sub Agent",
+      "description": "SEPR paper-reproduction execution subagent for one assigned workflow step. May spawn only leaf subsubagents for single-point subtasks.",
+      "package_path": "sepr/claude-agents/sub-agent.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 1313,
+      "fingerprint": "c8b64c5ef55dba648ece23489bf0f8b9cacdd34af060903a327e3812c435821d"
+    },
+    "agent-sub-e-agent": {
+      "upload_id": "agent-sub-e-agent",
+      "source_kind": "agent",
+      "source_name": "sub-e-agent",
+      "title": "Agent: SEPR Sub-E Agent",
+      "description": "SEPR self-iteration execution subagent for one assigned evolution step. May spawn only leaf subsubagents for single-point subtasks.",
+      "package_path": "sepr/claude-agents/sub-E-agent.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 1369,
+      "fingerprint": "e86d26c11f73ce41912449d9a6e49a7aebdb2d69525bf3b24181862e98d74a67"
+    },
+    "agent-sub-e-leaf": {
+      "upload_id": "agent-sub-e-leaf",
+      "source_kind": "agent",
+      "source_name": "sub-e-leaf",
+      "title": "Agent: SEPR Sub-E Leaf（自迭代第 3 层叶子）",
+      "description": "SEPR self-iteration leaf subsubagent (depth 3). Spawned by sub-e-agent for one single-point subtask. Has no Agent tool and cannot spawn further.",
+      "package_path": "sepr/claude-agents/sub-e-leaf.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 1511,
+      "fingerprint": "c32cc9ec48af1ac84d80e7689b64bc0715be713840ff6faf79d75a71474a3eba"
+    },
+    "agent-sub-leaf": {
+      "upload_id": "agent-sub-leaf",
+      "source_kind": "agent",
+      "source_name": "sub-leaf",
+      "title": "Agent: SEPR Sub Leaf（复现第 3 层叶子）",
+      "description": "SEPR reproduction leaf subsubagent (depth 3). Spawned by sub-agent for one single-point subtask. Has no Agent tool and cannot spawn further.",
+      "package_path": "sepr/claude-agents/sub-leaf.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 1530,
+      "fingerprint": "a9bdeddaedbfe71049b910c571bcf13c03916ebcd92cd35fbd9bfc4cd0f293fd"
+    },
+    "comsol-java-api": {
+      "upload_id": "comsol-java-api",
+      "source_kind": "skill",
+      "source_name": "comsol-java-api",
+      "title": "COMSOL Java API",
+      "description": "Use when Codex needs to read, write, debug, or summarize COMSOL Java API model files, GUI-exported Java models, geometry/mesh/study/solver/results API calls, COMSOL batch Java files, or convert COMSOL Java API/manual knowledge into executable model templates for optics_agent headless COMSOL workflows.",
+      "package_path": "optics-agent/claude-skills/comsol-java-api.magnusskill.yaml",
+      "file_count": 19,
+      "content_bytes": 55641,
+      "fingerprint": "9ca2dee7c69802308a02a7afbc8c25bc7109adabb0c9747d86124d368f5f1ad8"
+    },
+    "evolution-agent": {
+      "upload_id": "evolution-agent",
+      "source_kind": "skill",
+      "source_name": "evolution-agent",
+      "title": "Evolution Agent",
+      "description": "编排者身份与自迭代工作流编排规范。claude 作为 evolution-agent 启动时加载，负责读自迭代设计、决定 spawn 哪个 sub-E-agent、在人工 gate 停顿、汇总子报告、写 evolution 总结报告并更新记忆。Use when claude is the orchestrator for self-iteration workflow (not paper reproduction).",
+      "package_path": "sepr/claude-skills/evolution-agent.magnusskill.yaml",
+      "file_count": 9,
+      "content_bytes": 92586,
+      "fingerprint": "70ce413abb396e22f74aea81d3c7886b3f32e1dabb06ffe46563eb741c992658"
+    },
+    "magnus": {
+      "upload_id": "magnus",
+      "source_kind": "skill",
+      "source_name": "magnus",
+      "title": "Magnus Skill（占位骨架——⚠ 预制脚本不存在，不可依赖；Mie 纯 Python 阶段不用本 skill）",
+      "description": "Magnus HPC execution for SEPR — blueprint submission, job monitoring, resource management on Gustation cluster. Use when the task involves running blueprints on Magnus (SLURM framework, max 973G RAM / 256G per task, large disk, 128 cores), submitting/monitoring jobs, or managing HPC resources for COMSOL/simulation work.",
+      "package_path": "sepr/claude-skills/magnus.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 3939,
+      "fingerprint": "e260a37352f1be277b7458cab21369eca7e670a4b97ec27fa2333464ec873ed0"
+    },
+    "main-agent": {
+      "upload_id": "main-agent",
+      "source_kind": "skill",
+      "source_name": "main-agent",
+      "title": "Main Agent",
+      "description": "主 agent 身份与工作流编排规范。claude 作为主 agent 启动时加载，负责读 workflow 设计、决定 spawn 哪个执行 agent、在人工 gate 停顿、汇总子 agent 报告、工作结束前写主 agent 总结报告并更新 .result 和记忆。Use when claude is the main orchestrator in this workspace.",
+      "package_path": "sepr/claude-skills/main-agent.magnusskill.yaml",
+      "file_count": 14,
+      "content_bytes": 121993,
+      "fingerprint": "48e2d64befb99bef22f270539633d2ffdba7bcc73c54d37ed0647fe07c85892c"
+    },
+    "optics-agent-core": {
+      "upload_id": "optics-agent-core",
+      "source_kind": "skill",
+      "source_name": "optics-agent-core",
+      "title": "Optics Agent Core",
+      "description": "Core index for the optics_agent project. Use when the user mentions project structure, workflow, credentials, SSH, GitHub, Magnus, Docker, COMSOL, blueprints, or asks which project-local skill should handle a task.",
+      "package_path": "optics-agent/claude-skills/optics-agent-core.magnusskill.yaml",
+      "file_count": 2,
+      "content_bytes": 8529,
+      "fingerprint": "5eadc64fc95772dff159c7551f7be80912721816fba2a2a9956f395359be5856"
+    },
+    "optics-comsol-batch": {
+      "upload_id": "optics-comsol-batch",
+      "source_kind": "skill",
+      "source_name": "optics-comsol-batch",
+      "title": "Optics COMSOL Batch",
+      "description": "COMSOL non-GUI/headless batch simulation for optics_agent. Use when the user mentions COMSOL, comsol batch, comsolbatch, headless simulation, .mph/.java/.m batch jobs, optics/fluid smoke tests, COMSOL license mounting, or Magnus COMSOL blueprint execution.",
+      "package_path": "optics-agent/claude-skills/optics-comsol-batch.magnusskill.yaml",
+      "file_count": 2,
+      "content_bytes": 4742,
+      "fingerprint": "6265f3f9f5a2b2d18cd5186a5d374df4182da80c6213e98879546415aba7fe5f"
+    },
+    "optics-comsol-runtime": {
+      "upload_id": "optics-comsol-runtime",
+      "source_kind": "skill",
+      "source_name": "optics-comsol-runtime",
+      "title": "Optics COMSOL Runtime",
+      "description": "COMSOL 6.3 headless runtime on Magnus/Gustation. Use when the user mentions COMSOL runtime images, magnus-local/comsol-runtime, Optics_COMSOL_Runtime_zyz, COMSOL license mounting, /data/public/zhangyuanzheng staging, or asks to run/check/submit COMSOL jobs through Magnus.",
+      "package_path": "optics-agent/claude-skills/optics-comsol-runtime.magnusskill.yaml",
+      "file_count": 2,
+      "content_bytes": 9651,
+      "fingerprint": "bedcb21f014783ef72f25409935e684fe01c9a73d8606d38a207818def7611a8"
+    },
+    "optics-docker-images": {
+      "upload_id": "optics-docker-images",
+      "source_kind": "skill",
+      "source_name": "optics-docker-images",
+      "title": "Optics Docker Images",
+      "description": "Container image management for the optics_agent project. Use when the user mentions Docker, COMSOL runtime images, ACR, git.pku.edu.cn registry, docker save/load, image handoff to Magnus admins, or the active magnus-local/comsol-runtime image.",
+      "package_path": "optics-agent/claude-skills/optics-docker-images.magnusskill.yaml",
+      "file_count": 2,
+      "content_bytes": 2831,
+      "fingerprint": "bc57c523b1d5bcd9a2cfd9bb19f4e0ad51b99d02f96e4f8b68f1a628e4b4580a"
+    },
+    "optics-lead": {
+      "upload_id": "optics-lead",
+      "source_kind": "skill",
+      "source_name": "optics-lead",
+      "title": "optics-lead — optics_agent 元工作区主 agent",
+      "description": "optics_agent 元工作区的主 agent 身份（对话顶端，非被 spawn 的子 agent）。当用户要做 SEPR 上游审核、交接文档核对、workflow/框架设计与演进、gate 上游裁决、v3-final 设计谱系维护，或 optics_agent 自身 COMSOL/Magnus 编排时，加载本 skill 进入该身份。",
+      "package_path": "optics-agent/claude-skills/optics-lead.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 9708,
+      "fingerprint": "c607ed5bfacffdb8e36591c4027994665f03c1e60445c796f81361ec3bf7f77a"
+    },
+    "optics-magnus-artifacts": {
+      "upload_id": "optics-magnus-artifacts",
+      "source_kind": "skill",
+      "source_name": "optics-magnus-artifacts",
+      "title": "Optics Magnus Artifacts",
+      "description": "Author and maintain Magnus platform artifacts for optics_agent. Use when working with magnus.skill.yaml, magnus.blueprint.yaml, .magnus.py/.magnus blueprint sources, platform import/export files, naming conventions, public/private boundaries, or packaging COMSOL Magnus blueprint knowledge into reusable skills.",
+      "package_path": "optics-agent/claude-skills/optics-magnus-artifacts.magnusskill.yaml",
+      "file_count": 2,
+      "content_bytes": 5603,
+      "fingerprint": "7e419b3360927cfc09c5153adc3f1ae25d0127d143ae38696bfda3b43b3c68a4"
+    },
+    "optics-magnus-platform": {
+      "upload_id": "optics-magnus-platform",
+      "source_kind": "skill",
+      "source_name": "optics-magnus-platform",
+      "title": "Optics Magnus Platform",
+      "description": "Magnus/Gustation HPC platform operations for optics_agent. Use when the user mentions Magnus, Gustation, blueprint save/launch, job status/logs, file transfer, FileSecret, MAGNUS_RESULT, MAGNUS_ACTION, mounts, /data/public/zhangyuanzheng staging, COMSOL runtime jobs, resource settings, service proxy behavior, job-in-job submission, or service-launched jobs.",
+      "package_path": "optics-agent/claude-skills/optics-magnus-platform.magnusskill.yaml",
+      "file_count": 2,
+      "content_bytes": 14133,
+      "fingerprint": "a44bf5c10e42acd355c3741485d63ba3d1f73f28b979d56c9674445af34973ba"
+    },
+    "optics-mie-reproduction": {
+      "upload_id": "optics-mie-reproduction",
+      "source_kind": "skill",
+      "source_name": "optics-mie-reproduction",
+      "title": "Optics Mie Reproduction",
+      "description": "Mie theory analytical/semi-analytical scattering calculations for optics_agent — single sphere, metal LSPR, dielectric modes, core-shell, periodic arrays, binary arrays, effective medium. Use when the task involves Mie scattering, Lorenz-Mie coefficients, scattering/absorption/extinction cross sections, Drude dispersion LSPR, dielectric nanosphere magnetic dipole modes, core-shell recursive Mie, coupled dipole approximation (CDA), surface lattice resonances (SLR), Rayleigh anomaly, binary nanoparticle arrays, S-parameter retrieval effective medium, Maxwell-Garnett, Mie-vs-Bragg phase diagram, or building Python-only scattering benchmark data for later COMSOL validation. Also use when writing Mie physical verifiers (energy conservation, Rayleigh limit, large-size extinction paradox, optical theorem) or building Python-only scattering benchmark data for later COMSOL validation.",
+      "package_path": "sepr/claude-skills/optics-mie-reproduction.magnusskill.yaml",
+      "file_count": 8,
+      "content_bytes": 29942,
+      "fingerprint": "86e9527a1bc29211280aa54163be9d0d33e934a0f43af05fcf405f3103aa6b4f"
+    },
+    "optics-paper-reproduction": {
+      "upload_id": "optics-paper-reproduction",
+      "source_kind": "skill",
+      "source_name": "optics-paper-reproduction",
+      "title": "Optics Paper Reproduction",
+      "description": "Plan, execute, audit, and report optics paper figure reproductions in optics_agent. Use when the user asks to reproduce a paper figure, read a paper for numerical parameters, design a COMSOL/Magnus reproduction workflow, define optics-group standard answers, record failed simulation iterations, judge physical-vs-pipeline success, or create handoff reports for paper-to-agent self-iteration.",
+      "package_path": "optics-agent/claude-skills/optics-paper-reproduction.magnusskill.yaml",
+      "file_count": 2,
+      "content_bytes": 10547,
+      "fingerprint": "dc34f5b1cb547def79a00aa72aece8075b95c367563e0fa3d27aea3d221bf7c4"
+    },
+    "pdf": {
+      "upload_id": "pdf",
+      "source_kind": "skill",
+      "source_name": "pdf",
+      "title": "PDF Skill（占位骨架——⚠ 预制脚本不存在，不可依赖）",
+      "description": "PDF processing for SEPR — text/formula/figure/table extraction, OCR for scanned PDFs, figure digitization. Use when the task involves reading or extracting content from PDF files (papers, textbooks), classifying data figures vs schematic figures, or digitizing paper figures for quantitative comparison.",
+      "package_path": "sepr/claude-skills/pdf.magnusskill.yaml",
+      "file_count": 1,
+      "content_bytes": 2171,
+      "fingerprint": "31baba971170e275c2eda335717dbbafbbbada05969240d88787124ca570ef29"
+    },
+    "skill-creator": {
+      "upload_id": "skill-creator",
+      "source_kind": "skill",
+      "source_name": "skill-creator",
+      "title": "Skill Creator",
+      "description": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Codex's capabilities with specialized knowledge, workflows, or tool integrations.",
+      "package_path": "sepr/claude-skills/skill-creator.magnusskill.yaml",
+      "file_count": 11,
+      "content_bytes": 72991,
+      "fingerprint": "7e95d888f9393a21bcf4865d1946c7f85d27cbff791b15c3ace97400d6237eaf"
+    },
+    "sub-agent": {
+      "upload_id": "sub-agent",
+      "source_kind": "skill",
+      "source_name": "sub-agent",
+      "title": "Sub Agent",
+      "description": "子 agent / 执行 agent 身份与行为规范。被主 agent 或执行 agent spawn 时加载，强制声明\"你是子 agent\"防越权，任务结束前必须写结构化工作报告并更新记忆，可 spawn 子子 agent 解决小问题。Use when this agent is spawned by a parent agent (not running as main orchestrator).",
+      "package_path": "sepr/claude-skills/sub-agent.magnusskill.yaml",
+      "file_count": 12,
+      "content_bytes": 82135,
+      "fingerprint": "97e7e1fe506174f8cd11a337fabcf80a5f9c30f00b9ffabb9505062f26f1bb47"
+    },
+    "sub-e-agent": {
+      "upload_id": "sub-e-agent",
+      "source_kind": "skill",
+      "source_name": "sub-e-agent",
+      "title": "Sub-E Agent",
+      "description": "子执行 agent / 自迭代执行者身份与行为规范。被 evolution-agent spawn 时加载，强制声明\"你是 sub-E-agent\"防越权，任务结束前必须写结构化工作报告并更新记忆，可 spawn 子子 agent 解决小问题。Use when this agent is spawned by evolution-agent (not main-agent, not doing paper reproduction).",
+      "package_path": "sepr/claude-skills/sub-E-agent.magnusskill.yaml",
+      "file_count": 7,
+      "content_bytes": 56472,
+      "fingerprint": "8508fe1121f71e898ee614c1bfbfb0aa3f376f80e64fcefe7f27965b4a7e1040"
+    }
+  },
+  "duplicates": {
+    "01-concurrent_review": [
+      {
+        "upload_id": "01-concurrent_review",
+        "source_kind": "skill",
+        "source_name": "01-concurrent_review",
+        "title": "01-concurrent_review（evolution-agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/evolution-agent/workflow/01-concurrent_review.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 8954,
+        "fingerprint": "88146ee285e4670f69e6571a31d0e0e5dc29c2e46e1c4957279795fa2c2c0d93"
+      },
+      {
+        "upload_id": "01-concurrent_review",
+        "source_kind": "skill",
+        "source_name": "01-concurrent_review",
+        "title": "01-concurrent_review（sub-E-agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/sub-E-agent/workflow/01-concurrent_review.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 7650,
+        "fingerprint": "a5201a3f62b08546600897c25f73026148f340d942ebc029af322ba9caad51d6"
+      }
+    ],
+    "01-pdf_preprocessing": [
+      {
+        "upload_id": "01-pdf_preprocessing",
+        "source_kind": "skill",
+        "source_name": "01-pdf_preprocessing",
+        "title": "01-pdf_preprocessing（主 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/main-agent/workflow/01-pdf_preprocessing.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 7453,
+        "fingerprint": "c2c87eddd6c5afc359de566c58a1e1b63be227d8855f5967b02581d4b58d8db7"
+      },
+      {
+        "upload_id": "01-pdf_preprocessing",
+        "source_kind": "skill",
+        "source_name": "01-pdf_preprocessing",
+        "title": "01-pdf_preprocessing（子 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/sub-agent/workflow/01-pdf_preprocessing.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 6765,
+        "fingerprint": "547cdf8a6eb76b41fc2d941550c4aefd5fa253b95c01084aa4f2ab17ae4a4c01"
+      }
+    ],
+    "02-cluster_and_plan": [
+      {
+        "upload_id": "02-cluster_and_plan",
+        "source_kind": "skill",
+        "source_name": "02-cluster_and_plan",
+        "title": "02-cluster_and_plan（evolution-agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/evolution-agent/workflow/02-cluster_and_plan.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 11147,
+        "fingerprint": "1109b3975f171b2baa4dc2b2cce9465bc99e66acf2484118df95dfcd0dd1ad2c"
+      },
+      {
+        "upload_id": "02-cluster_and_plan",
+        "source_kind": "skill",
+        "source_name": "02-cluster_and_plan",
+        "title": "02-cluster_and_plan（sub-E-agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/sub-E-agent/workflow/02-cluster_and_plan.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 7924,
+        "fingerprint": "1275ab2e9a00acd28676d4e5fc91a4f6dffec0d15252189dc38ecd0bb75986fa"
+      }
+    ],
+    "02-paper_reading": [
+      {
+        "upload_id": "02-paper_reading",
+        "source_kind": "skill",
+        "source_name": "02-paper_reading",
+        "title": "02-paper_reading（主 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/main-agent/workflow/02-paper_reading.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 8742,
+        "fingerprint": "ee5a0010874963f35710890a4a45428bb9723642b2a6943526d43c24c7cbd196"
+      },
+      {
+        "upload_id": "02-paper_reading",
+        "source_kind": "skill",
+        "source_name": "02-paper_reading",
+        "title": "02-paper_reading（子 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/sub-agent/workflow/02-paper_reading.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 7740,
+        "fingerprint": "11d1596855974ca98000619de1085e1e695cf19fedb5c50aa8c8152085620e68"
+      }
+    ],
+    "03-concurrent_skill_work": [
+      {
+        "upload_id": "03-concurrent_skill_work",
+        "source_kind": "skill",
+        "source_name": "03-concurrent_skill_work",
+        "title": "03-concurrent_skill_work（evolution-agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/evolution-agent/workflow/03-concurrent_skill_work.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 10531,
+        "fingerprint": "ceef34c85a7e15fc4fa252e7946f7142f4a5892ba22dd5bbdd9a0925501e66c3"
+      },
+      {
+        "upload_id": "03-concurrent_skill_work",
+        "source_kind": "skill",
+        "source_name": "03-concurrent_skill_work",
+        "title": "03-concurrent_skill_work（sub-E-agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/sub-E-agent/workflow/03-concurrent_skill_work.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 8165,
+        "fingerprint": "f640b0b83a02f027216eb8da79bd2952f0148e038bbfc0ba52b5191b3c43f6e1"
+      }
+    ],
+    "03-reproduction_design": [
+      {
+        "upload_id": "03-reproduction_design",
+        "source_kind": "skill",
+        "source_name": "03-reproduction_design",
+        "title": "03-reproduction_design（主 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/main-agent/workflow/03-reproduction_design.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 8268,
+        "fingerprint": "2f7dd0866685710b9c14c32cd4d701963d18dbba09be47c66dbf4ad1c9901d0b"
+      },
+      {
+        "upload_id": "03-reproduction_design",
+        "source_kind": "skill",
+        "source_name": "03-reproduction_design",
+        "title": "03-reproduction_design（子 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/sub-agent/workflow/03-reproduction_design.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 6520,
+        "fingerprint": "37549628bf3fe76e2b1b79586a4b66acf043421d77698852a61f9784946846ac"
+      }
+    ],
+    "04-theory_and_implementation": [
+      {
+        "upload_id": "04-theory_and_implementation",
+        "source_kind": "skill",
+        "source_name": "04-theory_and_implementation",
+        "title": "04-theory_and_implementation（主 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/main-agent/workflow/04-theory_and_implementation.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 8059,
+        "fingerprint": "96ecad7e1525987d1b7d2a0761468f95e5de88fd0908a0a4b0bb49971350ed35"
+      },
+      {
+        "upload_id": "04-theory_and_implementation",
+        "source_kind": "skill",
+        "source_name": "04-theory_and_implementation",
+        "title": "04-theory_and_implementation（子 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/sub-agent/workflow/04-theory_and_implementation.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 6696,
+        "fingerprint": "1ad51b95ae2b4e49dc6da1e3449654fd1da28a71f5c17715df4ad7556162c2a5"
+      }
+    ],
+    "04-validate_and_replay": [
+      {
+        "upload_id": "04-validate_and_replay",
+        "source_kind": "skill",
+        "source_name": "04-validate_and_replay",
+        "title": "04-validate_and_replay（evolution-agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/evolution-agent/workflow/04-validate_and_replay.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 9999,
+        "fingerprint": "23c34dc8778a3181934a75aa1478744cdd73ea22ef813fe747f37ac944bcface"
+      },
+      {
+        "upload_id": "04-validate_and_replay",
+        "source_kind": "skill",
+        "source_name": "04-validate_and_replay",
+        "title": "04-validate_and_replay（sub-E-agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/sub-E-agent/workflow/04-validate_and_replay.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 8146,
+        "fingerprint": "9a38f4b183d0bc2ca05d7bd1790d33a4e2abde8496ca9ac131d7077a8e5b53c6"
+      }
+    ],
+    "05-generate_report": [
+      {
+        "upload_id": "05-generate_report",
+        "source_kind": "skill",
+        "source_name": "05-generate_report",
+        "title": "05-generate_report（evolution-agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/evolution-agent/workflow/05-generate_report.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 14254,
+        "fingerprint": "dd0380853889bfd3ced6d078a77277e1dc926543309fb0696bc6071897d0380a"
+      },
+      {
+        "upload_id": "05-generate_report",
+        "source_kind": "skill",
+        "source_name": "05-generate_report",
+        "title": "05-generate_report（sub-E-agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/sub-E-agent/workflow/05-generate_report.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 9304,
+        "fingerprint": "9e9499025dc56f0036b2522848a7ae086f69f40c43a5d103874a0186a0b96623"
+      }
+    ],
+    "05-theory_check": [
+      {
+        "upload_id": "05-theory_check",
+        "source_kind": "skill",
+        "source_name": "05-theory_check",
+        "title": "05-theory_check（主 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/main-agent/workflow/05-theory_check.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 7571,
+        "fingerprint": "082b7a3eb9fdf738445fe1bb514650da38eec1dd159ff22fc56906a808b8f89d"
+      },
+      {
+        "upload_id": "05-theory_check",
+        "source_kind": "skill",
+        "source_name": "05-theory_check",
+        "title": "05-theory_check（子 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/sub-agent/workflow/05-theory_check.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 6303,
+        "fingerprint": "903b639c58e5c922072cd9d9aa4786e7198b45153252a62ab849622196d9ab6d"
+      }
+    ],
+    "06-run_and_monitor": [
+      {
+        "upload_id": "06-run_and_monitor",
+        "source_kind": "skill",
+        "source_name": "06-run_and_monitor",
+        "title": "06-run_and_monitor（主 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/main-agent/workflow/06-run_and_monitor.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 7393,
+        "fingerprint": "186a2aa79076d10fb63a0357a82aeb2be496f60921ef95da82108e4194570805"
+      },
+      {
+        "upload_id": "06-run_and_monitor",
+        "source_kind": "skill",
+        "source_name": "06-run_and_monitor",
+        "title": "06-run_and_monitor（子 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/sub-agent/workflow/06-run_and_monitor.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 6402,
+        "fingerprint": "dcc9c73b498f95b5f133c750c2ce08f03f27226b8ed53e9ab675b3db456a7620"
+      }
+    ],
+    "07-physical_verification": [
+      {
+        "upload_id": "07-physical_verification",
+        "source_kind": "skill",
+        "source_name": "07-physical_verification",
+        "title": "07-physical_verification（主 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/main-agent/workflow/07-physical_verification.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 8012,
+        "fingerprint": "1269023559d85d2be5d4630f5234c463043326bd7ca70d5ed7a5f99c096fef67"
+      },
+      {
+        "upload_id": "07-physical_verification",
+        "source_kind": "skill",
+        "source_name": "07-physical_verification",
+        "title": "07-physical_verification（子 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/sub-agent/workflow/07-physical_verification.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 6446,
+        "fingerprint": "5fa22b36d4c7fef1605c50f82e447ae0c854655542fc4c7c5ac57fa60d723efb"
+      }
+    ],
+    "08-result_analysis": [
+      {
+        "upload_id": "08-result_analysis",
+        "source_kind": "skill",
+        "source_name": "08-result_analysis",
+        "title": "08-result_analysis（主 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/main-agent/workflow/08-result_analysis.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 7945,
+        "fingerprint": "6de334d21d667e60023b70620cba858e644de3ec2bce1f2beb6fd77864ec41f2"
+      },
+      {
+        "upload_id": "08-result_analysis",
+        "source_kind": "skill",
+        "source_name": "08-result_analysis",
+        "title": "08-result_analysis（子 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/sub-agent/workflow/08-result_analysis.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 6305,
+        "fingerprint": "b6862887840ec24657d0dfdb1868ef122253a754ce51eb1fc7710aaad36a659b"
+      }
+    ],
+    "09-reproducibility_selfcheck": [
+      {
+        "upload_id": "09-reproducibility_selfcheck",
+        "source_kind": "skill",
+        "source_name": "09-reproducibility_selfcheck",
+        "title": "09-reproducibility_selfcheck（主 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/main-agent/workflow/09-reproducibility_selfcheck.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 7392,
+        "fingerprint": "2a6ff0f6a65fb90390c988415b566822eff5480117b66be513987eee6c84a279"
+      },
+      {
+        "upload_id": "09-reproducibility_selfcheck",
+        "source_kind": "skill",
+        "source_name": "09-reproducibility_selfcheck",
+        "title": "09-reproducibility_selfcheck（子 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/sub-agent/workflow/09-reproducibility_selfcheck.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 6335,
+        "fingerprint": "25987bf473f7f1139526e5d85f036591c6089d6b6958e0d6ba8d3cf22a99b795"
+      }
+    ],
+    "10-summary_and_report": [
+      {
+        "upload_id": "10-summary_and_report",
+        "source_kind": "skill",
+        "source_name": "10-summary_and_report",
+        "title": "10-summary_and_report（主 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/main-agent/workflow/10-summary_and_report.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 9312,
+        "fingerprint": "76ab24b440156377c4b8ef777bbe1966b1b39aa2c693613eef2f2ae2b15bd008"
+      },
+      {
+        "upload_id": "10-summary_and_report",
+        "source_kind": "skill",
+        "source_name": "10-summary_and_report",
+        "title": "10-summary_and_report（子 agent 视角）",
+        "description": "",
+        "package_path": "sepr/claude-skills/sub-agent/workflow/10-summary_and_report.magnusskill.yaml",
+        "file_count": 1,
+        "content_bytes": 7833,
+        "fingerprint": "91f6f84e4f11584ad1d6ef58fbcde6747b6b436f0ffcf477256325c5794202f5"
+      }
+    ],
+    "optics-agent-core": [
+      {
+        "upload_id": "optics-agent-core",
+        "source_kind": "skill",
+        "source_name": "optics-agent-core",
+        "title": "Optics Agent Core",
+        "description": "Core index for the optics_agent project. Use when the user mentions project structure, workflow, credentials, SSH, GitHub, Magnus, Docker, COMSOL, blueprints, or asks which project-local skill should handle a task.",
+        "package_path": "optics-agent/claude-skills/optics-agent-core.magnusskill.yaml",
+        "file_count": 2,
+        "content_bytes": 8529,
+        "fingerprint": "5eadc64fc95772dff159c7551f7be80912721816fba2a2a9956f395359be5856"
+      },
+      {
+        "upload_id": "optics-agent-core",
+        "source_kind": "skill",
+        "source_name": "optics-agent-core",
+        "title": "Optics Agent Core",
+        "description": "Core index for the optics_agent project. Use when the user mentions project structure, workflow, credentials, SSH, GitHub, Magnus, Docker, COMSOL, blueprints, or asks which project-local skill should handle a task.",
+        "package_path": "sepr/claude-skills/optics-agent-core.magnusskill.yaml",
+        "file_count": 2,
+        "content_bytes": 6826,
+        "fingerprint": "8350d91902ed8fa683a99877bb9286c601852afa3186c54d62a5e15d5a41b1a4"
+      }
+    ],
+    "optics-magnus-artifacts": [
+      {
+        "upload_id": "optics-magnus-artifacts",
+        "source_kind": "skill",
+        "source_name": "optics-magnus-artifacts",
+        "title": "Optics Magnus Artifacts",
+        "description": "Author and maintain Magnus platform artifacts for optics_agent. Use when working with magnus.skill.yaml, magnus.blueprint.yaml, .magnus.py/.magnus blueprint sources, platform import/export files, naming conventions, public/private boundaries, or packaging COMSOL Magnus blueprint knowledge into reusable skills.",
+        "package_path": "optics-agent/claude-skills/optics-magnus-artifacts.magnusskill.yaml",
+        "file_count": 2,
+        "content_bytes": 5603,
+        "fingerprint": "7e419b3360927cfc09c5153adc3f1ae25d0127d143ae38696bfda3b43b3c68a4"
+      },
+      {
+        "upload_id": "optics-magnus-artifacts",
+        "source_kind": "skill",
+        "source_name": "optics-magnus-artifacts",
+        "title": "Optics Magnus Artifacts",
+        "description": "Author and maintain Magnus platform artifacts for optics_agent. Use when working with magnus.skill.yaml, magnus.blueprint.yaml, .magnus.py/.magnus blueprint sources, platform import/export files, naming conventions, public/private boundaries, or packaging COMSOL Magnus blueprint knowledge into reusable skills.",
+        "package_path": "sepr/claude-skills/optics-magnus-artifacts.magnusskill.yaml",
+        "file_count": 2,
+        "content_bytes": 5458,
+        "fingerprint": "107356b6305f124cee7116ef51bd7f69e4bf31db413f853178a50aad814e6a65"
+      }
+    ],
+    "optics-magnus-platform": [
+      {
+        "upload_id": "optics-magnus-platform",
+        "source_kind": "skill",
+        "source_name": "optics-magnus-platform",
+        "title": "Optics Magnus Platform",
+        "description": "Magnus/Gustation HPC platform operations for optics_agent. Use when the user mentions Magnus, Gustation, blueprint save/launch, job status/logs, file transfer, FileSecret, MAGNUS_RESULT, MAGNUS_ACTION, mounts, /data/public/zhangyuanzheng staging, COMSOL runtime jobs, resource settings, service proxy behavior, job-in-job submission, or service-launched jobs.",
+        "package_path": "optics-agent/claude-skills/optics-magnus-platform.magnusskill.yaml",
+        "file_count": 2,
+        "content_bytes": 14133,
+        "fingerprint": "a44bf5c10e42acd355c3741485d63ba3d1f73f28b979d56c9674445af34973ba"
+      },
+      {
+        "upload_id": "optics-magnus-platform",
+        "source_kind": "skill",
+        "source_name": "optics-magnus-platform",
+        "title": "Optics Magnus Platform",
+        "description": "Magnus/Gustation HPC platform operations for optics_agent. Use when the user mentions Magnus, Gustation, blueprint save/launch, job status/logs, file transfer, FileSecret, MAGNUS_RESULT, MAGNUS_ACTION, mounts, /data/public/zhangyuanzheng staging, COMSOL runtime jobs, resource settings, service proxy behavior, job-in-job submission, or service-launched jobs.",
+        "package_path": "sepr/claude-skills/optics-magnus-platform.magnusskill.yaml",
+        "file_count": 2,
+        "content_bytes": 14133,
+        "fingerprint": "a44bf5c10e42acd355c3741485d63ba3d1f73f28b979d56c9674445af34973ba"
+      }
+    ],
+    "optics-mie-reproduction": [
+      {
+        "upload_id": "optics-mie-reproduction",
+        "source_kind": "skill",
+        "source_name": "optics-mie-reproduction",
+        "title": "Optics Mie Reproduction",
+        "description": "Mie theory analytical/semi-analytical scattering calculations for optics_agent — single sphere, metal LSPR, dielectric modes, core-shell, periodic arrays, binary arrays, effective medium. Use when the task involves Mie scattering, Lorenz-Mie coefficients, scattering/absorption/extinction cross sections, Drude dispersion LSPR, dielectric nanosphere magnetic dipole modes, core-shell recursive Mie, coupled dipole approximation (CDA), surface lattice resonances (SLR), Rayleigh anomaly, binary nanoparticle arrays, S-parameter retrieval effective medium, Maxwell-Garnett, Mie-vs-Bragg phase diagram, or building Python-only scattering benchmark data for later COMSOL validation. Also use when writing Mie physical verifiers (energy conservation, Rayleigh limit, large-size extinction paradox, optical theorem) or building Python-only scattering benchmark data for later COMSOL validation.",
+        "package_path": "sepr/claude-skills/optics-mie-reproduction.magnusskill.yaml",
+        "file_count": 8,
+        "content_bytes": 29942,
+        "fingerprint": "86e9527a1bc29211280aa54163be9d0d33e934a0f43af05fcf405f3103aa6b4f"
+      },
+      {
+        "upload_id": "optics-mie-reproduction",
+        "source_kind": "skill",
+        "source_name": "optics-mie-reproduction",
+        "title": "Optics Mie Reproduction",
+        "description": "Mie theory analytical/semi-analytical scattering calculations for optics_agent — single sphere, metal LSPR, dielectric modes, core-shell, periodic arrays, binary arrays, effective medium. Use when the task involves Mie scattering, Lorenz-Mie coefficients, scattering/absorption/extinction cross sections, Drude dispersion LSPR, dielectric nanosphere magnetic dipole modes, core-shell recursive Mie, coupled dipole approximation (CDA), surface lattice resonances (SLR), Rayleigh anomaly, binary nanoparticle arrays, S-parameter retrieval effective medium, Maxwell-Garnett, Mie-vs-Bragg phase diagram, or building Python-only scattering benchmark data for later COMSOL validation. Also use when writing Mie physical verifiers (energy conservation, Rayleigh limit, large-size extinction paradox, optical theorem) or building Python-only scattering benchmark data for later COMSOL validation.",
+        "package_path": "optics-agent/claude-skills/optics-mie-reproduction.magnusskill.yaml",
+        "file_count": 8,
+        "content_bytes": 25402,
+        "fingerprint": "051cc9d091c389973c7c47315082e4d7630ee5e797dbb0a3edbddd5fcf7e7f89"
+      }
+    ]
+  },
+  "export_summary": {
+    "optics-agent": {
+      "skills": 10,
+      "agents": 1
+    },
+    "sepr": {
+      "skills": 43,
+      "agents": 6
+    }
+  }
+}

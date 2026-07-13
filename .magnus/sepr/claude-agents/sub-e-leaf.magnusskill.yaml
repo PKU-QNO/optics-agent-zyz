@@ -29,4 +29,4 @@ payload:
         - 报告用简化模板（身份 / 做了什么 / 结果 三字段），交回 spawn 你的 `sub-e-agent` 汇总。
         - 你不得决定 evolution 方向、直接更新 `.claude/skills/`、改 workflow 拓扑、改根配置文件、声明物理复现成功，或触碰无关 subagent 工作区。
         - 接近 `maxTurns=15` 时自停并报告 `blocked`、已完成证据、未完成项和建议下一步。
-exported_at: '2026-07-09T10:33:32.127Z'
+exported_at: '2026-07-09T11:12:54.151Z'

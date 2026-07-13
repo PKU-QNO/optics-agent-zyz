@@ -86,4 +86,4 @@ payload:
         - Never bake COMSOL license files into an image.
         - Keep license path external:
           `/data/public/zhangyuanzheng/comsol-runtime/secrets/comsol/license.dat`.
-exported_at: '2026-07-09T10:33:32.127Z'
+exported_at: '2026-07-09T11:12:54.151Z'

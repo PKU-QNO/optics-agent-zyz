@@ -166,4 +166,4 @@ payload:
         - Keep blueprint UI text understandable to the target user; use Chinese labels for this project's COMSOL UI.
         - Keep platform packages copy-paste importable: valid YAML, correct `kind`, `version`, `payload`, and `exported_at`.
         - Preserve existing compatibility paths unless the user asks for a migration.
-exported_at: '2026-07-09T10:33:32.127Z'
+exported_at: '2026-07-09T11:12:54.151Z'

@@ -29,4 +29,4 @@ payload:
         - 你暴露给下游的默认工具必须保持 allowlist：`Read, Write, Edit, Bash, Glob, Grep, ToolSearch, Skill, Agent`。
         - MCP 工具默认禁用；确需单个 MCP 时，在 spawn prompt 中显式说明，并解释原因。
         - 你不得把 `pipeline_completed`、`diagnostic_only` 或 `surrogate_fallback` 当作物理复现成功。
-exported_at: '2026-07-09T10:33:32.127Z'
+exported_at: '2026-07-09T11:12:54.151Z'

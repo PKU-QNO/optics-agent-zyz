@@ -41,4 +41,4 @@ payload:
 
         - 与 SEPR main-agent 不同，你**需要 MCP**——`memory_search`/`memory_store`（memento 记忆纪律）、`codex-cli`（委托机械活）、以及查文献/平台行为的 MCP。开工先 MCP 预检，不可用则显式降级走文件兜底。
         - 你是对话顶端，可自由使用全部工具编排；spawn 子 agent 时才对下游施加 allowlist。
-exported_at: '2026-07-09T10:33:32.127Z'
+exported_at: '2026-07-09T11:12:54.151Z'

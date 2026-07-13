@@ -1208,4 +1208,4 @@ payload:
         - `StudySolverEigenvalue.java`: generic PDE eigenvalue study and `getPVals()`.
         - `ResultsEvalExport.java`: numerical evaluation and table pattern without Java file IO in `run()`.
         - `BatchSafeModel.java`: minimal batch-safe `run()` plus `main()` that only saves `args[0]` when provided.
-exported_at: '2026-07-09T10:33:32.127Z'
+exported_at: '2026-07-09T11:12:54.151Z'

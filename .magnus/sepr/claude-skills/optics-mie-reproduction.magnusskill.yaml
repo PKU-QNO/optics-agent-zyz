@@ -556,4 +556,4 @@ payload:
         ## COMSOL Boundary
 
         This skill is Python-only. When a task needs COMSOL/Magnus execution, switch to `optics-comsol-runtime` + `optics-comsol-batch` + `optics-magnus-platform`. The benchmark data produced here is the validation target for those COMSOL runs.
-exported_at: '2026-07-09T10:33:32.127Z'
+exported_at: '2026-07-09T11:12:54.151Z'
