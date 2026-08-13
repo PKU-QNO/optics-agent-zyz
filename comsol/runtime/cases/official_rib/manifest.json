@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "case_id": "B16-official-rib",
+  "source": {
+    "model_page": "https://www.comsol.com/model/mode-analysis-for-electromagnetic-waveguides-108431",
+    "download_url": "https://www.comsol.com/model/download/1437501/mode_analysis_rib_waveguide.mph",
+    "http_status": 200,
+    "content_type": "application/vnd.comsol",
+    "content_length": 163179214,
+    "last_modified": "Thu, 16 Jan 2025 10:11:35 GMT"
+  },
+  "original_mph": {
+    "relative_path": "mode_analysis_rib_waveguide.mph",
+    "bytes": 163179214,
+    "sha256": "744689818CBC4567BC35CC22F0041D08AA5ED9E9D930F3C57775C60F6739675B",
+    "zip_member_count": 254,
+    "fileversion": "COMSOL 6.3.0.71"
+  },
+  "mph_validation": {
+    "study_feature": "ModeAnalysis",
+    "physics_tag": "ewfd",
+    "mode_frequency": "f0 = c_const/lda0",
+    "operating_wavelength": "1.55[um]",
+    "neigs": 10,
+    "neigsactive": "on",
+    "shift": "n_core",
+    "shiftactive": "on",
+    "geometry": {
+      "core_width": "700[nm]",
+      "core_height": "500[nm]",
+      "cladding_width": "3000[nm]",
+      "cladding_height": "3000[nm]"
+    },
+    "materials": {
+      "core": "Core (Silicon), n_core=3.48",
+      "upper_cladding": "n_clad_upper=1.51",
+      "lower_cladding": "Lower cladding (SiO2), n_clad_lower=1.44"
+    },
+    "result_nodes": ["Mode Profile (ewfd)", "ewfd.neff", "ewfd.beta"]
+  },
+  "embedded_solution": {
+    "source": "original_mph/dmodel.xml and modelimage_large.png; not a Magnus output",
+    "parameter_point": "w_core=1000[nm]",
+    "neff_real": [
+      1.8811663630265343,
+      1.9943158393919969,
+      2.114852831417934,
+      2.4019476800621895,
+      2.4759480053751175,
+      2.501819745111114,
+      2.8643041540605214,
+      2.911255536436117,
+      3.0874386698347323,
+      3.188185499990383
+    ],
+    "beta_rad_per_m": 12923800.0,
+    "mode_profile_image": "modelimage_large.png",
+    "mode_profile_image_sha256": "227B2729ED192BE678234A7545CD6CB183B694A2FC451904A44042A6CE9CB5F0",
+    "visual_conclusion": "Embedded mode profile is a centered, smooth, nonzero guided field with decay into cladding; annotation reads n_eff=3.188 and beta=1.29238E7 rad/m. This is local MPH evidence, not a live Job result."
+  },
+  "upload_derivative": {
+    "relative_path": "mode_analysis_rib_waveguide_trimmed.mph",
+    "bytes": 15274500,
+    "sha256": "E4C1E48EB1F3E369CA48A12F13EF21B4771A83958204BADC03CEBC488F87F9C5",
+    "retained": ["dmodel.xml", "model.xml", "all geometry/mesh members", "all solver metadata", "solutionblock31.mphbin"],
+    "removed": ["historical savepoints", "solutionblock1..30.mphbin"],
+    "reason": "GU Cloudflare rejected the 163179214-byte original and 111917249-byte deflated copy with HTTP 413 Payload Too Large; derivative was only a transfer workaround and is not a claim of full-model equivalence."
+  },
+  "magnus": {
+    "site": "https://gustation.phybench.cn",
+    "duplicate_search": {
+      "command": "magnus jobs -s b16-official-rib -l 20",
+      "total": 0
+    },
+    "job_id": "34cf4c968ed12d40",
+    "task_name": "COMSOL-b16-official-rib-trimmed-20260811-1305",
+    "requested": {
+      "blueprint": "Optics_COMSOL_Runtime_zyz",
+      "run_mode": "batch_mph",
+      "domain_preset": "optics",
+      "input_file": "mode_analysis_rib_waveguide_trimmed.mph",
+      "gpu_count": 0,
+      "gpu_type": "cpu",
+      "cpu_count": 8,
+      "memory_demand": "32G",
+      "ephemeral_storage": "100G",
+      "priority": "B2",
+      "license_mode": "server_env",
+      "container_image": "docker://magnus-local/comsol-runtime:latest"
+    },
+    "status": "Failed",
+    "failure": {
+      "stage": "FileSecret receive before COMSOL runner",
+      "code": "FILE_SECRET_DOWNLOAD_FAILED",
+      "log_excerpt": "[FILE_SECRET_DOWNLOAD_FAILED] failed to receive case bundle",
+      "compiled": false,
+      "output_mph": false,
+      "matrix_factorization_checked": false
+    }
+  },
+  "result_class": "official_mph_locally_verified_platform_input_blocked",
+  "redlines": {
+    "runtime_docker_mutated": false,
+    "license_or_auth_token_written": false,
+    "git_commit": false,
+    "data_code_report_modified": false
+  }
+}

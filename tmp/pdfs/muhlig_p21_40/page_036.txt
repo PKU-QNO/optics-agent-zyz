@@ -1,0 +1,35 @@
+2 Theoretical background
+31
+(A) 
+(B) 
+e(w)? 
+m(w)? 
+Scattered 
+Figure 2.6: Diﬀerent concepts on how light propagation in amorphous MMs can be described. In
+(A) the incident ﬁeld causes scattered ﬁelds of all amorphously arranged meta-atoms. All scattered
+ﬁelds and the multiple scattering events between diﬀerent meta-atoms are taken into account. The
+idea is to simplify the description by replacing all meta-atoms by a slab made of an homogeneous
+material (doted line). Then the remaining task is the assignment of eﬀective material parameters
+to this material, as shown in (B). These eﬀective material parameters describe the reﬂection and
+transmission of the incident ﬁeld on the MM slab.
+atom consists of the external incident ﬁeld and, in addition, of the scattered ﬁelds from all
+remaining meta-atoms. The self-consistent solution of this problem requires a consideration
+of the precise position and orientation of every meta-atom that is illuminated by the incident
+ﬁeld. Since the meta-atoms are assumed to have sub-wavelength dimensions, a huge number
+of them is usually illuminated. Furthermore, as mentioned previously, the meta-atoms are
+supposed to have a complicated geometry not just consisting of a single NPs to assure the
+desired optical response. Consequently, the correct description of light propagation through
+amorphous MMs is a highly complex and challenging task with the computational resources
+that are available today. Indeed, for reasonable sized material volumes this is not possible
+at all. Therefore, the eﬀective description of the light propagation in amorphous MMs is not
+just scientiﬁc but rather a practical requirement to study optical eﬀects in these materials.
+2.4.1 Eﬀective material parameters and spatial dispersion
+The idea how to describe light propagation in amorphous MMs more eﬀectively is shown in
+Fig. 2.6 (B). Instead of a self-consistent solution of the scattering problem, as in Fig. 2.6
+(A), the entire MM is assumed to act as a homogeneous material to which eﬀective material
+parameters can be assigned. This concept is identical to periodically arranged meta-atoms
+that are commonly achieved by top-down fabrication techniques. The advantage of such a
+periodicity, however, is the possibility to introduce periodic boundary conditions between
+the meta-atoms. This reduces the complexity of the simulation, in principle, to a single
+meta-atom. Furthermore, the Bloch theorem and the corresponding Bloch eigenmodes can
+be used to describe and understand the light propagation in these periodic MMs [191–194].

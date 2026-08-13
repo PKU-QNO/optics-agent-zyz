@@ -1,8 +1,8 @@
 # SEPR 工作日志（完整交接文档）
 
 > **用途**：本文档是 SEPR 工作区从创建到 2026-06-30 的完整工作记录。供上下文压缩或新开对话时快速恢复。如需修改，尽量对工作过程只增不减。
-> **最后更新**：2026-07-07
-> **当前阶段**：**codex exec 委托方案落地**（阶段十五）——阶段十四遗留的"codex 委托新方案"由用户提出并落地：架构委托走 bash `codex exec`（一次性问答走 MCP），SEPR 11 步分档（A档01/06/07整步交、B档05/08/09/11绝不交、C档02/03/04/10拆开），旁路架构不改三层 Claude 结构，codex 预制 agent 建 `.codex/agents/*.toml`。codex exec 六点能力实测全绿（记忆 `c9ebdf3d`）。方案+两侧CLAUDE.md+toml原型已落盘，记忆 `74c52808` supersedes 旧 `5cf2c7b0`（approval untrusted→exec用never 精化）。`result_class = pipeline_completed`（规则落地，真case物理质量待二期）。前序：阶段十四 SEPR 首篇复现闭环+human_intervention；阶段十三 optics-lead 身份+全Sonnet收敛。见阶段十三、十四、十五。
+> **最后更新**：2026-07-15
+> **当前阶段**：**组会方向明确：人迭代，非 agent 迭代**（阶段十六）——阶段十四遗留的"codex 委托新方案"由用户提出并落地：架构委托走 bash `codex exec`（一次性问答走 MCP），SEPR 11 步分档（A档01/06/07整步交、B档05/08/09/11绝不交、C档02/03/04/10拆开），旁路架构不改三层 Claude 结构，codex 预制 agent 建 `.codex/agents/*.toml`。codex exec 六点能力实测全绿（记忆 `c9ebdf3d`）。方案+两侧CLAUDE.md+toml原型已落盘，记忆 `74c52808` supersedes 旧 `5cf2c7b0`（approval untrusted→exec用never 精化）。`result_class = pipeline_completed`（规则落地，真case物理质量待二期）。前序：阶段十四 SEPR 首篇复现闭环+human_intervention；阶段十三 optics-lead 身份+全Sonnet收敛。见阶段十三、十四、十五。
 > **注**：本文档 §2 阶段八/九及 §5.18–5.20 关于「双系统 / 三文件同步」的表述，自 2026-07-03「暂时放弃 OpenCode 兼容」决定起进入撤销队列（见阶段十与 `papers/SEPR/V3-HARDENING-DESIGN-CN.md` §6），本次未逐条改写，落地时统一处理。
 
 ---
@@ -199,6 +199,49 @@ SEPR 采用 Claude Code 3 层子 agent 架构（main-agent → sub-agent → sub
 - **自审修复 3 点**：① grep 全仓确认 `untrusted` 只剩交互 MCP 语境无矛盾；② hardlink 断裂已重建；③ 诚实边界补全——**未实测项全标 pending 二期验**：codex 子 agent 精确 model 名不可自证、toml `model` 字段能否真 pin 未验、exec 靠 prompt 触发预制 agent 的实际机制未跑通、`-p profile` 未单测、真实复现步物理质量未验。
 - **分期落地**：一期=写死规则不改架构（本阶段完成，`result_class = pipeline_completed`）；二期=下个真 case 用 01 pdf_preprocessing 试 codex exec，Claude 验收后扩 06/07；三期=C 档拆分+profile 锁 mini+沉淀 evolution skill。
 - **遗留（下轮）**：① **codex exec 方案二期实测**（真 case 验 toml pin model + exec 触发机制 + 物理质量）——这是新的最高优先级技术验证项；② `.tmp-codex-test/` 测试目录暂留（二期或可复用），未 commit；③ 阶段十四遗留②③④⑤ 仍在（skill-suggestion 建议2/3/4、记忆分层扶正、Fig5/Fig6 第二轮、数字化方向性检验）。
+
+### 阶段十六：组会方向明确——人迭代，非 agent 迭代（2026-07-15，optics_agent 侧）
+
+- **组会最新方向（用户传达，老师意见）**：当前阶段目标是**"把人迭代"而非"把 agent 迭代"**。
+- **核心要点**：
+  - 老师不关心 agent 细节，agent 迭代与否无所谓、没人看
+  - 组会汇报只报科学结果（论文复现物理产出），agent 作为静默基础设施不出现
+  - 不需要自迭代（SEPR E-flow 不跑）
+  - 不需要 skill（用户自己觉得方便可以做，但不是必须项）
+- **对 optics_agent 的影响**：
+  - SEPR 框架设计/自迭代/agent 架构这些不出现在组会中
+  - optics_agent 回到"工具区"角色：COMSOL/Magnus 编排 + 论文复现辅助
+  - 当前阶段 = 攒复现 case，agent 退到后台
+- **与既有路线的关系**：与"人工预训练 → 攒 case → 后期开 E-flow"路线一致。区别在于明确：攒 case 阶段 agent 框架工作不在组会汇报范围内。
+- **记忆**：`4cad6a73`（decision，importance=0.9）
+
+### 阶段十七：自迭代降为远期储备——十几篇论文不需要（2026-07-15，optics_agent 侧，接阶段十六）
+
+- **判定**：对于最终 ~10+ 篇论文的复现规模，**自迭代（E-flow）是过度设计，不需要**。
+- **理由**：
+  - 自迭代解决的是规模问题（几十上百篇复现后人记不清模式），十几篇的量人工翻 WORK_LOG 即可
+  - E-flow 的维护成本（6 步 + conflict_ledger + 六维裁决 + 三级治理 + validate_and_replay）高于手动改 skill
+  - 最大风险 reward hacking（94 篇文献审查第 2 条最高优先级）——agent 学糊弄 verifier 而非真正进步
+  - 手动路径：跑一篇 → 花 5 分钟改两行 skill → 下一篇自然用上，比自迭代的"产出→审查→改→replay→再审查"循环更高效
+- **处置**：
+  - E-flow / evolution-agent / sub-E-agent → **远期储备**，设计文档保留但不维护、不出现于当前计划
+  - 当前最小集合：main-agent + sub-agent + 人手动维护的 skill
+  - 等到 50+ 篇复现、人确实记不清模式时，再评估是否需要复活自迭代
+- **对 optics_agent 的简化**：复杂度砍掉约一半（E-flow 整套 + 双系统同步 + 三文件同步这些 agent 框架层面的账全卸掉）
+- **记忆**：`f757e42c`（decision，importance=0.85）
+
+### 阶段十八：暂停自选 Mie 论文，优先复现组会推荐的两篇（2026-07-15，optics_agent 侧）
+
+- **操作**：暂停 `papers/mie/` 下自选的 Mie 论文复现（含 Akimov 2401.04146 Fig5/Fig6 等），优先复现 `papers/mie-f/` 下组会推荐的两篇论文。
+- **两篇推荐论文**：
+  1. **2018 Opt. Commun.** — *An electromagnetic multipole expansion beyond the long-wavelength approximation*（709 KB）
+  2. **Grahn et al. 2012 New J. Phys. 14 093033**（682 KB）
+- **理由**：组会推荐，优先响应课题组方向。自选论文（Akimov 等）暂停，后续视情况恢复。
+- **影响**：
+  - `reproduction_test/mie/` 下的 Akimov Phase 1 产物保留不动
+  - SEPR 侧 Akimov Fig3 已完成（`partial_physical_match`），后续 Fig5/Fig6 暂停
+  - 新复现在 `papers/mie-f/` 两篇上启动，case 目录待建
+- **记忆**：`3278471f`（decision，importance=0.85）
 
 ---
 

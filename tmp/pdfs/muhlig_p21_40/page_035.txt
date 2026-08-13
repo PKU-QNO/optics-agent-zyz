@@ -1,0 +1,69 @@
+2 Theoretical background
+30
+
+
+
+
+
+
+[
+
+:DYHOHQJWKQP
+0XOWLSROH$PSOLWXGH
+
+
+_S[_
+_P\_
+_S]_
+_4[]_
+
+
+
+
+
+[
+
+:DYHOHQJWKQP
+0XOWLSROH$PSOLWXGH
+
+
+_S[_
+_P\_
+_S]_
+_4[]_
+(A) 
+(B) 
+N]
++\
+([
+N]
++\
+([
+Figure 2.5: Cartesian multipole moments of two SRRs with opposite base orientation under plane
+wave incidence as sketched. The SRRs are separated by 40 nm to each other along the propagation
+direction and the polarization of the incident magnetic ﬁeld in (A) and (B), respectively.
+the multipole moments can be exploited to design meta-atoms for a desired optical response,
+as shortly outlined by the example of two coupled SRRs. In the next section the issue on how
+to describe light propagation through amorphous MMs is discussed based on the multipole
+analysis.
+2.4 Light propagation in amorphous metamaterials
+The general introduction of self-assembled MMs in Chap. 1 implies the following conclusion.
+To date, all self-assembly techniques work on two diﬀerent length scales. Therefore, they are
+divided into two distinct groups. The ﬁrst one, the so-called short-range group, allows only a
+control of the self-assembly to build the individual meta-atom. The spatial alignment of the
+meta-atoms cannot be controlled and is therefore amorphous. The second group, called long-
+range group, allows for a control of the spatial alignment of the meta-atoms. Unfortunately,
+until now most meta-atoms of this group consists solely of individual metallic NPs. This
+is in contrast to the short-range order group where quite complex meta-atoms are achieved
+consisting of many precisely arranged NPs.
+Of course a single plasmonic NP as the meta-atom constitutes quite a restriction to the
+achievable optical response since the scattered ﬁeld of these NPs is dominated by electric
+dipole radiation [cf. Fig. 2.3 (B)]. Therefore, a complex response of MMs build up by self-
+assembly techniques only seems to be possible for the short-range group which yields amor-
+phously arranged meta-atoms. This section describes a formalism on how light propagation
+through these amorphous MMs can be properly described.
+The problem concerning the description of light propagation in amorphous MMs is con-
+ceptually sketched in Fig. 2.6 (A). There, a few amorphously arranged meta-atoms (that
+shall form a slab) are illuminated by an incident ﬁeld. The incident ﬁeld causes a scattered
+ﬁeld from every meta-atom. The problem gets highly complex since every scattered ﬁeld
+illuminates all other meta-atoms, too. Therefore, the illumination ﬁeld of a chosen meta-

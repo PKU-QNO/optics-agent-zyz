@@ -1,0 +1,87 @@
+2 Theoretical background
+22
+is expanded into the VSHs as follows
+Esca(r, ω) =
+∞
+X
+n=1
+n
+X
+m=−n
+k2Enm
+
+anm(ω)N(3)
+nm(r, ω) + ibnm(ω)M(3)
+nm(r, ω)
+
+,
+(2.26)
+and the prefactor Enm is now deﬁned as
+Enm = (−1)m |E0|
+2√π
+s
+(2n + 1)(n −m)!
+(n + m)! .
+(2.27)
+Consider the scattered electric ﬁeld Esca of an arbitrary meta-atom to be known for a given
+incident ﬁeld. In general, the scattered ﬁeld can be calculated by numerical techniques such
+as, e.g., the ﬁnite-diﬀerence time-domain (FDTD) or the ﬁnite element method (FEM). The
+ﬁeld expansion of the scattered ﬁeld into VSHs [cf. Eq. 2.26] can be applied for an arbi-
+trary scattered ﬁeld too. Of course, in such case the previously introduced Mie coeﬃcients
+(Eq. 2.21) do no longer connect the scattering coeﬃcients to the expansion coeﬃcients of
+the incident ﬁeld. Moreover, all entries of the T-matrix are potentially non-zero and the
+T-matrix is no longer diagonal (as in Eq. 2.23) for an arbitrary scatterer. Nonetheless, or-
+thogonality relations of the VSHs [54] can be exploited to calculate the scattering coeﬃcients
+from the known scattered ﬁeld
+anm =
+Z 2π
+0
+Z π
+0
+Esca(r = a)N(3)∗
+nm (r = a) sin θdθdϕ
+k2Enm
+Z 2π
+0
+Z π
+0
+N(3)
+nm(r = a)
+
+2
+sin θdθdϕ
+,
+bnm =
+Z 2π
+0
+Z π
+0
+Esca(r = a)M(3)∗
+nm (r = a) sin θdθdϕ
+ik2Enm
+Z 2π
+0
+Z π
+0
+M(3)
+nm(r = a)
+
+2
+sin θdθdϕ
+.
+(2.28)
+The overlap integrals of Eq. 2.28 are performed on a virtual sphere of radius a. For non
+spherical meta-atoms the points of highest symmetry are chosen as the center of the virtual
+sphere.
+The obtained scattering coeﬃcients are independent on the radius a as long as
+the virtual sphere fully encloses the scatterer.
+Since the scattered ﬁeld was assumed to
+be known, Eq. 2.28 yields the scattering coeﬃcients for an arbitrary meta-atom, which are
+the multipole moments in spherical coordinates.
+However, spherical multipole moments
+are sometimes hard to interpret. Therefore, transformation rules into Cartesian multipole
+moments are required that appear to be the natural choice to discuss the properties of most
+of the meta-atoms.
+Transformation rules between the scattering coeﬃcients of Eq. 2.28
+and Cartesian multipole moments can be obtained by comparing the ﬁeld expressions in
+Cartesian coordinates (as given by Ref. [52]) and in spherical coordinates (Eq. 2.26) for the

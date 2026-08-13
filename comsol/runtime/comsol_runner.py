@@ -7,8 +7,9 @@ import shutil
 import subprocess
 import sys
 import time
-import zipfile
 from pathlib import Path
+
+from case_importer import CaseImportError, stage_case_bundle
 
 
 IMPORT_CHECKS = ["numpy", "scipy", "pandas", "matplotlib", "h5py", "meshio", "mph", "jpype"]
@@ -30,6 +31,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--license-path", type=Path, required=True)
     parser.add_argument("--license-file-secret", default="")
     parser.add_argument("--case-bundle-secret", default="")
+    parser.add_argument("--case-bundle-sha256", default="")
+    parser.add_argument("--case-input-sha256", default="")
+    parser.add_argument("--case-input-name", default="")
+    parser.add_argument("--case-bundle-format", choices=("auto", "zip", "tar", "tgz", "single-file"), default="auto")
+    parser.add_argument("--input-root", type=Path, default=None)
     parser.add_argument("--case-path", type=Path, default=None)
     parser.add_argument("--input-file", type=Path, default=None)
     parser.add_argument("--postprocess-file", type=Path, default=None)
@@ -207,27 +213,17 @@ def load_metrics(results_dir: Path, raw_dir: Path) -> dict:
     return {}
 
 
-def receive_secret(secret: str, dest: Path) -> None:
+def receive_secret(secret: str, dest: Path) -> Path:
     if not shutil.which("magnus"):
         raise RunnerError("FILE_SECRET_UNSUPPORTED", "magnus CLI is required for file secret downloads")
     dest.parent.mkdir(parents=True, exist_ok=True)
     result = run(["magnus", "receive", secret, "-o", str(dest)])
     if result.returncode != 0:
-        raise RunnerError("FILE_SECRET_DOWNLOAD_FAILED", f"failed to receive {secret}")
-
-
-def unpack_bundle(path: Path, target: Path) -> None:
-    target.mkdir(parents=True, exist_ok=True)
-    name = path.name.lower()
-    if name.endswith(".zip"):
-        with zipfile.ZipFile(path) as zf:
-            zf.extractall(target)
-    elif name.endswith((".tar", ".tar.gz", ".tgz")):
-        result = run(["tar", "-xf", str(path), "-C", str(target)])
-        if result.returncode != 0:
-            raise RunnerError("CASE_BUNDLE_UNPACK_FAILED", f"failed to unpack {path}")
-    else:
-        shutil.copy2(path, target / path.name)
+        # Never echo a FileSecret token into a persistent runner log.
+        raise RunnerError("FILE_SECRET_DOWNLOAD_FAILED", "failed to receive case bundle")
+    if not dest.exists():
+        raise RunnerError("FILE_SECRET_DOWNLOAD_FAILED", "Magnus receive returned no case bundle")
+    return dest
 
 
 def setup_license(args: argparse.Namespace, run_dir: Path) -> dict[str, str]:
@@ -253,6 +249,45 @@ def setup_license(args: argparse.Namespace, run_dir: Path) -> dict[str, str]:
     return env
 
 
+def import_case_bundle_for_run(args: argparse.Namespace, run_dir: Path) -> dict | None:
+    """Receive and stage a FileSecret, then mutate args.input_file to canonical input."""
+
+    if not args.case_bundle_secret or args.run_mode == "env_check":
+        return None
+    if args.input_file and Path(args.input_file).is_absolute():
+        raise RunnerError("CASE_INPUT_CONFLICT", "case_bundle_secret cannot be combined with an absolute input_file")
+    bundle_path = run_dir / "raw" / "case_bundle.download"
+    receive_secret(args.case_bundle_secret, bundle_path)
+    input_root = args.input_root or Path(os.environ.get("OPTICS_COMSOL_INPUT_ROOT", "/home/magnus/data/optics_agent/comsol/inputs"))
+    try:
+        staged = stage_case_bundle(
+            bundle_path,
+            input_root,
+            args.run_mode,
+            expected_bundle_sha256=args.case_bundle_sha256 or None,
+            expected_input_sha256=args.case_input_sha256 or None,
+            requested_input=str(args.input_file) if args.input_file else None,
+            input_name=args.case_input_name or None,
+            bundle_format=args.case_bundle_format,
+        )
+    except CaseImportError as exc:
+        raise RunnerError(exc.code, exc.message) from exc
+    args.input_file = staged.input_file
+    if not args.case_path:
+        args.case_path = staged.case_root
+    info = {
+        "bundle_kind": staged.bundle_kind,
+        "bundle_sha256": staged.bundle_sha256,
+        "input_sha256": staged.input_sha256,
+        "canonical_case_root": str(staged.case_root),
+        "canonical_input_file": str(staged.input_file),
+        "receipt_path": str(staged.receipt_path),
+        "reused": staged.reused,
+    }
+    write_json(run_dir / "case_import_receipt.json", info)
+    return info
+
+
 def build_manifest(args: argparse.Namespace, status: str, run_dir: Path, failure: dict | None, comsol_version: str, extra: dict | None = None) -> dict:
     raw_dir = run_dir / "raw"
     manifest = {
@@ -271,6 +306,7 @@ def build_manifest(args: argparse.Namespace, status: str, run_dir: Path, failure
             "stdout": str(raw_dir / "stdout.txt"),
             "stderr": str(raw_dir / "stderr.txt"),
             "output_mph": str(raw_dir / "model_output.mph"),
+            "case_import_receipt": str(run_dir / "case_import_receipt.json"),
             "results_dir": str(run_dir / "results"),
         },
         "failure": failure,
@@ -314,6 +350,11 @@ def main() -> int:
             "license_path": str(args.license_path),
             "case_path": str(args.case_path) if args.case_path else "",
             "input_file": str(args.input_file) if args.input_file else "",
+            "case_bundle_sha256_expected": args.case_bundle_sha256,
+            "case_input_sha256_expected": args.case_input_sha256,
+            "case_input_name": args.case_input_name,
+            "case_bundle_format": args.case_bundle_format,
+            "input_root": str(args.input_root) if args.input_root else os.environ.get("OPTICS_COMSOL_INPUT_ROOT", "/home/magnus/data/optics_agent/comsol/inputs"),
             "postprocess_file": str(args.postprocess_file) if args.postprocess_file else "",
             "output_root": str(args.output_root),
         })
@@ -335,15 +376,21 @@ def main() -> int:
         env["OPTICS_COMSOL_FIGURES_DIR"] = str(results_dir / "figures")
         env["OPTICS_COMSOL_METRICS_FILE"] = str(results_dir / "metrics.json")
 
+        case_import_info = None
+        case_import_info = import_case_bundle_for_run(args, run_dir)
+
         if args.case_path:
             if not args.case_path.exists():
                 raise RunnerError("INPUT_MISSING", f"case_path does not exist: {args.case_path}")
             (run_dir / "case_path.txt").write_text(str(args.case_path), encoding="utf-8")
-
-        if args.case_bundle_secret:
-            bundle_path = run_dir / "raw" / "case_bundle"
-            receive_secret(args.case_bundle_secret, bundle_path)
-            unpack_bundle(bundle_path, run_dir / "case_bundle")
+        # Rewrite the command receipt after FileSecret import so that the
+        # canonical input path is auditable without recording the secret token.
+        command_path = run_dir / "command.json"
+        command_payload = json.loads(command_path.read_text(encoding="utf-8"))
+        command_payload["case_path"] = str(args.case_path) if args.case_path else ""
+        command_payload["input_file"] = str(args.input_file) if args.input_file else ""
+        command_payload["case_import_receipt"] = str(run_dir / "case_import_receipt.json") if case_import_info else ""
+        write_json(command_path, command_payload)
 
         if args.run_mode == "env_check":
             help_result = run(["comsol", "batch", "-help"], stdout=raw_dir / "comsol_batch_help.txt", stderr=raw_dir / "comsol_batch_help.err", env=env)
@@ -381,11 +428,14 @@ def main() -> int:
                 raise RunnerError("POSTPROCESS_FAILED", f"postprocess exited with {pp_result.returncode}")
 
         metrics = load_metrics(results_dir, raw_dir)
-        manifest = build_manifest(args, "completed", run_dir, None, comsol_version, {
+        extras = {
             "compile": compile_report,
             "metrics": metrics,
             "success_markers": success_markers(raw_dir),
-        })
+        }
+        if case_import_info:
+            extras["case_import"] = case_import_info
+        manifest = build_manifest(args, "completed", run_dir, None, comsol_version, extras)
         publish_result(manifest, manifest_path)
         return 0
     except RunnerError as exc:

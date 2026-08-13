@@ -1,0 +1,53 @@
+2 Theoretical background
+16
+into the eigenmodes of the Helmholtz equation. An analytical solution of this equation is
+possible in eleven coordinate systems [134], such as, e.g., spherical or Cartesian coordinates.
+These coordinate systems are known to allow a separation of coordinates for the Laplace
+operator.
+The appropriate choice of the coordinate system (and therewith the resulting
+eigenmodes) depends on the the geometrical shape of the scatterer. The expansion of the
+electric and magnetic ﬁelds into a chosen set of eigenmodes Aj of the Helmholtz equation
+reads as [135]
+E(r, ω) =
+X
+j
+cj(ω)Aj(r, ω) ,
+H(r, ω) =
+X
+j
+dj(ω)Aj(r, ω) ,
+(2.9)
+with the complex expansion coeﬃcients cj and dj of the electric and magnetic ﬁeld, respec-
+tively. In Cartesian coordinates the eigenmodes are simply plane waves [52]
+A
+pw
+j (r, ω) = exp [ikj(ω)r] .
+(2.10)
+Inserting the ﬁeld decomposition of Eq. 2.9 for plane waves as eigenmodes into the Helmholtz
+equation (Eq. 2.7) yields the dispersion relation of these modes in a local, isotropic, homo-
+geneous, linear medium
+k2
+j(ω) = ω2
+c2 ˆε(ω)µ(ω) .
+(2.11)
+The dispersion relation links the material properties ˆε, µ to the characteristics that describe
+the spatial evolution of the plane waves, i.e. the wavevector k. From now on, for the rest
+of the thesis every quantity is given in frequency space, if nothing else is explicitly stated.
+Therefore, we omit the frequency ω as explicit argument and quantities in frequency space
+are no longer denoted by a bar. Furthermore, the generalized permittivity ˆε is simply written
+as ε.
+It has been shown that Maxwell’s equations can be reduced to the Helmholtz equation
+for linear, local, isotropic and homogeneous materials.
+The Helmholtz equation can be
+solved in homogeneous space by an expansion of the ﬁelds into eigenmodes.
+Now, the
+scattering problem as introduced in Fig. 2.1 should be solved.
+Therefore, the boundary
+conditions between the homogeneous scatterer and the surrounding needs to be speciﬁed. In
+a preliminary step the electric and magnetic ﬁelds are decomposed into three parts
+E(r) = Einc(r) + Esca(r) + Eint(r) ,
+H(r) = Hinc(r) + Hsca(r) + Hint(r) ,
+(2.12)
+which are the incident ﬁelds Einc, Hinc illuminating the scatterer and the scattered ﬁelds
+Esca, Hsca deﬁned in the surroundings as well as the internal ﬁelds Eint, Hint deﬁned inside
+the scatterer. They are connected to each other by the boundary conditions at the surface

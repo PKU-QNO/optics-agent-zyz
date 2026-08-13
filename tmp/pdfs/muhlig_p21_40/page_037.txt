@@ -1,0 +1,42 @@
+2 Theoretical background
+32
+This allows a precise discussion if (and under which circumstances) the assumption of a MM
+as a homogeneous material with eﬀective material parameters is possible.
+Here, in the case of amorphous MMs a diﬀerent concept is established. One common form
+of eﬀective material parameters that can be introduced for a local MM is based on the so-
+called bi-isotropic constitutive relations. The idea of locality is important. It suggests that
+the electromagnetic ﬁeld at a speciﬁc position induces a polarisation of the material solely
+at this position. The local response is important to assure the applicability of the standard
+boundary conditions (cf. Eq. 2.13). The bi-isotropic constitutive relations read as [195]
+D(k, ω) = ε0ε(ω)E(k, ω) + i
+cκ(ω)H(k, ω) ,
+B(k, ω) = µ0µ(ω)H(k, ω) −i
+cκ(ω)E(k, ω) ,
+(2.36)
+where κ(ω) accounts for the magneto-electric coupling. In contrast to the previously intro-
+duced constitutive relations (cf. Eq. 2.3), they are given in frequency and spatial frequency
+domain. This highlights the fact that none of the material parameters depends on k which
+means they are not spatially dispersive. Spatial dispersion is an unwanted property. If the
+material parameters would depend on k this would cause a non-local response in the real
+space. Obviously, additional boundary conditions are required for a non-local response [178].
+These additional boundary conditions are controversially discussed [196] and therefore, spa-
+tial dispersion should be suppressed. It has to be mentioned that the most general case of
+constitutive relations that assure standard boundary conditions are bi-anisotropic constitu-
+tive relations. Then, all material parameters in Eq. 2.36 become tensors. The case of an
+anisotropic response is of minor interest when investigating amorphous MMs. An amorphous
+spatial alignment of meta-atoms yields an isotropic response, as will be outlined later on in
+Sec. 2.4.3. Therefore, solely the isotropic case is considered here. Now, the diﬀerent mecha-
+nisms that cause spatial dispersion are brieﬂy discussed. They are important to appreciate
+the advantage of bottom-up MMs when compared to top-down structures. General rules on
+how the scattering response of a single meta-atom should look like are derived. Afterwards,
+the assignment of eﬀective material parameters to amorphous MMs is introduced.
+Two basic mechanisms can cause spatial dispersion in a MM. The ﬁrst one is related to
+a perfect periodic alignment of the meta-atoms.
+This is typically achieved by top-down
+fabrication techniques where meta-atoms are periodically arranged into single layers. Thus,
+the entire MM forms a grating and its optical response is described by a few propagating
+diﬀraction orders. Obviously this causes a strong dependency of the optical response on the
+propagation direction of the light, which is spatial dispersion. Even for sub-wavelength grat-
+ings that only sustain a zeroth diﬀraction order to be propagative, the periodic alignment is
+problematic [197]. Here the near-ﬁelds between adjacent meta-atoms can resonantly couple
+to each other which may cause in most of the cases a dependency of the material parameters

@@ -47,10 +47,34 @@ CasePath = Annotated[Optional[str], {
     "placeholder": "/home/magnus/data/optics_agent/comsol/papers/demo",
 }]
 
-CaseBundleSecret = Annotated[Optional[str], {
+CaseBundleSecret = Annotated[Optional[FileSecret], {
     "label": "临时案例包密钥",
-    "description": "可选的 Magnus FileSecret，用于上传 tar/tgz/zip 等临时案例包。",
+    "description": "可选的 Magnus FileSecret。归档必须包含 case_manifest.json；单个 .mph 文件请将案例包格式设为 single-file。",
     "placeholder": "magnus-secret:...",
+}]
+
+CaseBundleSha256 = Annotated[Optional[str], {
+    "label": "案例包 SHA-256",
+    "description": "可选的 64 位十六进制 SHA-256；导入器会在解包前校验收到的原始字节。",
+    "placeholder": "64-character SHA-256",
+}]
+
+CaseInputSha256 = Annotated[Optional[str], {
+    "label": "模型输入 SHA-256",
+    "description": "可选的模型输入 SHA-256；也可在 case_manifest.json 的 input_sha256 中声明。",
+    "placeholder": "64-character SHA-256",
+}]
+
+CaseInputName = Annotated[Optional[str], {
+    "label": "单文件输入名",
+    "description": "当 FileSecret 是无扩展名的单个模型时填写，例如 model.java、model.mph 或 model.m；归档模式必须与 case_manifest.json 一致。",
+    "placeholder": "model.java",
+}]
+
+CaseBundleFormat = Annotated[Literal["auto", "zip", "tar", "tgz", "single-file"], {
+    "label": "案例包格式",
+    "description": "auto 按 magic bytes 识别 ZIP/TAR/TGZ；COMSOL .mph 是 ZIP 容器，扩展名丢失时必须显式选择 single-file。",
+    "default": "auto",
 }]
 
 LicenseFileSecret = Annotated[Optional[str], {
@@ -100,6 +124,10 @@ def blueprint(
     input_file: InputFile = None,
     case_path: CasePath = None,
     case_bundle_secret: CaseBundleSecret = None,
+    case_bundle_sha256: CaseBundleSha256 = None,
+    case_input_sha256: CaseInputSha256 = None,
+    case_input_name: CaseInputName = None,
+    case_bundle_format: CaseBundleFormat = "auto",
     license_file_secret: LicenseFileSecret = None,
     postprocess_file: PostprocessFile = None,
     output_root: OutputRoot = "/home/magnus/data/optics_agent/comsol/runs",
@@ -128,6 +156,10 @@ LICENSE_PATH_TEMPLATE=__LICENSE_PATH__
 INPUT_FILE=__INPUT_FILE__
 CASE_PATH=__CASE_PATH__
 CASE_BUNDLE_SECRET=__CASE_BUNDLE_SECRET__
+CASE_BUNDLE_SHA256=__CASE_BUNDLE_SHA256__
+CASE_INPUT_SHA256=__CASE_INPUT_SHA256__
+CASE_INPUT_NAME=__CASE_INPUT_NAME__
+CASE_BUNDLE_FORMAT=__CASE_BUNDLE_FORMAT__
 LICENSE_FILE_SECRET=__LICENSE_FILE_SECRET__
 POSTPROCESS_FILE=__POSTPROCESS_FILE__
 OUTPUT_ROOT_TEMPLATE=__OUTPUT_ROOT__
@@ -159,6 +191,10 @@ args=(
 [ -n "$INPUT_FILE" ] && args+=(--input-file "$INPUT_FILE")
 [ -n "$CASE_PATH" ] && args+=(--case-path "$CASE_PATH")
 [ -n "$CASE_BUNDLE_SECRET" ] && args+=(--case-bundle-secret "$CASE_BUNDLE_SECRET")
+[ -n "$CASE_BUNDLE_SHA256" ] && args+=(--case-bundle-sha256 "$CASE_BUNDLE_SHA256")
+[ -n "$CASE_INPUT_SHA256" ] && args+=(--case-input-sha256 "$CASE_INPUT_SHA256")
+[ -n "$CASE_INPUT_NAME" ] && args+=(--case-input-name "$CASE_INPUT_NAME")
+[ -n "$CASE_BUNDLE_FORMAT" ] && args+=(--case-bundle-format "$CASE_BUNDLE_FORMAT")
 [ -n "$LICENSE_FILE_SECRET" ] && args+=(--license-file-secret "$LICENSE_FILE_SECRET")
 [ -n "$POSTPROCESS_FILE" ] && args+=(--postprocess-file "$POSTPROCESS_FILE")
 
@@ -171,6 +207,10 @@ python "$RUNTIME" "${args[@]}"
         .replace("__INPUT_FILE__", q(input_file)) \
         .replace("__CASE_PATH__", q(case_path)) \
         .replace("__CASE_BUNDLE_SECRET__", q(case_bundle_secret)) \
+        .replace("__CASE_BUNDLE_SHA256__", q(case_bundle_sha256)) \
+        .replace("__CASE_INPUT_SHA256__", q(case_input_sha256)) \
+        .replace("__CASE_INPUT_NAME__", q(case_input_name)) \
+        .replace("__CASE_BUNDLE_FORMAT__", q(case_bundle_format)) \
         .replace("__LICENSE_FILE_SECRET__", q(license_file_secret)) \
         .replace("__POSTPROCESS_FILE__", q(postprocess_file)) \
         .replace("__OUTPUT_ROOT__", q(output_root)) \

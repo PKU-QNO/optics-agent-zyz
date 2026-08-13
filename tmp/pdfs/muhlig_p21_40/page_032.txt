@@ -1,0 +1,44 @@
+2 Theoretical background
+27
+Therefore, the coupling between two of these spheres can be discussed on dipole-dipole
+interaction models.
+A famous example is the hybridization model that is adapted from
+molecular physics [173, 174] and will be discussed in detail in Chap. 3. It allows predicting
+the resonance positions of two coupled spheres or other symmetric objects.
+In Fig. 2.3
+(C) and (D) two examples of coupled spheres are shown. The so-called dimer structure is
+illuminated perpendicularly to the connection line of the spheres [Fig. 2.3 (C)] and parallel to
+it [Fig. 2.3 (D)]. The perpendicular illumination shows a shift of the maximal scattering cross
+section to longer wavelengths compared to the single sphere LSPR of Fig. 2.3 (B). As for the
+single sphere the scattering can be fully described by that of an electric dipole. The shift of
+the resonance wavelength in Fig. 2.3 (C) is in line with the predictions of the hybridization
+model. The only possible oscillation of the electric dipoles of the two spheres for the highly
+symmetric illumination is shown by the black dashed arrows in Fig. 2.3 (C). Both dipoles
+are oscillating in phase along the connection line of the spheres [175]. Considering dipole-
+dipole interaction the resonance frequency for such a conﬁguration of dipoles is shifted to
+longer wavelengths compared to the single dipole resonance [173, 174]. Exactly this can
+be observed in Fig. 2.3 (C). However, an additional resonance appears in Fig. 2.3 (C) at
+around 550 nm. This so-called higher order resonance is not covered by simple dipole-dipole
+interaction models. These resonances occur for small sphere separations. The higher order
+resonances stem from the coupling of higher order multipole moments of the single spheres
+[174, 176]. Although the origin of the resonance at 550 nm might be more complex the
+scattering response of the entire dimer can be fully described by that of an electric dipole.
+This conclusion shows one further advantage of the multipole analysis.
+The last example shown in Fig. 2.3 (D) oﬀers a more complex scenario. The illumination
+of the two spheres parallel to the connection line allows the excitation of an out of phase
+oscillation of both dipoles [as again sketched by the black dashed arrows in Fig. 2.3 (D)].
+Regarding to the dipole-dipole interaction a π out of phase oscillation of both electric dipoles
+should occur at slightly longer wavelengths compared to the LSPR wavelength [173, 174].
+Obviously, such an out of phase oscillation should cause a magnetic dipole moment of the
+entire dimer.
+The resonance of the magnetic dipole can be seen in Fig. 2.3 (D) at 610
+nm. The broadband contribution of the electric dipole moment stems from the diﬀerent
+strength of the electric dipoles in both spheres. Therefore, even a π out of phase oscillation
+yields a net electric dipole moment. The inﬂuence of this electric dipole moment can be
+decreased by using spheres of diﬀerent size, as shown in [177]. Furthermore, a signiﬁcant
+contribution of an electric quadrupole moment can be observed close to the magnetic dipole
+resonance wavelength. This quadrupole contribution is usually neglected in dipole-dipole
+interaction models.
+However, it is of major importance if eﬀective material parameters
+should be assigned to a MM made by these meta-atoms [178, 179], as will be discussed in
+Sec. 2.4.1.

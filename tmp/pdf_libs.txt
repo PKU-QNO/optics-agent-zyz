@@ -1,0 +1,4 @@
+fitz=yes
+pdfplumber=no
+pypdf=no
+PIL=yes

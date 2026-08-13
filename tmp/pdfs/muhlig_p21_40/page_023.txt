@@ -1,0 +1,58 @@
+2 Theoretical background
+18
+calculated everywhere in space for a given illumination. It is obvious that for an arbitrary
+scatterer the calculation of the T-matrix is a highly complex task. The entries depend on the
+material parameters, the shape of the scatterer, and also reﬂect the boundary conditions.
+Analytical solutions are only known for highly symmetric scatterers such as e.g., spheres
+[139], ellipsoids [140] or clusters of spheres [141, 142]. For any other geometry the T-matrix
+entries have to be computed numerically [143–145]. In the next section the T-matrix is
+introduced for the most important symmetric scatterer in the context of this thesis; a single
+sphere.
+2.2 Scattering by a single sphere
+Consider the scatterer shown in Fig. 2.1 to be a perfect sphere with radius a made of a
+homogeneous, local, linear, and isotropic material described by εsph(ω), µsph(ω) embedded
+in a surrounding with ε(ω), µ(ω). This scattering problem is known as Mie scattering of a
+single sphere [146, 147], or simply Mie theory. The Helmholtz equation (Eq. 2.7) is solved
+by a separation of the Laplace operator in spherical coordinates (r, θ, ϕ).
+The resulting
+eigenfunctions are the so-called vector spherical harmonics (VSHs) M and N. They are
+deﬁned as [54, 148]
+M(J)
+nm(r, θ, ϕ) = [iπnm(cos θ)ˆeθ −τnm(cos θ)ˆeϕ] Ψ(J)
+n (kr)eimϕ ,
+N(J)
+nm(r, θ, ϕ) = n(n + 1)P m
+n (cos θ)Ψ(J)
+n (kr)
+kr
+eimϕˆer
++ [τnm(cos θ)ˆeθ + iπnm(cos θ)ˆeϕ] 1
+kr
+d
+dr
+
+rΨ(J)
+n (kr)
+
+eimϕ ,
+(2.16)
+where ˆer,ˆeθ,ˆeϕ are the unit vectors in spherical coordinates. The function Ψ(J)
+n
+describing
+the radial dependency of the VSHs refers to one kind of the four spherical Bessel functions:
+J =1 to the spherical Bessel function jn, J =2 to the spherical Neumann function yn and
+J =3, 4 to the spherical Hankel functions of the ﬁrst and second kind h(1)
+n , h(2)
+n , respectively.
+The dependency on θ of the VSHs is described by the associated Legendre function of the
+ﬁrst kind P m
+n of degree n and order m and by the two functions τnm and πnm that are deﬁned
+as follows
+τnm(cos θ) = d
+dθP m
+n (cos θ) ,
+πnm(cos θ) =
+m
+sin θP m
+n (cos θ) .
+(2.17)

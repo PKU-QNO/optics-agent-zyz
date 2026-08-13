@@ -110,6 +110,30 @@ license            -> /opt/comsol-license/license.dat through mount/env
 
 Use `FileSecret` only for one-off user case bundles such as `.mph`, `.java`, `.m`, mesh/data packs, or sweep config archives. Receive them with `magnus receive` or `magnus.download_file(...)`, then run through `comsol_runner.py`.
 
+The runtime FileSecret path is content-addressed and fail-closed:
+
+```text
+receive into run-local raw path
+  -> private snapshot + bundle SHA-256
+  -> safe ZIP/TAR/TGZ scan/extract, or explicit single-file
+  -> case_manifest.json selects one model input
+  -> input SHA-256 verification
+  -> freeze + atomic promotion
+  -> /home/magnus/data/optics_agent/comsol/inputs/<input_sha256>/
+```
+
+Archive `case_manifest.json` contract:
+
+```json
+{
+  "schema_version": 1,
+  "model_input": "model.java",
+  "input_sha256": "optional 64-character SHA-256"
+}
+```
+
+Do not use shell `tar -xf` or `extractall` on case inputs. Reject absolute/parent/drive/UNC paths, normalized duplicates, symlink/hardlink/device/FIFO members, excessive member counts/sizes/compression ratios, missing or ambiguous manifests, hash mismatches, and pre-existing canonical trees whose exact inventory differs. A secret plus an absolute persistent `input_file` is an input-source conflict.
+
 Do not use `FileSecret` for the COMSOL license. Use the administrator-provided license mount:
 
 ```text

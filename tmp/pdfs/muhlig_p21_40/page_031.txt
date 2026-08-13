@@ -1,0 +1,54 @@
+2 Theoretical background
+26
+section. At a particular wavelength the precise contribution of each multipole moment to
+the scattered ﬁeld can be extracted. Of course, the observed features in Fig. 2.3 (A) are
+the resonances of the Mie coeﬃcients (cf. Eq. 2.21). Therefore, they are commonly termed
+Mie resonances of high permittivity spheres. In a lowest order approximation the magnetic
+dipole resonance (at 1500 nm) appears if the wavelength inside the sphere is identical to its
+diameter [156]. So the resonance position can be tuned by the permittivity and the radius of
+the sphere. Currently, these magnetic dipole resonances of high index spheres are attracting
+a lot of interest to build up all-dielectric MMs that sustain artiﬁcial magnetism [154–171].
+The second example in Fig. 2.3 (B) presents a single gold sphere (40 nm radius) embedded
+in glass. These plasmonic spheres of sub-wavelength dimension are commonly used building
+blocks of self-assembled meta-atoms. As can be seen in Fig. 2.3 (B) they possess resonance
+features in the visible that can be fully described by an electric dipole resonance over the
+entire spectra. This resonance is linked to a resonance of the Mie coeﬃcient a1, as introduced
+in Sec. 2.2. In the electrostatic approximation the size parameter x and the refractive index
+contrast η can be assumed as x ≪1, |η|x ≪1. In this regime the Mie coeﬃcient a1 of
+Eq. 2.21 is much larger than all remaining ones and it can be approximated as [54]
+a1 = −2ix3
+3
+η2 −1
+η2 + 2 .
+(2.34)
+Inserting this result into the cross sections (cf. Eq. 2.24) yields
+Csca = 8
+3πk4a6
+
+εsph −ε
+εsph + 2ε
+
+2
+,
+Cabs = 4πka3ℑ
+ εsph −ε
+εsph + 2ε
+
+.
+(2.35)
+The following remarks are in order. First, the absorption cross section scales with the volume
+of the sphere (a3) whereas the scattering cross section scales with the volume squared (a6).
+Therefore, as long as the spheres are not too small, scattering dominates over absorption.
+Second, both cross sections exhibit a term in the dominator that is resonant if εsph + 2ε =
+0.
+This resonance condition can be fulﬁlled for real valued permittivities of the sphere
+and the surrounding with opposite signs. For complex permittivities of the sphere or the
+surroundings the resonance condition cannot be met perfectly. That causes a ﬁnite full width
+half maximum (FWHM) of the cross sections that is connected to the imaginary part of the
+permittivity. For a gold sphere in vacuum the resonance wavelength is around 500 nm and
+it can shifted to longer wavelengths by changing the dielectric environment. In Fig. 2.3 (B)
+the resonance wavelength is 590 nm for a gold sphere in glass. The observed resonance is
+the LSPR as introduced in Chap. 1. The free electrons of the gold sphere are driven into
+resonance by the incident ﬁeld [172]. The important conclusion of Fig. 2.3 (B) is that the
+electric dipole moment is fully suﬃcient to describe the scattering of a small metal sphere
+in the visible domain.

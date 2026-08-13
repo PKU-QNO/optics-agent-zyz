@@ -1,0 +1,12 @@
+1	chars=769	      |        | PAPER • OPEN ACCESS | Electromagnetic multipole theory for optical | nanomaterials | To cite this article: P Grah
+2	chars=1834	T h e  o p e n – a c c e s s  j o u r n a l  f o r  p h y s i c s | New Journal of Physics | Electromagnetic multipole theor
+3	chars=4084	2 | 1. Introduction | The classical electromagnetic multipole expansion [1] is a powerful tool for analyzing the | electric an
+4	chars=2681	3 | In section 2, the classical multipole expansion is adjusted to describe the electromagnetic | ﬁeld scattered by individu
+5	chars=2528	4 | For scattering by a symmetric particle, all the coefﬁcients of higher order in l than some lmax | can be made equal to z
+6	chars=2567	5 | where jl are the spherical Bessel functions. While the integrations in (13) and (14) are over the | whole space, the int
+7	chars=2829	6 | the extinction cross section is calculated as | Cext,x = −π | k2 | ∞ | X | l=1 | X | m=−1,+1 | (2l + 1)Re |  | maE(l, m) + aM(l, m) |  | . | (
+8	chars=2361	7 | x | y | x | y | x | y | (a) | (b) | (c) | s | s | s | Figure 1. Illustration of point current elements: (a) J1 = ˆyI Lδ(r), (b) J2 = | ς(ˆx)J1 a
+9	chars=2630	8 | In the Lorenz gauge, A satisﬁes the wave equation | (∇2 + k2)A(r) = −µ0 J(r). | (30) | For a point electric current element,
+10	chars=2544	9 | aE(3, ±2) = | √ | 10C3 |  | −2Oxxz + 2Oyyz −Ozxx + Ozyy ± i(2Oxyz + 2Oyzx + 2Ozxy) |  | , | (36) | aE(3, ±1) = C3 |  | ∓(3Oxxx + Oxyy −
+11	chars=2849	10 | Figure 2. The electromagnetic ﬁeld created by the point octupole on the left is | indistinguishable from that created b
+12	chars=2601	11 | 4. Conclusions | In summary, we have introduced a theoretical approach to calculating the electromagnetic | multipole exc

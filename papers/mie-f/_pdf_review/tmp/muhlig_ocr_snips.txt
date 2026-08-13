@@ -1,0 +1,175 @@
+# Towards Self-Assembled Metamaterials
+
+Dissertationzur Erlangung des akademischen Gradesdoctor rerum naturalium (Dr. rer. nat.)
+
+# vorgelegt dem Rat der Physikalisch-Astronomischen Fakultät der Friedrich-Schiller-Universität Jena
+
+# Gutachter
+
+Prof. Dr. Falk Lederer, Friedrich-Schiller-Universität Jena, Germany
+
+Prof. Dr. Bert Hecht, Universität Würzburg, Germany
+
+Prof. Dr. Femius Koenderink, FOM Institute AMOLF, The Netherlands
+
+Tag der Disputation: 28.01.2014
+
+Für Anna, Clara, Martha und Paul. Ohne auch wäre diese Arbeit nie entstanden.
+
+# Mathematical Symbols
+
+<font color="red">【此段建议校对(This paragraph is recommended for proofreading)】</font>只修正LaTeX语法错误，不改动文字、语义、标点，不补全答案，不随意加其他内容，直接
+
+user只修正下面文本中\......里的LaTeX语法错误，不改动文字、语义、标点，不补全答案，不随意加其他内容，直接
+
+答复：\(\iota^{a^{j}}}\\)
+
+\(\iota_{d}\}\\)
+
+\(\iota_{n m}\}\\)
+
+\(\chi_{e}, \_{m}\}\\)
+
+\(\chi_{e}, B_{m}}}}^{^{\nu\mu}}}\\)
+
+\(\chi_{n}^{^{\nu\mu}}}, B_{n m}}^{^{\nu\mu}}}\\)
+
+\(\chi_{d}}^{\nu\mu}}}, B_{n m}}}^{\nu\mu}}}\\)
+
+\(\chi_{n}}^{\nu\mu}}}}\ B_{n m}}^{\nu\mu}}}\\)
+
+\(\boldbf{M Q}\\)
+
+\(\bold^{\M}\\
+
+p electric dipole moment
+
+P electric dipole density
+
+$p_{nm}$ expansion coefficient (electric) of incident field
+
+$P_{n}^{m}$ associated Legendre function of first kind
+
+$\Psi_{n}^{(J)}$ one of the four spherical Bessel functions (depending on $J$)
+
+$q_{nm}$ expansion coefficient (magnetic) of incident field
+
+Q electric quadrupole moment
+
+$R$ reflection
+
+$\sigma$ conductivity
+
+$T$ transmission
+
+$\tau$ transmittance
+
+$W_{\mathrm{el}}$ electric interaction energy
+
+$x$ size parameter of a sphere
+
+$y_{n}$ spherical Neumann function
+
+$Z$ impedance
+
+# Abbreviations
+
+EF enhancement factorIR infraredFDTD finite-difference time-domain methodFEM finite element methodFWHM full width half maximumLSPR localized surface plasmon polariton resonanceMM metamaterialNP nanoparticlePE polyelectrolyteSEM scanning electron micrographSERS surface enhanced Raman spectroscopySRR split-ring resonatorTEM transition electron micrographUV ultravioletVSH vector spherical harmonic
+
+# Contents
+
+# Introduction 3
+
+1.1 Self-assembly fabrication of metamaterials 51.2 Advantages and issues of self-assembled metamaterials 81.3 Aim and structure of the thesis 11
+
+# Theoretical background 13
+
+2.1 The electrodynamic scattering problem 142.2 Scattering by a single sphere 182.3 Multipole analysis of meta-atoms 212.3.1 Formal introduction 212.3.2 Multipole moments of representative meta-atoms 252.4 Light propagation in amorphous metamaterials 302.4.1 Effective material parameters and spatial dispersion 312.4.2 Clausius-Mossotti relation 342.4.3 Anisotropic response of meta-atoms 392.4.4 Limitations of the Clausius-Mossotti relation 412.4.5 Concluding remarks 412.5 Scattering by a cluster of spheres 422.5.1 Cross sections and T-matrix of a sphere cluster 452.6 Concluding remarks 48
+
+# 3 Planar self-assembled metamaterials 50
+
+# 3.1 Single array metamaterials 52
+
+3.1 Single array metamaterials 52
+
+3.2 Double array metamaterials 54
+
+3.2.1 Symmetric nanoparticle arrays 54
+
+3.2.2 Asymmetric nanoparticle arrays 58
+
+3.3 Application: Surface enhanced Raman spectroscopy 65
+
+3.4 Concluding remarks 70
+
+# 4 Three-dimensional self-assembled metamaterials 72
+
+4.1 Magnetic dipolar meta-atoms in the visible .
+
+# ; Conclusion 97
+
+5.1 Open questions and perspectives .
+
+CONTENTS 2
+
+Acknowledgements
+
+Publications
+
+Short Curriculum Vitae
+
+Ehrenwörtliche Erklärung
+
+X
+
+Zusammenfassung
+
+XII
+
+Bibliography
+
+XV
+
+# 1 Introduction
+
+Nichts ist getan, wenn noch etwas zu tun übig ist.
+
+CARL FRIEDRICH GAUSS
+
+How far can we push chemical self-assembly? This is one of the 25 biggest questions science is facing over the next quarter century, as reported by the Science journal in 2005 [1]. There, self-assembly is mentioned with the same priority as other big questions in physics such as "What is the universe made of?" or "Can the laws of physics be unified?". In essence it can be said that the idea of self-assembly is to fabricate synthetic structures or materials from the bottom-up. This principle is adopted from the way how structures are built by nature. In nature, all plants and creatures consist of molecules which are self-assembled by weak interactions into complex structures, such as, e.g., proteins. The idea is to understand these chemical and biological self-assembly processes, make them controllable and finally to exploit them to fabricate synthetic materials from the bottom-up. In principle, up to date a huge class of distinct structures were successfully demonstrated to be fabricated by self-assembly [2, 3].
+
+One important scientific area that exerts the ideas of self-assembly arose from the fusion of the fields of colloidal nanochemistry and nanooptics. There, the focus is on the fabrication of bottom-up nanophotonic structures with a tailored optical response [4–8]. During the last decade much progress has been made and self-assembled optical materials became accessible for a wide variety of uses. Very interesting are self-assembled metamaterials (MMs) [9]. They promise to widen the possibilities on how to control the propagation of light to an extraordinary degree [10, 11]. Manifold applications for MMs have been predicted and already partially realized. Most notably, cloaking devices that hide objects from an external observer [12–15] or optical imaging below the diffraction limit [16–18] found their way from theoretical predictions to experimental realizations [19–27]. Apart from that, manifold MM devices have been proposed such as perfect absorbers [28–34], MMs offering asymmetric transmission [35–39], chiral MMs [40–43], a trapped rainbow [44] and zero-index MMs [45–49], to mention just a few of the almost unlimited list. The study of MMs has therefore become an important field within optical science and has grown tremendously during the last decade.
+
+Commonly, natural materials such as usual dielectrics and metals are characterized by
+
+structure sizes that are much smaller than the wavelength in the surrounding. According to that, the spatial extension of the unit cells (the atoms or molecules) is only a fraction of the wavelength. This enables a description of isotropic, homogenous natural materials by a frequency-dependent permittivity $\varepsilon(\omega)$ and permeability $\mu(\omega)$. Apart from natural materials a huge class of artificial structured materials exists today, like e.g. photonic crystals [50]. They consist of unit cells made of structured natural materials. In contrast to natural materials the spatial extension of the unit cells is in the range of the wavelength or even larger. Thus, the description of light propagation in most artificial materials requires the solution of the full set of Maxwell's equations. The idea of MMs is the construction of artificial structured materials with optical properties inaccessible by natural materials and, in addition, a suitable description of the light propagation by so-called effective material parameters. Therefore, in the simplest case, the MM should be described similarly to a natural homogeneous isotropic material by a frequency-dependent effective permittivity $\varepsilon_{\mathrm{eff}}(\omega)$ and effective permeability $\mu_{\mathrm{eff}}(\omega)$. The precise geometry of the structured unit cell is replaced by an effective material and the exact solution of Maxwell's equations (taking the geometry of the unit cell into account) is no longer needed. The possibility to describe MMs by effective material parameters usually requires their structure sizes to be considerably smaller than the wavelength of interest.
+
+Although, various MMs exists for almost every frequency range, starting from radio frequencies up the ultraviolet (UV) [11, 51], the focus of this thesis is on MMs in the optical domain. To be precise, the optical domain is considered here to cover the spectral range from the UV to the near infrared (IR), i.e. from 200 to 1500 nm. The unit cells of MMs, also called meta-atoms, are commonly made of natural materials. Particularly, nanoparticles (NPs) such as nanospheres or nanorods are the basic building blocks for meta-atoms made by self-assembly.
+
+A key feature to obtain a MM with extraordinary optical properties is a strong dispersion in the effective permittivity and permeability for the requested wavelength domain. This is only possible if resonances are sustained by the meta-atoms. Off-resonant meta-atoms will only cause an optical response that is identical to a dilution of the natural material they are made of. Depending on the utilized material to construct the meta-atom different types of resonances are possible. The most common types are plasmonic resonances in metals or dielectric resonances. Localized surface plasmon polariton resonances (LSPRs) can be excited in metallic NPs [52]. There, the free electrons of the metallic NP are driven into resonance by an external electromagnetic field. These LSPRs are very beneficial since their resonance frequency depends only slightly on the size of the NPs. Hence, also tiny metallic NPs down to approximately 5 nm offer pronounced resonances [53]. By relying on dielectric materials to construct the meta-atoms the situation gets more complicated. The reason is the strong dependency of dielectric resonances on the NP size. For a dielectric sphere,
+
+resonances are induced if the wavelength inside the sphere compares approximately to its diameter [54]. Therefore, since the meta-atoms should be of sub-wavelength dimension high index dielectric NPs are required. Of course there exist also other types of resonances in the optical domain, such as excitonic resonances in semiconductors but they are rarely used for MMs [55].
+
+If the meta-atom only consists of a single resonant NP the optical response of the entire MM remains limited. Therefore, the coupling of two or more of resonant NPs in one meta-atom is desired. Strongly coupled NPs allow for the emergence of new types of resonances, such as, e.g., asymmetric or Fano resonances [56]. Furthermore, the geometrical parameters of the NP assembly allow to control the resonance properties such as strength, position, and lifetime.
+
+The focus of this thesis is on self-assembled MMs and the question on how far they can be pushed to obtain artificial materials with an extraordinary optical response. The following section briefly summarizes the possibilities to fabricate MMs by self-assembly techniques. Most importantly, the common meta-atom geometries that can be achieved are summarized as well as the ways on how they are spatially aligned. In the subsequent section the advantages and issues of self-assembled MMs are outlined. Finally, in the last section of the introduction the major goals of this thesis are laid out.
+
+# 1.1 Self-assembly fabrication of metamaterials
+
+The pioneering work on self-assembled MMs was done by the fabrication of two strongly coupled nanospheres (termed a dimer) by chemical self-assembly techniques. The groups of Alivisatos et al. [57] and Broussseau et al. [58] used DNA and molecular linkers, respectively, to bind the nanospheres to each other. After these first demonstrations of a fabrication of meta-atoms by self-assembly more than one decade ago, the race was on to design more sophisticated meta-atoms from the bottom-up [4–9].
+
+With respect to the spatial alignment of the meta-atoms the quickly growing field of self-assembled bottom-up MMs can be divided into two distinct groups. If the self-assembly technique allows a deterministic alignment of a huge number of meta-atoms, the resulting MM belongs to the first group, the long-range order group. It has to be said that not exclusively periodic or quasi-periodic alignments of the meta-atoms are considered in this group. As long as there exists any type of alignment between the meta-atoms, e.g. they are arranged along chains, but these chains do not exhibit any specific symmetry, the self-assembled MM belongs to the long-range order group. The second group, the short-range order group, includes all MMs with an amorphous arrangement of the meta-atoms. Consequently, the respective self-assembly process is only responsible to build up the single meta-atoms, i.e. it works at the short-range scale. Hence, the spatial alignment of the meta-atoms is not
+
+controllable and therefore amorphous. The highly growing field of self-assembled MMs is too large to give a comprehensive review of all self-assembly techniques. However, in the following, an attempt will be made to introduce some of the primary techniques commonly used and to classify them regarding both groups of spatial alignment.
+
+Block-copolymer self-assembly is one prominent example of the long-range order group. Different block-copolymers are covalently bound to each other [59–64]. The self-assembly into different geometries is controlled (in the simplest case) by one geometrical parameter such as the length of one polymer chain [60]. The doping of the resulting structure with resonant NPs yields the MM. Using liquid crystals as the host medium for the NPs is another example for the long-range order group [65–70]. The tunable anisotropy of the liquid crystal can be exploited to control the resonances of the NPs. Apart from this, the precisely chosen geometry of the NPs can be used to achieve a long-range order. Polyhedral silver NPs were demonstrated to assemble into their densest packing or exotic lattices by a sedimentation process [71, 72]. Surprisingly, even quasiperiodic structures were fabricated by binary mixtures of NPs using an entropy-driven crystallization [73]. Another possibility to achieve long-range alignment is the adaption of techniques that commonly work on the short-range scale. The use of DNA to assemble the NPs is one important example thereof, since it normally works on the short-range scale to connect two or more single NPs to each other. However, by using hybridization interactions of DNA strands the assembly of spherical NPs into periodic three-dimensional lattices was demonstrated [74]. A further combination of DNA self-assembly with evaporation [75] or substrate patterning techniques [76] yields long-range order MMs. Similar effects have been demonstrated for polymer ligands (to assemble the single meta-atom) in combination with an entropy-driven drying mediated process [77, 78]. Ultra-large scale arrays of NPs were fabricated by evaporating a solution including the NPs [79]. In combination with additional substrate patterning more complex geometries can be achieved [80] such as, e.g., stripes [81], cylinders [82] or rings [83] made of densely packed NPs. This pre-structuring of the substrate is known as template assisted self-assembly [84]. Plenty of the chemical self-assembly processes working at the short-range can produce long-range order MMs by using well structured substrates. This procedure is not restricted to an evaporation of a solution including the NPs (where the self-assembly on the substrate is driven by capillary forces) even though it is the most common one [85, 86]. The substrates are commonly structured by top-down fabrication techniques. Thus, template self-assembly is, in principle, a combination of top-down and bottom-up techniques. Another example for such a combination is the self-assembly of single-crystalline gold flakes [87, 88]. These gold flakes can be subsequently structured to the desired meta-atom geometry by fast ion-beam milling [89]. In Fig. 1.1 some MMs that are fabricated by self-assembly techniques that offer long-range alignment are shown.
+
+A very promising, simple, and robust way to fabricate short-range aligned MMs is the
+
+![](images/ba993108f1651aafa848f62bb4d8073e4e6fac8d2ee53836d639e7140c9309cb_70.jpg){width=70%} Figure 1.1: Long-range aligned self-assembled MMs. (A) Scanning force micrograph of TiO$_2$ NPs that are self-assembled by block-copolymers [63]. (B) Scanning electron micrograph (SEM) of self-assembled Ag truncated octahedra NPs into their densest packing by sedimentation [72]. (C) Transition electron micrograph (TEM) of a self-assembled dodecagonal quasicrystal made of a binary mixture of Au and Fe$_2$O$_3$ NPs [73].
+
+evaporation of a solution including the NPs. Commonly, in a preceding process step the NPs are coated by a polymer to define their interparticle distance and therewith the optical coupling strength [90]. The evaporation is usually performed on a substrate and yields two-dimensional meta-atoms. Various geometries have been realized such as, e.g., trimer [91], heptamer [86, 90] and quadrumer clusters [92]. Another widely used self-assembly technique (working on the short-range) to fabricate the meta-atoms is to use DNA [93]. After pioneering work [57, 94] more complex geometries have been achieved [95], such as, e.g., trimer [96] and tetramer clusters [97], binary mixtures of NPs [98], dimers made of asymmetric NPs [99], heteropentamer NP clusters [100], and chains of NPs [101]. All these meta-atoms are in principle planar ones, i.e. two-dimensionally arranged on a substrate. However, even three-dimensional meta-atoms can be fabricated by DNA as demonstrated in the case of Janus particles [102]. More sophisticated techniques such as, e.g., DNA-guided crystallization [103], DNA-scaffolds [104] or DNA-origami [105–108] yields three-dimensional meta-atoms as well. Apart from DNA self-assembly, organic molecular linkers are a prominent technique of the short-range alignment group. Various meta-atom geometries such as again dimers and trimers [58], pyramidal structures [109] or larger aggregates of NPs were realized [110–112]. Electrostatic forces to assemble charged NPs into a desired meta-atom serve as another example of short-range alignment [113]. Manifold two- [114–117] or three-dimensional [118–121] meta-atoms have been fabricated. The advantage of this technique is its applicability to almost all chargeable NPs independently on most of the chemical and physical properties of the NPs. The modification of the NPs surface by so-called surfactants is another way to achieve short-range self-assembly [122, 123]. In combination with capillary forces [124] controllable separations of NPs in the sub-nanometer regime have been reported [125]. A more specialized short-range order technique is the directional solidification of eutectics. The successful fabrication of split-ring resonator (SRR) like structures [126] and polaritonic MMs for THz applications [127] have been demonstrated. Furthermore, short-range self-assembly of meta-atoms has been realized by introducing defect states in liquid crystals [128]. In
+
+![](images/fad379fd993dd57e311d0d489e65313f19588af9b224a9c6756f4e764480b25e_71.jpg){width=71%} Fig. 1.2 some meta-atoms made by self-assembly techniques working on the short-range can be s Figure 1.2: Short-range aligned self-assembled MMs. (A) SEM image of plasmonic core-shell clusters made of Au NPs attached to a dielectric core by electrostatic forces [118]. (B) SEM image of a self-assembled Au NP chain by DNA [101]. (C) TEM image of self-assembled Au NPs into a pyramidal structure by DNA [104]. (D) TEM image of an Au heptamer cluster self-assembled by evaporation [90].
+
+Regarding both groups of self-assembled MMs the following remarks are in order. A majority of MMs of the long-range group appear planar fashioned on a substrate. Only a minor part of the self-assembly techniques that allow a control over the spatial alignment of meta-atoms can fabricate three-dimensional MMs. Furthermore, most of the meta-atoms of the long-range group consist solely of one single resonant NP. More sophisticated meta-atoms are still hard to achieve with respect to a long-range alignment. Consequently, this allows only for a very limited optical response of the entire MM. Just a few examples exists for long-range MMs where the optical response differs from that of spatially diluted NPs. For example artificial magnetism has been demonstrated for stripes made of NPs [81]

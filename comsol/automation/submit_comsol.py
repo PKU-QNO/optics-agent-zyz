@@ -70,6 +70,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--input-file", default=None)
     parser.add_argument("--case-path", default=None)
     parser.add_argument("--case-bundle-secret", default=None)
+    parser.add_argument("--case-bundle-sha256", default=None)
+    parser.add_argument("--case-input-sha256", default=None)
+    parser.add_argument("--case-input-name", default=None)
+    parser.add_argument("--case-bundle-format", choices=("auto", "zip", "tar", "tgz", "single-file"), default=None)
     parser.add_argument("--license-file-secret", default=None)
     parser.add_argument("--postprocess-file", default=None)
     parser.add_argument("--output-root", default=None)
@@ -136,6 +140,10 @@ def main() -> int:
         "input_file": args.input_file,
         "case_path": args.case_path,
         "case_bundle_secret": args.case_bundle_secret,
+        "case_bundle_sha256": args.case_bundle_sha256,
+        "case_input_sha256": args.case_input_sha256,
+        "case_input_name": args.case_input_name,
+        "case_bundle_format": args.case_bundle_format,
         "license_file_secret": args.license_file_secret,
         "postprocess_file": args.postprocess_file,
         "output_root": args.output_root,
@@ -151,7 +159,12 @@ def main() -> int:
 
     if args.wait_after_save > 0:
         time.sleep(args.wait_after_save)
-    job_id = magnus.launch_blueprint(args.blueprint_id, args=bp_args)
+    job_id = magnus.launch_blueprint(
+        args.blueprint_id,
+        args=bp_args,
+        use_preference=False,
+        save_preference=False,
+    )
     print(f"Launched job: {job_id}")
     return 0
 

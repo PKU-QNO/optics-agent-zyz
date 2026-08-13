@@ -1,0 +1,74 @@
+2 Theoretical background
+28
+(A) 
+(B) 
+
+
+
+
+
+
+
+
+[
+
+:DYHOHQJWKQP
+0XOWLSROH$PSOLWXGH
+
+
+_S[_
+_P\_
+_4[]_
+
+
+
+
+
+[
+
+:DYHOHQJWKQP
+0XOWLSROH$PSOLWXGH
+
+
+_S[_
+_P\_
+_S]_
+_4[]_
+N]
++\
+([
+N]
++\
+([
+Figure 2.4: (A) Cartesian multipole moments of a cut-plate pair as a function of the wavelength
+for plane wave incidence as sketched.
+The cut-plate pair consists of two strongly coupled gold
+plates (180 nm lateral dimension; 30 nm thickness) with an MgO layer in-between (identical lateral
+dimensions; 45 nm thickness). (B) Multipole moments of a SSR under plane wave incidence. The
+SRR is made of gold (300 nm arm and base length and 40 × 40 nm geometrical cross section).
+The small insets of the SRR that contain black arrows indicate the current oscillation of the shown
+resonances.
+Aside from the meta-atoms made of spheres as shown in Fig. 2.3 two prominent examples
+of meta-atoms commonly fabricated by top-down techniques are discussed in the following.
+The multipole moments of a cut-plate pair [180] and a split-ring resonator (SRR) [151, 180]
+are shown in Fig. 2.4. The cut-plate pair consists of two strongly coupled gold plates with
+a dielectric spacer in-between. The excited multipole moments for plane wave illumination
+perpendicular to the plates are shown in Fig. 2.4 (A). A broad electric dipole moment with
+a resonance at 800 nm is observed. A further magnetic dipole resonance at 1180 nm can
+be seen accompanied by a small contribution of a electric quadrupole moment. The overall
+multipole analysis looks quite similar to that of the previously discussed dimer of Fig. 2.3 (D)
+though the precise resonance positions and strengths are diﬀerent. The reason for this similar
+behavior of diﬀerent meta-atoms is linked to the physical origin of the excited resonances.
+For a single gold plate a LSPR is excited which scattered ﬁeld can be fully described by
+that of an electric dipole oscillation [181]. Therefore, the coupling of two gold plates, as
+for the presented cut-plate pair, allows the same resonances as the dimer of gold spheres.
+The observed magnetic resonance in Fig. 2.4 (A) can be explained by a π out of phase
+oscillation of the electric dipoles in both gold plates [182]. Interestingly, the contribution of
+the electric quadrupole moment at the magnetic dipole resonance is much less compared to
+the gold sphere dimer. This is of enormous advantage if eﬀective material parameters should
+be assigned, as discussed in the next section.
+The second example presented in Fig. 2.4 (B) shows the multipole moments of a gold
+SRR [151, 180]. The SRR is illuminated by a plane wave propagating parallel to its base
+and a polarization along the arms. The ﬁrst order resonance at 2300 nm oﬀers the expected
+magnetic dipole contribution. There, currents in the SRR arms are excited that oscillate π
+out of phase. This current distribution is shown by the black solid arrows in the SRR in

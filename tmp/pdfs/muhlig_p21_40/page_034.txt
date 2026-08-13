@@ -1,0 +1,40 @@
+2 Theoretical background
+29
+Fig. 2.4 (B). However, due to conductive coupling an additional current is excited in the
+SRR base (shown by the black dashed arrow in the SRR base). The base current causes a
+resonant electric dipole moment pz at the magnetic dipole resonance. For a regular lattice
+of SRR for the investigated illumination in Fig. 2.4 this dipole moment cannot be observed
+since it radiates neither in forward nor in backward direction. However, the pz moment has
+dramatic impact if the SRRs are rotated to each other in a lattice or if they are amorphously
+arranged [126]. The additional multipole moment pz causes more complicated constitutive
+relations, as will be discussed in Sec. 2.4. Furthermore, the pz moment had a great historical
+inﬂuence to indirectly probe the magnetic resonance of SRRs under normal incidence (along
+the y-direction) [183–186]. Under normal incidence the pz dipole moment can be excited that
+causes a magnetic dipole moment my [151, 187]. In this situation the my dipole moment
+cannot be probed in a regular lattice of SRRs. However, it has crucial impact on the coupling
+of neighboring SRR in the lattice [187, 188].
+The second resonance of the SRR of Fig. 2.4 (B) at 1200 nm oﬀers a resonant electric
+dipole moment px. There, the currents in both SRR arms are oscillating in phase. There-
+fore, no additional current is excited in the SRR base and the pz dipole moment is small
+at these wavelengths. The third order resonance at 900 nm has contributions of several
+multipole moments. Especially, an electric quadrupole moment is observed that hampers
+the description by simple eﬀective material parameters at these wavelengths.
+The multipole analysis can be used now to suggest novel designs for meta-atoms where
+the unwanted electric dipole contribution pz at the magnetic dipole resonance is suppressed.
+Consider another SRR that has its base on the opposite site of the arms. This SRR should
+obtain the same electric multipole moment pz but π out of phase compared to the SRR of
+Fig. 2.4 (B). The combination of two SRRs with opposite base position should, therefore,
+totally suppress the contribution of the electric dipole moment pz [189, 190]. This can be
+clearly seen by the two possible SRR orientations that fulﬁll this requirement as shown in
+Fig. 2.5. In both cases the electric dipole moment pz could be totally suppressed at the
+ﬁrst order magnetic dipole resonance [180]. Furthermore, as expected, one observes a slight
+shift of all resonance positions due to the coupling of both SRRs and a more complicated
+multipole contribution at the second and third order resonance.
+To sum up, in this section the multipole analysis of meta-atoms has been introduced. If the
+scattered ﬁeld of an arbitrarily shaped meta-atom is known, this ﬁeld can be decomposed into
+its Cartesian multipole moments. This is done by applying the VSHs from Mie theory and
+by using transformation rules between spherical and Cartesian multipole moments. Several
+examples of single meta-atoms have been discussed and the enormous advantage of the
+introduced formalism was outlined. At every frequency all contributing multipole moments
+can be identiﬁed. That allows an easy understanding of the complex response of meta-atoms
+by a few physical quantities, i.e. by the multipole moments. Furthermore, the knowledge of

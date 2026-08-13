@@ -1,0 +1,62 @@
+2 Theoretical background
+24
+(A) 
+E 
+k 
+H 
+(B) 
+(C) 
+(D) 
+(E) 
+Figure 2.2: Conceptional sketch of the multipole analysis of meta-atoms. (A) The scattered electric
+ﬁeld of a selected meta-atom is simulated by a devoted numerical method. Here, a supramolecular
+cluster of silver spheres (6 nm radii) embedded in a dielectric ε(ω) = 2.6 is chosen as the meta-atom
+[112]; this meta-atom is discussed in detail in Sec. 4.1.1. It is illuminated by a plane wave as sketched
+at 575 nm. The magnitude of Esca is plotted on a logarithmic scale. The illumination scenario and
+the colorbar are maintained for (B)-(E). (B) Solely the scattered ﬁeld outside a virtual sphere of
+radius a enclosing the meta-atom is considered to obtain the scattering coeﬃcients by Eq. 2.28. The
+transformation rules of Eqs. 2.29 and 2.30 yield the Cartesian multipole moments. The contribution
+of the electric dipole moment (C), the magnetic dipole moment (D), and the electric quadrupole
+moment (E) to the total scattered ﬁeld (B) is revealed.
+Cm
+sca, and the electric quadrupole moment CQ
+sca to the scattering cross section Csca read as
+Cp
+sca = k2
+C2
+0
+1
+2 |px + ipy|2 + |pz|2 + 1
+2 |px −ipy|2
+
+,
+Cm
+sca =
+k2
+c2C2
+0
+1
+2 |mx + imy|2 + |mz|2 + 1
+2 |mx −imy|2
+
+,
+CQ
+sca = k2
+D2
+0
+
+3
+8 |2Qxx + 2iQxy + Qzz|2 + 3
+2 |Qxz + iQyz|2
++ 3
+2 |iQyz −Qxz|2 + 3
+8 |2Qxx −2iQxy + Qzz|2 + |Qzz|2
+
+.
+(2.32)
+The entire scattering cross section is given by the sum of the diﬀerent multipole contributions
+Csca = Cp
+sca + Cm
+sca + CQ
+sca + . . . .
+(2.33)

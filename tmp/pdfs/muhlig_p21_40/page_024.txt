@@ -1,0 +1,96 @@
+2 Theoretical background
+19
+The VSHs N, M of Eq. 2.16 allow an expansion of the incident and scattered electromagnetic
+ﬁelds according to Eq. 2.14 [148, 149]
+Einc(r, ω) = −
+∞
+X
+n=1
+n
+X
+m=−n
+iEnm
+
+pnm(ω)N(1)
+nm(r, ω) + qnm(ω)M(1)
+nm(r, ω)
+
+,
+Hinc(r, ω) = −1
+Z
+∞
+X
+n=1
+n
+X
+m=−n
+Enm
+
+qnm(ω)N(1)
+nm(r, ω) + pnm(ω)M(1)
+nm(r, ω)
+
+,
+Esca(r, ω) =
+∞
+X
+n=1
+n
+X
+m=−n
+iEnm
+
+anm(ω)N(3)
+nm(r, ω) + bnm(ω)M(3)
+nm(r, ω)
+
+,
+Hsca(r, ω) = 1
+Z
+∞
+X
+n=1
+n
+X
+m=−n
+Enm
+
+bnm(ω)N(3)
+nm(r, ω) + anm(ω)M(3)
+nm(r, ω)
+
+,
+(2.18)
+with Z =
+p
+µ0µ/ε0ε being the impedance of the surrounding, pnm, qnm the expansion co-
+eﬃcients of the incident ﬁeld and anm, bnm the scattering coeﬃcients. The prefactor Enm
+is chosen variably in literature. Here, the historical motivated deﬁnition from Ref. [54] is
+applied
+Enm = |E0| in(2n + 1)(n −m)!
+(n + m)! ,
+(2.19)
+where |E0| is the magnitude of the incident electric ﬁeld. It is worth to mention that only two
+of the four spherical Bessel functions of the VSHs are used to expand the ﬁelds; namely the
+spherical Bessel function and the spherical Hankel function of the ﬁrst kind. The spherical
+Bessel function has no singularity at r = 0 and is used to expand the incident ﬁeld. The
+spherical Hankel function of ﬁrst kind takes the form of an outgoing spherical wave for
+kr →∞and the chosen time dependency of Eq. 2.4 [150]. Therefore, this function is used
+to expand the scattered ﬁeld in Eq. 2.18. Applying the boundary conditions (cf. Eq. 2.13)
+at the surface of the sphere yields the connection between the expansion coeﬃcients of the
+incident ﬁeld (pnm, qnm) and the scattering coeﬃcients (anm, bnm)
+anm = anpnm ,
+bnm = bnqnm ,
+(2.20)
+where an, bn are the well-known Mie coeﬃcients that are deﬁned as [54, 146]
+an =
+µη2jn(ηx)[xjn(x)]′ −µsphjn(x)[ηxjn(ηx)]′
+µη2jn(ηx)[xh(1)
+n (x)]′ −µsphh(1)
+n (x)[ηxjn(ηx)]′ ,
+bn =
+µsphjn(ηx)[xjn(x)]′ −µjn(x)[ηxjn(ηx)]′
+µsphjn(ηx)[xh(1)
+n (x)]′ −µh(1)
+n (x)[ηxjn(ηx)]′ .
+(2.21)

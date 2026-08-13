@@ -1,0 +1,46 @@
+2 Theoretical background
+33
+on k. Since a huge number of self-assembled MMs result in amorphous structures, this amor-
+phous arrangement constitutes enormous advantage concerning spatial dispersion. Spatial
+dispersion due to periodically arranged meta-atoms is not observed for self-assembled MMs.
+The second mechanism yielding spatial dispersion is related to higher order multipole
+moments of the single meta-atom. It has been shown in literature that higher order spatial
+derivatives of the electric ﬁeld can be linked to spatial dispersion. While ﬁrst order spatial
+derivatives can be transformed into a magneto-electric coupling κ(ω), this is not possible
+for second order spatial derivatives of the electric ﬁeld [178, 198–200].
+It is beyond the
+scope of this thesis to prove this statement, but we want to discuss the consequences by
+some illustrative considerations. If the electric interaction energy Wel between an external
+electric ﬁeld and a given charge density is expanded into a Taylor series, the following result
+is obtained (ignoring electric monopole moments) [52]
+Wel(ω) = −p(ω)E(r, ω) −1
+6
+X
+i,j
+Qij(ω)∂Ej(r, ω)
+∂xi
++ · · · .
+(2.37)
+The dipole moment interacts with the electric ﬁeld and the electric quadrupole moment with
+the ﬁrst derivative of the electric ﬁeld. The same is obtained if the multipole expansion of
+the external charge density ρext is performed as it appears in Maxwell’s equations [200–202].
+There, the quadrupole moment enters the equation with the ﬁrst derivative of the electric
+ﬁeld. The remaining question is about the excitation of the quadrupole moment in the meta-
+atom. If it is excited by gradients of the incident ﬁeld then the quadrupole moment itself is a
+function of the derivative of the electric ﬁeld, i.e. Q = Q(∂E/∂r). Since, as motivated above,
+the quadrupole moment itself enters the equation in combination with a ﬁrst derivative of
+the electric ﬁeld, this MM will deﬁnitely require spatially dispersive material parameters to
+describe the light propagation through it. However, it should be mentioned for completeness,
+that quadrupole moments in meta-atoms can be induced without a gradient of the incident
+ﬁeld. Consider, e.g., a meta-atom consisting of two small spheres with permittivities of dif-
+ferent sign (e.g. a dielectric and a metal sphere). An incident ﬁeld propagating perpendicular
+to the connection line of the spheres will induce electric dipoles in the spheres that are out
+of phase, independently on the frequency and therewith on the variation of the ﬁeld over the
+spheres. Therefore, even without a gradient of the ﬁeld along the spatial extension of the
+meta-atom a quadrupole moment can be excited. Thus, the resulting MM can be described
+by local material parameters; especially by a non-vanishing magneto-electric coupling term
+κ(ω) [178, 200, 203]. However, in the case of amorphous MMs, an isotropic response of the
+meta-atom is desired to assure for a pronounced response of the MM, as will be motivated
+in Sec. 2.4.3. Therefore, in this thesis the focus is on isotropic meta-atoms which have at
+least three orthogonal mirror planes. It can be shown that such meta-atoms do not yield
+electro-magnetic coupling, i.e. κ(ω) = 0 [204]. Consequently, for all meta-atoms discussed

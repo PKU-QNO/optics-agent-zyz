@@ -1,0 +1,43 @@
+2 Theoretical background
+35
+This term is zero if the meta-atoms are arranged on a cubic lattice [205]. For each meta-
+atom inside the sphere another meta-atom on the cubic lattice can be found that chancels
+the electric dipole ﬁeld at the center of the sphere (where the chosen meta-atom is located).
+Obviously, the same can be done for an amorphous arrangement of the meta-atoms. As long
+as the sphere has macroscopic dimensions one will ﬁnd two meta-atoms inside the sphere
+that chancel their dipole ﬁelds at the center of the sphere. The same decomposition as in
+Eq. 2.38 can be done for the local magnetic ﬁeld Hloc. For the interpretation of the three
+terms the electric dipole moment has to be replaced by the magnetic dipole moment.
+From now on only meta-atoms with an isotropic response are considered. The more general
+anisotropic case is discussed later on in Sec. 2.4.3. If the scattered ﬁeld of the meta-atom
+is fully described by electric and magnetic dipole moments (as claimed previously), the
+following relations between the local electric ﬁeld and the dipole moments can be drawn
+p(ω) = ε0αe(ω)Eloc(r = 0, ω) ,
+m(ω) = 1
+Z0
+αm(ω)Eloc(r = 0, ω) .
+(2.39)
+The two scalar quantities αe and αm are the electric and magnetic polarizability, respectively.
+It is important to note that the response of the meta-atom is assumed to oﬀer no magneto-
+electric coupling, i.e. the electric dipole moment is solely excited by the incident electric ﬁeld
+and vice versa for the magnetic terms. This restriction is perfectly suitable for all discussed
+meta-atoms of this thesis, but of course it can be lifted, as shown in [205–208]. The Clausius-
+Mossotti relation links these polarizabilities of the chosen meta-atom to eﬀective material
+parameters (εeﬀ, µeﬀ) of the entire MM in the following way [52]
+εeﬀ(ω) = εext(ω) · 3εext(ω) + 2nαe(ω)
+3εext(ω) −nαe(ω) ,
+µeﬀ(ω) = µext(ω) · 3µext(ω) + 2nαm(ω)
+3µext(ω) −nαm(ω) ,
+(2.40)
+where εext and µext are the permittivity and permeability of the surrounding, respectively
+and n is the number density of the meta-atoms.
+In conclusion, the Clausius-Mossotti relation seems to be suitable to describe the light
+propagation through amorphous MMs on the base of eﬀective material parameters. The
+multipole analysis of meta-atoms, as presented in Sec. 2.3 yields the dipole moments of the
+scattered ﬁeld of a single meta-atom. Furthermore, the inﬂuence of higher order moments on
+the scattered ﬁeld can be investigated. If solely dipole moments contribute to the scattered
+ﬁeld, the polarizabilities of the meta-atom can be obtained by Eq. 2.39. Finally, the Clausius-
+Mossotti relation (Eq. 2.40) links these polarizabilities to eﬀective material parameters of
+the entire MM.
+The possibility to assign eﬀective material parameters in such a way is discussed now by
+an representative example, namely the cut-plate pair as discussed in Sec. 2.3. The multipole

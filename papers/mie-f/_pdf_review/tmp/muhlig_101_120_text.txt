@@ -1,0 +1,650 @@
+pages=147
+===== PAGE 101 =====
+4 Three-dimensional self-assembled metamaterials 96
+hide three-dimensional, free-standing objects at optical wavelengths [299].
+Magnetic dipole resonances in meta-atoms had been previously realized by top-down tech-
+niques, e.g., in the case of a SRR. However, the results of this chapter have to be seen as one
+important step that further improved the ﬁeld of self-assembled MMs. The demonstration
+of a magnetic response for meta-atoms made of resonant NPs, as they typically appear for a
+bottom-up fabrication, entails an extensive advantage. It serves as the ﬁrst step to fabricate
+fully three-dimensional MMs with a tailored optical response as they are required for many
+envisioned applications.
+The presented scattering cancellation cloak was realized for the ﬁrst time for free-standing
+three-dimensional objects in the visible domain. Beside the principle demonstration of a self-
+assembled cloak the presented results are not achieved by top-down techniques so far. In
+other words, the possibility to arrange resonant NPs into a desired geometry with unprece-
+dented precision by self-assembly techniques enables the implementation of the scattering
+cancellation cloak in the visible.
+The next chapter includes a conclusion of the presented results of this thesis together with
+a small outlook on possible future research directions of the ﬁeld of self-assembled MMs.
+
+===== PAGE 102 =====
+5 Conclusion 97
+5 Conclusion
+Die Hauptgebrechen meines Stils
+sind eine unglückliche Neigung
+zu allzu dichterischen Formen.
+Alexander v. Humboldt
+The ﬁeld of self-assembled bottom-up MMs has been quickly growing in the past several
+years. The results presented in this thesis considerably contributed to various developments
+in this ﬁeld, as will be outlined in the following.
+At ﬁrst, a major contribution is on the theoretical side. The proposed concept of the
+multipole analysis of meta-atoms, as outlined in Chap. 2, represents a powerful tool to
+understand the optical response of self-assembled meta-atoms. Therewith, it is possible to
+link resonances of the far-ﬁeld response to excited multipole moments of the meta-atom. In
+additiontoaprovidedphysicalunderstandingfortheoriginofthemeta-atomresonances, this
+enabled to tailor the optical response, as it has been demonstrated at the example of coupled
+split-ring resonators in Sec. 2.3. Thus, the proposed multipole analysis is not restricted to
+self-assembled meta-atoms but can be, in principle, applied for arbitrarily shaped meta-
+atoms.
+Beside these mentioned advantages of the multipole analysis, it serves as a ﬁrst step
+to understand and describe the light propagation in amorphous MMs, as it was equally
+developed in this thesis. The multipole analysis reveals under which circumstances the
+scattering response of a meta-atom can be suﬃciently described by electric and magnetic
+dipole moments. In such situation it is possible to treat the light propagation in the resulting
+amorphous MM by eﬀective medium theories, as shown in Sec. 2.4. Based on the Clausius-
+Mossotti relation eﬀective material parameters were assigned to the amorphous MM by
+using the respective dipole moments of the meta-atoms. The accuracy of this formalism was
+proven by comparing predictions of the light propagation based on such eﬀective medium
+theories with rigorous full wave simulations of the amorphous MM. This has been done
+while considering a well established meta-atom, i.e. the cut-plate pair. Maybe for the ﬁrst
+time a formalism has been introduced to suﬃciently describe the light propagation through
+amorphous MMs, which has been prior to the work of this thesis a very complex task. The
+key advantage of this eﬀective medium theory is the reduction of the optical description
+of amorphous MMs to the simulation of the scattering response of the single meta-atom.
+
+===== PAGE 103 =====
+5 Conclusion 98
+This constitutes a major advantage since the complexity of the problem could be drastically
+reduced. Apart from this, an important conclusion on the scattering response of the meta-
+atoms was drawn. The response of the single meta-atom is required to be isotropic in order
+to achieve a strong dispersion of the eﬀective material parameters of the resulting amorphous
+MM.
+Regarding all these previously given results the ﬁrst goal of the thesis, as set in Chap. 1,
+has been reached. A theoretical description of amorphous MMs was introduced that allows
+a feasible description of the optical response of these highly complex structures. This laid
+the foundations for all the following results of this thesis.
+The second goal of this thesis was on proposing concepts for experimental realizations of
+self-assembled MMs. Although no experiments have been directly performed by the author
+of this thesis, it was the intention to work together in close collaborations with various
+experimentalists. The aim was to guide them theoretically and numerically and to provide
+suggestions for feasible and relevant self-assembled MMs to be fabricated. Furthermore, the
+numerical support considerably contributed to the understanding of experimental results by
+providing insights that were inaccessible in an actual experimental situation.
+In Chap. 3 planar self-assembled MMs, so-called meta-surfaces, are discussed in detail.
+Strongly coupled arrays of metallic NPs were in the focus of interest. The advantage of
+these MMs was the tunable distance between adjacent NP arrays in discrete steps of about
+one nm. This has been achieved by a self-assembly technique based on electrostatic forces.
+Symmetric as well as asymmetric resonances have been theoretically predicted and were
+experimentally demonstrated in these MMs. The achieved physical understanding of these
+resonances was exploited to develop an application for these planar self-assembled MMs.
+This is documented in Sec. 3.3 where self-assembled tunable SERS substrates have been
+theoretically investigated and were fabricated later on by a devoted self-assembly technique.
+Chapter 4 presents an in-depth study of self-assembled three-dimensional MMs. In this
+thesis the fabrication of bulk MMs with a remarkable extension along the propagation di-
+rection of light was identiﬁed as one major advantage of self-assembly techniques. The ﬁrst
+part of Chap. 4 focused on self-assembled meta-atoms with an isotropic magnetic dipole
+response in the visible. Theoretical considerations predicted two possible meta-atom geome-
+tries, a supramolecular cluster and a core-shell cluster. Both meta-atoms oﬀered the desired
+isotropic magnetic dipole response that is required for many envisioned applications for the
+ﬁeld of MMs. In addition, it has been demonstrated that the core-shell clusters yield such
+a strong magnetic dipole response that it dominates the entire scattering response of the
+meta-atom. Theoretical investigations of both proposed meta-atom geometries have been
+experimentally realized by distinct self-assembly techniques later on.
+The second part of Chap. 4 discusses a self-assembled cloaking device. The proposed
+cloak is based on the concept of cancelling the scattering response of small objects. It
+
+===== PAGE 104 =====
+5 Conclusion 99
+has been shown that the scattering of a silica sphere can be reduced up to an remarkable
+extend of 75 % by covering the sphere with tiny silver NPs. Again the theoretical concept
+was realized by self-assembly techniques and ﬁrst principle demonstrations yield25 % of
+scattering reduction.
+To sum up, in strong collaborations with chemists various bottom-up MMs have been
+presented in Chap. 3 and 4. These MMs were self-assembled in order to achieve a desired
+optical response, i.e. not only the self-assembly process was in the focus of interest but also
+the optical properties of the fabricated MM. Based on an achieved theoretical understanding
+of amorphous MMs, various novel applications have been experimentally realized in this
+thesis, such as, self-assembled SERS substrates, a self-assembled MM with a strong response
+to the magnetic ﬁeld and a self-assembled cloaking device. Therefore, the second goal of this
+thesis has been equally met for a variety of distinct self-assembled MMs.
+The next section discusses open questions on the ﬁeld of self-assembled MMs and, in
+addition, further research directions and perspectives with respect to the results of this
+thesis are given.
+5.1 Open questions and perspectives
+One open question is related to the description of light propagation in amorphous MMs.
+In this thesis the description was successfully treated by the Clausius-Mossotti relation and
+the respective dipole moments of the meta-atom. The important question is what are the
+limitations of this formalism, i.e. at which ﬁlling fraction this description might break down
+and what are the implications? This question is strongly linked to the interaction between
+neighboring meta-atoms in the amorphous MM and to the existence of higher order multipole
+moments that contribute to the scattering response of the meta-atoms. If the ﬁlling fraction
+is too large the coupling of neighboring meta-atoms will cause a hybridization of the single
+meta-atom resonances which cannot be described by the Clausius-Mossotti relation. Of
+course it is also not possible to consider higher order multipole moments by the applied
+eﬀective medium theory in this thesis. One possible way to solve these problems was already
+touched in Sec. 2.5. There, it was stated that the T-Matrix formalism might be suitable to
+describe the optical response of a cluster of arbitrarily arranged meta-atoms. Although the
+spatial extension of the MM is required to be ﬁnite in this formalism, it might be a ﬁrst step
+to understand the interaction of neighboring meta-atoms in amorphous MMs and to develop
+a description beyond eﬀective medium theories.
+A second open question is about the transition of the optical properties for diﬀerent
+alignments of meta-atoms. So the question is which optical properties change and how they
+do it if the alignment of meta-atoms is changed from amorphous to quasiperiodic or periodic.
+First investigations of such eﬀects were already done based on alignments of polarizable
+
+===== PAGE 105 =====
+5 Conclusion 100
+entities [207, 212, 222]. However, these investigations should be put further by considering
+also higher order multipole moments of the meta-atom. The understanding of this point
+would help a lot to improve self-assembled MMs further since, in principle, it might be
+possible to control or even suppress unwanted eﬀects of the amorphus arrangement such as
+the increased scattering losses.
+The next open question is about the experimental realizations of self-assembled MMs.
+Although a lot of functional devices have been demonstrated (also in this thesis) some
+very important realizations still remain. One example is a MM with an isotropic negative
+permeability and permittivity as it is required, e.g., for a perfect lens. In principle, such
+a MM might be fabricated by self-assembly techniques, but up to date only self-assembled
+bulk MMs with a dispersive eﬀective permeability are shown. However, it can be safely
+anticipated that these ﬁrst demonstrations of a magnetic response can be improved further
+in order to self-assemble a bulky MM with negative material parameters.
+A relatively new, but already prominent and proﬁtable direction of research is related to
+the interaction of meta-atoms with atomic systems, such as atoms or molecules. The atomic
+systems have to be described by quantum physics. So the entire description of the coupled
+system requires a solution of Maxwell’s equations for the meta-atom and the Schrödinger
+equation for the atomic system. In this context the meta-atoms are commonly termed nano-
+antennas [263] since they mediate far-ﬁeld and near-ﬁeld properties [332]. Several eﬀects
+have been already intensively investigated, e.g., how the luminescence of molecules can be
+controlled by nano-antennas [333–340].
+Interestingly, the proposed concept of the multipole analysis can be also used to investi-
+gate the interaction of nano-antennas with atomic systems. By slightly adopting the used
+eigenfunctions of the multipole analysis, it is possible to extract multipole moments of the
+near-ﬁeld. In other words it can be revealed which multipole moment has a huge impact
+on the atomic system that is brought in close proximity to the nano-antenna [341]. These
+considerations already yield some very interesting results. For example, it has been shown
+that it is possible to excite dipole-forbidden transitions in atomic systems by applying a
+suitable designed nano-antenna [342]. The ﬁeld of nano-antennas might be crucially eﬀected
+by self-assembly techniques in order to fabricate structures with small feature sizes. Further-
+more, the multipole analysis of meta-atoms remains a powerful tool to understand the optical
+response of these nano-antennas and to describe their interaction with atomic systems.
+
+===== PAGE 106 =====
+Acknowledgements I
+Acknowledgements
+Now after ﬁnishing the thesis and by working on these lines I become aware that this work
+would not have been possible without the amazing support of so many persons. These lines
+are for all of you who helped me during my time as a PhD student.
+First of all I want to thank Prof. Lederer for giving me the chance to write my thesis at
+the Institute of Condensed Matter Theory and Solid State Optics at the Friedrich-Schiller
+Universität Jena. I am very grateful that I could attend your outstanding lecture in The-
+oretical Optics. For me it was the ﬁrst time that I have really understood the concepts of
+modern optics.
+Special thanks goes to Prof. Rockstuhl. I have started to work with you as a graduate
+student and you accompanied me till this day. Thank you so much for all the things that
+you have taught me during this long period, especially how to write perfect scientiﬁc articles,
+how to present results, and how to optimize my time management. Furthermore, I want to
+thank you for your amazing support and your unwavering conﬁdence in my skills.
+Ialsogratefullyacknowledgethecarefulreadingandevaluationofthisthesisbyallreferees.
+Special thanks goes to all members of the Photonics group. I always enjoyed the atmo-
+sphere in our group and our profound discussions. I worked so closely together with some
+members of the Photonics group that they even became friends. Therefore, it is hard for
+me to express my gratitude in some sentences. First of all I wish to thank you all for the
+great time. Especially, I would like to thank Dr. Christoph Menzel for introducing me to
+the complex topic of eﬀective material parameters and for teaching me to have some tough
+discussions. I am indebted to Dr. Stephan Fahr who taught me to produce nice ﬁgures.
+Thank you also very much for the great time at the coﬀee breaks. Furthermore, I want to
+thank Dr. Thomas Paul for introducing me on how to suﬃciently comment a MATLAB code
+and how to take care of a haircut.
+Furthermore, I would like to thank Erik Hebestreit for sharing the oﬃce with me for the
+last year and for deriving the transformation rules between the symmetric and asymmetric
+multipole coeﬃcients. Special thanks goes to Dr. Lutz Leine for taking care about the com-
+putational infrastructure. Last but not least I want to thank our secretary Szilvia Mammel
+for taking care of all administration issues.
+This thesis would not have been possible without strong collaborations with many groups
+from all over the world. Many merci goes to Dr. Toralf Scharf from the École Polytechnique
+
+===== PAGE 107 =====
+Acknowledgements II
+Fédérale de Lausanne (EPFL), Switzerland. You are such an amazing and unorthodox
+project coordinator and I really enjoyed all our meetings. Thank you also very much for the
+great time in Neuchâtel; I will never forget it. Special thanks to Mr. Kim who has cleaned up
+one of his desks and let me sit behind his wall of monitors at the EPFL. I would like to thank
+Dr. José Dintinger for the experimental support and the great time in Switzerland. Many
+thanks to Julie Lenoble Zwahlen from the EPFL for taking care of all the administrative
+issues of the Nanogold project and for sharing her oﬃce with me.
+From the University of Geneva I am indebted to Dr. Alastair Cunningham. Thank you so
+much for the perfect collaboration, the experimental support and the resulting publications.
+I really appreciated all our discussions and meetings. Special thanks goes to Prof. Bürgi from
+the University of Geneva for the experimental support and the development of rewarding
+ideas concerning self-assembly. I also want to thank Prof. Vassilis Yannopapas from the
+University of Patras for the great project meeting near Athens and the perfect support with
+the KKR method.
+I gratefully acknowledge the collaboration with Reinhard Geiss and Florian Kretschmer
+within the PhoNa project. Thank you so much for your power of endurance even at hard
+times. I also want to thank Dr. Dana Cialla and Dr. Karina Weber from the Institute of
+Photonic Technologies (IPHT) Jena for providing the SERS measurements and for fruitful
+discussions. Furthermore, I like to thank Sebastian Scheeler and Dr. Claudia Pacholski from
+the MPI Stuttgart. Thank you very much for the experimental support and the development
+of new ideas on how to self-assemble meta-atoms. Last but not least I want to thank Martin
+Thomas and Dr. Philipp Marquetand from the University of Vienna for our collaboration
+about SERS enhancement mechanisms.
+IalsowanttothankKarstenVerchforprovidingartisticviewsformanyofmypublications.
+Now, at the end of the acknowledgments, comes the most important part, my family. I
+want to thank all my family for the outstanding support during the last years. Especially my
+parents supported me ﬁnancially during my study of physics. Furthermore, they watched
+our children many times which helped a lot to write down this thesis. Thank you very much.
+Special thanks goes to my sister Anna for the support as a baby sitter. I also want to thank
+Gerlind Hauser for proof reading the introduction of the thesis.
+Last but not least many thanks to my girlfriend Anna. It is hard to imagine what I would
+do without you. Thank you very much for all the motivation, proof reading, the amusement,
+and in particular for our awesome kids Clara, Martha and Paul.
+
+===== PAGE 108 =====
+Publications III
+Publications
+All publications in peer reviewed journals that are directly relevant for this thesis will appear
+in bold letters in the following.
+Contributed book chapters
+1. C. Rockstuhl, C. Menzel, S. Mühlig, and F. Lederer,Theory of Optical Metamaterials
+in Encyclopedia of Nanotechnologyby Bharat Bhushan (Springer, 2012, ISBN: 978-90-
+481-9750-7).
+2. S. Mühlig and C. Rockstuhl, Multipole analysis of self-assembled metamaterials in
+Amorphous Nanophotonics by C. Rockstuhl and T. Scharf (Springer, 2013, ISBN:
+978-3-642-32474-1).
+Peer reviewed journals
+1. S. Mühlig, C. Rockstuhl, J. Pniewski, C. R. Simovski, S. A. Tretyakov, and F. Lederer,
+Three-dimensional metamaterial nanotips, Phys. Rev. B81, 075317 (2010).
+2. A. Cunningham, S. Mühlig, C. Rockstuhl, and T. Bürgi,Coupling of plas-
+mon resonances in tunable layered arrays of gold nanoparticles , J. Phys.
+Chem. C 115, 8955–8960 (2011).
+3. S. Mühlig, C. Rockstuhl, V. Yannopapas, T. Bürgi, N. Shalkevich, and
+F. Lederer, Optical properties of a fabricated self-assembled bottom-up bulk
+metamaterial, Opt. Express 19, 9607–9616 (2011).
+4. M.-S. Kim, T. Scharf, S. Mühlig, C. Rockstuhl, and H. P. Herzig,Engineering photonic
+nanojets, Opt. Express19, 10206–10220 (2011).
+5. S. Mühlig, M. Farhat, C. Rockstuhl, and F. Lederer, Cloaking dielectric
+spherical objects by a shell of metallic nanoparticles , Phys. Rev. B 84,
+195116 (2011).
+
+===== PAGE 109 =====
+Publications IV
+6. M.-S. Kim, T. Scharf, S. Mühlig, C. Rockstuhl, and H. P. Herzig,Gouy phase anomaly
+in photonic nanojets, Appl. Phys. Lett.98, 191114 (2011).
+7. C. Rockstuhl, C. Menzel, S. Mühlig, J. Peschtulat, C. Helgert, C. Etrich,
+A. Chipouline, T. Pertsch, and F. Lederer,Scattering properties of meta-
+atoms, Phys. Rev. B 83, 245119 (2011).
+8. S. Mühlig, A. Cunningham, S. Scheler, C. Pacholski, T. Bürgi, C. Rock-
+stuhl, and F. Lederer,Self-assembled plasmonic core-shell clusters with an
+isotropic magnetic dipole response in the visible range , ACS Nano 5, 6586–
+6592 (2011).
+9. S. Mühlig, C. Menzel, C. Rockstuhl, and F. Lederer,Multipole analysis of
+meta-atoms, Metamaterials 5, 64–73 (2011).
+10. J. Dintinger, S. Mühlig, C. Rockstuhl, and T. Scharf,A bottom-up approach
+to fabricate optical metamaterials by self-assembled metallic nanoparticles,
+Opt. Mater. Express 2, 269–278 (2012).
+11. M. Farhat, S. Mühlig, C. Rockstuhl, and F. Lederer, Scattering cancellation of the
+magnetic dipole ﬁeld from macroscopic spheres, Opt. Express20, 13896–13906 (2012).
+12. R. Filter, S. Mühlig, T. Eichelkraut, C. Rockstuhl, and F. Lederer,Controlling the
+dynamics of quantum mechanical systems sustaining dipole-forbidden transitions via
+optical nanoantennas, Phys. Rev. B86, 035404 (2012).
+13. A. Cunningham, S. Mühlig
+, C. Rockstuhl, and T. Bürgi, Exciting bright
+and dark eigenmodes in strongly coupled asymmetric metallic nanoparticle
+arrays, J. Phys. Chem. C 116, 17746–17752 (2012).
+14. S. Mühlig
+, A. Cunningham, J. Dintinger, T. Scharf, T. Bürgi, F. Lederer,
+and C. Rockstuhl, Self-assembled plasmonic metamaterials , Nanophoton.
+2, 211–240 (2013). [Review article]
+15. S. Mühlig, A. Cunningham, J. Dintinger, M. Farhat, S. Bin Hasan, T.
+Scharf, T. Bürgi, F. Lederer, and C. Rockstuhl, A self-assembled three-
+dimensional cloak in the visible, Sci. Rep. 3, 02328 (2013).
+Conference proceedings
+1. J. Pniewski, S. Mühlig, C. Rockstuhl, and C. Simovski,Metamaterial nanotips with
+multi-frequency local ﬁeld enhancement, Proc. SPIE7746, 774612 (2010).
+
+===== PAGE 110 =====
+Publications V
+2. M.-S. Kim, T. Scharf, S. Mühlig, C. Rockstuhl, and H. P. Herzig,Photonic nanojet
+engineering: focal point shaping with scattering phenomena of dielectric microspheres,
+Proc. SPIE 7941 (2011).
+3. M. Farhat, S. Mühlig, A. Cunningham, T. Bürgi, C. Rockstuhl, and F. Lederer,Cloak-
+ing dielectric spheres by a shell of plasmonic nanoparticles, Proc. SPIE8423, 84231D
+(2012).
+4. M.-S. Kim, T. Scharf, H. P. Herzig, S. Mühlig, and C. Rockstuhl,Generation of highly
+conﬁned optical bottle beams by exploiting the photonic nanojet eﬀect, Proc. SPIE,
+8274, 82740U, (2012).
+5. S. Mühlig, J. Dintinger, A. Cunningham, T. Scharf, T. Bürgi, C. Rockstuhl, and F.
+Lederer, Bottom-up metamaterials with an isotropic magnetic response in the visible,
+Proc SPIE8455, 84551G (2012).
+Invited talks
+1. Self-organized bottom-up metamaterials based on spatially arranged nanoparticles: Con-
+cepts and realizations, T. Scharf, J.Dintinger, H.Selmane, G.Mehl, G.Ungar, X.Zeng,
+C. Rockstuhl, S. Mühlig, T. Bürgi, A. Cunningham, L. di Sio, R. Caputo, V. Yannopa-
+pas, W. Meier, T. Schuster,METAMATERIALS 2010, Karlsruhe, Germany.
+2. Amorphous metamaterials, C. Rockstuhl, C.Menzel, S.Mühlig, C.Helgert, B.Walther,
+A. Chipouline, C. Etrich, A. Cuningham, T. Bürgi, E.-B. Kley, T. Pertsch, F. Lederer,
+EOS AM 2010, Paris, France.
+3. Self-organized bottom-up metamaterial based on spatially arranged nanoparticles,
+T. Scharf, J. Dintinger, H. Sellame, G. Mehl, G. Ungar, X. Zheng, C. Rockstuhl, S.
+Mühlig, T. Kienzler, T. Bürgi, A. Cunningham,NOMA 2011, Cetaro, Italy.
+4. Amorphous plasmonics and metamaterials, C. Rockstuhl, S. Mühlig, T. Kienzler and
+F. Lederer,NOMA 2011, Cetaro, Italy.
+5. Bottom-up metamaterials and plasmonic elements with metallic nanoparticles as build-
+ing blocks, C. Rockstuhl
+, S. Mühlig, A. Cunningham, T. Bürgi, J. Dintinger, and T.
+Scharf, META 2012, Paris, France.
+6. Bottom-up metamaterials and plasmonic elements with metallic nanoparticles as ba-
+sic building blocks, C. Rockstuhl
+, S. Mühlig, R. Filter, A. Cunningham, T. Bürgi, J.
+Dintinger, and T. Scharf,PECS-X 2012, Santa Fe, New Mexico, USA.
+
+===== PAGE 111 =====
+Publications VI
+7. Multipole analysis of meta-atoms, F. Lederer, C. Menzel, C. Rockstuhl, and S. Mühlig,
+Frontiers in Optics 2012, Rochester, New York, USA.
+8. Liquid crystal plasmonic metamaterials, T. Scharf, J. Dintinger, B.-J. Tang, G. H.
+Mehl, X. Zeng, G. Ungar, S. Mühlig, T. Kienzler, and C. Rockstuhl,SPIE Photonics
+West 2012, San Francisco, USA.
+9. A self assembled cloak, C. Rockstuhl, S. Mühlig, M. Farhat, F. Lederer, A. Cunning-
+ham, T. Bürgi, J. Dintinger, and T. Scharf,Nanometa 2013, Bad Seefeld, Austria.
+10. Controlling the dynamics of quantum mechanical process using meta-atoms,
+C. Rockstuhl, R. Filter, S. Mühlig, T. Eichelkraut, S. Fischer, J. C. Goldschmidt, and
+F. Lederer,PIERS 2013, Taipai, Taiwan.
+11. A cloak from self-assembled metallic nanoparticles, C. Rockstuhl, S.Mühlig, M.Farhat,
+S. Bin Hasan, A. Cunningham, T. Bürgi, J, Dintinger, T. Scharf, and F. Lederer,
+META 2013, Dubai, Arab Emirates.
+12. Towards homogeneous magnetic metamaterials - a comprehensive multipole analysis,
+C. Menzel, E. Hebestreit, S. Mühlig, S. Burger, C. Rockstuhl, F. Lederer, and T.
+Pertsch,META 2013, Dubai, Arab Emirates.
+Conference contributions
+1. Localizing light using metamaterial nanotips, C. Rockstuhl, S. Mühlig, C. R. Simovski,
+S. A. Tretyakov, and F. Lederer,CLEO Europe 2010, Munich, Germany.
+2. Three-dimensional metamaterial nanotips, S. Mühlig, C. Rockstuhl, J. Pniewski, C.
+Simovski, and F. Lederer,OSA META 2010, Tuscon, USA.
+3. Amorphous bulk metamaterials, C. Rockstuhl, C. Menzel, S. Mühlig, C. Helgert, B.
+Walther, A. Chipouline, C. Etrich, E.-B. Kley, T. Pertsch, and F. Lederer,META-
+MATERIALS 2010, Karlsruhe, Germany.
+4. Eﬀective properties of self-assembled bottum-up metamaterials, S. Mühlig, A. Cunning-
+ham, C. Rockstuhl, T. Bürgi, and F. Lederer,PECS 2010, Granada, Spain.
+5. Amplitude and phase ﬁelds of photonic nanojets, M.-S. Kim, T. Scharf, H. P. Herzig,
+S. Mühlig, and C. Rockstuhl,EOS AM 2010, Paris, France.
+6. Optical properties of bottom-up metamaterials, T. Kienzler, S.Mühlig, A.Cunningham,
+C. Rockstuhl, T. Bürgi, and F. Lederer,TaCoNa 2010, Bad Honnef, Germany.
+
+===== PAGE 112 =====
+Publications VII
+7. Multifrequency local ﬁeld enhancement by a metamaterial nanopyramid, C. Simovski,
+J. Pniewski, S. Mühlig and C. Rockstuhl,Days on Diﬀraction 2010, St. Petersburg,
+Russia.
+8. Absorption enhancement in thin-ﬁlm solar cells by nanophotonic structures, S. Fahr,
+T. Paul, S. Mühlig, C. Rockstuhl, and F. Lederer,PhoNa International Workshop
+2010, Jena, Germany.
+9. Chirality as a bulk property retrieved from the dispersion relation, C. Menzel, C. Rock-
+stuhl, S. Mühlig, T. Paul, and F. Lederer,PhoNa International Workshop 2010,
+Jena, Germany.
+10. Anomalous diﬀraction and refraction in negative-index metamaterials, T. Paul, C.
+Menzel, S. Fahr, S. Mühlig, C. Rockstuhl, and F. Lederer,PhoNa International
+Workshop 2010, Jena, Germany.
+11. Photonic nanojet engineering: Focal point shaping with scattering phenomena of dielec-
+tric microspheres, M.-S. Kim
+, T. Scharf, S. Mühlig, C. Rockstuhl, and H. P. Herzig,
+SPIE Photonics West 2011, San Francisco, USA.
+12. Cloaking dielectric spheres by a shell of metallic nanoparticles, M. Farhat, S. Mühlig,
+C. Rockstuhl, and F. Lederer,NOMA 2011, Cetaro, Italy.
+13. Observation of axial phase evolution of highly conﬁned light ﬁelds, M.-S. Kim, T.Scharf,
+S. Mühlig, C. Rockstuhl, and H. P. Herzig.Frontiers in Optics 2011, San Jose,
+California.
+14. Cloaking dielectric spheres by a shell of metallic nanoparticles, M. Farhat, S. Mühlig,
+C. Rockstuhl, and F. Lederer,Metamaterials 2011, Barcelona, Spain.
+15. Assigning eﬀective parameters to amorphous metamaterials, S. Mühlig, C. Menzel,
+T. Paul
+, C. Rockstuhl, and F. Lederer,Metamaterials 2011, Barcelona, Spain.
+16. On the isotropic magnetic response of fabricated core-shell clusters and its ability to
+cloak, S. Mühlig
+, A. Cunningham, M. Farhat, C. Rockstuhl, T. Bürgi, and F. Lederer,
+CLEO/QELS 2011, Baltimore, Maryland, USA.
+17. Generation of highly conﬁned optical bottle beams by photonic nanojet eﬀect, M.-S. Kim,
+T. Scharf, S. Mühlig, C. Rockstuhl, and H. P. Herzig,SPIE Photonics West 2012,
+San Francisco, USA.
+18. Bottom-up fabrication and optical properties of metallic nanoparticle assemblies,
+A. Cunningham, S. Mühlig, C. Rockstuhl, and T. Bürgi,International Conference
+on Metamaterials 2012, Jena, Germany.
+
+===== PAGE 113 =====
+Publications VIII
+19. Bottom-up metamaterials with an isotropic magnetic response, S. Mühlig, A. Cunning-
+ham, J. Dintinger, T. Scharf, T. Bürgi, C. Rockstuhl, and F. Lederer,International
+Conference on Metamaterials 2012, Jena, Germany.
+20. Coupling eﬀects in tuneable layers of metal nanoparticles, S. Mühlig, A. Cunningham,
+D. Cialla, K. Weber, T. Bürgi, C. Rockstuhl, and F. Lederer,Metamaterials 2012,
+St. Petersburg, Russia.
+21. Controlling the dynamics of quantum mechanical systems using meta-atoms,
+C. Rockstuhl, R. Filter, T. Eichelkraut, S. Mühlig, S. Fischer, J. C. Goldschmidt, and
+F. Lederer,Metamaterials 2012, St. Petersburg, Russia.
+22. Bottom-up metamaterials with an isotropic magnetic response in the visible, S. Mühlig,
+J. Dintinger, A. Cunningham, T. Scharf, T. Bürgi, C. Rockstuhl, and F. Lederer,SPIE
+Optics Photonics 2012, San Diego, USA.
+23. Plasmonic nanoparticles for a bottom-up approach to fabricate optical metamaterials,
+J. Dintinger, S. Mühlig, C. Rockstuhl, and T. Scharf,EMRS Fall Meeting 2012,
+Strassbourg, France.
+24. Strong coupling eﬀects in fabricated tunable layers of metal nanoparticles, S. Mühlig, C.
+Rockstuhl, F. Lederer, A. Cunningham, T. Bürgi, D. Cialla and K. Weber,CIMTEC
+2012, Montecatini Terme, Italy.
+25. Cloaking dielectric spheres by a shell of plasmonic nanoparticles, M. Farhat, S. Mühlig,
+C. Rockstuhl, F. Lederer, A. Cunningham, and T. Bürgi,SPIE Photonics Europe
+2012, Brussels, Belgium.
+26. A ﬁrst-principles study of surface enhanced Raman spectra of molecules adsorbed to
+plasmonic nanocomposites, M. Thomas, S. Mühlig, E. Hebestreit, T. Deckert-Gaudig,
+V. Deckert, P. Marquetand, and C. Rockstuhl, META 2013, Dubai, Arab Emirates.
+27. Tunable magnetic dipole response of core-shell clusters, M. Fruhnert, S. Mühlig, C.
+Rockstuhl, and F. Lederer,Metamaterials 2013, Bordeaux, France.
+
+===== PAGE 114 =====
+Short Curriculum Vitae IX
+Short Curriculum Vitae
+Personal data
+Name Stefan Mühlig
+Date of birth 09/06/1984
+Place of birth Jena, Germany
+Academic career
+11/2009–03/2012 Scientiﬁc employee at Institute of Condensed Matter Theory
+and Solid State Optics (IFTO), at the Friedrich-Schiller
+Universität (FSU) Jena, Germany.
+03/2012–06/2012 Scientiﬁc employee at Optics and Photonics Technology Laboratory,
+École Polytechnique Fédérale de Lausanne (EPFL), Neuchâtel,
+Switzerland.
+07/2012–current Scientiﬁc employee at IFTO, FSU Jena, Germany.
+09/2013 Submittance of PhD thesis entitled “Towards Self-Assembled
+Metamaterials”.
+Teaching activity
+Winter term 2011/12 Classical electrodynamics, seminar (2 SWS).
+Winter term 2012/13 Classical electrodynamics, seminar (2 SWS).
+Education
+09/1997–06/2003 Carl–Zeiss–Spezialschule Jena; Degree: Abitur.
+09/2003–06/2004 Alternative national service.
+10/2004–09/2006 Study of Physics at Technische Universität Dresden, Germany.
+10/2006–09/2009 Study of Physics at FSU Jena, Germany.
+09/2009 Diploma degree in physics from the FSU Jena, Germany.
+
+===== PAGE 115 =====
+Ehrenwörtliche Erklärung X
+Ehrenwörtliche Erklärung
+Hiermit erkläre ich ehrenwörtlich, dass ich die vorliegende Arbeit selbstständig, ohne un-
+zulässige Hilfe Dritter und ohne Benutzung anderer als der angegebenen Hilfsmittel und
+Literatur angefertigt habe. Die aus anderen Quellen direkt oder indirekt übernommenen
+Daten und Konzepte sind unter Angabe der Quelle gekennzeichnet.
+Bei der Auswahl und Auswertung folgenden Materials haben mir die nachstehend aufge-
+führten Personen in der jeweils beschriebenen Weise unentgeltlich geholfen
+1. Die gezeigten Ergebnisse der Abbildung 2.4 und 2.5 wurden von Dr. Christoph Menzel
+(IFTO, FSU Jena) simuliert.
+2. Die Transmissionsspektren in Abbildung 2.7 wurden von Dr. Christoph Etrich (IFTO,
+FSU Jena) simuliert. Die Auswertung in Abbildung 2.8 wurde von Prof. Rockstuhl
+(IFTO, FSU Jena) vorgenommen.
+3. Die SEM Aufnahmen der Abbildungen 3.2 (A), 3.3 (A), 3.6 (A), 3.7 (A), 3.14 (B) und
+4.10 (B) wurden von Dr. Alastair Cunningham (University of Geneva) angefertigt.
+4. Die gezeigten Messergebnisse in den Abbildungen 3.2 (B), 3.4, 3.5 (A), 3.7 (B), 3.8
+(A), 3.9 und 4.10 (D) wurden von Dr. Alastair Cunningham (University of Geneva)
+gemessen.
+5. Die SERS Spektren der Abbildungen 3.14 (A) und (C) wurden von Dr. Dana Cialla
+und Dr. Karina Weber (IPHT Jena) aufgenommen und ausgewertet.
+6. Die experimentellen Ergebnisse der Abbildung 4.5 wurden von Dr. José Dintinger und
+Dr. Toralf Scharf (EPFL Neuchâtel) erzeugt.
+7. Die experimentellen Ergebnisse der Abbildungen 4.10 (A) und (C) wurden durch Se-
+bastian Scheeler und Dr. Claudia Pacholski (MPI Stuttgart) erzeugt.
+8. DieexperimentellenErgebnissderAbbildung4.15(A)wurdendurchDr.JoséDintinger
+(EPFL Neuchâtel) und Dr. Alastair Cunningham (University of Geneva) erzeugt.
+9. Carsten Verch hat die Abbildung 4.11 basierend auf einer Prinzipskizze von mir ge-
+zeichnet.
+
+===== PAGE 116 =====
+Ehrenwörtliche Erklärung XI
+Weitere Personen waren an der inhaltlich-materiellen Erstellung der vorliegenden Arbeit
+nicht beteiligt. Insbesondere habe ich hierfür nicht die entgeltliche Hilfe von Vermittlungs-
+bzw. Beratungsdiensten (Promotionsberater oder andere Personen) in Anspruch genommen.
+Niemand hat von mir unmittelbar oder mittelbar geldwerte Leistungen für Arbeiten erhal-
+ten, die im Zusammenhang mit dem Inhalt der vorgelegten Dissertation stehen.
+Die Arbeit wurde bisher weder im In- noch im Ausland in gleicher oder ähnlicher Form einer
+anderen Prüfungsbehörde vorgelegt.
+Die geltende Promotionsordnung der Physikalisch-Astronomischen Fakultät ist mir bekannt.
+Ich versichere ehrenwörtlich, dass ich nach bestem Wissen die reine Wahrheit gesagt und
+nichts verschwiegen habe.
+Jena, 16. September 2013 Unterschrift
+
+===== PAGE 117 =====
+Zusammenf assung XII
+Zusammenfassung
+Die vorliegende Arbeit befasst sich mit der theoretischen Beschreibung und der möglichen
+experimentellen Umsetzung von selbstorganisierten Metamaterialien, die ein sich schnell ent-
+wickelndes und sehr erfolgreiches Feld der Optik darstellen. Entscheidende Beiträge zur
+Weiterentwicklung dieses wissenschaftlichen Feldes wurden im Rahmen dieser Arbeit doku-
+mentiert und sollen im Folgenden kurz zusammengefasst werden.
+Der erste wesentliche Beitrag beschäftigt sich mit der theoretischen Beschreibung von
+selbstorganisierten Metamaterialien. Dazu wurde in Kap. 2 das Konzept der Multipolana-
+lyse von Meta-Atomen eingeführt. Dieses Konzept ermöglicht ein tiefes physikalisches Ver-
+ständnis der optischen Antwort eines einzelnen Meta-Atoms. Im Speziellen ist es möglich,
+auftretende Resonanzen im Fernfeld mit angeregten Multipolmomenten des Meta-Atoms in
+Verbindung zu bringen. Dies ermöglicht Rückschlüsse auf den Ursprung der angeregten
+Resonanzen. Weiterhin wurde am Beispiel von gekoppelten Split-Ring-Resonatoren gezeigt,
+dass durch die Multipolanalyse maßgeschneiderte Resonanzen im Meta-Atom eingestellt wer-
+den können. Ein weiterer Vorteil besteht darin, dass das Konzept der Multipolanalyse auf
+beliebige Geometrien angewendet werden kann und daher nicht auf selbstorganisierte Meta-
+Atome beschränkt ist.
+Abgesehen von den eben diskutierten Vorteilen der Multipolanalyse bildet dieses Konzept
+einen wichtigen Grundstein zur Beschreibung der Ausbreitung von Licht in amorphen Meta-
+materialien, wie sie in dieser Arbeit entwickelt wurde. Mit Hilfe der Multipolanalyse kann
+entschieden werden, ob die Streuantwort eines Meta-Atoms rein durch elektrische und mag-
+netische Dipolmomente beschrieben werden kann. Ist dies der Fall, dann ist es möglich, die
+Ausbreitung von Licht im resultierenden Metamaterial mit Hilfe von eﬀektiven Medium-
+Theorien zu beschreiben, wie es in der vorliegenden Arbeit in Kap. 2 gezeigt ist. Die
+Clausius-Mossotti Relation ermöglicht es, den amorphen Metamaterialien eﬀektive Mate-
+rialparameter zuzuweisen. Dazu werden die entsprechenden Dipolmomente der Meta-Atome
+benötigt. Die Exaktheit einer solchen Methode wurde wie folgt überprüft. Die Vorhersagen
+des eﬀektiven Medium Modells wurden mit rigorosen Simulationen eines amorphen Meta-
+materials (bestehend aus sogenannten Cut-Plate Paaren) verglichen und ergaben qualitativ
+und quantitativ gleiche Ergebnisse. Damit wurde im Rahmen dieser Arbeit ein Formalismus
+entwickelt, der eine hinreichend genaue optische Beschreibung von amorphen Metamateri-
+alien ermöglicht. Diese Beschreibung konnte vor den Ergebnissen dieser Arbeit nur durch
+
+===== PAGE 118 =====
+Zusammenf assung XIII
+aufwendige Rechnungen erfolgen. Dies ist nun nicht mehr nötig, da die Verwendung von
+eﬀektiven Medium-Theorien es erlaubt, die Lichtausbreitung in amorphen Metamaterialien
+unter Betrachtung der angeregten Dipolmomente der einzelnen Meta-Atome zu beschreiben.
+Diese Vereinfachung stellt zugleich den wesentlichen Vorteil der hier vorgestellten Methode
+dar.
+Weiterhin konnte im Rahmen der Betrachtungen in Kap. 2 die folgende wichtige Eigen-
+schaft für Meta-Atome abgeleitet werden. Um einen möglichst großen Einﬂuss der Resonan-
+zen der Meta-Atome auf die Dispersion der eﬀektiven Materialparameter des resultierenden
+Metamaterials zu erzielen, ist es entscheidend, dass die Meta-Atome eine isotrope optische
+Antwort aufweisen.
+Unter Betrachtung aller eben diskutierten Ergebnisse lässt sich festhalten, dass die vor-
+liegende Arbeit wesentlich dazu beigetragen hat, eine kohärente optische Beschreibung von
+selbstorganisierten, amorphen Metamaterialien zu entwickeln und zu etablieren. Dies bildet
+die Grundlage für alle folgenden Ergebnisse.
+Der zweite wesentliche Beitrag der vorliegenden Arbeit besteht in der experimentelle Um-
+setzung von selbstorganisierten Metamaterialien. Obgleich keinerlei Experimente vom Autor
+der Arbeit direkt durchgeführt wurden, war es eine entscheidende Intention dieser Arbeit, in
+enger Zusammenarbeit mit Experimentatoren funktionsfähige Metamaterialien durch Selbst-
+organisation zu entwickeln und herzustellen. Im Speziellen ist dazu ein grundsolides the-
+oretisches Verständnis von amorphen Metamaterialien nötig, wie es in Kap. 2 dieser Arbeit
+dokumentiert ist. Auf dieser Basis konnten in Zusammenhang mit numerischen Simulationen
+Vorschläge für mögliche Meta-Atom Geometrien entwickelt werden, die im Anschluss durch
+ausgewählte Selbstorganisationsprozesse hergestellt werden konnten. Weiterhin erlaubten
+die numerischen Simulationen ein tieferes Verständnis der experimentellen Ergebnisse, da
+insbesondere Größen berechnet werden konnten, auf die man im Experiment keinen direkten
+Zugriﬀ hatte.
+Kapitel 3 der vorliegenden Arbeit beschäftigt sich mit planaren selbstorganisierten Meta-
+materialien, sogenannten Meta-Oberﬂächen. Im Speziellen wurden stark gekoppelte Lagen
+bestehend aus metallischen Nanopartikeln untersucht. Der Abstand dieser Lagen konnte
+in einem Selbstorganisationsprozess in diskreten Schritten von einem Nanometer eingestellt
+werden. Dies ermöglichte die Untersuchung von stark gekoppelten Nanopartikeln. Sym-
+metrische und asymmetrische Resonanzen konnten in diesen Systemen nachgewiesen werden.
+Basierend auf einem tiefen physikalischen Verständnis dieser speziellen planaren Metamate-
+rialien wurde eine Anwendung entwickelt. Substrate für oberﬂächenverstärkte Raman Spek-
+troskopie, die sich in ihrer Resonanzwellenlänge durchstimmen lassen, wurden numerisch
+untersucht und im Anschluss durch einen speziellen Selbstorganisationsprozess hergestellt.
+Kapitel. 4 beinhaltet eine Untersuchung dreidimensionaler selbstorganisierter Metamateri-
+alien. Die Möglichkeit Volumenstrukturen herzustellen, die eine entscheidende Ausdehnung
+
+===== PAGE 119 =====
+Zusammenf assung XIV
+entlang der Propagationsrichtung des Lichtes aufweisen, stellt einen wesentlichen Vorteil
+von Selbstorganisationsprozessen dar. Der erste Teil von Kap. 4 diskutiert dreidimensionale
+Meta-Atome, die eine isotrope magnetische Dipolresonanz im sichtbaren Spektralbereich
+aufweisen. DurchtheoretischeBetrachtungenkonntenzweimöglicheMeta-AtomGeometrien
+identiﬁziert werden, ein sogenanntes Supramolekulares Cluster und ein Core-Shell Cluster.
+Für beide Geometrien wurde das magnetische Dipolmoment durch numerische Rechnungen
+nachgewiesen, das eine entscheidende Voraussetzung für viele vorgeschlagene Anwendungen
+von Metamaterialien darstellt. Weiterhin konnte gezeigt werden, dass für Core-Shell Cluster
+das magnetische Dipolmoment stark genug ausgeprägt ist, um die Streuantwort des Meta-
+Atoms zu dominieren. Beide vorgeschlagenen Meta-Atom Geometrien wurden im Anschluss
+durch verschiedene Selbstorganisationsprozesse hergestellt.
+Der zweite Teil von Kap. 4 beschäftigt sich mit der Herstellung einer optischen Tarnkappe
+durchSelbstorganisationsprozesse. DasimRahmendieserArbeitvorgestellteKonzeptbasiert
+auf der Unterdrückung der Streuantwort von optisch kleinen Objekten. Es wurde gezeigt,
+dass die Streuantwort einer dielektrischen Kugel um bis zu75% reduziert werden kann, wenn
+man sie mit kleinen Silber-Nanopartikeln umschließt. Das theoretische Konzept wurde aber-
+mals durch Selbstorganisationsprozesse realisiert. Eine erste Demonstration des Konzeptes
+ermöglichte eine experimentelle Reduktion der Streuantwort von25 %.
+Zusammenfassend bleibt festzuhalten, dass in enger Zusammenarbeit mit experimentellen
+PartnerneinegroßeVielfaltvonselbstorganisiertenMetamaterialenimRahmendieserArbeit
+entwickelt und hergestellt wurden. Entscheidend dabei war der Fokus auf die resultierende
+optische Antwort der Metamaterialien und nicht auf den zugrunde liegenden Selbstorganisa-
+tionsprozess. Basierend auf dem entwickelten theoretischen Verständnis für amorphe Meta-
+materialien wurden verschiedenartige Anwendungen von Metamaterialien im Rahmen dieser
+Arbeit umgesetzt, wie z. B. selbstorganisierte Substrate für oberﬂächenverstärkte Raman
+Spektroskopie, selbstorganisierte Metamaterialien mit einer starken magnetischen Dipolre-
+sonanz und eine selbstorganisierte optische Tarnkappe. Damit trägt die vorliegende Arbeit
+wesentlich zur Weiterentwicklung und experimentellen Umsetzung von selbstorganisierten
+Metamaterialien bei.
+
+===== PAGE 120 =====
+Bibliography XV
+Bibliography
+[1] R. F. Service,How far can we push chemical self-assembly?, Science309, 95 (2005).
+[2] G. M. Whitesides, J. P. Mathias, and C. T. Seto, Molecular self-assembly and
+nanochemistry: A chemical strategy for the synthesis of nanostructures, Science254,
+1312–1319 (1991).
+[3] G. M. Whitesides and B. Grzybowski,Self-assembly at all scales, Science295, 2418–
+2421 (2002).
+[4] K. J. M. Bishop, C. E. Wilmer, S. Soh, and B. A. Grzybowski,Nanoscale forces and
+their uses in self-assembly, Small5, 1600–1630 (2009).
+[5] C. L. Choi and A. P. Alivisatos,From artiﬁcial atoms to nanocrytstal molecules: Prepa-
+ration and properties of more complex nanostructures, Annu. Rev. Phys. Chem.61,
+369–389 (2010).
+[6] J. M. Romo-Herrera, R. A. Alvarez-Puebla, and L. M. Liz-Marzán,Controlled assembly
+of plasmonic colloidal nanoparticle clusters, Nanoscale3, 1304–1315 (2011).
+[7] A. Guerrero-Martínez, J. L. Alonso-Gómez, B. Auguié, M. M. Cid, and L. M. Liz-
+Marzán, From individual to collective chirality in metal nanoparticles, Nano Today6,
+381–400 (2011).
+[8] C. Rockstuhl and T. Scharf,Amorphous nanophotonics (Berlin, Springer, 2013), 1st
+ed.
+[9] S. Mühlig, A. Cunningham, J. Dintinger, T. Scharf, T. Bürgi, F. Lederer, and C. Rock-
+stuhl, Self-assembled plasmonic metamaterials, Nanophoton.2, 211–240 (2013).
+[10] V. M. Shalaev,Optical negative-index metamaterials, Nature Photon.1, 41–48 (2007).
+[11] C. M. Soukoulis and M. Wegener, Past achievements and future challenges in the
+development of three-dimensional photonic metamaterials, Nature Photon.5, 523–530
+(2011).
+[12] J. B. Pendry, D. Schurig, and D. R. Smith,Controlling electromagnetic ﬁelds, Science
+312, 1780–1782 (2006).
+

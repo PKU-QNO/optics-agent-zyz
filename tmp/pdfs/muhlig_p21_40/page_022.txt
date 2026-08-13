@@ -1,0 +1,107 @@
+2 Theoretical background
+17
+S of the scatterer [54]
+[Einc(rS) + Esca(rS)] × n = Eint(rS) × n ,
+[Hinc(rS) + Hsca(rS)] × n = Hint(rS) × n ,
+(2.13)
+with n being the vector normal to the surface S of the scatterer that is described by rS.
+It is important to note that in three dimensions each boundary condition splits into two
+independent equations of distinct ﬁeld components [136]. For a sphere as a scatterer this
+would be the θ and ϕ component in spherical coordinates. Furthermore, if the scattered
+and the incident ﬁelds are known the internal ﬁeld can be extracted from the boundary
+conditions. Physically this means, as expected, that the internal ﬁeld carries no additional
+information and the solution of the scattering problem can be reduced to computing the
+scattered ﬁeld for a given illumination.
+The solution of the scattering problem, as sketched in Fig. 2.1 is the following.
+The
+incident and the scattered ﬁeld are decomposed into a chosen set of eigenfunctions
+Einc(r, ω) =
+n
+X
+j=1
+pj(ω)Aj(r, ω) ,
+Esca(r, ω) =
+n
+X
+j=1
+aj(ω)Aj(r, ω) ,
+(2.14)
+with the expansion coeﬃcients pi of the incident and ai of the scattered ﬁeld, the latter
+ones are termed scattering coeﬃcients. Since the incident ﬁeld is assumed to be known, its
+expansion coeﬃcients can be obtained by using orthogonality relations of the eigenmodes.
+The scattering coeﬃcients are computed by applying the boundary conditions at the surface
+of the scatterer, as given by Eq. 2.13. The transformation between the coeﬃcients of the
+incident ﬁeld to the scattering coeﬃcients is described by the so-called T-matrix [137, 138].
+It is a general concept in the context of the scattering problem. The T-matrix is deﬁned as
+follows
+
+
+
+
+
+
+a1
+a2
+...
+an
+
+
+
+
+
+
+=
+
+
+
+
+
+
+T11
+T12
+· · ·
+T1n
+T21
+T22
+· · ·
+T2n
+...
+...
+...
+...
+Tn1
+Tn2
+· · ·
+Tnn
+
+
+
+
+
+
+
+
+
+
+
+
+p1
+p2
+...
+pn
+
+
+
+
+
+
+.
+(2.15)
+The T-matrix is a square matrix the order of which depends on the number n of modes
+that haven been taken into account to describe the ﬁelds by eigenfunctions (cf. Eq. 2.14).
+In general, n has to be suﬃciently large to appropriately describe the electromagnetic ﬁeld
+everywhere in space. However, in practice only a ﬁnite number of eigenmodes is considered
+reﬂecting the fact that the scatterer itself is ﬁnite as well.
+To sum up, the scattering problem of Fig. 2.1 has been solved by the well-known concept
+of eigenmodes. Therewith, the solution of Maxwell’s equations has been reduced to the
+calculation of the elements of the T-matrix. Once they are known, the scattered ﬁeld can be

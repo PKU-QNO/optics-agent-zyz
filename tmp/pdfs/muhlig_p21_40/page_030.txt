@@ -1,0 +1,98 @@
+2 Theoretical background
+25
+2.3.2 Multipole moments of representative meta-atoms
+The advantages of the multipole analysis as introduced is outlined in more detail in the
+following. This is done by discussing the scattering properties and excited multipole moments
+of some selected meta-atoms. It is shown that the formalism is useful to understand the
+excited resonances in meta-atoms as well as to develop new design rules to improve them
+further.
+
+
+
+
+
+
+
+
+
+[
+
+:DYHOHQJWKQP
+&VFDQP
+
+
+&VFD
+S[
+P\
+4[]
+
+
+
+
+
+
+[
+
+:DYHOHQJWKQP
+&VFDQP
+
+
+&VFD
+S[
+
+
+
+
+
+
+
+[
+
+:DYHOHQJWKQP
+&VFDQP
+
+
+&VFD
+S[
+
+
+
+
+
+
+[
+
+:DYHOHQJWKQP
+&VFDQP
+
+
+&VFD
+S[
+P\
+04\]
+N]
++\
+([
+(A) 
+(B) 
+(C) 
+(D) 
+Figure 2.3: Cartesian multipole moments of meta-atoms as they contribute to the scattering cross
+section Csca (cf. Eq. 2.32); p - electric dipole moment, m - magnetic dipole moment, Q - electric
+quadrupole moment, MQ - magnetic quadrupole moment. (A) A silicon sphere (200 nm radius)
+embedded in vacuum is illuminated by a plane wave as sketched.
+The illumination scenario is
+maintained for (B)-(C). (B) Multipole moments of a single gold sphere (40 nm radius) embedded
+in glass (ε = 2.25). In (C) and (D) two diﬀerent illumination scenarios are shown for a dimer made
+of two gold spheres (40 nm radius) separated by 5 nm that is embedded in glass.
+Figure 2.3 presents the Cartesian multipole moments of meta-atoms made of spheres. All
+moments are shown as they contribute to Csca (cf. Eq. 2.32), i.e. their sum yields the entire
+scattering cross section. The multipole moments of a silicon sphere of Fig. 2.3 (A) oﬀer
+the typical resonances of a dielectric sphere with a large dielectric constant [in simulations
+the permittivity of silicon is assumed as a real valued constant (εsph = 12) for the shown
+wavelength domain] [153].
+The ﬁrst order resonance (excited at longest wavelengths) is
+dominated by a magnetic dipole resonance [154, 155] that appears at around 1500 nm for a
+200 nm radius silicon sphere. The next higher order resonance at 1100 nm is electric dipolar
+and the third order resonance at around 1000 nm is magnetic quadrupolar. The analysis
+of the Cartesian multipole moments allows the explanation of the complex scattering cross

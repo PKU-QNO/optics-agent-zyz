@@ -180,6 +180,16 @@ download_file(case_secret, target_path="/tmp/case")
 
 Do not use `FileSecret` for persistent COMSOL licenses, long-lived datasets, or large reusable model libraries.
 
+For `Optics_COMSOL_Runtime_zyz`, use the hardened importer instead of unpacking a FileSecret directly:
+
+- Declare `case_bundle_secret` as `Optional[FileSecret]` so SDK launches auto-upload local files/directories.
+- Archives must be ZIP/TAR/TGZ and contain exactly one `case_manifest.json` with `schema_version: 1` and a relative `model_input`; optional `input_sha256` pins the selected model.
+- Pass `case_bundle_sha256` and/or `case_input_sha256` when a trusted producer supplied hashes.
+- COMSOL `.mph` files are ZIP containers. If Magnus download removes the extension, set `case_bundle_format=single-file` and `case_input_name=model.mph`; do not guess from magic alone.
+- The runner snapshots the received path, rejects traversal/links/devices/archive bombs, then atomically promotes the immutable case tree to `/home/magnus/data/optics_agent/comsol/inputs/<input_sha256>/`.
+- Treat `staging_receipt.json` as the canonical hash/file inventory. Existing hashes are reused only when the complete case tree and receipt still match; never overwrite or record the FileSecret token.
+- Keep `launch_blueprint(..., use_preference=False, save_preference=False)` for local submission helpers because FileSecret values expire and must not become saved preferences.
+
 ### Repository Code Inputs
 
 Use repo files for public scripts, templates, and stable runner code. Keep the blueprint small and call a real script from `entry_command`, for example:

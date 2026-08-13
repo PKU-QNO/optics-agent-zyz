@@ -41,5 +41,19 @@ output_root=/home/magnus/data/optics_agent/comsol/runs
 container_image=docker://magnus-local/comsol-runtime:latest
 ```
 
+Temporary `case_bundle_secret` inputs are staged by `comsol_runner.py` under:
+
+```text
+/home/magnus/data/optics_agent/comsol/inputs/<model_input_sha256>/
+```
+
+ZIP/TAR/TGZ bundles must contain a single `case_manifest.json` at the case
+root, for example `{"schema_version": 1, "model_input": "model.java"}`.
+The importer records `staging_receipt.json`, rejects traversal/link/device
+members and archive limits, verifies optional bundle/input SHA-256 values, and
+only then atomically publishes a read-only canonical tree. A single model with
+an extensionless FileSecret download requires `case_bundle_format=single-file`
+and `case_input_name=model.java` (or `.mph`/`.m`).
+
 The active Magnus image was administrator-imported and is about 1.38G. Do not
 refresh, pull, overwrite, retag, or rebuild it unless the administrator asks.

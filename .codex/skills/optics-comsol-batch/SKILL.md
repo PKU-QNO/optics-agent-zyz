@@ -58,6 +58,18 @@ For batch modes, pass an input file:
 --input-file /home/magnus/data/optics_agent/comsol/papers/<case>/model.m
 ```
 
+For a temporary FileSecret case, omit the persistent `input_file` and let the hardened importer set it from `case_manifest.json`. Supported launch fields are:
+
+```text
+case_bundle_secret       Magnus FileSecret upload
+case_bundle_format       auto | zip | tar | tgz | single-file
+case_bundle_sha256       optional trusted bundle hash
+case_input_sha256        optional trusted model hash
+case_input_name          required for an extensionless single model
+```
+
+Archives require `case_manifest.json` with `schema_version=1` and one relative `model_input`. The canonical selected model is under `/home/magnus/data/optics_agent/comsol/inputs/<input_sha256>/` and is copied into the run's `raw/` directory before compile/solve. COMSOL `.mph` is internally ZIP-like; after an extensionless FileSecret download, use `single-file` plus `case_input_name=model.mph` rather than treating it as an archive.
+
 ## License Mount For Solves
 
 The active `magnus-local` image solved real COMSOL cases with this host-to-container bind:
@@ -105,6 +117,18 @@ BATCH_EXIT_NONZERO
 OUTPUT_MPH_MISSING
 POSTPROCESS_FAILED
 INPUT_MISSING
+CASE_MANIFEST_MISSING
+CASE_INPUT_CONFLICT
+BUNDLE_SHA256_MISMATCH
+INPUT_SHA256_MISMATCH
+UNSAFE_MEMBER_PATH
+UNSAFE_MEMBER_TYPE
+ARCHIVE_MEMBER_LIMIT
+ARCHIVE_TOTAL_SIZE_LIMIT
+ARCHIVE_COMPRESSION_RATIO
+INPUT_STAGE_COLLISION
+INPUT_STAGE_CORRUPT
+PROMOTION_FAILED
 ```
 
 ## Validated Magnus Jobs
