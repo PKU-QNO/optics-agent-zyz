@@ -17,3 +17,6 @@ comsol/runtime/secrets/comsol/license.dat
 
 # Local agent backups, not active project skills.
 .claude/skills.backup-*/
+
+# COMSOL 官方大模型（超 github 100MB 限制，本地保留）
+comsol/runtime/cases/official_rib/*.mph
