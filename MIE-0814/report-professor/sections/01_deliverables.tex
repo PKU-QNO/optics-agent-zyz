@@ -1,49 +1,49 @@
 \section{交付清单与完成概览}
 
-\subsection{本阶段复现的论文}
+\subsection{复现的论文}
 
-我系统学习了电磁多极展开的理论脉络，并数值复现了四篇关键论文的核心结果：
+四篇论文构成电磁多极展开的理论链，逐一推导并数值复现：
 
 \begin{table}[H]
 \centering
 \small
 \begin{tabularx}{\textwidth}{p{4.2cm}X p{2.6cm}}
 \toprule
-论文 & 核心内容 & 我的复现 \\
+论文 & 核心内容 & 复现 \\
 \midrule
-Grahn 2012, \emph{New J. Phys.} 14 093033 & 电流多极矩到散射场多极系数的映射关系（Eq.~(1)--(16)） & 双路径映射验证 \\
+Grahn 2012, \emph{New J. Phys.} 14 093033 & 电流多极矩到散射场多极系数的映射（Eq.~(1)--(16)） & 双路径映射验证 \\
 Fernandez-Corbaton 2015, \emph{Opt. Express} 23 33044 & 局域电流分布的精确偶极矩 & 精确偶极矩推导 \\
 Fernandez-Corbaton 2017, \emph{Sci. Rep.} 7 7527 & toroidal 多极非独立性的严格证明 & 退化到电偶极高阶项 \\
-Alaee 2018, \emph{Opt. Commun.} 407 17 & 超越长波近似的精确多极展开（Table 1/Table 2） & 球体散射与多极分解 \\
+Alaee 2018, \emph{Opt. Commun.} 407 17 & 超越长波近似的精确多极展开（Table 1/2） & 球体散射与多极分解 \\
 \bottomrule
 \end{tabularx}
 \caption{四篇论文的理论脉络与复现对应。}
 \label{tab:papers}
 \end{table}
 
-\subsection{完成的数值复现}
+\subsection{数值复现结果}
 
 \begin{itemize}
-  \item \textbf{Alaee 2018 Fig.~1（介电球散射）}：Table 2 精确多极矩与 Lorenz--Mie 解析解逐通道对比，四通道最大相对误差均 $<0.21\%$，复矩口径的 exact 单点论文声明有强审证据。
-  \item \textbf{Alaee 2018 Fig.~2（金球多极分解）}：有损色散金球（Johnson--Christy 数据）下 Table 2--Mie 四通道误差 $0.012\%$--$0.024\%$，方法在复折射率与宽谱下稳定。
-  \item \textbf{Grahn 2012 映射关系}：Path A（长波）与 Path B（有限核）双路径、逐 $m$ 系数、六个解析电流 fixture 全部通过，光学定理相对差 $5.96\times10^{-7}$。
-  \item \textbf{Alaee 2018 Fig.~3（耦合金纳米盘）}：用 COMSOL 频域有限元求得真解谱（9 点，ED 主导 + MD/EQ 在 $x=0.36$ 磁共振），并另以边界元法（128G 内存）验证为更省内存的替代求解器。
+  \item \textbf{Alaee 2018 Fig.~1（介电球散射）}：Table 2 精确多极矩与 Lorenz--Mie 解析解逐通道对比，四通道最大相对误差 $<0.21\%$；复矩口径的 exact 单点论文声明有强审证据。
+  \item \textbf{Alaee 2018 Fig.~2（金球多极分解）}：有损色散金球（Johnson--Christy）下 Table 2--Mie 四通道误差 $0.012\%$--$0.024\%$。
+  \item \textbf{Grahn 2012 映射}：Path A（长波）与 Path B（有限核）双路径、逐 $m$、六个解析 fixture 全过，光学定理相对差 $5.96\times10^{-7}$。
+  \item \textbf{Alaee 2018 Fig.~3（耦合金纳米盘）}：COMSOL 频域有限元真解谱（9 点，ED 主导 + MD/EQ 在 $x=0.36$ 磁共振），另以边界元（128G）验证为更省内存的替代求解器。
 \end{itemize}
 
-\subsection{交付物清单}
+\subsection{交付物}
 
 \begin{enumerate}
-  \item 完整理论推导笔记（矢量多极展开，约 66 页，含逐步推导与退化检查）；
-  \item 数值实现代码（Mie 系数、Table 1/Table 2 多极矩、Grahn 映射、COMSOL Java 构建器、BEM 构建器）与回归测试；
+  \item 完整理论推导笔记（矢量多极展开，66 页，含逐步推导与退化检查）；
+  \item 数值实现代码（Mie 系数、Table 1/Table 2 多极矩、Grahn 映射、COMSOL 有限元/边界元构建器）与回归测试；
   \item 冻结的数值数据（CSV/JSON）与逐项验收台账；
-  \item 本轮汇报（本文）与详细技术手册（备查 PDF）。
+  \item 本汇报与详细技术手册（备查 PDF）。
 \end{enumerate}
 
-\subsection{已知不足（诚实声明）}
+\subsection{已知不足}
 
 \begin{itemize}
-  \item \textbf{Fig.~3 的 MD/EQ 网格残差 $\sim2\%$}：双金盘的磁共振处表面场梯度大，四面体网格收敛慢（收敛阶 $p\approx1.3$），未收敛到 $1\%$；这由 Richardson 外推定量刻画，不是未察觉的误差。
-  \item \textbf{BEM 为 PEC 近似}：边界元验证采用理想导体近似，丢失了金的损耗，MD/EQ 磁共振被抑制；加表面阻抗（IBC）可恢复，作为后续工作。
-  \item \textbf{Fig.~2 的严格不确定性量化未闭合}：读图数据退役后，独立校准样本与预注册阈值缺失，八条正式 lane 判为 UNRESOLVED（方法自洽不受影响）。
-  \item \textbf{高阶多极 $l>4$ 未逐阶}：仅给出聚合上界（$<0.4\%$），未逐阶解析。
+  \item \textbf{Fig.~3 MD/EQ 网格残差 $\sim2\%$}：磁共振处表面场梯度大，四面体网格收敛慢（$p\approx1.3$），未到 $1\%$；由 Richardson 外推定量刻画。
+  \item \textbf{BEM 为 PEC 近似}：理想导体丢损耗，MD/EQ 磁共振被抑制；加表面阻抗（IBC）可恢复。
+  \item \textbf{Fig.~2 严格 UQ 未闭合}：读图数据退役后独立校准样本与预注册阈值缺失，八条 lane 判 UNRESOLVED（方法自洽不受影响）。
+  \item \textbf{高阶 $l>4$ 未逐阶}：仅聚合上界 $<0.4\%$。
 \end{itemize}
