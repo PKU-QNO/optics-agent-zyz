@@ -1,0 +1,126 @@
+% !TEX program = xelatex
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{framed}
+\usepackage{mdframed}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{bm}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+
+\geometry{margin=2.5cm, top=2cm, bottom=2cm}
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!60!black}
+
+\setlength{\parindent}{2em}
+\setlist{nosep}
+
+% ===== 颜色定义 =====
+\definecolor{annotpink}{RGB}{220,50,180}
+\definecolor{annotred}{RGB}{200,50,50}
+\definecolor{annotyellow}{RGB}{200,160,0}
+\definecolor{annotblue}{RGB}{46,168,229}
+\definecolor{annotgreen}{RGB}{0,150,80}
+
+% ===== 容器 =====
+\newenvironment{nontrivial}{%
+  \begin{mdframed}[linecolor=annotpink!70, backgroundcolor=annotpink!5, roundcorner=3pt]
+  \textcolor{annotpink}{$\blacktriangleright$ \textbf{核心洞察}}
+  \medskip\par
+}{\end{mdframed}}
+
+\newenvironment{important}{%
+  \begin{mdframed}[linecolor=annotred!70, backgroundcolor=annotred!5, roundcorner=3pt]
+  \textcolor{annotred}{$\blacktriangleright$ \textbf{重要声明}}
+  \medskip\par
+}{\end{mdframed}}
+
+\newenvironment{noteworthy}{%
+  \begin{mdframed}[linecolor=annotyellow!70, backgroundcolor=annotyellow!3, roundcorner=3pt]
+  \textcolor{annotyellow!90!black}{$\blacktriangleright$ \textbf{值得注意}}
+  \medskip\par
+}{\end{mdframed}}
+
+\newenvironment{insight}{%
+  \begin{mdframed}[linecolor=annotpink!40, backgroundcolor=annotpink!3, roundcorner=3pt]
+  \textbf{$\vartriangleright$ 个人理解}
+}{\end{mdframed}}
+
+\newenvironment{stepbox}[1]{%
+  \begin{mdframed}[linecolor=annotblue!50, backgroundcolor=annotblue!3, roundcorner=3pt]
+  \textcolor{annotblue}{$\blacktriangleright$ \textbf{#1}}
+  \medskip\par
+}{\end{mdframed}}
+
+% ===== 章节总结框 =====
+\newenvironment{chaptersummary}{%
+  \begin{mdframed}[linecolor=black!40, backgroundcolor=black!3, roundcorner=4pt, linewidth=0.8pt]
+  \setlength{\baselineskip}{1.6em}
+  \setlength{\parskip}{0.5em}
+  \textcolor{black!70}{\textbf{▸ 本章总结}}
+  \par\medskip
+}{\end{mdframed}}
+
+\setcounter{tocdepth}{2}
+
+\title{\textbf{矢量多极展开的完整推导} \\
+  \large 从 Maxwell 方程组到 Grahn 2012 Eqs.(1)--(16) \\
+  \normalsize\itshape 面向有矢量多极基础但未完整推导过的读者}
+
+\author{推导笔记 \\[0.3em]
+  \normalsize 基于 P. Grahn, A. Shevchenko, M. Kaivola \\
+  \normalsize\texttt{New J. Phys. 14 (2012) 093033}}
+\date{2026-07-28}
+
+
+\begin{document}
+
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{center}
+  \fcolorbox{annotblue!50}{annotblue!5}{\parbox{0.92\textwidth}{\centering\small
+  \textcolor{annotblue}{$\blacktriangleright$} \textbf{本文目标}：完整、不跳步地推导 Grahn 2012 的 Eqs.(1)--(16)，\\
+  每一步都解释\textbf{为什么}这样做。适合看过矢量多极展开概念但没亲手推导过的人。
+  }}
+\end{center}
+
+\vspace{0.5em}
+\begin{quote}
+  \centering\small
+  \textit{全文约 66 页，公式编号沿用 Grahn 2012 原始编号 Eqs.(1)--(16)。}\\
+  \textit{关键步骤旁附 $\blacktriangleright$ 说明动机，最重要的结果用 \boxed{} 框出。}
+\end{quote}
+
+\tableofcontents
+\newpage
+
+
+\input{sections/00_mie_motivation}
+\input{sections/01_vsh_basics}
+\input{sections/02_mie_strict}
+\input{sections/03_multipole_exp}
+\input{sections/04_projection}
+\input{sections/05_scattering_current}
+\input{sections/06_current_integral}
+\input{sections/07_integration_parts}
+\input{sections/08_current_multipole}
+\input{sections/09_fc2015}
+\input{sections/10_lwa_derivation}
+\input{sections/11_exact_multipoles}
+\input{sections/12_unified}
+\appendix
+\input{sections/appendix_a_vector_identities}
+\input{sections/appendix_b_helmholtz_hankel}
+
+\end{document}

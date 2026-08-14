@@ -1,0 +1,99 @@
+\section{理论公式与金材料数据}
+
+\subsection{表2 精确多极矩（Alaee Table 2，讲义 §11 推导）}
+
+四式（球 Bessel 核，逐字转录自 PDF 页3，第 1 轮 gate③ 已核）：
+
+\begin{equation}
+p_\alpha = -\frac{1}{i\omega}\Bigl\{\int J_\alpha\,j_0(kr)\,d^3r
+  + \frac{k^2}{2}\int\bigl[3(\mathbf{r}\cdot\mathbf{J})r_\alpha - r^2J_\alpha\bigr]\frac{j_2(kr)}{(kr)^2}\,d^3r\Bigr\} \quad \text{(T2-1)}
+\end{equation}
+
+\begin{equation}
+m_\alpha = \frac32\int(\mathbf{r}\times\mathbf{J})_\alpha\,\frac{j_1(kr)}{kr}\,d^3r \quad \text{(T2-2)}
+\end{equation}
+
+\begin{equation}
+Q^e_{\alpha\beta} = -\frac{3}{i\omega}\Bigl\{
+  \int\bigl[3(r_\beta J_\alpha + r_\alpha J_\beta) - 2(\mathbf{r}\cdot\mathbf{J})\delta_{\alpha\beta}\bigr]\frac{j_1(kr)}{kr}\,d^3r
+  + 2k^2\int\bigl[5r_\alpha r_\beta(\mathbf{r}\cdot\mathbf{J}) - (r_\alpha J_\beta + r_\beta J_\alpha)r^2 - r^2(\mathbf{r}\cdot\mathbf{J})\delta_{\alpha\beta}\bigr]\frac{j_3(kr)}{(kr)^3}\,d^3r
+\Bigr\} \quad \text{(T2-3)}
+\end{equation}
+
+\begin{equation}
+Q^m_{\alpha\beta} = 15\int\bigl\{r_\alpha(\mathbf{r}\times\mathbf{J})_\beta + r_\beta(\mathbf{r}\times\mathbf{J})_\alpha\bigr\}\frac{j_2(kr)}{(kr)^2}\,d^3r \quad \text{(T2-4)}
+\end{equation}
+
+\subsection{Mie per-multipole 对应（归一化 C\_sca）}
+
+归一化因子为 $\lambda^2/2\pi$（§5 复现图 y 轴）：
+
+\begin{equation}
+C_{\rm sca}^{(\rm ED)} = 3|a_1|^2,\quad
+C_{\rm sca}^{(\rm MD)} = 3|b_1|^2,\quad
+C_{\rm sca}^{(\rm EQ)} = 5|a_2|^2,\quad
+C_{\rm sca}^{(\rm MQ)} = 5|b_2|^2
+\end{equation}
+
+系数 $(2n+1)$ 来自 C\_sca per-multipole 项归一化（$n=1\rightarrow3$、$n=2\rightarrow5$）；$a_n$=电多极/TM、$b_n$=磁多极/TE（B\&H 约定 \cite{Bohren1983}，第 1 轮 gate③ 已核）。
+
+\subsection{Eq.1 解析常数（从多极矩到 C\_sca，禁经验标定）}
+
+\begin{equation}
+C_{\rm sca}^{(\rm ED)} = \frac{x^6}{12\pi^2}|p|^2,\quad
+C_{\rm sca}^{(\rm MD)} = \frac{x^8}{12\pi^2}|m|^2,\quad
+C_{\rm sca}^{(\rm EQ)} = \frac{x^8}{1440\pi^2}|Q^e|^2,\quad
+C_{\rm sca}^{(\rm MQ)} = \frac{x^{10}}{1440\pi^2}|Q^m|^2
+\end{equation}
+
+其中 $x = x_{\rm mie} = \pi(2a/\lambda)$（host=air，gate③ 硬要求）；$1/1440 = 1/(120\cdot12)$；MQ 用 $x^{10}$，$k^2$ 已由无量纲 $x$ 的幂吸收，$|Q^m|^2$ 内不再重复引入 $k$。第 1 轮已证实这些常数\textbf{禁经验标定}（lessons 10）。
+
+\subsection{金材料数据源核对}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lllll}
+\toprule
+数据源 & $n$ & $\kappa$ & $\varepsilon_1$ & $\varepsilon_2$ \\
+\midrule
+JC 1972 \cite{JohnsonChristy1972} & 0.424 & 2.472 & $-5.93$ & $+2.10$ \\
+Olmon-EV 2012 \cite{Olmon2012} & 0.326 & 2.507 & $-6.18$ & $+1.63$ \\
+McPeak 2015 \cite{McPeak2015} & 0.324 & 2.597 & $-6.64$ & $+1.68$ \\
+\midrule
+严格口径互差（max pairwise range / |mean|） & & & 11.35\% & 25.75\% \\
+\bottomrule
+\end{tabular}
+\caption{550~nm 三源交叉核对（主 agent 亲算 + 子 agent 调研一致）。$\varepsilon_1$ 中度一致；$\varepsilon_2$ 有样品/工艺依赖——材料敏感性而非同一真值。}
+\label{tab:gold550}
+\end{table}
+
+全谱段一致性（本报告采用“最大单源偏离三源均值”口径）：600--1000~nm 内三源 $\varepsilon_1$ 的最大单源偏差为 $7.49199\%$（$\leq 8\%$）。作为对照，若采用 pairwise range/$|\mathrm{mean}|$ 口径，同一窗口为 $13.13970\%$；本文不将两种统计量混称为“最大偏差”。400--600~nm（带间跃迁边缘 $\sim$500~nm）偏差大（JC $\varepsilon_2$ 偏高 29\%，文献已知特性——JC 蒸发膜带间损耗高，Olmon 2012 明确讨论）。\textbf{不影响核心验收}：表2 vs Mie 是同一 $\varepsilon$ 下两种方法对比，与材料源选择无关。
+
+\subsection{数据用途分层（fig2.yaml usage\_policy）}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\begin{tabular}{llll}
+\toprule
+用途层 & 数据源 & 波长范围 & 目的 \\
+\midrule
+论文保真 & JC & 500--1935~nm & 与论文（引用 [38]）金球曲线形状对比 \\
+方法验收 & Olmon-EV & 500--2500~nm & 全区间表2 vs Mie 一致性验收 \\
+材料敏感性 & JC/Olmon/McPeak & 500--1700~nm & 三源分别计算，min--max 包络（非均值真值） \\
+\bottomrule
+\end{tabular}
+\caption{金数据三层用途（Codex 对抗审查硬化：不将均值当权威真值，禁止静默外推）}
+\end{table}
+
+\subsection{实现硬化要点}
+
+\begin{itemize}
+  \item \textbf{$\varepsilon = m^2$，严禁 $|m|^2$}：J 前因子 $(\varepsilon_r-1) = m^2-1$（$m = n+i\kappa$），用 $|m|^2$ 丢失复介电函数
+  \item \textbf{波长域插值，禁止外推}：对 $n(\lambda), \kappa(\lambda)$ 线性插值，越界直接报错（\texttt{run\_fig2.py::interpolate\_gold\_m}）
+  \item \textbf{同一 $m$ 下双方法互比}：Mie 与表2 在同一插值 $m(\lambda)$ 下计算，纯方法对比
+  \item 辐射核波数 = host $k$（$kr = x_{\rm mie} U$）；内部波数 $k_{\rm in} = m k_{\rm host}$ 只进入 $E_{\rm in}/J$ 空间结构
+  \item 坐标分量含径向 $U$（第 1 轮表2 大 $x$ 失效 blocker 根因，lessons 10）
+  \item $x_{\rm mie} = \pi(2a/\lambda)$（host=air，gate③ 硬要求延续）
+\end{itemize}

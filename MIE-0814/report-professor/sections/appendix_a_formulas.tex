@@ -1,0 +1,27 @@
+\section{关键公式（推导详见推导笔记）}
+
+本附录给出关键公式的最终形式，完整逐步推导见 \url{https://github.com/PKU-QNO/optics-agent-zyz/blob/main/MIE-0814/reports/vector-multipole-derivation.pdf}（66 页）。
+
+\subsection{矢量球谐}
+
+\[
+\mathbf M_{lm} = \frac{1}{\sqrt{l(l+1)}}\nabla\times(\mathbf r\,Y_{lm}),\qquad
+\mathbf N_{lm} = \frac{1}{k}\nabla\times\mathbf M_{lm}
+\]
+
+它们满足正交完备性，是任意场/电流投影到多极分量的基。
+
+\subsection{Grahn 2012 的电流多极矩到散射系数的映射}
+
+Grahn 的核心是定义电流多极矩（电型/磁型），并把它们与散射场多极系数联系起来。映射常数为
+$C_1=-ik^3/(6\pi E_0)$、$C_2=-k^4/(60\pi E_0)$、$C_3=-ik^5/(210\pi E_0)$（正文 Eq.~(35)--(48)）。
+
+\subsection{Alaee 2018 的 Table 1（长波近似）与 Table 2（精确）}
+
+\textbf{Table 1}（$kr\to0$ 截断）给出熟知的偶极/四极矩，例如电偶极 $p_\alpha=\int P_\alpha\,dV$、磁偶极 $m_\alpha=(i\omega/2)\int(\mathbf r\times\mathbf P)_\alpha\,dV$，其中 $\mathbf P$ 是极化场。电偶极散射贡献里还有 toroidal 项（$k^2/10$ 修正）。
+
+\textbf{Table 2}（精确，不截断）保留球 Bessel 核，例如精确电偶极矩由积分核 $j_1(kr)/(kr)$ 给出。退化检查的关键：$j_l(kr)/(kr)^l\to1/(2l+1)!!$，使 Table 2 在 $kr\to0$ 退化回 Table 1。
+
+\subsection{FC2015 的精确偶极矩与 FC2017 的 toroidal 非独立}
+
+FC2015 的精确电偶极矩保留全部 $kr$ 阶，显式包含 toroidal 项。FC2017 证明：电部分与 toroidal 部分各自含不可观测的非辐射（off-shell）分量，两者求和才抵消，故 toroidal 不可单独测量，只是电偶极系数对电磁尺寸展开的高阶修正。

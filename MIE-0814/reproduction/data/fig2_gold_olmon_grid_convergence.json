@@ -1,0 +1,22 @@
+{
+  "ED": {
+    "max_change_percent": 0.04521331047153837,
+    "p95_change_percent": 0.04339360609036228,
+    "high_signal_points": 200
+  },
+  "MD": {
+    "max_change_percent": 0.06418694807537953,
+    "p95_change_percent": 0.06253186973140691,
+    "high_signal_points": 200
+  },
+  "EQ": {
+    "max_change_percent": 0.060844096956994366,
+    "p95_change_percent": 0.060696373988245095,
+    "high_signal_points": 196
+  },
+  "MQ": {
+    "max_change_percent": 0.0906940868342377,
+    "p95_change_percent": 0.09010814226756324,
+    "high_signal_points": 184
+  }
+}

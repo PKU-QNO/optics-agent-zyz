@@ -1,0 +1,62 @@
+\section{数值验收与重算核对}
+
+本节所有数字均由 B6 逐行读取 CSV/JSON 后重算；百分数是相对误差乘 $100$。分母为 $\max(|\mathrm{target}|,10^{-30})$，Path B 通道 mask 为 Mie 通道贡献 $\ge10^{-4}$。
+
+\subsection{Path A：Table 1 低-$kr$ gate 与截断诊断}
+
+Path A 扫描 $x_{\rm alaee}\in[0.02,0.3]$ 共 150 点，其中 gate 子域 $[0.02,0.1]$ 有 43 点。总截面 A-vs-Table-1 的 max=$5.7055894\times10^{-7}$、p95=$4.4932138\times10^{-7}$，判定 PASS。全域 max=$2.9707748\times10^{-4}$ 仅作 report-only。逐通道 gate 子域 max/p95 为：ED $1.4284\times10^{-15}/6.9619\times10^{-16}$，MD $1.2849\times10^{-15}/9.9487\times10^{-16}$，EQ $1.38527\times10^{-2}/1.27664\times10^{-2}$，MQ $9.9299\times10^{-14}/5.8944\times10^{-14}$。EQ 的 1.385\% 是 spec 预注册的 rank-4 截断诊断，不替换总截面 gate。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{pathA_totals.png}
+\caption{Path A 总截面与 Table 1、Mie 的逐点曲线；灰色虚线标出 $x_{\rm alaee}=0.1$ gate 上界。}
+\end{figure}
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lrr|rr|rr}
+\toprule
+通道 & \multicolumn{2}{c|}{A vs Table 1（gate）} & \multicolumn{2}{c|}{A vs Mie（全 150）} & \multicolumn{2}{c}{Table 1 vs Mie（全 150）} \\
+ & max & p95 & max & p95 & max & p95 \\
+\midrule
+ED & $1.428\!\times10^{-15}$ & $6.962\!\times10^{-16}$ & 0.4031\% & 0.3508\% & 0.4031\% & 0.3508\% \\
+MD & $1.285\!\times10^{-15}$ & $9.949\!\times10^{-16}$ & 13.0250\% & 11.8211\% & 13.0250\% & 11.8211\% \\
+EQ & 1.3853\% & 1.2766\% & 12.6526\% & 11.5245\% & 0.2660\% & 0.2196\% \\
+MQ & $9.930\!\times10^{-14}$ & $5.894\!\times10^{-14}$ & 10.2350\% & 9.2723\% & 10.2350\% & 9.2723\% \\
+\bottomrule
+\end{tabular}
+\caption{Path A 逐通道重算。A/Table 1 是同阶近似诊断；A/Mie 与 Table 1/Mie 显示有限 $kr$ 截断上限。}
+\end{table}
+
+\subsection{Path B：全域有限核与逐 $m$}
+
+Path B 在 $[0.02,1.0]$ 的 200 点总截面 max=$2.9351847\times10^{-4}$（0.0293518\%）、p95=$1.3220624\times10^{-4}$（0.0132206\%），PASS。逐通道 mask 后的 max/p95 分别为 ED 0.301923\%/0.059498\%，MD 0.038334\%/0.021157\%，EQ 0.236555\%/0.075847\%，MQ 0.127564\%/0.062460\%。低端被 mask 的点数 ED/MD/EQ/MQ = 13/31/44/63，故这些点没有被误计入相对误差分母。
+
+逐 $m$ CSV 共 1470 行，按加权 mask 保留 1298 行；复系数 max=$1.5170843\times10^{-3}$（0.151708\%）、p95=$3.1853134\times10^{-4}$（0.0318531\%），PASS。四个分支的保留行数为 $a_E,l=1:374$，$a_E,l=2:312$，$a_M,l=1:338$，$a_M,l=2:274$。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{pathB_errors.png}
+\caption{Path B 总量相对误差与四通道 mask 后相对误差。}
+\end{figure}
+
+\subsection{Rayleigh、光学定理与基准}
+
+统一用 $x_{\rm alaee}$ 做 log-log 拟合，canonical Rayleigh slope 为 $6.098392$（目标 $6\pm0.1$）。Grahn Eq.(22) 与 Eq.(20) 在 $x_{\rm mie}=\pi\times0.5$ 的 $C_{\rm ext}=5.1274243394$、$C_{\rm sca}=5.1274212818$，相对误差 $5.9632060\times10^{-7}$，PASS。
+
+六个预注册解析案例全部出现且 PASS：\texttt{MQ\_m0}、\texttt{MQ\_m1}、\texttt{MQ\_m2}、\texttt{bump\_polarized\_sphere}、\texttt{circulating\_current}、\texttt{double\_blob}。闭式/网格最大误差 $1.1853506\times10^{-14}$；Eq.(13)(14) 与 Eq.(15)(16) 的 16 个 $(branch,l,m)$ 目标全覆盖，最大逐项误差 $1.6201542\times10^{-14}$，无 dark failure。
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lrrl}
+\toprule
+检查 & 数值 & 阈值/覆盖 & 判定 \\
+\midrule
+Rayleigh slope & 6.098392 & $6.0\pm0.1$ & PASS \\
+Eq.(22) vs Eq.(20) & $5.9632\times10^{-7}$ & $<1\%$ & PASS \\
+解析闭式/网格 max & $1.1854\times10^{-14}$ & $<10^{-3}$ & PASS \\
+Eq.(13)(14) vs (15)(16) & $1.6202\times10^{-14}$ & 16/16, no dark failure & PASS \\
+\bottomrule
+\end{tabular}
+\caption{独立数值验收摘要。}
+\end{table}

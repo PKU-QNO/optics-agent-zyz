@@ -1,0 +1,75 @@
+\documentclass[11pt,a4paper,UTF8,fontset=windows]{ctexart}
+
+\usepackage{geometry}
+\geometry{left=2.25cm,right=2.25cm,top=2.25cm,bottom=2.35cm,headheight=14pt}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\setlength{\parskip}{0.2em}
+\setlength{\emergencystretch}{3em}
+\usepackage{fontspec}
+\setmainfont[AutoFakeBold=2,AutoFakeSlant=0.2,FallbackFont={Arial,SimSun}]{Times New Roman}
+\setmonofont{Consolas}
+\ctexset{
+  section={name={,、},number=\arabic{section},format=\zihao{3}\bfseries,aftername=\quad},
+  subsection={name={,、},number=\arabic{section}.\arabic{subsection},format=\zihao{4}\bfseries},
+  subsubsection={name={,、},number=\arabic{section}.\arabic{subsection}.\arabic{subsubsection},format=\zihao{-4}\bfseries}
+}
+
+\usepackage{amsmath,amssymb,bm}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs,multirow,tabularx,array,longtable,float,caption,subcaption,adjustbox}
+\usepackage{siunitx}
+\sisetup{exponent-product=\ensuremath{\times},detect-all,group-separator={,}}
+\usepackage{xcolor}
+\definecolor{passgreen}{HTML}{1B7F3A}
+\definecolor{warnorange}{HTML}{B35A00}
+\definecolor{failred}{HTML}{A61B1B}
+\definecolor{navy}{HTML}{174A7E}
+\usepackage{enumitem}
+\setlist{nosep,leftmargin=2em}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{mie-f 四轮复现最终总报告}
+\fancyhead[R]{2026-08-11}
+\fancyfoot[C]{\thepage}
+\usepackage{xurl}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=navy,citecolor=navy,urlcolor=navy,pdfborder={0 0 0},pdftitle={mie-f 四轮复现最终总报告}}
+\newcommand{\PASS}{\textcolor{passgreen}{\textbf{PASS}}}
+\newcommand{\LIMIT}{\textcolor{warnorange}{\textbf{PASS WITH LIMITATIONS}}}
+\newcommand{\OPEN}{\textcolor{failred}{\textbf{UNRESOLVED}}}
+\newcommand{\rc}[1]{\texttt{#1}}
+
+\title{\textbf{mie-f 四轮复现最终总报告}\\[0.35em]
+\large Fig.1 散射、Fig.2 多极分解、Grahn 映射与 Fig.3 代理路径}
+\author{Codex（B10 汇总、重算与 PDF 验收）}
+\date{2026-08-11}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+
+\begin{abstract}
+本报告汇总 Alaee 等人的电磁多极展开复现工作四个轮次，并把“数值执行通过”“gate 关闭”“result class 晋级”和“完整物理复现”严格分开。所有关键数字均从冻结 CSV/JSON、当前只读函数或不可变收据重新核对，而非直接采信工作日志转述。最终证据支持：Fig.1 的 Table 2--Mie 方法合同通过，且选定复多极矩口径下的单点论文声明通过，但重开的指标 gate 尚缺新的人类 superseding receipt；Fig.2 为 \rc{partial\_physical\_match}，介电 MQ 严格图形保真仍未决；Grahn 映射为 \rc{method\_consistency}；Fig.3 只有 \rc{surrogate\_fallback} 与 \rc{diagnostic\_only}，耦合金纳米盘的完整物理求解尚未实现。
+\end{abstract}
+
+\vspace{0.8em}
+\noindent\fcolorbox{warnorange}{orange!7}{\parbox{0.94\textwidth}{\textbf{诚实声明：}“四轮完成”表示预定研究/实现轮次已有可审计产物，不表示四幅论文图均达到 \rc{physical\_reproduction\_success}。本报告不会用测试数量、编译成功、COMSOL runtime smoke 或代理模型通过来替代物理晋级证据。}}
+
+\tableofcontents
+\newpage
+
+\input{sections/01_overview}
+\input{sections/02_theory}
+\input{sections/03_rounds}
+\input{sections/04_materials_numerics}
+\input{sections/05_cross_validation}
+\input{sections/06_gates}
+\input{sections/07_limitations}
+\input{sections/08_promotion_conclusion}
+
+\bibliographystyle{unsrt}
+\bibliography{bib/references}
+\end{document}

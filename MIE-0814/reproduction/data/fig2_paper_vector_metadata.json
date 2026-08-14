@@ -1,0 +1,188 @@
+{
+  "mode": "vector",
+  "source_pdf": "C:\\Users\\27370\\Desktop\\project\\optics_agent\\papers\\mie-f\\01-\u4e3b\u8bba\u6587\\Alaee_2018_An_Electromagnetic_Multipole_Expansion_Beyond_the_Long-Wavelength_Approximation.pdf",
+  "source_sha256": "c79e243e9b0d05e2800223dea8552df03bbbf0318c134839e9e7ebcc8dda973e",
+  "page": 4,
+  "page_count": 5,
+  "panels": {
+    "a": {
+      "x_ticks_page": [
+        113.851,
+        144.58,
+        175.139,
+        205.7,
+        236.429
+      ],
+      "x_ticks_data": [
+        0.2,
+        0.4,
+        0.6,
+        0.8,
+        1.0
+      ],
+      "y_ticks_page": [
+        87.878,
+        103.989,
+        120.274,
+        136.395
+      ],
+      "y_ticks_data": [
+        7.0,
+        5.0,
+        3.0,
+        1.0
+      ],
+      "x_fit_page_to_data": [
+        0.006530049902884155,
+        -0.5436716339811499
+      ],
+      "y_fit_page_to_data": [
+        -0.12358135630564508,
+        17.857671807977212
+      ],
+      "x_fit_residual_data": 0.00044298097784123414,
+      "y_fit_residual_data": 0.006570147109485447,
+      "x_fit_residual_pdf_pt": 0.06783730360859583,
+      "y_fit_residual_pdf_pt": 0.053164549296869375,
+      "frame": {
+        "x_left": 104.36,
+        "x_right": 236.429,
+        "y_top": 87.878,
+        "y_bottom": 144.626
+      }
+    },
+    "b": {
+      "x_ticks_page": [
+        113.919,
+        144.648,
+        175.206,
+        205.765,
+        236.494
+      ],
+      "x_ticks_data": [
+        0.2,
+        0.4,
+        0.6,
+        0.8,
+        1.0
+      ],
+      "y_ticks_page": [
+        151.866,
+        167.979,
+        184.261,
+        200.383
+      ],
+      "y_ticks_data": [
+        7.0,
+        5.0,
+        3.0,
+        1.0
+      ],
+      "x_fit_page_to_data": [
+        0.006530241653875674,
+        -0.5441401313056032
+      ],
+      "y_fit_page_to_data": [
+        -0.12358367596562844,
+        25.765835074337414
+      ],
+      "x_fit_residual_data": 0.00044626344420517494,
+      "y_fit_residual_data": 0.0063727693071129465,
+      "x_fit_residual_pdf_pt": 0.06833796785151423,
+      "y_fit_residual_pdf_pt": 0.05156643268068321,
+      "frame": {
+        "x_left": 104.429,
+        "x_right": 236.494,
+        "y_top": 151.866,
+        "y_bottom": 208.614
+      }
+    }
+  },
+  "counts": {
+    "a": {
+      "ED": {
+        "line_drawings": 3,
+        "line_points": 333,
+        "marker_drawings": 26,
+        "marker_points": 26
+      },
+      "MD": {
+        "line_drawings": 3,
+        "line_points": 257,
+        "marker_drawings": 25,
+        "marker_points": 25
+      },
+      "EQ": {
+        "line_drawings": 1,
+        "line_points": 294,
+        "marker_drawings": 21,
+        "marker_points": 21
+      },
+      "MQ": {
+        "line_drawings": 3,
+        "line_points": 216,
+        "marker_drawings": 23,
+        "marker_points": 23
+      }
+    },
+    "b": {
+      "ED": {
+        "line_drawings": 1,
+        "line_points": 83,
+        "marker_drawings": 29,
+        "marker_points": 29
+      },
+      "MD": {
+        "line_drawings": 1,
+        "line_points": 71,
+        "marker_drawings": 29,
+        "marker_points": 29
+      },
+      "EQ": {
+        "line_drawings": 1,
+        "line_points": 63,
+        "marker_drawings": 29,
+        "marker_points": 29
+      },
+      "MQ": {
+        "line_drawings": 1,
+        "line_points": 50,
+        "marker_drawings": 29,
+        "marker_points": 29
+      }
+    }
+  },
+  "palette_pdf": {
+    "ED": [
+      0.84706,
+      0.32157,
+      0.094118
+    ],
+    "MD": [
+      0.0,
+      0.44314,
+      0.73725
+    ],
+    "EQ": [
+      0.92549,
+      0.6902,
+      0.12157
+    ],
+    "MQ": [
+      0.4902,
+      0.18039,
+      0.55294
+    ]
+  },
+  "curve_identity": {
+    "mie": "colored l polyline",
+    "exact": "colored c marker"
+  },
+  "domain_policy": {
+    "primary_x": [
+      0.2,
+      1.0
+    ],
+    "gold_jc_min_x": 0.25839793281653745
+  }
+}

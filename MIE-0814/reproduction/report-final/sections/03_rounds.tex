@@ -1,0 +1,86 @@
+\section{四轮详细结果}
+
+\subsection{第 1 轮：Fig.1 散射与长波近似失效}
+
+介电球取 $\varepsilon_r=6.25$，在 $x_{\rm A}=0.2$--1.0 的 200 点上比较 Mie、Table 2 与 Table 1。Table 2--Mie 使用逐通道近零 mask $C_{\rm Mie}\ge10^{-3}\max C_{\rm Mie}$；四通道最大相对误差分别为 ED 0.140419\%、MD 0.038324\%、EQ 0.202006\%、MQ 0.125188\%，统一通过 $<1\%$ 方法合同。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.96\textwidth]{fig1a_reproduction.png}
+\caption{Fig.1 球体复现：Mie、Table 2 与 Table 1 的逐通道散射；Table 1 在大尺寸/共振区失效是预期物理边界。}
+\label{fig:fig1}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.76\textwidth]{fig1a_table2_error.png}
+\caption{统一近零 mask 后的 Table 2--Mie 相对误差。}
+\end{figure}
+
+重开的 B1 metric gate 在 exact $s=x_{\rm A}=0.75$ 重新计算两套不同口径：
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+口径（\%） & ED & MD & EQ & MQ \\
+\midrule
+$|C_{T1}-C_{\rm Mie}|/|C_{\rm Mie}|$ & 86.9148 & 215.9110 & 103.0775 & 55.7510 \\
+$\|M_{T1}-M_{T2}\|/\|M_{T2}\|$ & 136.1669 & 277.7424 & 42.5195 & 24.7950 \\
+\bottomrule
+\end{tabular}
+\caption{Fig.1 exact $s=0.75$ 双口径重算。}
+\end{table}
+论文正文讨论的是 multipole moments，因此 B13 强审采用第二行，并判 ED/MD 的单点声明通过。该强审配合 2026-08-11 人工 superseding receipt（`GATE4-FIG1-SUPERSEDING-RECEIPT-20260811.md`，主 agent 依用户授权 + B13 裁决签发）已关闭 metric 条款（单点 PASS）；不自动签发 canonical c{physical\_reproduction\_success}。
+
+\subsection{第 2 轮：Fig.2 多极分解与论文曲线}
+
+方法层用 Olmon-EV 金数据覆盖 500--2500 nm，在加密网格 $(60,61,120)$ 上计算 200 点。Table 2--Mie 的 max rel 为 ED 0.011856\%、MD 0.016992\%、EQ 0.016104\%、MQ 0.024139\%；对应 p95 均小于 0.024\%，max abs 均小于 $2.64\times10^{-4}$。粗到细网格的最大变化为 0.045213\%、0.064187\%、0.060844\%、0.090694\%，均小于 0.1\%。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{fig2_layer3_overlay.png}
+\caption{Fig.2 Layer 3 论文 vector 曲线与本地曲线叠加。严格指标按冻结的 PDF-vector 点计算。}
+\label{fig:fig2layer3}
+\end{figure}
+
+论文保真层的预注册门为 RMSE $\le0.02$、p95 absolute error $\le0.05$、峰位差 $\le0.01$。介电 ED/MD/EQ 通过；MQ 为 RMSE 0.0255597、p95 0.0569500、峰位差 $2.089\times10^{-5}$，故保持 \rc{UNRESOLVED}。在相同 23 个 marker $x$ 上，论文 Mie line 对 exact marker 的 RMSE/p95 已达 0.024302/0.061866，而本地 Mie 对论文 Mie 为 0.009327/0.021042。这支持 \rc{CONSISTENT\_WITH\_PAPER\_GRAPHICAL\_FLOOR}，但不能覆盖 strict gate。
+
+金球四通道仅在 Johnson--Christy 支持域 $x_{\rm A}\ge500/1935=0.258398$ 内通过。故本轮最终为 \rc{partial\_physical\_match}，而不是完整 Fig.2 fidelity。
+
+\paragraph{B3 最新 fail-closed UQ。}上述逐通道 PASS/UNRESOLVED 是保留的 legacy point-estimate/vector 结果，不是最新 UQ gate。\texttt{data/fig2\_uq\_summary.json} 的 \texttt{layer3\_uq\_status=UNRESOLVED}；panel (a)/(b) 的 ED、MD、EQ、MQ 共八条正式 lane，其 RMSE、p95、peak-$x$ 与 composite 状态均为 \rc{UNRESOLVED}。原因是 dense-mode 阈值仍为 null，axis/interpolation 仅是 proxy/conditional，且缺独立 physics uncertainty bound；因此 8/8 lane 均 fail closed，promotion 保持 \rc{DENIED}。legacy point-estimate 数字继续作为历史诊断披露，但不能替代或覆盖这一正式 UQ gate。
+
+\subsection{第 3 轮：Grahn 映射验证}
+
+Path A 在 $x_{\rm A}\le0.1$ 的 43 个 gate 点比较无核张量映射与 Table 1，总截面 max/p95 为 $5.706\times10^{-7}/4.493\times10^{-7}$。Path A 的 EQ 逐通道 max 1.385\% 是预注册的 rank-4 截断诊断，必须披露，但不替换总截面 gate。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.84\textwidth]{pathA_totals.png}
+\caption{Path A 总截面与 Table 1/Mie；虚线标出长波 gate 子域。}
+\end{figure}
+
+Path B 在 200 点全域比较有限核结果与 Mie $l\le2$，总截面 max/p95 为 $2.935\times10^{-4}/1.322\times10^{-4}$。ED/MD/EQ/MQ 按各通道 $C_{\rm Mie}\ge10^{-4}$ 后，最大复现误差分别为 0.301923\%、0.038334\%、0.236555\%、0.127564\%；mask 点数为 13/31/44/63。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.84\textwidth]{pathB_errors.png}
+\caption{Path B 总量与逐通道 mask 后相对误差。}
+\end{figure}
+
+逐 $m$ 共 1470 行，保留 1298 行；复系数 max/p95 为 $1.517\times10^{-3}/3.185\times10^{-4}$。六个解析 fixture 的最大闭式误差为 $1.185\times10^{-14}$，Eq.(13/14) 对 Eq.(15/16) 的 16 个目标最大误差 $1.620\times10^{-14}$，dark failures 为 0。Rayleigh slope=6.098392；Eq.(22) 光学定理相对差 $5.963\times10^{-7}$；独立远场 max complex rel $7.744\times10^{-15}$。最终机器状态为 \rc{PASS\_WITH\_NOTES / method\_consistency}，但 gate 4 仍待用户接受 mask、rank-4 note 与固有 ceiling。
+
+\subsection{第 4 轮：Fig.3 代理路径与 COMSOL 边界}
+
+路径候选 spec 已纠正早期“Fig.3 Fano”命名：论文主目标是 $a=250$ nm、$t=80$ nm、$g=120$ nm 的耦合金纳米盘，比较同一 FEM 电流上的 ED/MD/EQ/MQ Table 1/Table 2 分通道功率及相对误差。该候选只表示 B12 路径设计获主 agent 采纳，正式执行仍待 FIG3-G0--G6。由于该结构无 Mie 闭式真值，B7 构造的两中心球模型只能是代理。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{fig3_mie_surrogate.png}
+\caption{Fig.3 两中心 Mie 代理。图用于验证实现链与干涉诊断，不是双金纳米盘 COMSOL 真值。}
+\label{fig:fig3surrogate}
+\end{figure}
+
+B7 输出 301 个请求点，其中 297 点有材料覆盖。方向交叉项从 $-24.9256$（$x_{\rm A}=0.82$）到 $+4.48683$（$x_{\rm A}=0.5275$），明确区分相消与相长。Tribelsky comparator 取 $q=-1,x_0=1.34,\Gamma=0.04$，数值峰/谷 1.32002/1.35998，与 1.32/1.36 的 feature 位置差均为 $2\times10^{-5}$；Fu 2013 sanity 得到 $F/B=11.0443$，相对文献约 8 偏高约 38.05\%，只能作为 \rc{sanity\_only}。
+
+B8 的 generic COMSOL 6.3 runtime probe 编译成功并产出 MPH，只证明批处理运行时可用。随后通过 Magnus 集群打通了 COMSOL 频域 FEM 真解（B29--B32、B35）：散射场公式（背景场 $E_0 e^{-ik_0 z}$）、金 JC 色散、四面体网格、频域直接求解器，对双金盘（$a=250$ nm、$t=80$ nm、$g=120$ nm）求得 9 点谱（$x=0.26$--$0.42$）与 $x=0.36$ 的四档网格收敛序列。9 点谱显示 ED 主导 + MD/EQ 在 $x=0.36$ 磁共振（MD $1.60\times10^{-12}$ m$^2$ 主导、EQ 伴生、MQ $\approx0$），与论文共振形态一致。$x=0.36$ 的网格收敛（$1.0\to0.7\to0.5\to0.3$，292,687 至 10,735,163 单元）给出 ED/MQ 已收敛（步进 $<0.26\%$），MD/EQ 步进 $2.26\%/1.95\%$（Richardson 外推收敛阶 $p\approx1.3$，表面场奇异性主导），远场/功率闭合 unresolved fraction $0.0047\%$--$0.3752\%$、power balance $=1.0$。另以边界元法（BEM，RF 模块 \texttt{ElectromagneticWavesBoundaryElements}）在同一几何上求解，用 128G 内存跑通（对比 FEM 0.3 网格的 900G，省约 7 倍），验证 BEM 作为更省内存的替代路径；BEM 的远场经原生 \texttt{FarFieldCalculation} 导出（512 方向样本），VSH 投影 $l\le2$ 未解析比例 $3.93\times10^{-4}$、径向能量比例 $6.61\times10^{-30}$，远场闭合良好。BEM 多极矩（PEC 近似）ED $5.65\times10^{-13}$、MQ $1.18\times10^{-15}$ 与 FEM 同数量级（比值 73\%/95\%），但 MD/EQ 因理想导体无损耗而丢失磁共振（比值 0.7\%/6.5\%），须升级 IBC 加金损耗方可恢复。因此 Fig.3 由 \rc{NOT\_ACHIEVED} 提升为 \rc{partial\_physical\_match}（COMSOL 真解谱），但 MD/EQ 网格残差 $\sim2\%$、高阶 $l>4$ 未逐阶与 PEC 近似的磁共振缺失仍为已知限制。

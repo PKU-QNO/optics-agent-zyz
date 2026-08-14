@@ -1,0 +1,56 @@
+\section{执行流程与 gate 记录}
+
+\subsection{7 步执行概览}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{clll}
+\toprule
+步 & 内容 & 执行方 & 产物 \\
+\midrule
+01 & Fig.2 参数 + 金数据 3 源核对 & 主 agent + 4 子 agent 调研 & \texttt{notes/fig2-parameters.md}、\texttt{data/gold\_epsilon.csv} \\
+02 & formalization fig2.yaml & 主 agent（SEPR 9 字段） & \texttt{formalization/alaee2018-fig2.yaml} \\
+03 & notes 推导 & 主 agent & \texttt{notes/alaee2018-fig2.md} \\
+04 & 复用 code + 金球复 $\varepsilon$ 支持 & Codex（异构） & \texttt{code/run\_fig2.py} 等 \\
+05--06 & run + 3 层验证 & Codex + 主 agent 独立核实 & \texttt{data/fig2\_gold\_*.csv/json} \\
+07 & Layer3 + 报告 + gate④ & Codex vector 提取 + 主 agent & \texttt{report-round2/} \\
+\bottomrule
+\end{tabular}
+\caption{第 2 轮 7 步执行概览}
+\end{table}
+
+\subsection{gate 记录}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lll}
+\toprule
+gate & 裁决 & 依据 \\
+\midrule
+① 参数 & \textbf{跳过}（记录原因） & 参数同 Fig.1（$\varepsilon_r=6.25$、$x_{\rm mie}=\pi(2a/\lambda)$），已 gate 确认 \\
+② spec & \textbf{放行}（合并到计划批准） & Codex 对抗审查 06 + 数值验收闭环；金数据 3 源方案用户拍板 \\
+③ 公式 & \textbf{跳过}（记录原因） & $a_n/b_n/c_n/d_n$ 已对 B\&H 原书核（第 1 轮 gate③）+ miepython 交叉 \\
+④ 误差 & \textbf{PASS\_WITH\_LIMITATIONS} & 对抗审查 08（强模型）；方法 PASS、论文 fidelity UNRESOLVED \\
+\bottomrule
+\end{tabular}
+\caption{第 2 轮 gate 记录。gate①③ 跳过并记录原因（第 2 轮起规则）；gate②④ 重点核。}
+\end{table}
+
+\subsection{金数据 3 源方案（用户拍板 2026-08-07）}
+
+金介电函数\textbf{不用论文图读图提取}，改用 $\geq3$ 个独立公认数据源核对一致（十几年标准值测量偏差 $<$ 读图误差）：
+
+\begin{itemize}
+  \item \textbf{JC 1972} \cite{JohnsonChristy1972}（论文引用 [38]）：论文材料保真层，500--1935~nm，禁止外推
+  \item \textbf{Olmon 2012} \cite{Olmon2012}（光谱椭偏，EV 样品）：方法验收层，500--2500~nm 全覆盖
+  \item \textbf{McPeak 2015} \cite{McPeak2015}（等离激元金膜）：材料敏感性层，500--1700~nm
+  \item Raki\'c 1998 \cite{Rakic1998}（COMSOL 内置 LD/BB）作第 4 参考
+\end{itemize}
+
+三源 550~nm 交叉核对（主 agent 亲算 + 子 agent 调研一致）见表 \ref{tab:gold550}。原始数据从 refractiveindex.info YAML 直接下载（CC0），存 \texttt{data/\_gold\_sources/} 含 manifest SHA256。
+
+\subsection{Layer3 方法演进}
+
+原拟 vision-mcp 高 DPI 渲染描点 → Codex 对抗审查 07 发现源 PDF 第 4 页含 840 个 vector drawing object，Fig.2 曲线保留为 vector path → \textbf{改用 PyMuPDF 直接提取}（1578 行曲线点，轴拟合残差 $<0.5$ gate）；vision 描点降级为 \texttt{DESCRIPTIVE\_ONLY} fallback。详见 §6。

@@ -1,0 +1,77 @@
+\section{表2 大 $x$ 失效与解阻}
+
+\subsection{失效现象}
+
+step05 首次 200 点扫描发现表2 精确多极矩在\textbf{大 $x$ 处崩溃}：
+表2/Mie 比值随 $2a/\lambda$ 变化为
+\begin{equation*}
+  0.2\to1.02,\qquad 0.5\to1.28,\qquad 0.65\to35,\qquad 0.8\to0.013.
+\end{equation*}
+表2 应在全 $x$ 精确等于 Mie，但大 $x$ 严重偏离（0.65 处比值 35，0.8 处 0.013）。
+
+\subsection{初步诊断与排除}
+
+\begin{enumerate}
+  \item \textbf{网格加密不改善}：40$\to$80 网格比值不变 $\Rightarrow$ 非网格密度问题；
+  \item \textbf{只 $j_0$ 项也崩}：$x=0.65$ 处只留 $j_0$ 项比值 11.6
+        $\Rightarrow$ $j_0$ 项本身出错；
+  \item \textbf{规范等价边界项假说}：讲义 §11 警告表2 对称无迹形式与中间形式
+        eq:p\_partial 是"积分意义下规范等价"。曾怀疑逐点实现 $j_2$ 项漏边界项。
+        但修正坐标后，中间形式（\texttt{multipole\_ppartial.py}）与表2 对称式
+        仍不逐点等价 $\Rightarrow$ \textbf{排除"补经验边界常数"的解释}。
+\end{enumerate}
+
+\subsection{最终根因：坐标分量漏乘径向因子}
+
+旧实现把单位方向
+\begin{equation*}
+  u_x=\sin\theta\cos\phi,\quad u_y=\sin\theta\sin\phi,\quad u_z=\cos\theta
+\end{equation*}
+误当成 $r_\alpha/a$。正确关系是式~\eqref{eq:rpos}：
+\begin{equation}
+  \frac{r_x}{a}=U\sin\theta\cos\phi,\quad
+  \frac{r_y}{a}=U\sin\theta\sin\phi,\quad
+  \frac{r_z}{a}=U\cos\theta.
+  \label{eq:rpos_fix}
+\end{equation}
+
+\textbf{影响}：旧 ED 的 $\mathbf{r}\cdot\mathbf{J}$ 和 $r_\alpha$ 各少一个径向因子，
+旧 MD 的 $\mathbf{r}\times\mathbf{J}$ 少一个，EQ/MQ 的张量组合少一个或两个。
+小 $x$ 时经验常数把错误遮住；在共振和大 $x$ 区，错误的径向相消被破坏，
+导致表2/Mie 比值崩溃。
+
+\subsection{独立复现旧 bug}
+
+W-sub 独立用"单元方向（无 $U$）"重算旧 ED，得到表2/Mie 比值：
+$s=0.2{:}\,1.01$、$s=0.5{:}\,1.29$、$s=0.65{:}\,34.5$、
+$s=0.8{:}\,0.00$、$s=1.0{:}\,0.03$。与失效现象一致
+（0.65 处 $\approx35$ 吻合），独立证实根因诊断正确。
+
+\subsection{修复内容}
+
+\begin{enumerate}
+  \item \texttt{multipole\_moments.py}：\texttt{\_cartesian\_position} 返回
+        $U\cdot$方向；host 波数 $\rho=x_{\mathrm{mie}}U$；Eq.1 解析常数
+        （式~\eqref{eq:c_ed_md}--\eqref{eq:c_eq_mq}）；积分器 $\phi$ 周期求和
+        + $u/\theta$ Simpson；
+  \item \texttt{multipole\_approx.py}：表1 同步坐标修正；
+  \item \texttt{multipole\_ppartial.py}：改为诊断路径（排除边界常数解释）；
+  \item \texttt{tests/test\_multipole.py}：新增九点/200 点测试、坐标含径向因子测试、
+        Eq.1 常数回归测试、host-k 默认回归测试；
+  \item \texttt{run\_fig1.py}：默认验收网格 $(40,41,80)$。
+\end{enumerate}
+
+\subsection{host 波数与内部波数的区分}
+
+自由空间 Green 函数的多极展开决定表2 球 Bessel 核使用 \textbf{host 波数}：
+$\rho=k_{\mathrm{host}}r=x_{\mathrm{mie}}U$。内部波数 $k_{\mathrm{in}}=mk$
+只通过内部场 $\mathbf{E}_{\mathrm{in}}$ 进入电流空间结构。代码保留
+\texttt{kernel\_k="internal"} 作为反例诊断分支，但默认值为 \texttt{"host"}。
+
+独立复现：在 $2a/\lambda=0.65$ 粗网格，错误 $k_{\mathrm{in}}$ 分支的 ED/Mie
+比值 $=390.85$，host-k 为 $0.9931$。证明 host-k 是唯一正确选择。
+
+\subsection{解阻结论}
+
+修复后表2 与 Mie 在全区间一致，blocker 解除，三曲线自洽成立。
+完整根因报告见 \texttt{notes/table2-large-x-blocker-resolution.md}。

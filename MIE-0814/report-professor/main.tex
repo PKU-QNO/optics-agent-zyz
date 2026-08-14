@@ -1,0 +1,67 @@
+% !TEX program = xelatex
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{mdframed}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{bm}
+\usepackage{caption}
+\usepackage{tabularx}
+\usepackage{float}
+
+\geometry{margin=2.2cm, top=2cm, bottom=2cm}
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!60!black}
+\setlength{\parindent}{2em}
+\setlist{nosep}
+
+\definecolor{annotblue}{RGB}{46,168,229}
+\definecolor{annotpink}{RGB}{220,50,180}
+
+\newenvironment{important}{%
+  \begin{mdframed}[linecolor=annotblue!70, backgroundcolor=annotblue!5, roundcorner=3pt]
+  \textcolor{annotblue}{$\blacktriangleright$ \textbf{要点}}
+  \medskip\par
+}{\end{mdframed}}
+
+\title{\textbf{电磁多极展开：理论推导与数值复现汇报}\\
+  \large 从 Maxwell 方程到 Alaee 2018 的精确多极展开}
+
+\author{张元正}
+\date{2026-08-14}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{center}
+  \fcolorbox{annotblue!50}{annotblue!5}{\parbox{0.92\textwidth}{\centering\small
+  \textcolor{annotblue}{$\blacktriangleright$} \textbf{汇报范围}：本报告总结我近期对四篇多极展开经典论文的理论学习与数值复现，\\
+  重点回答「为什么我相信自己算对了」——多近似方法互验、极限退化、能量守恒与光学定理。}}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\input{sections/01_deliverables}
+\input{sections/02_theory}
+\input{sections/03_results}
+\input{sections/04_physical_verification}
+\input{sections/05_conclusion}
+
+\appendix
+\input{sections/appendix_a_formulas}
+\input{sections/appendix_b_verification_tables}
+\input{sections/appendix_c_artifacts}
+\input{sections/appendix_d_limitations}
+
+\end{document}

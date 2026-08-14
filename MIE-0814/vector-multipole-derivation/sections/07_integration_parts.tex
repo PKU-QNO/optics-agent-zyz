@@ -1,0 +1,282 @@
+\section{分部积分消去导数——实用形式}
+%=============================================================================
+
+本节是推导的最终目标：从 Eqs.(13)--(14) 出发，通过分部积分消去 $\mathbf{J}_S$ 的空间导数，
+得到只含 $\mathbf{J}_S$ 本身分量（$\hat{\mathbf{r}}\cdot\mathbf{J}_S$、$\hat{\boldsymbol{\theta}}\cdot\mathbf{J}_S$、$\hat{\boldsymbol{\phi}}\cdot\mathbf{J}_S$）的实用形式。
+
+\subsection{辅助函数的引入}
+
+定义以下辅助函数以简化表达式：
+
+\begin{itemize}
+  \item Riccati--Bessel 函数（辅助径向函数）：
+  \begin{equation}
+    \mathfrak{g}_l(kr) \equiv kr\,j_l(kr)
+    \label{eq:g_l}
+  \end{equation}
+  其导数记为 $\mathfrak{g}_l'(kr)$ 和 $\mathfrak{g}_l''(kr)$。
+
+  \item 角函数：
+  \begin{align}
+    \pi_{lm}(\theta) &\equiv \frac{m}{\sin\theta}\,P_l^m(\cos\theta) \label{eq:pi_lm}\\
+    \tau_{lm}(\theta) &\equiv \frac{d}{d\theta}P_l^m(\cos\theta) \label{eq:tau_lm}
+  \end{align}
+  其中 $P_l^m$ 是连带 Legendre 函数。这两个函数通过 $\mathbf{X}_{lm}$ 的分量出现在结果中。
+\end{itemize}
+
+\subsection{$a_M$ 的化简（Eq.(14) $\to$ Eq.(16)）}
+
+从 Eq.(14) 出发：
+$$
+a_M(l,m) = C_M\int Y_{lm}^*\,j_l(kr)\,\mathbf{r}\cdot(\nabla\times\mathbf{J}_S)\,d^3r
+$$
+其中 $C_M = \dfrac{(-i)^{l-1}k^2\eta}{E_0[\pi(2l+1)l(l+1)]^{1/2}}$。
+
+$\blacktriangleright$ 分部积分：利用恒等式 $\int \mathbf{A}\cdot(\nabla\times\mathbf{B})\,d^3r = \int (\nabla\times\mathbf{A})\cdot\mathbf{B}\,d^3r$（在边界项为零的条件下，因为 $\mathbf{J}_S$ 在散射体外为零），将 $\nabla\times$ 从 $\mathbf{J}_S$ 转移到已知函数上。
+
+令 $\mathbf{A} = Y_{lm}^*j_l(kr)\,\mathbf{r}$，$\mathbf{B} = \mathbf{J}_S$：
+$$
+\int Y_{lm}^*j_l(kr)\,\mathbf{r}\cdot(\nabla\times\mathbf{J}_S)\,d^3r
+= \int \bigl[\nabla\times(Y_{lm}^*j_l(kr)\,\mathbf{r})\bigr]\cdot\mathbf{J}_S\,d^3r
+$$
+
+$\blacktriangleright$ 计算 $\nabla\times(Y_{lm}^*j_l(kr)\,\mathbf{r})$：
+利用恒等式 $\nabla\times(\psi\mathbf{r}) = \psi(\nabla\times\mathbf{r}) + \nabla\psi\times\mathbf{r} = \nabla\psi\times\mathbf{r}$（因为 $\nabla\times\mathbf{r}=0$）：
+$$
+\nabla\times(Y_{lm}^*j_l(kr)\,\mathbf{r}) = \nabla(Y_{lm}^*j_l(kr))\times\mathbf{r}
+$$
+
+展开梯度：
+$$
+\nabla(Y_{lm}^*j_l(kr)) = \hat{\mathbf{r}}\,\frac{d}{dr}(j_lY_{lm}^*) + \frac{1}{r}\nabla_\perp(j_lY_{lm}^*)
+$$
+
+其中 $\nabla_\perp$ 是角向梯度算子。与 $\mathbf{r}$ 叉乘后，径向部分消失（$\hat{\mathbf{r}}\times\mathbf{r}=0$），仅剩：
+$$
+\nabla(Y_{lm}^*j_l(kr))\times\mathbf{r} = j_l(kr)\,\nabla Y_{lm}^*\times\mathbf{r}
+$$
+
+而 $\nabla Y_{lm}^*$ 的角向分量为：
+$$
+\nabla Y_{lm}^* = \frac{1}{r}\Bigl(\hat{\boldsymbol{\theta}}\,\partial_\theta Y_{lm}^* + \hat{\boldsymbol{\phi}}\,\frac{1}{\sin\theta}\,\partial_\phi Y_{lm}^*\Bigr)
+$$
+
+因此：
+$$
+\mathbf{r}\times\nabla Y_{lm}^* = -\Bigl(\hat{\boldsymbol{\theta}}\,\frac{1}{\sin\theta}\,\partial_\phi Y_{lm}^* - \hat{\boldsymbol{\phi}}\,\partial_\theta Y_{lm}^*\Bigr)
+$$
+
+代入 $\mathbf{X}_{lm}$ 的定义 $[l(l+1)]^{1/2}\mathbf{X}_{lm}^* = \mathbf{r}\times\nabla Y_{lm}^*$，
+并引入 $\pi_{lm}$ 和 $\tau_{lm}$。利用 $Y_{lm} \propto P_l^m(\cos\theta)e^{im\phi}$：
+\begin{align}
+  \partial_\theta Y_{lm} &= \tau_{lm}(\theta)e^{im\phi},\\
+  \partial_\phi Y_{lm} &= im Y_{lm} = i\pi_{lm}(\theta)\sin\theta\,e^{im\phi}
+\end{align}
+
+由 §1 标准定义 $\sqrt{l(l+1)}\mathbf{X}_{lm}^* = \nabla\times(\mathbf{r}Y_{lm}^*) = \nabla Y_{lm}^*\times\mathbf{r}$，代入上式：
+$$
+\nabla\times(Y_{lm}^*j_l(kr)\,\mathbf{r}) = +j_l(kr)\sqrt{l(l+1)}\,\mathbf{X}_{lm}^*
+$$
+
+于是分部积分的结果为：
+$$
+\int Y_{lm}^*j_l(kr)\,\mathbf{r}\cdot(\nabla\times\mathbf{J}_S)\,d^3r
+= \sqrt{l(l+1)}\int j_l(kr)\,\mathbf{X}_{lm}^*\cdot\mathbf{J}_S\,d^3r
+$$
+
+将 $\mathbf{X}_{lm}^*$ 展开为 $\hat{\boldsymbol{\theta}}$ 和 $\hat{\boldsymbol{\phi}}$ 分量。
+由 $\mathbf{X}_{lm} = \frac{1}{\sqrt{l(l+1)}}\nabla\times(\mathbf{r}Y_{lm})$，在球坐标下（\S1.2 标准约定）：
+$$
+\mathbf{X}_{lm} = \frac{1}{\sqrt{l(l+1)}}\Bigl(
+  \hat{\boldsymbol{\theta}}\,\frac{im}{\sin\theta}\,Y_{lm} - \hat{\boldsymbol{\phi}}\,\partial_\theta Y_{lm}
+\Bigr)
+$$
+
+用 $\pi_{lm}$ 和 $\tau_{lm}$ 表达（$\pi_{lm}=\frac{m}{\sin\theta}P_l^m$，$\tau_{lm}=\frac{d}{d\theta}P_l^m$）：
+\begin{align}
+  \mathbf{X}_{lm} &= \frac{1}{\sqrt{l(l+1)}}\bigl(i\hat{\boldsymbol{\theta}}\,\pi_{lm} - \hat{\boldsymbol{\phi}}\,\tau_{lm}\bigr)e^{im\phi} \\
+  \mathbf{X}_{lm}^* &= \frac{1}{\sqrt{l(l+1)}}\bigl(-i\hat{\boldsymbol{\theta}}\,\pi_{lm} - \hat{\boldsymbol{\phi}}\,\tau_{lm}\bigr)e^{-im\phi}
+\end{align}
+
+故 $\mathbf{X}_{lm}^*\cdot\mathbf{J}_S = \dfrac{1}{\sqrt{l(l+1)}}\bigl(-i\pi_{lm}\,\hat{\boldsymbol{\theta}}\cdot\mathbf{J}_S
+- \tau_{lm}\,\hat{\boldsymbol{\phi}}\cdot\mathbf{J}_S\bigr)e^{-im\phi}$。
+代入分部积分结果，$\sqrt{l(l+1)}\times\dfrac{1}{\sqrt{l(l+1)}}=1$ 消去，整体多出 $-1$ 因子
+（来自 $\mathbf{X}_{lm}^*$ 中 $\hat{\boldsymbol{\phi}}$ 分量的负号），恰好使系数从
+$(-i)^{l-1}$ 变为 $(-i)^{l+1}=(-i)^2(-i)^{l-1}$，与 Grahn 原文 Eq.(16) 一致。
+
+经过完整的代数运算（核心理念：分部积分 + 球谐梯度分解 + $\pi_{lm}/\tau_{lm}$ 代换），最终得到：
+\begin{equation}
+  \boxed{\;
+    a_M(l,m) = \frac{(-i)^{l+1}k^2\eta\,O_{lm}}{E_0[\pi(2l+1)]^{1/2}}
+    \int e^{-im\phi} j_l(kr)\bigl[
+      i\pi_{lm}(\theta)\,\hat{\boldsymbol{\theta}}\cdot\mathbf{J}_S
+      + \tau_{lm}(\theta)\,\hat{\boldsymbol{\phi}}\cdot\mathbf{J}_S
+    \bigr] d^3r
+    \;}
+  \label{eq:aM_final}
+\end{equation}
+
+其中 $O_{lm}$ 是归一化常数
+$O_{lm} = \dfrac{1}{\sqrt{l(l+1)}}\sqrt{\dfrac{2l+1}{4\pi}\dfrac{(l-m)!}{(l+m)!}}$。
+这就是 Grahn 的 Eq.(16)。
+
+\begin{stepbox}{$a_M$ 分部积分后的形式解读}
+Eq.(16) 的优势在于：
+\begin{itemize}
+  \item $\mathbf{J}_S$ 不再被求旋度——取而代之的是 $\mathbf{J}_S$ 在 $\hat{\boldsymbol{\theta}}$ 和 $\hat{\boldsymbol{\phi}}$ 方向的分量
+  \item $j_l(kr)$、$\pi_{lm}(\theta)$、$\tau_{lm}(\theta)$ 都是已知解析函数
+  \item 被积函数全部已知，只需在粒子体积内做数值积分
+\end{itemize}
+\end{stepbox}
+
+\subsection{$a_E$ 的化简（Eq.(13) $\to$ Eq.(15)）}
+
+从 Eq.(13) 出发，积分包含两部分：
+$$
+a_E \propto \int Y_{lm}^*j_l(kr)\bigl[k^2\mathbf{r}\cdot\mathbf{J}_S\bigr]\,d^3r
++ \int Y_{lm}^*j_l(kr)\bigl[\left(2+r\frac{d}{dr}\right)(\nabla\cdot\mathbf{J}_S)\bigr]\,d^3r
+$$
+
+第一部分 $k^2\mathbf{r}\cdot\mathbf{J}_S$ 已经不含导数，可以直接处理为 $\hat{\mathbf{r}}\cdot\mathbf{J}_S$ 项。
+
+对于第二部分，分别对径向导数项和散度项做分部积分，将导数从 $\mathbf{J}_S$ 转移到已知函数上。
+
+\textbf{第一次分部积分}：令 $\psi_1 = \nabla\cdot\mathbf{J}_S$，则第二项写为
+$$
+I_2 = \int Y_{lm}^*j_l(kr)\,\left(2+r\frac{d}{dr}\right)\psi_1\,d^3r
+$$
+
+对体积元中的径向导数项分部积分（边界项取零），可将导数移到左侧已知函数：
+$$
+I_2 = -\int \psi_1\,\Bigl[Y_{lm}^*j_l(kr)+r\partial_r\bigl(Y_{lm}^*j_l(kr)\bigr)\Bigr]\,d^3r
+$$
+
+记 $\Phi_{lm}=Y_{lm}^*j_l(kr)+r\partial_r[Y_{lm}^*j_l(kr)]$，则 $I_2=-\int\psi_1\Phi_{lm}\,d^3r$。
+
+利用 Riccati--Bessel 函数 $\mathfrak{g}_l(kr) = kr\,j_l(kr)$ 的微分方程：
+$$
+\mathfrak{g}_l''(x)+\mathfrak{g}_l(x) = \frac{l(l+1)}{x^2}\,\mathfrak{g}_l(x),\qquad x=kr
+$$
+
+后续代入 $\mathfrak{g}_l$ 的导数关系时使用上式。
+
+\textbf{第二次分部积分}：将 $\nabla\cdot$ 从 $\mathbf{J}_S$ 转移到 $\Phi_{lm}$ 上：
+$$
+\int (\nabla\cdot\mathbf{J}_S)\,\Phi_{lm}\,d^3r
+= -\int \mathbf{J}_S\cdot\nabla\Phi_{lm}\,d^3r
+$$
+
+展开梯度：
+$$
+\nabla\Phi_{lm}
+= \hat{\mathbf{r}}\,\partial_r\Phi_{lm} + \frac{1}{r}\nabla_\Omega\Phi_{lm}
+$$
+
+其中 $\nabla_\Omega$ 只作用于角变量；代入 $\mathfrak{g}_l$、$P_l^m$ 的导数关系即可得到径向、极向和方位向的已知权重。
+
+因此 $\mathbf{J}_S\cdot\nabla\Phi_{lm}$ 分解为：
+\begin{itemize}
+  \item 径向部分：$\mathbf{J}_S\cdot\hat{\mathbf{r}}\,\partial_r\Phi_{lm}$
+  \item 角向部分：$\mathbf{J}_S\cdot(r^{-1}\nabla_\Omega\Phi_{lm})$
+\end{itemize}
+
+结合第一部分 $k^2\mathbf{r}\cdot\mathbf{J}_S$ 项中 $\mathbf{r}\cdot\mathbf{J}_S = r\,\hat{\mathbf{r}}\cdot\mathbf{J}_S$ 的贡献，
+并利用 $\nabla_\perp Y_{lm}^*$ 的 $\pi_{lm}/\tau_{lm}$ 展开，经过代数整理：
+
+\begin{equation}
+  \boxed{\;
+    \begin{aligned}
+    a_E(l,m) &= \frac{(-i)^{l-1}k^2\eta\,O_{lm}}{E_0[\pi(2l+1)]^{1/2}}
+    \int e^{-im\phi}\Bigl\{
+      \bigl[\mathfrak{g}_l(kr) + \mathfrak{g}_l''(kr)\bigr]P_l^m(\cos\theta)\,\hat{\mathbf{r}}\cdot\mathbf{J}_S \\
+      &+ \frac{\mathfrak{g}_l'(kr)}{kr}\bigl[\tau_{lm}(\theta)\,\hat{\boldsymbol{\theta}}\cdot\mathbf{J}_S
+      - i\pi_{lm}(\theta)\,\hat{\boldsymbol{\phi}}\cdot\mathbf{J}_S\bigr]
+    \Bigr\} d^3r
+    \end{aligned}
+    \;}
+  \label{eq:aE_final}
+\end{equation}
+
+这就是 Grahn 的 Eq.(15)。
+
+\subsection{为什么 Eqs.(15)--(16) 是实用的？}
+
+\begin{important}
+与 Eqs.(13)--(14) 相比，Eqs.(15)--(16) 有\textbf{三个本质优势}：
+\begin{enumerate}
+  \item \textbf{无需数值求导}：被积函数只含 $\mathbf{J}_S$ 本身的笛卡尔分量（通过球坐标基 $\hat{\mathbf{r}},\hat{\boldsymbol{\theta}},\hat{\boldsymbol{\phi}}$ 投影），
+    不含 $\nabla\cdot\mathbf{J}_S$ 或 $\nabla\times\mathbf{J}_S$。所有导数都转移到了已知的解析函数
+    $j_l(kr)$、$P_l^m(\cos\theta)$ 上。
+  \item \textbf{体积分局限在粒子内部}：因为 $\mathbf{J}_S$ 仅在 $\Delta\epsilon_r \neq 0$ 的区域非零，
+    积分自动限制在散射体体积内。这避免了 Eqs.(3)--(4) 需要大球面积分的麻烦。
+  \item \textbf{支持阵列处理}：每个粒子 $j$ 有独立的 $\mathbf{J}_{S,j}$，可以逐个粒子积分再线性叠加——
+    这是处理周期性阵列或复杂多体系统的关键。
+\end{enumerate}
+\end{important}
+
+\begin{chaptersummary}
+
+\textbf{§7 章节总结}
+
+本章完成了从电流到多极系数的最终化简，得到适合数值实现的实用形式。
+
+\textbf{为什么要分部积分消去导数？}
+Eqs.(13)--(14) 中的 $\nabla\cdot\mathbf{J}_S$ 和 $\nabla\times\mathbf{J}_S$
+在 FDTD/FEM 离散网格上难以精确计算，数值求导会严重放大噪声。
+分部积分将这些导数转移到已知的解析函数（Bessel、Legendre）上，
+被积函数只含 $\mathbf{J}_S$ 本身的笛卡尔分量。
+
+\textbf{a$_M$ 的实用形式（Grahn Eq.(16)）——不含 $\nabla\times$：}
+$$
+\boxed{\;
+a_M(l,m) = \frac{(-i)^{l+1}k^2\eta\,O_{lm}}{E_0[\pi(2l+1)]^{1/2}}
+\int e^{-im\phi} j_l(kr)\bigl[
+i\pi_{lm}(\theta)\,\hat{\boldsymbol{\theta}}\cdot\mathbf{J}_S
++ \tau_{lm}(\theta)\,\hat{\boldsymbol{\phi}}\cdot\mathbf{J}_S
+\bigr] d^3r
+\;}
+$$
+
+\textbf{a$_E$ 的实用形式（Grahn Eq.(15)）——不含 $\nabla\cdot$：}
+$$
+\boxed{\;
+\begin{aligned}
+a_E(l,m) &= \frac{(-i)^{l-1}k^2\eta\,O_{lm}}{E_0[\pi(2l+1)]^{1/2}}
+\int e^{-im\phi} \Bigl\{
+\bigl[\mathfrak{g}_l(kr) + \mathfrak{g}_l''(kr)\bigr]P_l^m(\cos\theta)\,\hat{\mathbf{r}}\cdot\mathbf{J}_S \\
+&\qquad + \frac{\mathfrak{g}_l'(kr)}{kr}\bigl[\tau_{lm}(\theta)\,\hat{\boldsymbol{\theta}}\cdot\mathbf{J}_S
+- i\pi_{lm}(\theta)\,\hat{\boldsymbol{\phi}}\cdot\mathbf{J}_S\bigr]
+\Bigr\} d^3r
+\end{aligned}
+\;}
+$$
+
+\textbf{辅助函数（全部解析已知，可递推计算）：}
+\begin{align*}
+\mathfrak{g}_l(kr) &= kr\,j_l(kr) \quad\text{(Riccati--Bessel 函数)} \\
+\pi_{lm}(\theta) &= \frac{m}{\sin\theta}\,P_l^m(\cos\theta) \\
+\tau_{lm}(\theta) &= \frac{d}{d\theta}\,P_l^m(\cos\theta) \\
+O_{lm} &= \frac{1}{\sqrt{l(l+1)}}\sqrt{\frac{2l+1}{4\pi}\frac{(l-m)!}{(l+m)!}}
+\end{align*}
+
+\textbf{对比 Eqs.(13)--(14) 与 Eqs.(15)--(16)：}
+\begin{center}
+\begin{tabular}{lll}
+ & Eqs.(13)--(14)（理论形式） & Eqs.(15)--(16)（实用形式） \\ \hline
+被积函数含 & $\nabla\cdot\mathbf{J}_S$, $\nabla\times\mathbf{J}_S$ & $\hat{\mathbf{r}}\cdot\mathbf{J}_S$, $\hat{\boldsymbol{\theta}}\cdot\mathbf{J}_S$, $\hat{\boldsymbol{\phi}}\cdot\mathbf{J}_S$ \\
+求导次数 & 1-2 阶数值求导 & 零次（导数已转移） \\
+精度 & 网格离散后损失大 & 解析权重 + 插值 $\mathbf{J}_S$ \\
+适用场景 & 理论分析 & 数值实现
+\end{tabular}
+\end{center}
+
+\textbf{为什么这很重要？}
+式 (15)--(16) 是 Grahn 方法的\textbf{数值计算接口}：在 FDTD 网格的每个粒子内，
+只需将 $\mathbf{J}_S$ 的三个笛卡尔分量投影到球坐标基上，乘以已知的权重函数再积分，
+无需任何额外求导。且每个粒子的体积分独立，支持阵列的并行计算。
+
+\end{chaptersummary}
+
+\newpage
+
+%=============================================================================

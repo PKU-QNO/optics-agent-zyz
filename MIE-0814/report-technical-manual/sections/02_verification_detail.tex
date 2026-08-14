@@ -1,0 +1,69 @@
+\section{物理验证细节与证据位置}
+
+本手册的验证数字与复现工程内文件逐一对应，便于核对。工程根为 \url{https://github.com/PKU-QNO/optics-agent-zyz/tree/main/MIE-0814/reproduction}（本地 \texttt{reproduction/}）。下文 file:line 引用对应仓库 MIE-0814/reproduction/ 子目录。
+
+\subsection{① 多近似方法对比（证据位置）}
+
+\begin{longtable}{p{4.8cm}p{5.4cm}p{3.6cm}}
+\toprule
+验证项 & 数字 & 证据 \\
+\midrule
+\endhead
+Table 2 vs Mie（Fig.~1，200 点） & ED $0.1404\%$/MD $0.0383\%$/EQ $0.2020\%$/MQ $0.1252\%$ & \texttt{report-round1/sections/06\_verification.tex:151-159}；\texttt{data/fig1a\_multipole\_*.csv} \\
+Table 2 vs Mie（Fig.~2，加密网格） & ED $0.0119\%$/MD $0.0170\%$/EQ $0.0161\%$/MQ $0.0241\%$ & \texttt{report-round2/sections/05\_verification.tex:11-14} \\
+miepython 交叉 & Fig.~1 $\sim10^{-16}$；Grahn $1.59\times10^{-15}$ & \texttt{code/run\_grahn\_verification.py:178} \\
+Grahn Path A vs Table 1 & $5.71\times10^{-7}$ & \texttt{data/grahn\_gates.json} \\
+Grahn Path B vs Mie & $2.94\times10^{-4}$（200 点） & \texttt{data/grahn\_gates.json} \\
+Grahn 逐 $m$ & $1.52\times10^{-3}$ & \texttt{B6-report.md:26} \\
+独立远场投影 & $7.74\times10^{-15}$ & \texttt{run\_grahn\_verification.py:179,203} \\
+FEM vs BEM（Fig.~3，PEC） & ED $73\%$/MQ $95\%$；MD/EQ 被抑制 & \texttt{B42/report.md:150-169} \\
+FEM 网格收敛（Richardson） & MD/EQ 步进 $2.26\%/1.95\%$，$p\approx1.3$ & \texttt{B35-richardson-extrapolation.md:14-53} \\
+\bottomrule
+\end{longtable}
+
+\subsection{② 极限退化（证据位置）}
+
+\begin{longtable}{p{4.8cm}p{5.4cm}p{3.6cm}}
+\toprule
+验证项 & 数字 & 证据 \\
+\midrule
+\endhead
+Table 2 $\to$ Table 1 退化 & 四条 $<1\%$；$1/3,1/15,1/105$ & \texttt{report-round1/sections/06\_verification.tex:36-41}；\texttt{tests/test\_multipole.py:46} \\
+Table 1 大尺寸失效 & $s=0.75$ ED $136.17\%$/MD $277.74\%$ & \texttt{report-round1/sections/06\_verification.tex:164-195} \\
+Mie $\to$ Rayleigh & 斜率 $4.00$ & \texttt{tests/test\_mie.py:73-79} \\
+$Q_{\rm ext}\to2$ & $\|Q_{\rm ext}(120)-2\|<0.05$ & \texttt{report-round1/sections/06\_verification.tex:17} \\
+Grahn Rayleigh slope & $6.098$ & \texttt{data/grahn\_gates.json} \\
+Fig.~3 双盘退化 & 无解析目标 & 待补 \\
+\bottomrule
+\end{longtable}
+
+\subsection{③ 能量守恒 / 光学定理（证据位置）}
+
+\begin{longtable}{p{4.8cm}p{5.4cm}p{3.6cm}}
+\toprule
+验证项 & 数字 & 证据 \\
+\midrule
+\endhead
+Fig.~1 $C_{\rm ext}=C_{\rm sca}+C_{\rm abs}$ & $<10^{-10}$ & \texttt{tests/test\_mie.py:55,65} \\
+Fig.~1 光学定理 & $<10^{-10}$ & \texttt{tests/test\_mie.py:102} \\
+Fig.~2 光学定理 $S(0)$ 双路 & $1.2\times10^{-14}$ & \texttt{B2-report.md:21-44}；\texttt{code/optical\_theorem.py} \\
+Grahn Eq.(22) vs Eq.(20) & $5.96\times10^{-7}$ & \texttt{data/grahn\_gates.json}（optical\_theorem） \\
+Fig.~3 功率闭合 & power balance $=1.0$；unresolved $4.7\times10^{-5}$ & \texttt{data/fig3\_b32\_convergence\_closure.json} \\
+Fig.~3 BEM 闭合 & $l>2$ 未解析 $3.93\times10^{-4}$ & \texttt{B42/report.md:160-167} \\
+\bottomrule
+\end{longtable}
+
+\subsection{物理验证矩阵（速查）}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lcccc}
+\toprule
+& Fig.~1 & Fig.~2 & Grahn & Fig.~3 \\
+\midrule
+① 多近似互验 & $\checkmark$ & $\checkmark$ & $\checkmark$ & 部分 \\
+② 极限退化 & $\checkmark$ & $\checkmark$ & $\checkmark$ & 待补 \\
+③ 能量守恒/光学定理 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+\bottomrule
+\end{tabular}
+\end{table}

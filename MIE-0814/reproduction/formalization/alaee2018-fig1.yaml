@@ -1,0 +1,207 @@
+# formalization.yaml — Alaee 2018 Fig.1(a) 复现 spec（gate② 停点）
+# 步骤: 02-formalization | case: fig1 | 对齐 SEPR 9 字段标准
+# 本文件是 step04 代码的唯一物理输入源：代码消费本 spec，不消费论文 prose。
+# gold standard: self-evo-paper-repro/.work/.todo/2401.04146/0703-01-akimov-mie-v1/formalization.yaml
+# 状态: draft — 待 gate② 用户核对物理 spec 后定稿
+
+meta:
+  paper: "Alaee 2018 (Optics Communications 407, 17-21), Electromagnetic multipole expansion beyond the long-wavelength approximation"
+  case: "fig1"
+  target_figure: "Fig.1(a)"
+  target_figure_source: "gate① 用户裁决（2026-08-05）；figs/fig1.png(2481×1488)；notes/fig1-parameters.md"
+  target_figure_note: "本轮只复现面板(a) 介电球散射截面；金球面板(b)(d) 依赖 JC 数据另接，不阻塞主线（opus 审批残留2）。4 轮循环见 repro-plan-v2.md §2。"
+  formula_primary_source: "Alaee 2018 Table 1/2 + Eq.(1)（notes/fig1-parameters.md 逐字提取，PDF 文字层权威）"
+  formula_cross_check_source: "讲义 vector-multipole-derivation §10（表1 推导）/ §11（表2 推导）；Bohren & Huffman Ch.4（Mie 系数）"
+  result_class_ceiling: "pipeline_completed（本步为 formalization spec 设计，无仿真无物理验证；Fig.1 s=0.75 指标裁决由 B1 verdict 留给用户）"
+
+geometry:
+  description: >
+    单一均匀各向同性介电球，半径 a，嵌入无限大均匀 host（air）。
+    横轴是无量纲 2a/λ（Alaee 用 size parameter），物理内容由 ε_r 与 2a/λ 两个无量纲量承载。
+    Fig.1(a) 复现不需要具体 λ 或 a 值（介电球无色散）——横轴直接就是 2a/λ，
+    Mie 系数 a_n(2a/λ, ε_r)、b_n(2a/λ, ε_r) 是这两个量的函数。此点为本 spec 的刻意设计，非缺失。
+  parameters:
+    radius: "符号量，不取具体值（Fig.1(a) 用无量纲 2a/λ 作横轴，R 消去）"
+    size_param: { definition: "x_alaee = 2a/λ（Alaee 横轴）", range: "[0.2, 1.0]", points: 200, unit: "无量纲", source: "figs/fig1.png(2481×1488) 面板(a) x 轴：vision-mcp 读刻度 0.2,0.4,0.6,0.8,1.0；像素统计曲线彩色像素延伸到 col 1114 ≈ 轴右端 col 1116 → 曲线画到 x≈1.0（gate② 待澄清1，原 [0.2,0.8] 上限可能偏小，留 0.75 余量）" }
+    mie_size_param_conversion: "⚠️ gate③ 硬性要求：Mie 系数用 B&H x_mie = ka，Alaee 横轴是 2a/λ。host=air（ε_d=1, n_d=1）时：x_mie = ka = 2πa/λ = π·(2a/λ)。**不得直接拿 2a/λ 当 x_mie 用**，否则峰位全偏 π 倍（gate③ 用户强调的翻车点）。锚点（step04 实测，2026-08-05，n=2.5）：ED a_1 峰 2a/λ=0.500（x_mie=π/2≈1.571，Fröhlich 偶极共振）；MD b_1 峰 2a/λ=0.385（x_mie≈1.209，ka·n≈π 球内驻波，物理自洽）；EQ a_2 峰 0.647（x_mie=2.033）；MQ b_2 峰 0.543（x_mie=1.705）。⚠️ 早期 spec 记'MD 峰 2a/λ≈0.5–0.7'是凭直觉猜错（该区间实为 EQ/MQ 峰混合区），已按实测修正。"
+  coordinate: "球坐标 (r, θ, φ)，球心为原点；矢量球谐展开"
+
+materials:
+  inside:
+    epsilon_r: 6.25                 # 介电球 = 2.5²（n=2.5 高折射率），实标量、无色散、无吸收
+    source: "Alaee 2018 正文 p2：ε_τ = 2.5²；opus 审查 R1 修正（PDF 提取丢上标 2.5²→2.52 已纠）；notes/fig1-parameters.md #1"
+  outside:
+    epsilon_host: 1.0               # air
+  magnetic: "μ = μ₀ 处处成立（非磁性）"
+  dispersion: "无。介电球 ε_r=6.25 常数，零材料色散依赖，不下载材料数据。金球(Fig.1b) 才需 JC 数据（后续轮另接）"
+
+equations:
+  primary_BH_mie:
+    description: "Lorenz-Mie 散射系数，Bohren & Huffman Ch.4 标准记号（Mie 基准用，gate③ 对 B&H 原书核）"
+    notation_map: "x = ka = (2π/λ)√ε_d; m = √ε_r/√ε_d（相对折射率）；BH a_n=电多极/TM ↔ a_E，b_n=磁多极/TE ↔ a_M；内部场系数 c_n/d_n（B&H 4.53-4.54）"
+    a_n: "a_n = [m ψ_n(mx) ψ'_n(x) − ψ_n(x) ψ'_n(mx)] / [m ψ_n(mx) ξ'_n(x) − ξ_n(x) ψ'_n(mx)]"
+    b_n: "b_n = [ψ_n(mx) ψ'_n(x) − m ψ_n(x) ψ'_n(mx)] / [ψ_n(mx) ξ'_n(x) − m ξ_n(x) ψ'_n(mx)]"
+    c_n_internal: "c_n = [m ψ_n(x) ξ'_n(x) − m ξ_n(x) ψ'_n(x)] / [ψ_n(mx) ξ'_n(x) − m ξ_n(x) ψ'_n(mx)]  [B&H 4.53；gate③ 已核；step04 独立库交叉验证]"
+    d_n_internal: "d_n = [m ψ_n(x) ξ'_n(x) − m ξ_n(x) ψ'_n(x)] / [m ψ_n(mx) ξ'_n(x) − ξ_n(x) ψ'_n(mx)]  [B&H 4.54；⚠️ step04 修正：分子第二项也带 m（与 c_n 分子相同）；早期转录漏 m 已纠，miepython 独立验证 1.4e-15 一致]"
+    riccati_bessel: "ψ_n(ρ) = ρ j_n(ρ); ξ_n(ρ) = ρ h_n^(1)(ρ) = ψ_n(ρ) − i χ_n(ρ), χ_n(ρ) = −ρ y_n(ρ); ' 为对宗量求导"
+    implementation: "scipy.special.spherical_jn / spherical_yn（含 derivative=True）；不自实现特殊函数"
+  cross_sections:
+    C_sca: "C_sca = (2π/k²) Σ_n (2n+1)(|a_n|² + |b_n|²)"
+    C_ext: "C_ext = (2π/k²) Σ_n (2n+1) Re(a_n + b_n)"
+    C_abs: "C_abs = C_ext − C_sca"
+    normalization: "归一化 C_sca/(λ²/2π)（Alaee Eq.1 caption；Fig.1(a) y 轴 LINEAR 1,3,5,7）"
+    truncation: "谱求和截断 n_max = ceil(x + 4x^{1/3} + 2)（Wiscombe，trust 教材惯例）；面板(a) 逐多极只需 l≤2，别混淆两个截断"
+  table1_approx:
+    description: "Alaee Table 1 长波长近似（常数核；讲义 §10 完整推导）"
+    J_note: "表1 前置系数必须用 −1/(iω)（OCR 误读 -1/10 已纠，PDF 文字层权威）"
+    ED: "p_α ≈ −(1/iω){∫J_α + (k²/10)∫[(r·J)r_α − 2r²J_α]}"
+    MD: "m_α ≈ (1/2)∫(r×J)_α"
+    EQ: "Q^e_αβ ≈ −(1/iω){∫[3(r_βJ_α+r_αJ_β)−2(r·J)δ_αβ] + (k²/14)∫[4r_αr_β(r·J)−5r²(r_αJ_β+r_βJ_α)+2r²(r·J)δ_αβ]}"
+    MQ: "Q^m_αβ ≈ ∫{r_α(r×J)_β + r_β(r×J)_α}"
+    limit_map: "1→j_0, 1/3→j_1/(kr), 1/15→j_2/(kr)², 1/105→j_3/(kr)³（表1 是表2 的 kr→0 极限，讲义 §11 noteworthy）"
+  table2_exact:
+    description: "Alaee Table 2 精确多极矩（球 Bessel 核；讲义 §11 完整推导）"
+    ED: "p_α = −(1/iω){∫J_α j_0(kr) + (k²/2)∫[3(r·J)r_α − r²J_α] j_2(kr)/(kr)²}"
+    MD: "m_α = (3/2)∫(r×J)_α j_1(kr)/(kr)"
+    EQ: "Q^e_αβ = −(3/iω){∫[3(r_βJ_α+r_αJ_β)−2(r·J)δ_αβ] j_1(kr)/(kr) + 2k²∫[5r_αr_β(r·J)−(r_αJ_β+r_βJ_α)r²−r²(r·J)δ_αβ] j_3(kr)/(kr)³}"
+    MQ: "Q^m_αβ = 15∫{r_α(r×J)_β + r_β(r×J)_α} j_2(kr)/(kr)²"
+  eq1_C_sca_multipole:
+    description: "Alaee Eq.(1) 散射截面（从多极矩出发），量纲自洽版（讲义 §12 noteworthy 勘误）"
+    formula: "C_sca = k⁴/(6πε₀²|E_inc|²) [ Σ_α(|p_α|² + |m_α|²/c²) + (1/120)Σ_αβ(|kQ^e_αβ|² + |kQ^m_αβ|²/c²) + ... ]"
+    note: "原文印刷 |m|²/c 是量纲 typo，实际 |m|²/c²（讲义 §12）；四极系数 1/120 确认（|kQ|²=k²|Q|²）"
+  J_omega:
+    formula: "J_ω(r) = iω ε₀ (ε_r − 1) E_ω(r)   [Alaee 原文]"
+    convention: "复现统一 e^{−iωt}（与讲义/Grahn 一致）→ 取 J = −iω ε₀ (ε_r−1) E，与表1 前置 −1/(iω) 自洽"
+  limit_identities:
+    small_x_degeneration: "x≪1 时表2 精确矩退化为表1 近似矩（<1%，Layer2 验证）"
+    dark_mode: "球对称四极子电流对 C_sca 零贡献（构造性测试，Layer2，Y7）"
+    x075_error: "2a/λ=0.75 处以复多极矩向量误差 ||M_T1−M_T2||/||M_T2|| 评价论文原话：ED=136.1669%、MD=277.7424%，均 >100%；C_sca 分项误差仅作派生诊断（ED=86.9148%、MD=215.9110%），不可替代论文矩指标"
+    optical_theorem: "C_ext = (4π/k) Im S(0)，S(0) 从角分辨散射振幅独立算（Layer1，Y8 防自我一致）"
+
+boundary_conditions:
+  interface: "r = R 球面处切向 E、切向 H 连续（逐 (n, m, 偏振) 通道解出 a_n, b_n, c_n, d_n）"
+  radiation: "散射场取向外辐射边界条件（h_n^(1)，配合 e^{−iωt} 时谐约定）；内部场取原点正则解 j_n(k_i r)"
+  role_in_spec: "这是 a_n, b_n 表达式的推导来源（BH §4.3 与 Alaee 一致）；本复现直接使用闭式系数 + 内部场解析解，不重新数值解边值问题"
+
+sources:
+  incident: "x 偏振、沿 z 传播的单色 TEM 平面波 E^inc = x̂ E_0 e^{i(kz − ωt)}（Alaee 正文：linearly x-polarized, propagates in z-direction）"
+  polarization: "linear x（polarization_axis: x, propagation_axis: z）"
+  intensity: "E_0 = 1（归一化；Fig.1(a) 输出是归一化 C_sca，入射幅度归一化即可）"
+  role_in_fig1a: >
+    Fig.1(a) 的 per-multipole C_sca 依赖入射球谐幅度分解（x 偏振平面波只激发 m=±1 分量）。
+    介电球内部场由 Mie 内部场解析解给出（B&H 4.53-4.54 系数），
+    表1/表2 多极矩用 J = −iωε₀(ε_r−1)E 从内部场算。
+
+solver:
+  type: "解析 Mie 内部场 + 体积分（多极矩）——不是 FEM/FDTD，不是优化拟合"
+  problem_statement: >
+    在 size_param ∈ [0.2, 1.0] 上，对介电球（ε_r=6.25）计算逐多极 (ED/MD/EQ/MQ) 的归一化 C_sca：
+    三条曲线集 = Mie 理论（基准，从 a_n/b_n 提取 per-multipole 贡献）/ 表2 精确（球 Bessel 核体积分）/
+    表1 近似（常数核体积分）。主验收为 Mie 与表2 精确矩的逐多极 C_sca 分项一致 <1%（near-zero mask 见 gate_contract），
+    且 2a/λ=0.75 处表1 与表2 的复多极矩向量误差 ED/MD 均 >100%（论文原话口径）。
+  strategy: |
+    1. Mie 基准：scipy.special 直算 a_n/b_n → 两组量：
+       (a) 总 C_sca 用 Wiscombe 截断 n_max（与论文总截面对齐，Layer3）；
+       (b) per-multipole 分项只取 l=1,2：ED=a_n(n=1), MD=b_n(n=1), EQ=a_n(n=2), MQ=b_n(n=2)
+       （a_n=电多极/TM, b_n=磁多极/TE 约定，与 observables.per_multipole 一致——gate② 修正，勿再写反）；
+    2. 内部场：B&H 4.53-4.54 c_n/d_n → 球内 E(r) → J = −iωε₀(ε_r−1)E；
+    3. 表2 精确矩：球坐标 (r,θ,φ) 三重积分，j_l/(kr)^l 在 r→0 用极限值 1/(2l+1)!!（G1，防除零）；
+    4. 表1 近似矩：常数核积分（同样坐标）；
+    5. 每条曲线除 λ²/2π 归一化，叠加 (2j+1) 普适上限参考线（1/3/5/7）；
+    6. 相对误差 = |C_approx − C_Mie|/C_Mie × 100%，面板(c) 纵轴 0-100%；
+    7. Layer1-3 验证（见 verification）。
+    ⚠️ 截断分界（gate② 硬伤2 修正）：
+       - 总 C_sca（Layer1/光学定理/论文图总对齐）：用 Wiscombe n_max≈ceil(1.0+4·1.0^{1/3}+2)=7（x≤1.0），含全部高阶项；
+       - per-multipole Mie↔Table2 合同（<1%，统一阈值）：只对**逐多极分项**比对——即每个 l=1,2 分项分别比
+         Mie(l) vs 表2(l) vs 表1(l)，不是拿"表1/表2 只到四极的总和"去比"Mie 含全部阶的总和"。
+         后者因缺 l≥3 八极项而永不满足逐分项合同，会让验收自相矛盾。
+       - 论文 Fig.1(a) 只画 l=1,2 的 per-multipole 曲线（Alaee 表1/表2 到四极止），故面板(a) 叠加
+         用 per-multipole 分项；总 C_sca 的 Wiscombe 用于 Layer1 硬约束与 Layer3 总对齐。
+  environment: "本地 Python（numpy + scipy + matplotlib），单核秒级~分钟级；不需要 Magnus/COMSOL/HPC。⚠️ 交叉验证依赖：miepython 3.3.0（仅 tests/test_xmie.py::test_internal_field_matches_miepython 用，pytest.importorskip 若缺失则该测试静默 skip——换环境后需 pip install miepython 避免误判全过）"
+  n_max_formula: "Wiscombe: x + 4x^{1/3} + 2"
+
+observables:
+  description: "与 Fig.1 面板(a) 对应的 per-multipole 散射截面曲线族（Mie/表2/表1 三组）"
+  panel:
+    id: "a"
+    layout: "Fig.1 为 2×2：左列 (a)(b) 截面、右列 (c)(d) 误差（vision-mcp 2026-08-05 核实，早期上/下排作废）"
+    x_axis: "2a/λ, linear, ticks 0.2,0.4,0.6,0.8,1.0"
+    y_axis: "C_sca/(λ²/2π), LINEAR, ticks 1,3,5,7 (= (2j+1) per-multipole universal limit)"
+  curves:
+    - { label: Mie_theory, style: solid, meaning: "analytic Mie per-multipole 基准" }
+    - { label: Table2_exact, style: dashed, meaning: "Alaee 表2 精确多极矩（球 Bessel 核）" }
+    - { label: Table1_approx, style: dashed, meaning: "Alaee 表1 长波长近似（常数核）" }
+  per_multipole:
+    - { multipole: ED, mie_source: "a_n(n=1)", note: "电偶极/TM（a_n=电多极约定，repro-plan §6.1）" }
+    - { multipole: MD, mie_source: "b_n(n=1)", note: "磁偶极/TE（b_n=磁多极约定）" }
+    - { multipole: EQ, mie_source: "a_n(n=2)", note: "电四极/TM" }
+    - { multipole: MQ, mie_source: "b_n(n=2)", note: "磁四极/TE" }
+  universal_limit: "(2j+1)λ²/2π: j=0→1, j=1→3, j=2→5, j=3→7（与 y 轴刻度 1,3,5,7 对应）"
+  error_analysis: "相对误差 = |C_approx − C_Mie|/C_Mie × 100%，面板(c) 0-100%（%），标注 x≈0.75 处 ED/MD >100%"
+
+verification:
+  layer1_hard_constraints:
+    - energy_conservation: "C_ext = C_sca + C_abs（1e-10 内）"
+    - zero_abs_lossless: "Im(ε_r)=0 ⇒ C_abs=0（介电球 ε_r=6.25 实）"
+    - optical_theorem: "C_ext = (4π/k) Im S(0)，S(0) 从角分辨散射振幅独立算（Y8）"
+    - rayleigh_limit: "小 x：Q_sca ∝ x⁴（log-log 斜率 4）"
+    - large_size_limit: "x→∞：Q_ext → 2"
+    - spherical_symmetry: "各向同性球散射与 φ 无关"
+  layer2_limits:
+    - table2_to_table1: "x≪1 时表2 精确矩退化表1 近似矩（<1%）"
+    - small_argument_jl: "j_l/(kr)^l → 1/(2l+1)!! 极限正确"
+    - dark_mode: "球对称四极子电流对 C_sca 零贡献（构造性测试，Y7）"
+    - dipole_dominant: "小 x 时高阶多极贡献 → 0"
+  layer3_paper_comparison:
+    - main_acceptance: "统一合同：Mie(l=1,2)↔Table2(l) 的逐多极 C_sca 相对误差 <1%，只统计 C_Mie≥1e−3·max(C_Mie) 的非近零点；与论文图目视叠加一致（论文描点只做锚点，不当真值）"
+    - x075_error: "论文承诺 gate：s=0.75 的复多极矩向量误差 ||M_T1−M_T2||/||M_T2|| ED=136.1669%、MD=277.7424%（均 >100%）；C_sca 误差 ED=86.9148%、MD=215.9110%、EQ=103.0775%、MQ=55.7510% 仅作诊断，不作论文 gate"
+    - rmse_tolerance: "统一为逐通道最大相对 C 误差 <1%；near-zero mask=C_Mie<1e−3·max(C_Mie)，掩码点不参与 max/RMSE，且必须报告掩码规则"
+    - rel_error_denominator_note: "论文文字称 multipole moments；因此论文 gate 使用复数向量/张量范数（ED/MD 2-范数，EQ/MQ Frobenius），参考为 Table2 精确矩。Fig.1 绘图仍显示派生 C_sca 相对误差 |C_T1−C_Mie|/C_Mie；C 口径不再冒充论文矩指标。"
+
+# B1 范围受控重 gate 合同（2026-08-11；给用户裁决的候选方案）
+gate_contract:
+  status: "candidate_pending_user_metric_decision"
+  source: "codex-prompts/out/B1-regate-verdict.md + B1-fig1-s075-evidence.json"
+  primary_paper_metric:
+    name: "complex_multipole_vector_relative_error"
+    formula: "100·||M_Table1(s)−M_Table2(s)||/||M_Table2(s)||"
+    norms: "ED/MD 使用复向量 2-范数；EQ/MQ 使用复张量 Frobenius 范数"
+    s075_gate: "ED>100% and MD>100% at exact s=0.75; no near-zero mask at this point"
+  derived_plot_metric:
+    name: "per_multipole_scattering_C_relative_error"
+    formula: "100·|C_Table1−C_Mie|/|C_Mie|"
+    role: "Fig.1(c) diagnostic/plot only; not a substitute for the paper's moment claim"
+  table2_mie_contract:
+    threshold: "<1% per channel"
+    mask: "C_Mie < 1e−3·max(C_Mie) is near-zero and excluded from max/RMSE; mask rule is part of the contract"
+    all_four_channels: true
+  evidence_requirements:
+    - "Record nearest frozen CSV row and linear interpolation at s=0.75"
+    - "Record direct exact-s=0.75 code evaluation on grid (40,41,80)"
+    - "Keep C and complex-moment metrics in separate columns; do not merge thresholds"
+
+assumptions:
+  - "线性、各向同性、均匀介质；球内外 ε 均为常数标量"
+  - "非磁性：μ = μ₀ 处处成立"
+  - "ε_r = 6.25 纯实（无吸收，Im ε_r = 0）⇒ Layer1 无吸收零吸收检查"
+  - "时谐约定 e^{−iωt}（与讲义/Grahn 一致）；J = −iωε₀(ε_r−1)E，与表1 前置 −1/(iω) 自洽"
+  - "经典 Mie 框架（B&H Ch.4）；Alaee 的激发源修正/高阶修正不在本复现范围（讲义 §12 已统一）"
+  - "横轴无量纲 2a/λ，不需具体 R/λ 值（介电球无色散）"
+  - "x 偏振平面波只激发 m=±1 分量（Y2）；Fig.1(a) 是介电球，金球(b) 不阻塞主线"
+
+missing_fields:
+  - field: "论文 Fig.1 曲线的数值生成方法"
+    detail: "论文正文说用 COMSOL FEM 获得电场分布（Ref[39]），但未说明多极矩积分的网格/采样细节——不影响复现（本工作用解析 Mie 内部场替代），Layer3 对比时曲线取样密度自定"
+  - field: "Fig.1(a) 面板的 8 条曲线逐条标注"
+    detail: "论文未逐条标注每条曲线对应哪个多极的 Mie/近似；按 (ED/MD/EQ/MQ)×(实线/虚线) 结构匹配，颜色近似（论文图例 4 色）"
+  - field: "JC 金数据（Fig.1b 面板需要）"
+    detail: "本轮不做金球(b)，但金数据已在本地 Zotero（WAEZQ8P3），后续轮从 PDF 提取 ε(λ) → data/jc_Au.csv"
+  - field: "Layer3 量化阈值"
+    detail: "RMSE/峰位/Q 因子容忍带无先例，建议阈值（RMSE<5% 等）待 gate④ 用户认可"
+
+provenance:
+  source_artifact: "notes/fig1-parameters.md（step01 文本参数）+ data/alaee_fig1_axes.yaml + figs/fig1.png（vision-mcp 核实）+ 讲义 §10/§11 + repro-plan-v2.md §6.7（opus 审查专项）"
+  evidence_type: "PDF 文字层逐字提取 + vision-mcp 多通道像素核实（4 通道收敛）+ 讲义推导交叉验证 + opus 审查"
+  timestamp_version: "20260805"
+  scope_applicability: "仅 Fig.1(a) 介电球散射截面复现（ε_r=6.25 常数、无色散、2a/λ∈[0.2,1.0]）；金球(b)(d) 需 JC 数据另接，不适用本 spec"
+  confidence_result_class: "高（spec 设计，公式经讲义 §10/§11 交叉确认 + gate② 用户放行）/ pipeline_completed（step03 推导笔记待写）"

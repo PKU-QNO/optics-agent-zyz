@@ -1,0 +1,43 @@
+\section{理论推导}
+
+\subsection{四篇论文的理论链}
+
+多极展开的现代体系由一条清晰的理论链构成，我按「从 Maxwell 到精确多极展开」的顺序逐一推导：
+
+\begin{enumerate}
+  \item \textbf{Grahn 2012} 建立了基础：从 Maxwell 方程出发，把任意局域电流分布 $\mathbf J(\mathbf r)$ 展开为电流多极矩（电偶极、磁偶极、电四极……），并给出电流多极矩到散射场多极系数 $a_E(l,m), a_M(l,m)$ 的映射关系（Eq.~(1)--(16)）。这是后续所有工作的出发点。
+  \item \textbf{Fernandez-Corbaton 2015} 指出长波近似下偶极矩的定义不唯一，给出局域电流分布的\textbf{精确}电偶极矩（保留全部 $kr$ 阶，不截断），揭示偶极展开里的 toroidal 项。
+  \item \textbf{Fernandez-Corbaton 2017} 严格证明 toroidal 多极\textbf{不是独立自由度}：电偶极展开的电部分与 toroidal 部分各自含有不可观测的非辐射分量，两者求和才抵消；toroidal 只是电偶极系数对电磁尺寸展开的高阶修正项。
+  \item \textbf{Alaee 2018} 把这一思想推广到全部多极阶：Table 1 是长波近似（$kr\to0$ 截断），Table 2 是保留球 Bessel 函数 $j_l(kr)$ 的精确表达式，并说明 Table 1 是 Table 2 的 $kr\to0$ 极限。
+\end{enumerate}
+
+\subsection{我的推导过程：矢量球谐（VSH）}
+
+我完整手推了从 Maxwell 方程组到 Grahn 2012 Eqs.~(1)--(16) 的矢量球谐展开链，约 66 页笔记，逐步不跳步。核心路径是：
+
+\[
+\text{Maxwell 方程} \;\longrightarrow\; \text{矢量球谐 } \mathbf M_{lm},\mathbf N_{lm} \;\longrightarrow\; \text{Mie 严格解} \;\longrightarrow\; \text{多极投影} \;\longrightarrow\; \text{电流多极矩映射}
+\]
+
+几个我印象最深的推导节点：
+
+\begin{itemize}
+  \item \textbf{矢量球谐的正交完备性}：$\mathbf M_{lm},\mathbf N_{lm}$ 在球面上正交，这是把任意场/电流投影到多极分量的数学基础；我用球面谐函数 $Y_{lm}$ 的梯度与旋度显式构造了它们。
+  \item \textbf{散射电流到多极系数的投影}：把散射电流 $\mathbf J(\mathbf r)$ 与 $\mathbf M_{lm},\mathbf N_{lm}$ 做内积，分部积分把体积分化为含 $j_l(kr)$ 核的积分——这正是 Table 2 的 Bessel 核来源。
+  \item \textbf{长波退化的精确来源}：$j_l(kr)\xrightarrow{kr\to0}(kr)^l/(2l+1)!!$，代入后 Table 2 逐条退化回 Table 1，且 toroidal 项（如 ED 的 $k^2/10$ 项）自动显现为 $j_2/(kr)^2\to1/15$ 的极限。
+\end{itemize}
+
+\subsection{推导中的验证}
+
+我在推导过程中做了两类验证，避免「公式抄对但系数抄错」：
+
+\begin{enumerate}
+  \item \textbf{scipy 数值验证}：对关键积分核与投影结果，我用 scipy 的球 Bessel 函数、Legendre 多项式做独立数值计算，与手推的解析系数逐点比对，锁定系数（如 ED 的 $3$、MQ 的 $15$ 都由退化验证固定）。
+  \item \textbf{退化检查}：推导结尾系统检查了 Table 2 在 $kr\to0$ 时逐条退化回 Table 1（ED/MD/EQ/MQ 四条），并验证 $j_l/(kr)^l\to1/(2l+1)!!$ 的系数（$1/3, 1/15, 1/105$）。
+\end{enumerate}
+
+\begin{important}
+  \textbf{为什么这让我相信推导是对的}：一条公式链从 Maxwell 出发、经多次分部积分与投影，中间任何一步系数错都会在退化检查里暴露。Table 2 $\to$ Table 1 的逐条退化 + scipy 独立数值比对，构成了对推导的「内部一致性」与「外部独立」双重校验。
+\end{important}
+
+完整的逐步推导见我的推导笔记 \url{https://github.com/PKU-QNO/optics-agent-zyz/blob/main/MIE-0814/reports/vector-multipole-derivation.pdf}（附录 A 也给出关键公式）。我借助 AI 辅助完成了部分代数化简与公式核对，但推导逻辑与退化检查由我独立完成并逐一验证。

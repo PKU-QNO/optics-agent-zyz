@@ -1,0 +1,25 @@
+\section{结论与 gate 4 材料}
+
+\subsection{本轮结论}
+
+第 3 轮 Grahn 映射在冻结 v4 合同下得到 \textbf{PASS\_WITH\_NOTES}：Path B 有限核路径与 Mie 在 200 点全域和逐 $m$ 复系数上均低于 1\%，Path A 与 Table 1 在 $x_{\rm alaee}\le0.1$ 的总截面误差为 $5.71\times10^{-7}$，Rayleigh slope 为 6.098392，光学定理、miepython、解析六案例、Eq.(13)(14) 交叉和远场投影全部 PASS。该结果的严格上限为
+\begin{center}
+\fbox{\texttt{result\_class\_ceiling = method\_consistency}}
+\end{center}
+不声称 \texttt{physical\_reproduction\_success}，因为本轮是 Grahn 映射桥接验证，不是论文图像或实验数据复现。
+
+\subsection{gate 4 建议材料（不代用户裁决）}
+
+建议 gate 4 审查者逐项确认以下事实：
+\begin{enumerate}
+ \item 数字是否来自当前冻结 \texttt{data/grahn\_*.csv/json}，并与 B6 重算表一致；
+ \item Path A 的 EQ 1.385\% 是否按 spec 作为 rank-4 截断 notes，而非总量失败；
+ \item Path B 的 mask 13/31/44/63 及逐 $m$ 加权 mask 1298 行是否被完整披露；
+ \item 独立远场、miepython 和 Eq.(22) 是否被视为相位敏感的辅助 gate；
+ \item 结果等级是否保持 \texttt{method\_consistency}，不越过 formalization 上限。
+\end{enumerate}
+若以上证据均被接受，建议 gate 4 记录为 ``PASS\_WITH\_NOTES（method consistency only）''；若需要更强物理结论，应另开新轮，预注册论文观测量、实验/图像来源与独立物理真值后再晋级。晋级不应通过修改本轮阈值或回写冻结数据实现。
+
+\subsection{交付物与回滚边界}
+
+交付目录为 \texttt{report-round3/}，含本文件、8 个 section、3 张由冻结数据生成的图、bib 和 compile.sh；gate 4 机器材料为 \texttt{codex-prompts/out/B6-report.md}。本任务未修改 \texttt{formalization/*.yaml}、\texttt{code/}、\texttt{data/}、既有报告、git 或规则文件，因而可通过删除新目录和 B6 材料回滚。

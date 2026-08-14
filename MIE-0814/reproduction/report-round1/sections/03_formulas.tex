@@ -1,0 +1,87 @@
+\section{核心公式与无量纲化}
+
+\subsection{散射电流}
+
+采用时谐约定 $e^{-i\omega t}$，散射电流密度 \cite{Grahn2012}：
+\begin{equation}
+  \mathbf{J}(\mathbf{r}) = -i\omega\varepsilon_0\bigl(\varepsilon_r(\mathbf{r})-\varepsilon_{r,d}\bigr)\mathbf{E}(\mathbf{r}),
+  \label{eq:J}
+\end{equation}
+其中 $\mathbf{E}$ 为球内总场（孤立球即 Mie 内部场解析解）。
+复现中统一去掉公共常数因子 $-i\omega\varepsilon_0$，用
+$\widetilde{\mathbf{J}}=(\varepsilon_r-1)\mathbf{E}_{\mathrm{in}}$ 作为积分输入；
+物理电流 $J=-i\omega\varepsilon_0\widetilde{\mathbf{J}}$，其绝对尺度在 $C_{\mathrm{sca}}$
+归一化到 $\lambda^2/(2\pi)$ 时消去，只有相对空间分布与相位进入多极矩。
+
+\subsection{表2 精确多极矩}
+
+Alaee 表2 的四条公式（讲义 §11，球 Bessel 核，量纲自洽）：
+
+\begin{align}
+  \text{ED:}\quad p_\alpha &= -\frac{1}{i\omega}\Bigl\{\int J_\alpha\,j_0(kr)\,d^3r
+    + \frac{k^2}{2}\int\bigl[3(\mathbf{r}\cdot\mathbf{J})r_\alpha - r^2J_\alpha\bigr]
+    \frac{j_2(kr)}{(kr)^2}\,d^3r\Bigr\}, \label{eq:ed}\\
+  \text{MD:}\quad m_\alpha &= \frac32\int(\mathbf{r}\times\mathbf{J})_\alpha\,
+    \frac{j_1(kr)}{kr}\,d^3r, \label{eq:md}\\
+  \text{EQ:}\quad Q^e_{\alpha\beta} &= -\frac{3}{i\omega}\Bigl\{
+    \int\bigl[3(r_\beta J_\alpha + r_\alpha J_\beta) - 2(\mathbf{r}\cdot\mathbf{J})\delta_{\alpha\beta}\bigr]
+    \frac{j_1(kr)}{kr}\,d^3r \notag\\
+    &\qquad + 2k^2\int\bigl[5r_\alpha r_\beta(\mathbf{r}\cdot\mathbf{J})
+    - (r_\alpha J_\beta + r_\beta J_\alpha)r^2 - r^2(\mathbf{r}\cdot\mathbf{J})\delta_{\alpha\beta}\bigr]
+    \frac{j_3(kr)}{(kr)^3}\,d^3r\Bigr\}, \label{eq:eq}\\
+  \text{MQ:}\quad Q^m_{\alpha\beta} &= 15\int\bigl\{
+    r_\alpha(\mathbf{r}\times\mathbf{J})_\beta + r_\beta(\mathbf{r}\times\mathbf{J})_\alpha\bigr\}
+    \frac{j_2(kr)}{(kr)^2}\,d^3r. \label{eq:mq}
+\end{align}
+
+表1 近似（长波长极限）只是把核常数替换：$1\to j_0$、
+$\tfrac13\to\tfrac{j_1}{kr}$、$\tfrac1{15}\to\tfrac{j_2}{(kr)^2}$、
+$\tfrac1{105}\to\tfrac{j_3}{(kr)^3}$。因此
+\textbf{表1 是表2 的 $kr\to0$ 极限}，两条公式共享同一积分框架，仅核不同。
+
+\subsection{无量纲化（关键设计）}
+
+归一化半径 $u=r/a\in[0,1]$。球内宗量
+\begin{equation}
+  \rho = k r = (ka)\,u = x\,u,
+  \label{eq:rho}
+\end{equation}
+其中 $k$ 是 \textbf{host 波数}（$k=2\pi/\lambda$），$x=ka=x_{\mathrm{mie}}$。
+关键点：\textbf{球 Bessel 辐射核用 host 波数}，内部波数 $k_{\mathrm{in}}=mk$
+只通过内部场 $\mathbf{E}_{\mathrm{in}}$ 进入电流空间结构。
+
+位置向量分量写成
+\begin{equation}
+  \frac{r_x}{a} = u\sin\theta\cos\phi,\quad
+  \frac{r_y}{a} = u\sin\theta\sin\phi,\quad
+  \frac{r_z}{a} = u\cos\theta.
+  \label{eq:rpos}
+\end{equation}
+\textbf{径向因子 $u$ 不可省略}——这是本轮 blocker 的根因（见第 5 节）。
+所有 $r_\alpha$、$\mathbf{r}\cdot\mathbf{J}$、$r^2$ 项都必须含对应的 $u$ 幂次。
+
+\subsection{散射截面（Alaee Eq.1，量纲自洽版）}
+
+从多极矩构造总散射截面 \cite{Alaee2018}，讲义 §12 勘误后的量纲自洽版：
+\begin{equation}
+  C_{\mathrm{sca}} = \frac{k^4}{6\pi\varepsilon_0^2|E_{\mathrm{inc}}|^2}\Bigl[
+    \sum_\alpha\Bigl(|p_\alpha|^2 + \frac{|m_\alpha|^2}{c^2}\Bigr)
+    + \frac{1}{120}\sum_{\alpha\beta}\Bigl(
+      |kQ^e_{\alpha\beta}|^2 + \frac{|kQ^m_{\alpha\beta}|^2}{c^2}\Bigr) + \cdots
+  \Bigr].
+  \label{eq:eq1}
+\end{equation}
+注意：原文印刷 $|m|^2/c$ 是量纲 typo，物理自洽版必须是 $|m|^2/c^2$
+与 $|kQ^m|^2/c^2$（讲义 §12 noteworthy）。四极系数 $1/120$ 确认
+（$|kQ|^2=k^2|Q|^2$）。
+
+归一化到 $\lambda^2/(2\pi)$（论文 y 轴）。由于 $\lambda^2/(2\pi)=2\pi/k^2$，
+从 Eq.~\eqref{eq:eq1} 除以该量后，得到逐多极归一化截面：
+\begin{align}
+  C_{\mathrm{ED}} &= \frac{x^6}{12\pi^2}\sum_\alpha|p_\alpha|^2, &
+  C_{\mathrm{MD}} &= \frac{x^8}{12\pi^2}\sum_\alpha|m_\alpha|^2, \label{eq:c_ed_md}\\
+  C_{\mathrm{EQ}} &= \frac{x^8}{1440\pi^2}\sum_{\alpha\beta}|Q^e_{\alpha\beta}|^2, &
+  C_{\mathrm{MQ}} &= \frac{x^{10}}{1440\pi^2}\sum_{\alpha\beta}|Q^m_{\alpha\beta}|^2. \label{eq:c_eq_mq}
+\end{align}
+这些常数的第一性原理推导见第 6.3 节，其中
+$1/1440 = 1/(120\times 12)$ 的来源是关键。

@@ -1,0 +1,388 @@
+\section{升级规则、散射截面统一与数值验证}
+%=============================================================================
+
+前两章分别完整推导了表 1（LWA）与表 2（精确）多极矩。本章把全篇串起来收尾：
+先给出"查找-替换"升级规则（把近似代码改精确），再统一三套框架（Mie/Grahn/Alaee）
+的散射截面公式，用 Mie 理论验证表 2 的正确性与表 1 的失效边界，
+最后以速查对照表汇总全篇关键公式。
+
+\subsection{升级规则：把近似代码改造成精确}
+
+表 2 相对表 1 的升级就是"查找-替换"积分核：
+
+\begin{center}
+\begin{tabular}{ccll}
+\toprule
+\textbf{近似系数} & \textbf{替换为} & \textbf{出现项} & \textbf{$kr\to0$ 退化} \\
+\midrule
+$1$ & $j_0(kr)$ & ED 第一积分 & $j_0\to1$ \\
+$\frac13$ & $\frac{j_1(kr)}{kr}$ & MD、EQ 第一积分 & $\frac{j_1}{kr}\to\frac13$ \\
+$\frac1{15}$ & $\frac{j_2(kr)}{(kr)^2}$ & ED 第二积分、MQ & $\frac{j_2}{(kr)^2}\to\frac1{15}$ \\
+$\frac1{105}$ & $\frac{j_3(kr)}{(kr)^3}$ & EQ 第二积分 & $\frac{j_3}{(kr)^3}\to\frac1{105}$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{noteworthy}
+任何用表 1 写的近似代码，把核常数换成对应 Bessel 比即可升级为精确。
+这是 Alaee 2018 的实用卖点：\textbf{低迁移成本}。
+\end{noteworthy}
+
+\subsection{散射截面统一}
+
+\subsubsection{Grahn 框架的散射截面推导}
+
+\textbf{远场极限下的电场}：从 Grahn Eq.(1)：
+\begin{equation}
+  \mathbf{E}_s = E_0\sum_{lm} i^l[\pi(2l+1)]^{1/2}\Bigl[
+    a_E\,\frac{1}{k}\nabla\times(h_l^{(1)}\mathbf{X}_{lm})
+    + a_M\,h_l^{(1)}\mathbf{X}_{lm}\Bigr]
+\end{equation}
+
+远场极限下用 \S4.1 的 VSH 旋度恒等式~(\ref{eq:curl_VSH})：
+\begin{equation}
+  \nabla\times\bigl(f(r)\mathbf{X}_{lm}\bigr)
+  = \frac{\sqrt{l(l+1)}}{r}fY_{lm}\hat{\mathbf{r}}
+    + \Bigl(f' + \frac{f}{r}\Bigr)\hat{\mathbf{r}}\times\mathbf{X}_{lm}
+\end{equation}
+
+取 $f=h_l^{(1)}$、$kr\to\infty$：径向项 $\propto 1/r^2$ 可忽略，
+$f' \approx ikf$ 主导，故：
+\begin{equation}
+  \frac{1}{k}\nabla\times\bigl(h_l^{(1)}\mathbf{X}_{lm}\bigr)
+  \xrightarrow{r\to\infty} i\,h_l^{(1)}(kr)\,\hat{\mathbf{r}}\times\mathbf{X}_{lm}
+\end{equation}
+
+\textbf{远场电场}：
+\begin{equation}
+  \mathbf{E}_s \xrightarrow{r\to\infty}
+  E_0\sum_{lm} i^l[\pi(2l+1)]^{1/2}h_l^{(1)}(kr)\Bigl[
+    i\,a_E\,\hat{\mathbf{r}}\times\mathbf{X}_{lm} + a_M\,\mathbf{X}_{lm}\Bigr]
+  \label{eq:grahn_Es_far}
+\end{equation}
+
+\textbf{散射功率：利用正交性}。由~(\ref{eq:Csca_def})，取 $|\mathbf{E}_s|^2$ 对立体角积分。
+关键的正交性质（\S1.3）：
+\begin{align}
+  \int \mathbf{X}_{lm}^*\cdot\mathbf{X}_{l'm'}d\Omega &= \delta_{ll'}\delta_{mm'} \\
+  \int(\hat{\mathbf{r}}\times\mathbf{X}_{lm}^*)\cdot(\hat{\mathbf{r}}\times\mathbf{X}_{l'm'})d\Omega
+    &= \delta_{ll'}\delta_{mm'} \\
+  \int \mathbf{X}_{lm}^*\cdot(\hat{\mathbf{r}}\times\mathbf{X}_{l'm'})d\Omega &= 0
+\end{align}
+（$\hat{\mathbf{r}}\times\mathbf{X}$ 仍是归一化的切向矢量，与 $\mathbf{X}$ 正交。）
+
+于是交叉项全部消失（注意散射功率需乘观察球面积因子 $R^2$）：
+\begin{align}
+  W_{\text{sca}} &= \frac{E_0^2 R^2}{2\eta}\sum_{lm}\pi(2l+1)|h_l^{(1)}(kr)|^2\Bigl(
+    |a_E|^2\int|\mathbf{X}_{lm}|^2d\Omega
+    + |a_M|^2\int|\mathbf{X}_{lm}|^2d\Omega\Bigr) \notag\\
+  &= \frac{E_0^2 R^2}{2\eta}\sum_{lm}\pi(2l+1)|h_l^{(1)}|^2\bigl(|a_E|^2+|a_M|^2\bigr)
+\end{align}
+
+用远场渐近 $|h_l^{(1)}(kr)|^2 \xrightarrow{kr\to\infty}\frac{1}{(kr)^2}$，代入~(\ref{eq:Csca_def})：
+\begin{equation}
+  \boxed{\;
+  C_s = \frac{\pi}{k^2}\sum_{lm}(2l+1)\bigl(|a_E(l,m)|^2 + |a_M(l,m)|^2\bigr)
+  \;}
+  \label{eq:Cs_grahn}
+\end{equation}
+
+这就是 Grahn 的 Eq.(20)。\textbf{注意}：式~(\ref{eq:Cs_grahn}) 中 $|h_l^{(1)}|^2$ 取
+$\frac{1}{(kr)^2}$ 时已消去 $R^2$，故无残留的 $R$ 依赖，截面与观察球半径无关。
+
+\textbf{与 Mie 理论的等价性}：对球体，入射平面波只激发 $m=\pm1$ 的系数。
+远场逐项对比~(\ref{eq:mie_Es_far}) 与~(\ref{eq:grahn_Es_far})，Grahn 的 $a_E(l,m)$
+对应 Mie 的\textbf{电多极} $a_l$，$a_M(l,m)$ 对应\textbf{磁多极} $b_l$。
+（\S2 已说明：Bohren--Huffman 标准约定 $a_l$=电多极、$b_l$=磁多极。）
+由于 Grahn 引入 $i^l[\pi(2l+1)]^{1/2}$ 归一化，球体下
+\begin{equation}
+  \sum_{m=\pm1}\bigl(|a_E(l,m)|^2 + |a_M(l,m)|^2\bigr) = 2\bigl(|a_l|^2 + |b_l|^2\bigr)
+\end{equation}
+于是~(\ref{eq:Cs_grahn}) $\to$~(\ref{eq:Csca_mie})，两套截面对球体\textbf{完全一致}。
+\begin{noteworthy}
+\textbf{这正是 Grahn 引入 $i^l[\pi(2l+1)]^{1/2}$ 归一化的原因}：使得截面公式简化为
+纯粹的模平方求和，无额外系数。这也是本节速查表里 $a^{\text{(G)}}\leftrightarrow a^{\text{(J)}}$
+换算的物理来源。
+\end{noteworthy}
+
+\subsubsection{Alaee 公式的散射截面推导}
+
+\textbf{从多极矩直接构造截面}。Alaee 2018 的 Eq.(1) 直接从多极矩构造总散射截面：
+\begin{equation}
+  \boxed{\;
+  C_{\text{sca}}^{\text{total}} = \frac{k^4}{6\pi\epsilon_0^2|E_{\text{inc}}|^2}
+  \Bigg[\sum_\alpha\Bigl(|p_\alpha|^2 + \frac{|m_\alpha|^2}{c^2}\Bigr)
+  + \frac{1}{120}\sum_{\alpha\beta}\Bigl(
+    |kQ^e_{\alpha\beta}|^2 + \frac{|kQ^m_{\alpha\beta}|^2}{c^2}\Bigr) + \cdots\Bigg]
+  \;}
+  \label{eq:Csca_alaee}
+\end{equation}
+
+\begin{noteworthy}
+\textbf{量纲勘误（2026-08-04）}：Alaee 2018 原文 Eq.(1) 印为 $|m|^2/c$ 与 $|kQ^m|^2/c$，
+但量纲核对 $[m]=$ A$\cdot$m$^2$，$[m/c]=$ C$\cdot$m $=[p]$，物理自洽版必须为
+$|m|^2/c^2$ 与 $|kQ^m|^2/c^2$。本讲义早期版本照抄原文 typo，现已修正为
+\textbf{量纲自洽版}（磁偶极 $/c^2$、磁四极 $/c^2$）。数值实现务必以此版为准。
+\end{noteworthy}
+
+\begin{stepbox}{各项的物理意义}
+\begin{itemize}
+  \item \textbf{偶极项} $|p|^2 + |m|^2/c^2$：电偶极 + 磁偶极各自独立贡献
+  \item \textbf{四极项} $\frac{1}{120}(|kQ^e|^2 + |kQ^m|^2/c^2)$：电四极 + 磁四极
+  \item 省略号：更高阶（八极等），$l\le2$ 时忽略
+  \item 系数 $k^4/(6\pi\epsilon_0^2|E_{inc}|^2)$：由辐射功率公式固定（见下）
+\end{itemize}
+\end{stepbox}
+
+\textbf{系数的物理来源}。电偶极矩 $\mathbf{p}$ 的远场辐射功率（标准电动力学结果）：
+\begin{equation}
+  W_{\text{sca}}^{(p)} = \frac{\omega^4|\mathbf{p}|^2}{12\pi\epsilon_0 c^3}
+  = \frac{k^4 c\,|\mathbf{p}|^2}{12\pi\epsilon_0}
+  \qquad(\text{用 } k = \omega/c)
+\end{equation}
+
+除以入射能流 $S_{\text{inc}} = \dfrac{1}{2\eta}|\mathbf{E}_{inc}|^2$：
+\begin{equation}
+  C_{\text{sca}}^{(p)} = \frac{W_{\text{sca}}^{(p)}}{S_{\text{inc}}}
+  = \frac{k^4 c\,|\mathbf{p}|^2}{12\pi\epsilon_0}\cdot\frac{2\eta}{|\mathbf{E}_{inc}|^2}
+  = \frac{k^4(c\eta)}{6\pi\epsilon_0|E_{\text{inc}}|^2}|\mathbf{p}|^2
+  = \frac{k^4}{6\pi\epsilon_0^2|E_{\text{inc}}|^2}|\mathbf{p}|^2
+\end{equation}
+其中用 $c\eta = \dfrac{1}{\sqrt{\mu_0\epsilon_0}}\sqrt{\dfrac{\mu_0}{\epsilon_0}} = \dfrac{1}{\epsilon_0}$。
+磁偶极 $\mathbf{m}$ 类似（$|\mathbf{m}|/c$ 因子来自磁矩的单位制换算）。
+四极项的 $1/120$ 系数与 $|kQ|^2$ 组合由四极辐射功率公式
+$\frac{\omega^6}{40\pi\epsilon_0 c^5}|Q|^2$ 归一化而来（配合 $|kQ|^2=|Q|^2\omega^2/c^2$
+的量纲替换，合并后给出 $1/120$，细节见 Alaee 2018 补充材料）。
+
+\textbf{表 1（LWA）与表 2（精确）的截面差异}：式~(\ref{eq:Csca_alaee}) 对表 1、表 2 的
+$\mathbf{p},\mathbf{m},\mathbf{Q}$ 均成立——公式本身不变，\textbf{变的是代入的多极矩}：
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+& \textbf{表 1 代入（近似截面）} & \textbf{表 2 代入（精确截面）} \\
+\midrule
+偶极矩 $\mathbf{p}$ & LWA 积分 & $j_0,j_2$ 修正积分 \\
+磁偶极 $\mathbf{m}$ & $\frac12\int\mathbf{r}\times\mathbf{J}$ & $j_1/(kr)$ 修正 \\
+电四极 $\mathbf{Q}^e$ & LWA 积分 & $j_1,j_3$ 修正 \\
+\midrule
+$kr\to0$ & 两者一致 & 两者一致 \\
+$kr\gtrsim0.5$ & \textbf{误差 $>100\%$} & \textbf{精确} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{nontrivial}
+\textbf{Alaee 的核心洞察}：截面公式~(\ref{eq:Csca_alaee}) 对所有粒子尺寸成立，
+但表 1 的\textbf{多极矩}是近似的。所以截面公式 + 表 2 矩 $=$ 精确截面；
+截面公式 + 表 1 矩 $=$ 近似截面。升级只需换多极矩，不动截面公式。
+\end{nontrivial}
+
+\subsubsection{三套截面公式的统一对照}
+
+\begin{center}
+\begin{tabular}{p{2.6cm}p{3.6cm}p{3.6cm}p{3.6cm}}
+\toprule
+\textbf{框架} & \textbf{散射截面} & \textbf{消光截面} & \textbf{适用} \\
+\midrule
+Mie & $\frac{2\pi}{k^2}\sum(2l+1)(|a_l|^2+|b_l|^2)$ & $\frac{2\pi}{k^2}\sum(2l+1)\Re(a_l+b_l)$ & 球体解析 \\
+Grahn & $\frac{\pi}{k^2}\sum_{lm}(2l+1)(|a_E|^2+|a_M|^2)$ & （光学定理） & 任意形状数值 \\
+Alaee & $\frac{k^4}{6\pi\epsilon_0^2|E_{inc}|^2}\sum(|p|^2+|m|^2/c^2+\cdots)$ & （光学定理） & 任意形状、物理直观 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{stepbox}{为什么三套公式长得不一样？}
+\begin{itemize}
+  \item \textbf{归一化不同}：Mie 的 $a_l,b_l$、Grahn 的 $a_E,a_M$、Alaee 的 $p,m,Q$ 各用不同约定
+  \item \textbf{物理等价}：对同一散射体，三套公式算出\textbf{完全相同的 $C_{\text{sca}}$}（在各自适用范围）
+  \item \textbf{球体特例}：Mie 与 Grahn 通过 $\sum_{m=\pm1}(|a_E|^2+|a_M|^2)=2(|a_l|^2+|b_l|^2)$ 互连
+  \item \textbf{截断差异}：Alaee 显式截断到四极；Mie/Grahn 可到任意阶
+\end{itemize}
+\end{stepbox}
+
+\subsection{数值验证：与 Mie 理论对比}
+
+\begin{stepbox}{Alaee 2018 的验证方法（Fig.1--2）}
+\begin{itemize}
+  \item 用 Mie 理论（球散射的精确解析解，见 \S2）作为基准
+  \item 介电球与金球，扫尺寸参数 $2a/\lambda$
+  \item 计算各多极矩对散射截面的贡献，表 1 vs 表 2 vs Mie
+\end{itemize}
+\end{stepbox}
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+\textbf{结论} & \textbf{表 1（LWA）} & \textbf{表 2（精确）} \\
+\midrule
+与 Mie 的一致性 & 尺寸增大后严重偏离 & 数值噪声水平内完全一致 \\
+电偶极/磁偶极误差 & $2a/\lambda\approx0.75$ 时 $>100\%$ & $<0.1\%$ \\
+任意形状适用 & $\times$ & $\checkmark$（COMSOL 验证） \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{nontrivial}
+\textbf{核心结论}：表 2 与 Mie 理论在数值噪声水平内\textbf{不可区分}（Alaee Fig.2）。
+即使对亚波长非球形纳米盘，表 1 的部分多极矩误差仍高达 25\%（Fig.3）。
+\end{nontrivial}
+
+\subsection{与 Grahn 框架的联系}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+& \textbf{Grahn 2012} & \textbf{Alaee 2018} \\
+\midrule
+基函数 & VSH $\mathbf{X}_{lm}$（球坐标完备正交基） & 笛卡尔张量 $\mathbf{r}^{l-1}$ \\
+独立系数 & $2\sum_{l=1}^{l_{\max}}(2l+1)$ & 到四极 $3+3+5+5=16$ \\
+$\mathbf{J}$ 积分核 & $j_l(kr)$（Eqs.(15)--(16)） & $j_l(kr)/(kr)^l$（表 2） \\
+适用场景 & 数值计算 $a_E/a_M$（任意阶） & 物理分析、逆向设计（$l\le2$） \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{noteworthy}
+\textbf{两者不是谁推导谁的关系}，而是同一物理事实（散射电流的多极展开）的两种完备描述：
+\begin{itemize}
+  \item $a_E(l,m)$ 好比傅里叶谱系数，$\mathbf{p},\mathbf{m},\mathbf{Q}$ 好比幂级数系数
+  \item 两者积分核里的 $j_l(kr)$ 来自\textbf{同一条 Bessel 递推链}（\S9 的三大工具）
+  \item 精确展开后，两者给出\textbf{完全相同的散射截面}
+\end{itemize}
+\end{noteworthy}
+
+\subsection{速查对照表}
+
+下表对比 Jackson \textit{Classical Electrodynamics} 第 9 章与 Grahn 2012 的关键公式和约定，
+方便在阅读不同文献时切换坐标系。
+
+\begin{table}[htbp]
+\centering
+\caption{Jackson Ch.9 与 Grahn 2012 的公式对照}
+\begin{tabular}{p{2.5cm}p{4cm}p{4cm}p{3.5cm}}
+\toprule
+\textbf{概念} & \textbf{Jackson Ch.9} & \textbf{Grahn 2012} & \textbf{备注} \\
+\midrule
+矢量球谐函数 & Eq.(9.119) $\mathbf{X}_{lm}$ & $\mathbf{X}_{lm}$，定义相同 & 归一化一致 \\
+辐射场展开 & Eq.(9.120) 无 $i^l[\pi(2l+1)]^{1/2}$ & Eqs.(1)--(2) 含归一化因子 & Grahn 的 $C_s$ 更简洁 \\
+$a_E/a_M$ 定义 & Eq.(9.165) & Eqs.(3)--(4) & Grahn 多了因子 $[\pi(2l+1)]^{-1/2}$ \\
+散射截面 & Eq.(9.169) 含 $\frac{1}{2l+1}$ 求和 & Eq.(20) $\frac{\pi}{k^2}\sum(2l+1)$ & 系数因子不同 \\
+磁多极 vs 电多极 & TM($a_E$) / TE($a_M$) 同 & 同 & 符号约定一致 \\
+出射波函数 & $h_l^{(1)}$ 同 & $h_l^{(1)}$ 同 & 一致 \\
+\bottomrule
+\end{tabular}
+\label{tab:compare}
+\end{table}
+
+\begin{noteworthy}
+\textbf{实用换算}：在 Grahn 框架中计算出的 $a_E/a_M$ 如果要与 Jackson 对比，
+需按以下关系换算（$a^{\text{(G)}}$ 为 Grahn 值，$a^{\text{(J)}}$ 为 Jackson 值）：
+\begin{align}
+  a_E^{\text{(J)}}(l,m) &= i^l[\pi(2l+1)]^{1/2}\,a_E^{\text{(G)}}(l,m) \\
+  a_M^{\text{(J)}}(l,m) &= i^l[\pi(2l+1)]^{1/2}\,a_M^{\text{(G)}}(l,m)
+\end{align}
+散射截面的换算也要相应调整因子。
+\end{noteworthy}
+
+\subsubsection*{关键公式汇总（Grahn 2012 Eqs.(1)--(16)）}
+
+\begin{table}[htbp]
+\centering\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{p{1.6cm}p{3.2cm}p{9.5cm}}
+\toprule
+\textbf{式号} & \textbf{名称} & \textbf{表达式} \\
+\midrule
+(1) & $\mathbf{E}_s$ 多极展开 & $\displaystyle \mathbf{E}_s = E_0\sum_{lm} i^l[\pi(2l+1)]^{1/2}\bigl[
+  a_E\frac{1}{k}\nabla\times(h_l^{(1)}\mathbf{X}_{lm}) + a_M h_l^{(1)}\mathbf{X}_{lm}\bigr]$ \\[1em]
+(2) & $\mathbf{H}_s$ 多极展开 & $\displaystyle \mathbf{H}_s = \frac{E_0}{\eta}\sum_{lm} i^{l-1}[\pi(2l+1)]^{1/2}\bigl[
+  a_M\frac{1}{k}\nabla\times(h_l^{(1)}\mathbf{X}_{lm}) + a_E h_l^{(1)}\mathbf{X}_{lm}\bigr]$ \\[1em]
+(3) & $a_E$ 投影 & $\displaystyle a_E = \frac{(-i)^{l+1}kr}{h_l^{(1)}E_0[\pi(2l+1)l(l+1)]^{1/2}}
+  \int Y_{lm}^*\,\hat{\mathbf{r}}\cdot\mathbf{E}_s\,d\Omega$ \\[1em]
+(4) & $a_M$ 投影 & $\displaystyle a_M = \frac{(-i)^l}{h_l^{(1)}E_0[\pi(2l+1)]^{1/2}}
+  \int \mathbf{X}_{lm}^*\cdot\mathbf{E}_s\,d\Omega$ \\[1em]
+(5) & $a_M$ 对偶投影 & $\displaystyle a_M = \frac{(-i)^l kr\eta}{h_l^{(1)}E_0[\pi(2l+1)l(l+1)]^{1/2}}
+  \int Y_{lm}^*\,\hat{\mathbf{r}}\cdot\mathbf{H}_s\,d\Omega$ \quad（从 $\mathbf{H}_s$ 径向投影，\S6 对偶路径）\\[1em]
+(6) & 散射电流密度 & $\displaystyle \mathbf{J}_S = -i\omega\epsilon_0(\epsilon_r-\epsilon_{r,d})\mathbf{E}$ \\[1em]
+(7)--(10) & $\mathbf{J}_S$ 的 Maxwell 方程 & $\displaystyle
+  \nabla\cdot\mathbf{E}_s=\rho_S/\epsilon_0\epsilon_{r,d},\;
+  \nabla\cdot\mathbf{H}_s=0,\;
+  \nabla\times\mathbf{E}_s=i\omega\mu_0\mathbf{H}_s,\;
+  \nabla\times\mathbf{H}_s=-i\omega\epsilon_0\epsilon_{r,d}\mathbf{E}_s+\mathbf{J}_S$ \\[1em]
+(11) & $\mathbf{r}\cdot\mathbf{E}_s$ 波动方程 & $\displaystyle (\nabla^2+k^2)(\mathbf{r}\cdot\mathbf{E}_s) = \frac{2\rho_S+r\partial_r\rho_S}{\epsilon_0\epsilon_{r,d}} - i\omega\mu_0\mathbf{r}\cdot\mathbf{J}_S$ \\[1em]
+(12) & $\mathbf{r}\cdot\mathbf{H}_s$ 波动方程 & $\displaystyle (\nabla^2+k^2)(\mathbf{r}\cdot\mathbf{H}_s) = -\,\mathbf{r}\cdot(\nabla\times\mathbf{J}_S)$ \\[1em]
+(13) & $a_E$ 电流形式 & $\displaystyle a_E \propto \int Y_{lm}^*j_l(kr)\bigl[k^2\mathbf{r}\cdot\mathbf{J}_S + \left(2+r\frac{d}{dr}\right)(\nabla\cdot\mathbf{J}_S)\bigr]d^3r$ \\[1em]
+(14) & $a_M$ 电流形式 & $\displaystyle a_M \propto \int Y_{lm}^*j_l(kr)\,\mathbf{r}\cdot(\nabla\times\mathbf{J}_S)\,d^3r$ \\[1em]
+(15) & $a_E$ 实用形式 & $\displaystyle a_E \propto \int e^{-im\phi}\bigl\{
+  [\mathfrak{g}_l+\mathfrak{g}_l'']P_l^m\hat{\mathbf{r}}\cdot\mathbf{J}_S + \frac{\mathfrak{g}_l'}{kr}(\tau_{lm}\hat{\boldsymbol{\theta}}-i\pi_{lm}\hat{\boldsymbol{\phi}})\cdot\mathbf{J}_S\bigr\}d^3r$ \\[1em]
+(16) & $a_M$ 实用形式 & $\displaystyle a_M \propto \int e^{-im\phi}j_l(kr)(i\pi_{lm}\hat{\boldsymbol{\theta}}\cdot\mathbf{J}_S + \tau_{lm}\hat{\boldsymbol{\phi}}\cdot\mathbf{J}_S)d^3r$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{noteworthy}
+\textbf{辅助函数对照}：
+\begin{align*}
+  \mathfrak{g}_l(kr) &= kr\,j_l(kr) \quad\text{(Riccati--Bessel 函数)} \\
+  \pi_{lm}(\theta) &= \frac{m}{\sin\theta}P_l^m(\cos\theta) \\
+  \tau_{lm}(\theta) &= \frac{d}{d\theta}P_l^m(\cos\theta) \\
+  O_{lm} &= \frac{1}{\sqrt{l(l+1)}}\sqrt{\frac{2l+1}{4\pi}\frac{(l-m)!}{(l+m)!}}
+\end{align*}
+所有辅助函数都是解析已知的（可通过递推关系高效计算），
+因此 Eqs.(15)--(16) 在数值上只需在积分点计算 $\mathbf{J}_S$ 的笛卡尔分量乘以对应的权重函数。
+\end{noteworthy}
+
+\subsubsection*{推导路径总览}
+
+下面是完整的推导路径图示，方便回顾每一步的动机：
+
+\begin{quote}\small
+\begin{enumerate}
+  \item $\mathbf{E}_s,\mathbf{H}_s$ 多极展开 [Eqs.(1)--(2)]$\quad\longleftarrow\quad$ 从 Jackson Eq.(9.120) 调整归一化而来
+  \item $a_E,a_M$ 的正交投影 [Eqs.(3)--(4)]$\quad\longleftarrow\quad$ 利用 $\mathbf{X}_{lm}$ 和 $Y_{lm}$ 正交性
+  \item 散射电流密度定义 [Eq.(6)]$\quad\longleftarrow\quad$ $\mathbf{J}_S = -i\omega\epsilon_0\Delta\epsilon_r\mathbf{E}$
+  \item Maxwell 方程 [Eqs.(7)--(10)]$\quad\longleftarrow\quad$ $\mathbf{J}_S$ 作为源的散射场方程
+  \item 标量波动方程 [Eqs.(11)--(12)]$\quad\longleftarrow\quad$ 从旋度方程 + 矢量恒等式推导 $\mathbf{r}\cdot\mathbf{E}_s$ 和 $\mathbf{r}\cdot\mathbf{H}_s$
+  \item $a_E/a_M$ 的电流积分 [Eqs.(13)--(14)]$\quad\longleftarrow\quad$ Green 函数解 + 代入投影式
+  \item 分部积分消导数 [Eqs.(15)--(16)]$\quad\longleftarrow\quad$ 导数转移到解析函数，得实用形式
+\end{enumerate}
+\end{quote}
+
+\begin{chaptersummary}
+
+\textbf{\S12 章节总结}
+
+\textbf{升级规则}：常数核 $\to$ Bessel 比（四行替换表）。\\
+\textbf{截面统一}：三套框架（Mie/Grahn/Alaee）对同一散射体给出\textbf{完全相同}的 $C_{\text{sca}}$。\\
+\textbf{数值验证}：表 2 与 Mie 理论不可区分；表 1 在 $2a/\lambda\gtrsim0.5$ 失效。\\
+\textbf{与 Grahn}：同一物理的两种语言，$j_l(kr)$ 同源。
+
+\textbf{截面定义}：$C_{\text{sca}} = W_{\text{sca}}/S_{\text{inc}}$；
+$C_{\text{ext}}$ 由光学定理（前向振幅虚部）给出；$C_{\text{abs}}=C_{\text{ext}}-C_{\text{sca}}$。
+
+\textbf{三套公式}：
+\begin{itemize}
+  \item \textbf{Mie}：$C_{\text{sca}}=\frac{2\pi}{k^2}\sum(2l+1)(|a_l|^2+|b_l|^2)$
+  \item \textbf{Grahn}：$C_s=\frac{\pi}{k^2}\sum_{lm}(2l+1)(|a_E|^2+|a_M|^2)$
+  \item \textbf{Alaee}：$C_{\text{sca}}=\frac{k^4}{6\pi\epsilon_0^2|E_{inc}|^2}\sum(|p|^2+|m|^2/c^2+\cdots)$
+\end{itemize}
+
+\textbf{数值实现注意}：
+\begin{itemize}
+  \item Grahn 公式最直接：$a_E/a_M$ 本身就是归一的，平方求和即可
+  \item Alaee 公式需注意 $|E_{inc}|^2$ 和 $1/c^2$ 因子的量纲
+  \item Mie 公式是最标准的解析基准，用于验证数值代码
+\end{itemize}
+
+\textbf{至此，全篇工具齐备}：
+\begin{itemize}
+  \item \textbf{Mie 理论}（\S2）：球形散射的精确解析基准
+  \item \textbf{Grahn 框架}（\S3--\S8）：任意形状的 $a_E/a_M$ 数值积分
+  \item \textbf{FC2015 方法}（\S9）：精确多极矩的动量空间源头
+  \item \textbf{Alaee 表 2}（\S10--\S11）：任意形状的精确笛卡尔多极矩
+\end{itemize}
+
+\end{chaptersummary}
+
+\newpage

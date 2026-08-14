@@ -1,0 +1,19 @@
+\section{概览与结果等级}
+
+本报告记录第 3 轮 Grahn 映射实现的冻结快照、数值验收与 gate 4 材料，理论来源为 Grahn 原文\cite{Grahn2012} 与 Alaee 的多极归一化工作\cite{Alaee2018}。验证对象是无色散介电球 $\varepsilon_r=6.25$、air host ($\varepsilon_{rd}=1$)，统一扫描变量为 $x_{\rm alaee}=2a/\lambda_d$，并用 $x_{\rm mie}=\pi x_{\rm alaee}$ 调用 Mie 基准。实现快照由 \texttt{formalization/grahn.yaml} v4、\texttt{code/scattering.py}、\texttt{tests/test\_grahn.py} 和 \texttt{code/run\_grahn\_verification.py} 定义。
+
+\subsection{核心结果}
+
+正式 runner 刷新了 Path A 150 点、Path B 200 点、1470 行逐 $m$ 复系数、6 个解析案例和结构化 gate 文件。当前机器合同为
+\begin{center}
+\fbox{\texttt{overall\_gate = PASS\_WITH\_NOTES};\quad \texttt{result\_class = method\_consistency}}
+\end{center}
+完整回归命令 \texttt{python -m pytest tests -q -p no:cacheprovider} 的收据为 \textbf{105 passed, 1 skipped}；skip 是显式的 200 点慢扫描，不是 gate 失败。Path B 总截面、逐 $m$、Rayleigh 斜率、光学定理、miepython、解析基准和远场投影均达到 v4 阈值。
+
+\subsection{结论上限与边界}
+
+\texttt{result\_class\_ceiling=method\_consistency} 是 formalization 的硬上限。本轮证明的是 Grahn 映射与 Mie/独立路径在规定域内的方法一致性，不是论文图像或实验物理量的全面复现，因此不写成 \texttt{physical\_reproduction\_success}。Path A 与 Table 1 的相符只作同阶长波代数诊断；Path A、Table 1 各自对 Mie 的差异单独报告。
+
+\subsection{证据索引}
+
+关键数字直接取自 \texttt{data/grahn\_pathA.csv}、\texttt{data/grahn\_pathB.csv}、\texttt{data/grahn\_per\_m.csv}、\texttt{data/grahn\_analytic.json} 和 \texttt{data/grahn\_gates.json}，并由 B6 独立脚本逐行重算。执行与裁决依据为 \texttt{sub-report/verify-grahn.md}、\texttt{codex-prompts/out/A2-current-v4-reverification.json} 和 \texttt{codex-prompts/out/A2-independent-review-v4.md}。

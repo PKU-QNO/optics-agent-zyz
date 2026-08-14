@@ -1,0 +1,40 @@
+\section{代码、数据与报告交付清单}
+
+\subsection{核心代码（reproduction/code/）}
+
+\begin{itemize}
+  \item \texttt{mie\_theory.py}：Lorenz--Mie 系数（$a_n,b_n,c_n,d_n$）+ 内部场 + 消光/散射截面；
+  \item \texttt{multipole\_moments.py}：Table 2 精确多极矩（体积分，含球 Bessel 核）；
+  \item \texttt{multipole\_approx.py}：Table 1 长波近似多极矩；
+  \item \texttt{optical\_theorem.py}：光学定理 $S(0)$ 的双路独立实现；
+  \item \texttt{run\_grahn\_verification.py}：Grahn 双路径映射 + 逐 $m$ + 解析 fixture + 独立远场投影；
+  \item COMSOL Java 构建器（\url{https://github.com/PKU-QNO/optics-agent-zyz/tree/main/comsol/runtime/cases/alaee2018_fig3}）：频域有限元版 + 边界元版（双金盘散射）。
+\end{itemize}
+
+\subsection{回归测试（reproduction/tests/）}
+
+\begin{itemize}
+  \item \texttt{test\_mie.py}：能量守恒、光学定理、Rayleigh 散射、多极矩之和 $=$ 总散射；
+  \item \texttt{test\_multipole.py}：Table 2 $\to$ Table 1 退化、Table 1 大尺寸失效；
+  \item \texttt{test\_optical\_theorem.py}：光学定理双路；
+  \item \texttt{test\_grahn.py} / \texttt{test\_grahn\_spec.py}：Grahn 映射与 spec 校验。
+\end{itemize}
+
+\subsection{冻结数据（reproduction/data/）}
+
+\begin{itemize}
+  \item \texttt{fig1a\_multipole\_\{mie,table1,table2\}.csv}：Fig.~1 三路多极矩；
+  \item \texttt{fig2\_gold\_olmon\_refined.csv}：Fig.~2 金球加密网格；
+  \item \texttt{grahn\_gates.json}：Grahn 全部 gate 数字（含 optical\_theorem、rayleigh\_slope）；
+  \item \texttt{fig3\_b32\_convergence\_closure.json}：Fig.~3 网格收敛 + 远场闭合；
+  \item \texttt{fig3\_b42\_bem\_mesh050\_x360\_closure.csv}：BEM 远场闭合。
+\end{itemize}
+
+\subsection{报告}
+
+\begin{itemize}
+  \item 完整复现报告：\url{https://github.com/PKU-QNO/optics-agent-zyz/blob/main/MIE-0814/reports/reproduction-report.pdf}（20 页，含四图分轮报告 仓库内 reproduction/report-round1/2/3/）；
+  \item 理论推导笔记：\url{https://github.com/PKU-QNO/optics-agent-zyz/blob/main/MIE-0814/reports/vector-multipole-derivation.pdf}（66 页）；
+  \item 本汇报：本文 PDF；
+  \item 备查技术手册：\url{https://github.com/PKU-QNO/optics-agent-zyz/blob/main/MIE-0814/reports/technical-manual.pdf}。
+\end{itemize}

@@ -1,0 +1,55 @@
+\section{材料、数值与可复现性}
+
+\subsection{金数据三源方案}
+
+三源均从 refractiveindex.info database 的原始 YAML 固定快照读取，转换采用 $\varepsilon=(n+i\kappa)^2$，不使用错误的 $|m|^2$。manifest 记录获取日 2026-08-07、源 URL、覆盖范围、样品说明和 SHA-256。
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lrrrr}
+\toprule
+数据源 & $n$ (550 nm) & $\kappa$ (550 nm) & $\varepsilon_1$ & $\varepsilon_2$ \\
+\midrule
+Johnson--Christy\cite{JohnsonChristy1972} & 0.424 & 2.472 & -5.93113 & 2.09704 \\
+Olmon-EV\cite{Olmon2012} & 0.326 & 2.507 & -6.17903 & 1.63256 \\
+McPeak\cite{McPeak2015} & 0.324 & 2.597 & -6.64030 & 1.68260 \\
+\midrule
+pairwise range/$|$mean$|$ & & & 11.346\% & 25.746\% \\
+\bottomrule
+\end{tabular}
+\caption{550 nm 三源材料核对。材料差异是样品/工艺敏感性，不是同一真值的重复测量。}
+\end{table}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\textwidth}{p{2.2cm}p{2.2cm}p{3.1cm}X}
+\toprule
+用途 & 数据源 & 使用域 & 约束 \\
+\midrule
+论文保真 & Johnson--Christy & 500--1935 nm & 仅在论文来源的支持域比较；禁止对缺失长波端静默外推 \\
+方法验收 & Olmon-EV & 500--2500 nm & 同一 $\varepsilon$ 下 Table 2--Mie 全域方法合同 \\
+材料敏感性 & 三源共同域 & 500--1700 nm & 使用 JC/Olmon/McPeak 的 min--max envelope，不把均值称作真值 \\
+\bottomrule
+\end{tabularx}
+\caption{三源用途分层。}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.72\textwidth]{fig2_gold_material_sensitivity.png}
+\caption{金材料三源敏感性。不同来源的差异不影响同一材料输入下的 Table 2--Mie 方法验收，但限制跨源论文保真声称。}
+\end{figure}
+
+600--1000 nm 内 $\varepsilon_1$ 的最大单源偏离三源均值为 7.49199\%（790 nm）；同域 pairwise range/$|$mean$|$ 为 13.13970\%。两者是不同统计量，不得混称。manifest 中三份主文件的 SHA-256 分别以 \texttt{555C84AF...A2D3}、\texttt{11021561...D779}、\texttt{E0506DD2...0AA} 标识，完整值保存在 \path{data/_gold_sources/manifest.yaml}。
+
+\subsection{积分、原点与网格策略}
+
+球体体积分在 $u=r/a$、$\theta$、$\phi$ 上完成；$\phi$ 方向采用周期处理，径向与极角保留奇偶/端点稳定性。球 Bessel 比值在 $\rho\to0$ 使用解析级数，避免 $0/0$。Mie 截断遵循 Wiscombe 型规则\cite{Wiscombe1980}，并用更高 $n_{\max}$ 复核。
+
+Fig.2 从 $(40,41,80)$ 加密到 $(60,61,120)$ 后，四通道全域最大变化均小于 0.1\%；Fig.1 的 200 点合同采用生产网格与近零 mask；Grahn Path B/逐 $m$ 则使用各自预注册的 $10^{-4}$ 权重 mask。mask 只避免近零分母放大，必须同时报告保留/掩蔽点数，不能用于删除物理上不利的高信号点。
+
+\subsection{可复现数字台账}
+
+B10 数字台账含 61 个编号项，覆盖 Fig.1 exact 单点与全域合同、Fig.2 refined/收敛/Layer 3/MQ UQ、Grahn A/B/per-$m$/解析证据、Fig.3 CSV/函数重算。每项均给出单位、定义、直接路径、字段/列与是否独立重算。B10 报告只选取其中最能决定 gate 的数字；完整台账保存在 \path{codex-prompts/out/B10-audit-numbers.md}，避免在总报告中用二次转述代替原始证据。

@@ -1,0 +1,361 @@
+\section{电流密度的多极展开（Grahn §3）}
+%=============================================================================
+
+前面各章完成了从散射场 $\mathbf{E}_s$ 到 $a_E/a_M$ 的电流体积分（Eqs.(15)--(16)）。
+接下来我们换个视角：不从远场投影反推，而是直接从\textbf{电流密度的空间分布}入手，
+构造其多极展开并映射到 $a_E/a_M$。这是 Grahn §3 的核心——连接 "电流的几何形状" 与 "辐射的多极模式"。
+
+\subsection{点电流元构造（Grahn §3.1）}
+
+Grahn 用一个直观的物理图像来构造多极：\textbf{点电流元}。
+
+\begin{itemize}
+  \item \textbf{一阶}（偶极）：一个短导线 $L\ll\lambda$ 载复电流 $I$，位于原点：
+    \begin{equation}
+      \mathbf{J}_1(\mathbf{r}) = IL\delta(\mathbf{r})
+    \end{equation}
+  \item \textbf{二阶}（四极）：两个反相电流元沿 $\hat{x}$ 方向间距 $s$：
+    \begin{equation}
+      \mathbf{J}_2(\mathbf{r}) = \varsigma(\hat{x})\mathbf{J}_1(\mathbf{r}),\quad
+      \varsigma(\hat{u}) = -s\frac{d}{du}
+    \end{equation}
+  \item \textbf{更高阶}：重复应用 $\varsigma$ 算子，每次沿新方向位移-反相操作。
+\end{itemize}
+
+\begin{noteworthy}
+这个构造的图像是：\textbf{电偶极} = 一根短导线；\textbf{电四极} = 两个反相接的短导线（一正一反电荷）沿某方向排；
+\textbf{电八极} = 四个带交替相位的导线排成 $2\times2$ 阵列。每个电流模式都对应一个\textbf{可直观辨识的张量元}。
+\end{noteworthy}
+
+\subsection{电流多极张量 $\mathbf{M}^{(l)}$（Grahn §3.2 核心定义）}
+
+从点电流元构造出发，Grahn 定义各级电流多极矩的振幅为：
+
+\begin{equation}
+  \boxed{\;
+    \mathbf{M}^{(l)} = \frac{i}{(l-1)!\,\omega} \int \mathbf{J}(\mathbf{r})\,
+      \underbrace{\mathbf{r}\mathbf{r}\cdots\mathbf{r}}_{l-1}\,d^3r
+    \;}
+  \label{eq:multipole_tensor}
+\end{equation}
+
+\begin{itemize}
+  \item $l=1$：$\mathbf{M}^{(1)} = \mathbf{p}$ —— 电偶极矩（矢量，3 分量）
+  \item $l=2$：$\mathbf{M}^{(2)} = \mathbf{Q}$ —— 电四极矩（并矢，\textbf{9 分量，一般不对称的原始矩}；其对称无迹/反对称/迹分解见下节 \S3.3）
+  \item $l=3$：$\mathbf{M}^{(3)} = \mathbf{O}$ —— 电八极矩（三阶张量，27 分量，有对称性约束）
+\end{itemize}
+
+\begin{important}
+式~(\ref{eq:multipole_tensor}) 是\textbf{长波长近似}（$kr\ll1$）下的表达式——积分核不含 Bessel 函数，因为假设整个粒子内部相位一致。
+这是它与 Alaee 2018 表 2 的\textbf{核心区别}，我们将在 \S9--\S11 详述（FC2015 方法给出精确核，表 2 是其实用形式）。
+\end{important}
+
+\subsection{映射关系：$\mathbf{M}^{(l)}\to a_E/a_M$}
+
+有了电流张量 $\mathbf{M}^{(l)}$，Grahn 推导了它们到散射系数的精确映射。
+本节给出这条映射的\textbf{完整推导}：先做张量分解（电流矩 $\to$ 传统多极矩），
+再通过球谐 $\to$ 笛卡尔的基变换，从 Eqs.(15)--(16) 的电流积分逐步得到每个映射系数。
+
+\subsubsection{核心思想：两个空间的维度匹配}
+
+$l$ 阶电流矩 $\mathbf{M}^{(l)}$（对称化后）与辐射系数 $a_E(l,m),\ a_M(l-1,m)$ 张成\textbf{同一辐射空间}：
+\begin{center}
+\begin{tabular}{ccc}
+\toprule
+电流矩阶数 $l$ & 电多极 $a_E(l,m)$ & 磁多极 $a_M(l-1,m)$ \\
+\midrule
+$l=1$（$\mathbf{p}$） & $a_E(1,m)$（$3$ 分量） & --- \\
+$l=2$（$\mathbf{Q}$） & $a_E(2,m)$（$5$ 分量） & $a_M(1,m)$（$3$ 分量） \\
+$l=3$（$\mathbf{O}$） & $a_E(3,m)$（$7$ 分量） & $a_M(2,m)$（$5$ 分量） \\
+\bottomrule
+\end{tabular}
+\end{center}
+这解释了为什么 $\mathbf{p}$ 只进 $a_E(1,m)$，而 $\mathbf{Q}$ 同时进 $a_E(2,m)$ 和 $a_M(1,m)$。
+关键在第 1 步：$\mathbf{M}^{(l)}$ 的\textbf{张量分解}把 9 分量 $\mathbf{M}^{(2)}$ 拆成
+$5(\text{四极})+3(\text{磁偶极})+1(\text{暗})$，把 27 分量 $\mathbf{M}^{(3)}$ 拆成
+$7(\text{八极})+5(\text{磁四极})+\cdots$。
+
+\subsubsection{第 1 步：张量分解——电流矩 $\to$ 传统多极矩}
+
+\textbf{（a）$l=1$：} $\mathbf{M}^{(1)}$ 是矢量，直接就是电偶极矩：
+\begin{equation}
+  M^{(1)}_\alpha = \frac{i}{\omega}\int J_\alpha\,d^3r = p_\alpha
+\end{equation}
+
+\textbf{（b）$l=2$：} 9 分量 $M^{(2)}_{\alpha\beta}=\frac{i}{\omega}\int J_\alpha r_\beta\,d^3r$ 分解为
+对称无迹 + 反对称 + 迹三部分：
+\begin{equation}
+  M^{(2)}_{\alpha\beta} = \underbrace{\frac{1}{2}\bigl(M^{(2)}_{\alpha\beta}+M^{(2)}_{\beta\alpha}\bigr)
+    - \frac{1}{3}\delta_{\alpha\beta}\,\mathrm{tr}M^{(2)}}_{\text{对称无迹}}
+    + \underbrace{\frac{1}{2}\bigl(M^{(2)}_{\alpha\beta}-M^{(2)}_{\beta\alpha}\bigr)}_{\text{反对称}}
+    + \underbrace{\frac{1}{3}\delta_{\alpha\beta}\,\mathrm{tr}M^{(2)}}_{\text{迹}}
+\end{equation}
+
+三种角色对应三类物理量：
+
+\begin{itemize}
+  \item \textbf{对称无迹部分} $\to$ 电四极矩 $Q^e_{\alpha\beta}$。用 $\rho=\nabla\cdot\mathbf{J}/(i\omega)$ 分部积分可验证它正是
+    $-\dfrac{1}{i\omega}\int\bigl[3(r_\alpha J_\beta+r_\beta J_\alpha)-2(\mathbf{r}\cdot\mathbf{J})\delta_{\alpha\beta}\bigr]$。
+  \item \textbf{反对称部分} $\to$ 磁偶极矩 $m_\gamma$。对反对称张量取对偶：
+    \begin{equation}
+      m_\gamma = \frac{1}{2}\int(\mathbf{r}\times\mathbf{J})_\gamma\,d^3r
+        = \frac{i\omega}{2}\,\varepsilon_{\gamma\alpha\beta}M^{(2)}_{\alpha\beta}
+    \end{equation}
+    验证：$\varepsilon_{\gamma\alpha\beta}M^{(2)}_{\alpha\beta}
+      =\frac{i}{\omega}\int\varepsilon_{\gamma\alpha\beta}J_\alpha r_\beta
+      =\frac{i}{\omega}\int(\mathbf{J}\times\mathbf{r})_\gamma
+      =-\frac{i}{\omega}\int(\mathbf{r}\times\mathbf{J})_\gamma$，
+    乘以 $i\omega/2$ 得 $\frac12\int(\mathbf{r}\times\mathbf{J})_\gamma$。$\checkmark$
+  \item \textbf{迹部分} $\propto\int\mathbf{r}\cdot\mathbf{J}$：球对称四极子，\textbf{不辐射}（暗模式，见下节）。
+\end{itemize}
+
+\textbf{（c）$l=3$：} 27 分量 $M^{(3)}_{\alpha\beta\gamma}=\frac{i}{2\omega}\int J_\alpha r_\beta r_\gamma\,d^3r$。
+对称化后 10 个独立分量再无迹化，剩 $7$ 个（电八极 $\mathbf{O}$），
+其余组合对应磁四极（$5$ 个）等。
+
+\begin{nontrivial}
+\textbf{澄清一个常见误解}：Grahn 映射里的 $Q_{\alpha\beta}$ 是\textbf{电流矩} $M^{(2)}_{\alpha\beta}$（不要求对称），
+不是对称电四极矩本身。映射公式中出现 $Q_{xz}-Q_{zx}$ 这类\textbf{反对称组合}，
+正因为磁偶极来自反对称部分。下表列关系时须区分两种 $Q$。
+\end{nontrivial}
+
+\subsubsection{第 2 步：球谐 $\to$ 笛卡尔的基变换}
+
+辐射系数按球谐编号 $(l,m)$，电流矩按笛卡尔分量编号。二者通过固体球谐联系。
+
+\textbf{（a）$l=1$（偶极）}：
+\begin{equation}
+  p_z = -\frac{i\omega}{\sqrt{3}}\bigl[\text{与 }Y_{1,0}\text{ 的匹配项}\bigr],
+  \qquad
+  p_x \pm ip_y \longleftrightarrow Y_{1,\pm1}
+\end{equation}
+具体地，$Y_{1,m}$ 的 $\theta,\phi$ 依赖可表为：
+\begin{equation}
+  Y_{1,0}=\sqrt{\frac{3}{4\pi}}\frac{z}{r},\qquad
+  Y_{1,\pm1}=\mp\sqrt{\frac{3}{8\pi}}\frac{x\pm iy}{r}
+\end{equation}
+
+\textbf{（b）$l=2$（四极）}：$Y_{2,m}$ 与 $Q_{\alpha\beta}$ 的\textbf{对称无迹组合}对应。
+例如：
+\begin{align}
+  Q_{xx}-Q_{yy} &\longleftrightarrow Y_{2,2} + Y_{2,-2} \text{ 的组合}\\
+  2Q_{zz}-Q_{xx}-Q_{yy} &\longleftrightarrow Y_{2,0}
+\end{align}
+系数（如 $3,\ \sqrt{6}$）由球谐归一化 $\int|Y_{lm}|^2d\Omega=1$ 与无迹化系数共同固定。
+
+\begin{stepbox}{为什么会出现 $\sqrt{2},\ \sqrt{3},\ \sqrt{6}$？}
+每个实数笛卡尔组合投影到 $Y_{lm}$ 基时，要求等价的一对 $m=\pm|m|$ 按 $\frac{1}{\sqrt2}$ 归一化。
+例如 $p_z$ 只与 $m=0$ 重叠（$\sqrt{\frac{4\pi}{3}}$ 归一化），而 $p_x$ 与 $m=\pm1$ 都重叠，
+需按 $\mp\frac{1}{\sqrt2}$ 分配——这正是 $a_E(1,\pm1)$ 中 $\mp p_x$ 与 $p_z$ 系数含 $\sqrt2$ 差别的来源。
+\end{stepbox}
+
+\subsubsection{第 3 步：电偶极映射的完整推导（$l=1$）}
+
+起点是 Eq.(15) 的 $l=1$ 形式（先看 $m=0$，$m=\pm1$ 由旋转同理）：
+\begin{equation}
+  a_E(1,m) = \frac{k^2\eta\,O_{1m}}{E_0\sqrt{3\pi}}
+  \int e^{-im\phi}\Bigl\{
+    \bigl[\mathfrak{g}_1+\mathfrak{g}_1''\bigr]P_1^m\,\hat{\mathbf{r}}\cdot\mathbf{J}
+    + \frac{\mathfrak{g}_1'}{kr}\bigl(\tau_{1m}\hat{\boldsymbol{\theta}}\cdot\mathbf{J}
+      - i\pi_{1m}\hat{\boldsymbol{\phi}}\cdot\mathbf{J}\bigr)
+  \Bigr\}d^3r
+\end{equation}
+（$(-i)^{1-1}=1$，$O_{10}=1$，$O_{1,1}=1/\sqrt2$，$O_{1,-1}=\sqrt2$。）
+
+\textbf{（a）$m=0$ 的代数}。$P_1^0=\cos\theta,\ \tau_{10}=-\sin\theta,\ \pi_{10}=0$：
+\begin{align}
+  a_E(1,0) &= \frac{k^2\eta}{E_0\sqrt{3\pi}}\int\Bigl[
+    (\mathfrak{g}_1+\mathfrak{g}_1'')\cos\theta\,\hat{\mathbf{r}}\cdot\mathbf{J}
+    - \frac{\mathfrak{g}_1'}{kr}\sin\theta\,\hat{\boldsymbol{\theta}}\cdot\mathbf{J}\Bigr]d^3r
+\end{align}
+
+用关键恒等式 $\hat{\mathbf{z}} = \cos\theta\,\hat{\mathbf{r}} - \sin\theta\,\hat{\boldsymbol{\theta}}$，得
+$J_z = \cos\theta\,\hat{\mathbf{r}}\cdot\mathbf{J} - \sin\theta\,\hat{\boldsymbol{\theta}}\cdot\mathbf{J}$。
+若两个系数相同，两项合并为 $J_z$。考察 Riccati--Bessel 的小宗量展开
+$\mathfrak{g}_1(x)=x j_1(x)=\frac{x^2}{3}-\frac{x^4}{30}+\cdots$：
+\begin{equation}
+  \mathfrak{g}_1+\mathfrak{g}_1'' = \frac{2}{3} - \frac{x^2}{15} + \cdots,\qquad
+  \frac{\mathfrak{g}_1'}{x} = \frac{2}{3} - \frac{2x^2}{15} + \cdots
+\end{equation}
+保留到 $x^0$ 阶（长波长极限），两系数相等为 $2/3$，故两项合并为 $\frac{2}{3}J_z$：
+\begin{align}
+  a_E(1,0) \xrightarrow{ka\to0}
+  &\frac{k^2\eta}{E_0\sqrt{3\pi}}\cdot\frac{2}{3}\int J_z\,d^3r
+  = \frac{2k^2\eta}{3E_0\sqrt{3\pi}}\,(-i\omega)\,p_z \notag\\
+  &\qquad\qquad \Bigl(\text{用 }\int J_z = -i\omega p_z \text{，即 \S10 的电偶极定义}\Bigr)
+\end{align}
+
+合并常数（$\omega k^2\eta = k^3/\epsilon$，$\epsilon=\epsilon_0\epsilon_r$），偶极部分的\textbf{幂次结构}为
+$$
+a_E(1,0)\big|_{\text{偶极}} \propto \frac{k^3}{\epsilon}\,p_z
+$$
+与 Grahn 原文的 $C_1 p_z$（$C_1\propto k^3$）一致。\textbf{完整归一化系数}（含 $\sqrt{2}$ 等）由 Grahn 原文给出：
+\begin{equation}
+  a_E(1,0) = \sqrt{2}\,C_1\,p_z,\qquad
+  C_1 = -\frac{ik^3}{6\pi\epsilon E_0}
+  \label{eq:C1}
+\end{equation}
+（Grahn 2012 附录 A 的映射关系。此处长波长极限\textbf{仅用于验证幂次结构}（$k^3$ 与 $p_z$ 依赖）——
+推导给出的数值系数与 $C_1$ 相差 $\sqrt2/6\pi$ 量级的归一化因子，完整归一化以原文为准，不可据此直接做数值计算。）
+
+\textbf{（b）保留到 $x^2$ 阶：八极修正的出现}。当两系数不再相等，
+$\cos\theta\,\hat{\mathbf{r}}\cdot\mathbf{J}$ 与 $\sin\theta\,\hat{\boldsymbol{\theta}}\cdot\mathbf{J}$ 不能完全合并为 $J_z$，
+残差给出 $O(k^2 r^2)$ 修正。用 $\sin\theta\,\hat{\boldsymbol{\theta}}\cdot\mathbf{J}
+= J_z - \cos\theta\,\hat{\mathbf{r}}\cdot\mathbf{J}$ 消去 $\hat{\boldsymbol{\theta}}$ 项：
+\begin{align}
+  a_E(1,0) &\supset \frac{k^2\eta}{E_0\sqrt{3\pi}}\cdot\frac{k^2}{15}\int r^2\Bigl[
+    \cos\theta\,\hat{\mathbf{r}}\cdot\mathbf{J} - 2\sin\theta\,\hat{\boldsymbol{\theta}}\cdot\mathbf{J}\Bigr]d^3r \notag\\
+  &= \frac{k^2\eta}{E_0\sqrt{3\pi}}\cdot\frac{k^2}{15}\int\Bigl[
+    3\cos\theta\,(\mathbf{r}\cdot\mathbf{J})\frac{z}{r} - 2r^2 J_z\Bigr]d^3r
+\end{align}
+（用了 $\cos\theta\,\hat{\mathbf{r}}\cdot\mathbf{J} = (\mathbf{r}\cdot\mathbf{J})\,z/r^2$。）
+
+把括号写为电流三阶矩的组合：$\int\bigl[3z(\mathbf{r}\cdot\mathbf{J})-2r^2J_z\bigr]$。
+它正是对称无迹八极矩 $O_{\alpha\beta\gamma}$ 与 $\hat{\mathbf{z}}$ 缩并的组合
+（$O$ 是 $M^{(3)}$ 的对称无迹部分），整理后即得：
+\begin{equation}
+  a_E(1,0) = \sqrt{2}C_1 p_z
+  + 7\sqrt{2}C_3\bigl[O_{xxz}+O_{yyz}-O_{zzz}-2O_{zxx}-2O_{zyy}\bigr]
+\end{equation}
+
+\begin{nontrivial}
+\textbf{重要结论}：$a_E(1,\pm1)$ 不仅来自电偶极矩 $\mathbf{p}$，也来自电八极矩 $\mathbf{O}$！
+这意味着一个\textbf{零净电偶极矩}的电流分布可以产生与电偶极子完全相同的辐射场。
+这是"多极等价性"现象的数学根源。
+\end{nontrivial}
+
+\textbf{（c）$m=\pm1$}：同样的程序，把 $Y_{1,\pm1}\propto (x\pm iy)/r$ 代入，
+得到 $p_x,p_y$ 的 $\mp p_x+ip_y$ 组合。完整的偶极映射：
+
+\begin{align}
+  a_E(1,\pm1) &= C_1\bigl(\mp p_x + ip_y\bigr)
+    + 7C_3\bigl[\pm(O_{xxx}+2O_{xyy}+2O_{xzz}-O_{yyx}-O_{zzx}) \notag\\
+    &\qquad\qquad - i(O_{yyy}+2O_{yxx}+2O_{yzz}-O_{xxy}-O_{zzy})\bigr] \\
+  a_E(1,0) &= \sqrt{2}C_1 p_z
+    + 7\sqrt{2}C_3\bigl[O_{xxz}+O_{yyz}-O_{zzz}-2O_{zxx}-2O_{zyy}\bigr]
+\end{align}
+
+\subsubsection{第 4 步：磁偶极映射的完整推导（$l=1$ 反对称部分）}
+
+磁偶极来自 Eq.(16) 的 $l=1$ 形式。Eq.(16) 中 $j_1(kr)\approx kr/3$，
+$(-i)^{1+1}=-1$：
+\begin{equation}
+  a_M(1,m) = -\frac{k^2\eta\,O_{1m}}{E_0\sqrt{3\pi}}
+  \int e^{-im\phi}\,\frac{kr}{3}\bigl(i\pi_{1m}\hat{\boldsymbol{\theta}}\cdot\mathbf{J}
+    + \tau_{1m}\hat{\boldsymbol{\phi}}\cdot\mathbf{J}\bigr)d^3r
+\end{equation}
+
+以 $m=0$ 为例（$\tau_{10}=-\sin\theta,\ \pi_{10}=0$）：
+\begin{align}
+  a_M(1,0) &= -\frac{k^2\eta}{E_0\sqrt{3\pi}}\int\frac{kr}{3}(-\sin\theta)\hat{\boldsymbol{\phi}}\cdot\mathbf{J}\,d^3r \notag\\
+  &= \frac{k^3\eta}{3E_0\sqrt{3\pi}}\int r\sin\theta(-\sin\varphi J_x + \cos\varphi J_y)d^3r \notag\\
+  &= \frac{k^3\eta}{3E_0\sqrt{3\pi}}\int(-yJ_x + xJ_y)d^3r
+    = \frac{k^3\eta}{3E_0\sqrt{3\pi}}\int(\mathbf{r}\times\mathbf{J})_z d^3r
+\end{align}
+
+把 $\int(\mathbf{r}\times\mathbf{J})_z=2m_z$ 代入，并用 $\mathbf{r}\times\mathbf{J}$ 与电流矩的关系
+（$m_\gamma=\frac{i\omega}{2}\varepsilon_{\gamma\alpha\beta}M^{(2)}_{\alpha\beta}$）：
+\begin{equation}
+  a_M(1,0) = \frac{2k^3\eta}{3E_0\sqrt{3\pi}}\,m_z
+  = 5\sqrt{2}iC_2\bigl(-Q_{xy}+Q_{yx}\bigr)
+\end{equation}
+末一步把 $m_z$ 换回电流矩分量 $M^{(2)}_{xy}$（反对称组合 $-Q_{xy}+Q_{yx}\propto m_z$），
+并合并归一化常数得到 $C_2$。完整的磁偶极映射：
+\begin{align}
+  a_M(1,\pm1) &= 5C_2\bigl(-Q_{xz}+Q_{zx} \mp i(-Q_{yz}+Q_{zy})\bigr) \\
+  a_M(1,0) &= 5\sqrt{2}iC_2\bigl(-Q_{xy}+Q_{yx}\bigr)
+\end{align}
+
+\begin{nontrivial}
+\textbf{又一重要结论}：$a_M(1,\pm1)$ 来自\textbf{电四极矩} $\mathbf{Q}$，而不是来自磁偶极矩！
+严格说：$a_M(1,m)$ 来自电流矩 $M^{(2)}$ 的\textbf{反对称部分}。
+由于反对称部分与"对称电四极"共享同一张量空间，远场无法区分"真正的磁偶极"与
+"电四极电流的反对称分量"——这就是 Grahn 框架中"磁偶极"辐射实为电流四极模式的真正含义。
+\end{nontrivial}
+
+\subsubsection{第 5 步：电四极映射的完整推导（$l=2$）}
+
+同理从 Eq.(15) 取 $l=2$。$Y_{2,m}$ 展开到 $Q_{\alpha\beta}$ 的对称无迹组合，
+$P_2^m,\tau_{2m},\pi_{2m}$ 代入并合并同类项（程序与第 3 步相同，此处列结果与验证）：
+\begin{align}
+  a_E(2,\pm2) &= 3C_2\bigl(Q_{xx} - Q_{yy} \mp i(Q_{xy}+Q_{yx})\bigr) \\
+  a_E(2,\pm1) &= 3C_2\bigl(\mp(Q_{xz}+Q_{zx}) + i(Q_{yz}+Q_{zy})\bigr) \\
+  a_E(2,0) &= \sqrt{6}C_2\bigl(2Q_{zz} - Q_{xx} - Q_{yy}\bigr)
+\end{align}
+
+\begin{stepbox}{系数验证（$a_E(2,0)$）}
+$m=0$ 时 $P_2^0=\frac12(3\cos^2\theta-1)$，代入 Eq.(15) 的 $l=2$ 积分核，
+$\mathfrak{g}_2$ 的小宗量展开 $\mathfrak{g}_2(x)=x j_2(x)\approx\frac{x^3}{15}$，
+合并后 $2Q_{zz}-Q_{xx}-Q_{yy}$ 前的系数恰为 $\sqrt6\,C_2$。
+（$Q_{zz}$ 前的系数 $\sqrt6$ 来自 $Y_{2,0}$ 的归一化 $\sqrt{5/4\pi}$ 与无迹化系数。）
+\end{stepbox}
+
+高阶映射（$a_E(3,m)$、$a_M(2,m)$ 等）用同法：从 Eqs.(15)--(16) 取对应 $l$，
+把 $Y_{lm}$ 展开为 $l$ 阶对称无迹张量组合即可。完整结果见 Grahn 2012 主文 §3.3.4 Eq.(44)--(48)（磁四极）；附录仅作交叉索引。
+
+\subsubsection{系数来源汇总}
+
+\begin{equation}
+  C_1 = -\frac{ik^3}{6\pi\epsilon E_0},\quad
+  C_2 = -\frac{k^4}{60\pi\epsilon E_0},\quad
+  C_3 = -\frac{ik^5}{210\pi\epsilon E_0}
+\end{equation}
+
+三个系数的来源分三层：
+\begin{itemize}
+  \item \textbf{归一化}：来自 Eqs.(15)--(16) 的系数
+    $\dfrac{(-i)^{l\mp1}k^2\eta\,O_{lm}}{E_0\sqrt{\pi(2l+1)}}$（含 $O_{lm}$ 与 $\sqrt{2l+1}$）；
+  \item \textbf{Bessel 首项}：$j_l(kr)\approx\dfrac{(kr)^l}{(2l+1)!!}$，给出 $k^{l+1}$ 或 $k^{l+2}$ 的幂次
+    （$C_1\propto k^3,\ C_2\propto k^4,\ C_3\propto k^5$，幂次恰为"最低阶辐射矩"的阶数）；
+  \item \textbf{球谐 $\to$ 笛卡尔}：$Y_{lm}$ 到 $p/Q/O$ 的归一化系数（$\sqrt2,\sqrt6$ 等）。
+\end{itemize}
+把三层合并即得 $1/6\pi,\ 1/60\pi,\ 1/210\pi$ 等系数。
+（Grahn 的映射是精确关系；上推导在长波长极限下验证其结构，完整精确推导见原文附录 A。）
+
+\subsection{暗模式（Dark Modes）}
+
+\begin{nontrivial}
+电流四极张量 $\mathbf{Q}$ 有 9 个分量，但辐射只用到 8 个 $a$：
+$$
+a_E(2,\pm2),\ a_E(2,\pm1),\ a_E(2,0),\ a_M(1,\pm1),\ a_M(1,0)
+$$
+\textbf{缺失的那个}——球对称四极子 $Q_{xx}=Q_{yy}=Q_{zz}$——\textbf{完全不产生辐射}。
+
+类似地，八极中有 3 个对称激发是暗的。这意味着\textbf{远场测量无法唯一确定电流分布}。
+\end{nontrivial}
+
+\subsection{等价性（Equivalence）}
+
+由于 $a_E(1,\pm1)$ 同时包含 $\mathbf{p}$ 和 $\mathbf{O}$ 的贡献：
+\begin{itemize}
+  \item 一个八极电流分布可产生与偶极子\textbf{不可区分}的辐射场
+  \item 远场测量告诉你"偶极辐射的大小"，而非"偶极矩的大小"
+  \item 这给粒子设计额外自由度——用高阶极"伪装"成低阶极，或反相抵消
+\end{itemize}
+
+\begin{chaptersummary}
+
+\textbf{\S8 章节总结}
+
+\textbf{核心内容}：
+\begin{itemize}
+  \item 电流密度 $\mathbf{J}$ 可用\textbf{多极张量} $\mathbf{M}^{(l)} = \frac{i}{(l-1)!\omega}\int\mathbf{J}\,\mathbf{r}^{l-1}d^3r$ 展开
+  \item $\mathbf{M}^{(l)}$ 的各分量与 $a_E(l,m)$ 和 $a_M(l-1,m)$ 有明确的\textbf{线性映射}关系
+  \item $a_E(1,m)$ 同时受 $\mathbf{p}$（偶极）和 $\mathbf{O}$（八极）贡献——\textbf{等价性}
+  \item $a_M(1,m)$ 来自 $\mathbf{Q}$（四极），而非磁矩——电流四极辐射 = 远场磁偶极
+  \item 存在\textbf{暗模式}：某些电流分布不产生任何辐射
+\end{itemize}
+
+\textbf{本章的物理意义}：\\
+它告诉你每个 $a_E/a_M$ 系数\textbf{对应什么样的电流分布}。
+反过来，你想在某个波长产生特定的多极响应（如纯磁偶极），就需要设计对应的电流模式。
+这是逆向设计纳米粒子的理论基础。
+
+\textbf{局限性}：$\mathbf{M}^{(l)}$ 是长波长近似，假定整个粒子相位一致。\\
+下面将通过 FC2015 方法（\S9）与 Alaee 的\textbf{精确}笛卡尔多极矩（\S10--\S11）解决这个问题。
+
+\end{chaptersummary}
+
+\newpage
+
+%=============================================================================

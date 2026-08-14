@@ -1,0 +1,14 @@
+\section{已知限制完整列表}
+
+\begin{enumerate}
+  \item \textbf{Fig.~3 MD/EQ 网格残差 $\sim2\%$}：双金盘磁共振处表面场梯度大，四面体网格收敛慢（Richardson 外推收敛阶 $p\approx1.3$）。$0.3$ 网格（1070 万单元）是当前集群内存（900G）内可达到的最细网格；MD 外推收敛值 $1.54$--$1.58\times10^{-12}$ m$^2$，EQ $8.89$--$9.06\times10^{-13}$ m$^2$。
+  \item \textbf{BEM 为 PEC 近似}：边界元验证用理想导体，丢失金的损耗，MD/EQ 磁共振被抑制（MD 差两个数量级）。加表面阻抗 $Z_s=Z_0/(n+ik)$ 可恢复。
+  \item \textbf{Fig.~2 严格 UQ 未闭合}：读图数据退役后，独立校准样本与预注册 dense 阈值缺失，八条正式 lane 判 UNRESOLVED；方法自洽（Table 2 vs Mie $<0.01\%$）不受影响。
+  \item \textbf{高阶多极 $l>4$ 未逐阶}：仅聚合上界 $<0.4\%$。
+  \item \textbf{Fig.~3 host/spacer 材料缺口}：论文未明确 host 与 spacer 材料，双盘模型的材料域仍有待人工冻结。
+  \item \textbf{Fig.~2 金球材料域限制}：Johnson--Christy 数据在当前网格支持到 1935 nm，$x<0.258$ 的缺口不外推。
+  \item \textbf{Grahn Path A $\leftrightarrow$ Path B 无直接数值记录}：两路径经 Mie/Table 1 传递闭合，无独立 A$\leftrightarrow$B 差值。
+  \item \textbf{球体轮无 Table 2 体积分的功率闭合}：现有多极矩之和 $=$ 总散射是 Mie 系数层；Table 2 体积分层的功率闭合只在 Fig.~3 做了。
+\end{enumerate}
+
+这些限制不否定已有结果——球体的方法验证、Grahn 的双路径映射、双盘的频域真解谱与 BEM 方法论都是有效产物。限制的作用是阻止「方法正确」与「真实非球形结构已完全复现」之间的偷换。

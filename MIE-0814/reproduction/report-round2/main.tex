@@ -1,0 +1,99 @@
+\documentclass[12pt,a4paper,UTF8,fontset=windows]{ctexart}
+
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+
+% 英文字体
+\usepackage{fontspec}
+\setmainfont[
+    AutoFakeBold=2,
+    AutoFakeSlant=0.2,
+    FallbackFont={Arial, SimSun}
+]{Times New Roman}
+\setmonofont{Consolas}
+
+% 标题层级（中文序号）
+\ctexset{
+    section = {
+        name = {,、},
+        number = \arabic{section},
+        format = \zihao{3}\bfseries,
+        aftername = \quad,
+    },
+    subsection = {
+        name = {,、},
+        number = \arabic{section}.\arabic{subsection},
+        format = \zihao{4}\bfseries,
+    },
+    subsubsection = {
+        name = {,、},
+        number = \arabic{section}.\arabic{subsection}.\arabic{subsubsection},
+        format = \zihao{-4}\bfseries,
+    }
+}
+
+% 必备宏包
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{siunitx}
+\sisetup{
+    uncertainty-mode = separate,
+    bracket-ambiguous-numbers = true,
+    exponent-product = \ensuremath{\times},
+}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    pdfborder={0 0 0}
+}
+\usepackage{xcolor}
+\usepackage{listings}
+\lstset{
+    backgroundcolor=\color{gray!10},
+    basicstyle=\ttfamily\footnotesize,
+    frame=single,
+    breaklines=true,
+    showstringspaces=false,
+    numbers=none,
+}
+
+% 封面信息
+\title{\textbf{Alaee 2018 Fig.\,2 数值复现第二轮完整报告}\\[0.3em]
+\large 多极分解：表2 精确多极矩与 Mie 理论 indistinguishable 验证（介电球 + 金球）}
+\author{Codex（异构审查/数值验收） / 主 agent 编排}
+\date{2026-08-08}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\tableofcontents
+\newpage
+
+\input{sections/01_overview}
+\input{sections/02_workflow}
+\input{sections/03_formulas}
+\input{sections/04_implementation}
+\input{sections/05_verification}
+\input{sections/06_paper_comparison}
+\input{sections/07_review}
+\input{sections/08_conclusion}
+
+\bibliographystyle{unsrt}
+\bibliography{bib/references}
+
+\end{document}

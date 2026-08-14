@@ -1,0 +1,99 @@
+\documentclass[12pt,a4paper,UTF8,fontset=windows]{ctexart}
+
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+
+% 英文字体
+\usepackage{fontspec}
+\setmainfont[
+    AutoFakeBold=2,
+    AutoFakeSlant=0.2,
+    FallbackFont={Arial, SimSun}
+]{Times New Roman}
+\setmonofont{Consolas}
+
+% 标题层级（中文序号）
+\ctexset{
+    section = {
+        name = {,、},
+        number = \arabic{section},
+        format = \zihao{3}\bfseries,
+        aftername = \quad,
+    },
+    subsection = {
+        name = {,、},
+        number = \arabic{section}.\arabic{subsection},
+        format = \zihao{4}\bfseries,
+    },
+    subsubsection = {
+        name = {,、},
+        number = \arabic{section}.\arabic{subsection}.\arabic{subsubsection},
+        format = \zihao{-4}\bfseries,
+    }
+}
+
+% 必备宏包
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{unicode-math}
+\setmathfont{TeX Gyre Termes Math}
+\usepackage{multirow}
+\usepackage{subcaption}
+\usepackage{siunitx}
+\sisetup{
+    uncertainty-mode = separate,
+    bracket-ambiguous-numbers = true,
+    exponent-product = \ensuremath{\times},
+}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    citecolor=blue,
+    urlcolor=blue,
+    pdfborder={0 0 0}
+}
+\usepackage{xcolor}
+\usepackage{listings}
+\lstset{
+    backgroundcolor=\color{gray!10},
+    basicstyle=\ttfamily\footnotesize,
+    frame=single,
+    breaklines=true,
+    showstringspaces=false,
+    numbers=none,
+}
+
+% 封面信息
+\title{\textbf{Alaee 2018 Fig.\,1(a) 数值复现第一轮完整报告}\\[0.3em]
+\large 介电球散射截面：多极矩精确展开与 Mie 理论交叉验证}
+\author{子 agent W-sub（独立审查） / 主 agent 编排}
+\date{2026-08-07}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\tableofcontents
+\newpage
+
+\include{sections/01_overview}
+\include{sections/02_workflow}
+\include{sections/03_formulas}
+\include{sections/04_implementation}
+\include{sections/05_blocker}
+\include{sections/06_verification}
+\include{sections/07_review}
+\include{sections/08_conclusion}
+
+\bibliographystyle{unsrt}
+\bibliography{bib/references}
+
+\end{document}

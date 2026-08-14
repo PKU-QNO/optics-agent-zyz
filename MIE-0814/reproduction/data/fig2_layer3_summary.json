@@ -1,0 +1,920 @@
+{
+  "mode": "vector",
+  "thresholds": {
+    "rmse": 0.02,
+    "p95_abs": 0.05,
+    "peak_x": 0.01
+  },
+  "strict_vector_fidelity_gate": {
+    "thresholds": {
+      "rmse": 0.02,
+      "p95_abs": 0.05,
+      "peak_x": 0.01
+    },
+    "status": "UNRESOLVED"
+  },
+  "raster_descriptive_rmse": 0.08,
+  "panels": {
+    "a": {
+      "comparison_domain": [
+        0.2,
+        1.0
+      ],
+      "curves": {
+        "ED": {
+          "mie": {
+            "paper_points": 326,
+            "paper_x_range": [
+              0.2008389,
+              0.9969761
+            ],
+            "domain": [
+              0.2,
+              1.0
+            ],
+            "rmse": 0.01000554730226905,
+            "mae": 0.00807790670854378,
+            "p95_absolute_error": 0.019316010136255668,
+            "max_absolute_error": 0.03603032646102511,
+            "mean_signed_error": 0.0006414425911718878,
+            "absolute_error_gt_0_05_count": 0,
+            "absolute_error_gt_0_05_x": [],
+            "paper_peak_x": 0.4996474499999998,
+            "paper_peak_y": 3.0239047586732966,
+            "local_peak_x": 0.499785259385949,
+            "local_peak_y": 3.000000006190703,
+            "peak_x_difference": 0.00013780938594915026,
+            "peak_height_difference": 0.023904752482593494,
+            "status": "PASS_VECTOR_CONSISTENT"
+          },
+          "exact": {
+            "paper_points": 26,
+            "paper_x_range": [
+              0.2501735,
+              0.9772327
+            ],
+            "domain": [
+              0.2501735,
+              0.9772327
+            ],
+            "rmse": 0.016887596237254544,
+            "mae": 0.01191477923084704,
+            "p95_absolute_error": 0.03571503397411885,
+            "max_absolute_error": 0.05019315507905908,
+            "mean_signed_error": -0.0012781673110445872,
+            "absolute_error_gt_0_05_count": 1,
+            "absolute_error_gt_0_05_x": [
+              0.9772327
+            ],
+            "paper_peak_x": 0.4980133443943411,
+            "paper_peak_y": 3.0497323800479847,
+            "local_peak_x": 0.5013635694605375,
+            "local_peak_y": 2.9993096287752223,
+            "peak_x_difference": 0.0033502250661964217,
+            "peak_height_difference": 0.05042275127276241,
+            "status": "DESCRIPTIVE_ONLY",
+            "marker_x_spacing_median": 0.029594199999999904,
+            "strict_metrics_status": "PASS_VECTOR_CONSISTENT",
+            "shape_metrics_status": "PASS_VECTOR_CONSISTENT",
+            "independent_peak_verdict": false,
+            "peak_verdict": "DESCRIPTIVE_ONLY",
+            "reason": "exact-marker spacing is coarser than the 0.01 peak-location gate; shape metrics are retained but cannot independently decide peak fidelity"
+          }
+        },
+        "MD": {
+          "mie": {
+            "paper_points": 253,
+            "paper_x_range": [
+              0.2699203,
+              0.9486995
+            ],
+            "domain": [
+              0.2,
+              1.0
+            ],
+            "rmse": 0.010699882343840627,
+            "mae": 0.008443578590924304,
+            "p95_absolute_error": 0.020513466896546522,
+            "max_absolute_error": 0.039924079870123697,
+            "mean_signed_error": 0.00022366813882562238,
+            "absolute_error_gt_0_05_count": 0,
+            "absolute_error_gt_0_05_x": [],
+            "paper_peak_x": 0.3845226500000024,
+            "paper_peak_y": 3.0129461797299086,
+            "local_peak_x": 0.38480823038765016,
+            "local_peak_y": 2.999999944196304,
+            "peak_x_difference": 0.00028558038764775473,
+            "peak_height_difference": 0.012946235533604522,
+            "status": "PASS_VECTOR_CONSISTENT"
+          },
+          "exact": {
+            "paper_points": 25,
+            "paper_x_range": [
+              0.2501735,
+              0.977239
+            ],
+            "domain": [
+              0.2501735,
+              0.977239
+            ],
+            "rmse": 0.018927457925023906,
+            "mae": 0.012945272189500544,
+            "p95_absolute_error": 0.043696646897257864,
+            "max_absolute_error": 0.04873174011522474,
+            "mean_signed_error": -0.0033364472902576523,
+            "absolute_error_gt_0_05_count": 0,
+            "absolute_error_gt_0_05_x": [],
+            "paper_peak_x": 0.392757617953193,
+            "paper_peak_y": 2.852130035914257,
+            "local_peak_x": 0.3849158212005228,
+            "local_peak_y": 2.999761156354907,
+            "peak_x_difference": 0.00784179675267016,
+            "peak_height_difference": 0.14763112044064997,
+            "status": "DESCRIPTIVE_ONLY",
+            "marker_x_spacing_median": 0.02959579999999995,
+            "strict_metrics_status": "PASS_VECTOR_CONSISTENT",
+            "shape_metrics_status": "PASS_VECTOR_CONSISTENT",
+            "independent_peak_verdict": false,
+            "peak_verdict": "DESCRIPTIVE_ONLY",
+            "reason": "exact-marker spacing is coarser than the 0.01 peak-location gate; shape metrics are retained but cannot independently decide peak fidelity"
+          }
+        },
+        "EQ": {
+          "mie": {
+            "paper_points": 292,
+            "paper_x_range": [
+              0.3697125,
+              0.9991572
+            ],
+            "domain": [
+              0.2,
+              1.0
+            ],
+            "rmse": 0.01282398934673462,
+            "mae": 0.00974115570460393,
+            "p95_absolute_error": 0.026062209337914994,
+            "max_absolute_error": 0.04810796881404311,
+            "mean_signed_error": 0.0015918734784430575,
+            "absolute_error_gt_0_05_count": 0,
+            "absolute_error_gt_0_05_x": [],
+            "paper_peak_x": 0.6471515500000312,
+            "paper_peak_y": 5.00911905245971,
+            "local_peak_x": 0.6472368256861976,
+            "local_peak_y": 5.000000004838853,
+            "peak_x_difference": 8.527568616634174e-05,
+            "peak_height_difference": 0.00911904762085669,
+            "status": "PASS_VECTOR_CONSISTENT"
+          },
+          "exact": {
+            "paper_points": 21,
+            "paper_x_range": [
+              0.2501735,
+              0.977239
+            ],
+            "domain": [
+              0.2501735,
+              0.977239
+            ],
+            "rmse": 0.015195517445785855,
+            "mae": 0.010411293185468906,
+            "p95_absolute_error": 0.03154018516697543,
+            "max_absolute_error": 0.0378938042607988,
+            "mean_signed_error": -0.003189987892273712,
+            "absolute_error_gt_0_05_count": 0,
+            "absolute_error_gt_0_05_x": [],
+            "paper_peak_x": 0.6470945109700085,
+            "paper_peak_y": 4.9479344085463595,
+            "local_peak_x": 0.6463153706033815,
+            "local_peak_y": 4.998256790261621,
+            "peak_x_difference": 0.0007791403666269625,
+            "peak_height_difference": 0.0503223817152616,
+            "status": "DESCRIPTIVE_ONLY",
+            "marker_x_spacing_median": 0.02959904999999996,
+            "strict_metrics_status": "PASS_VECTOR_CONSISTENT",
+            "shape_metrics_status": "PASS_VECTOR_CONSISTENT",
+            "independent_peak_verdict": false,
+            "peak_verdict": "DESCRIPTIVE_ONLY",
+            "reason": "exact-marker spacing is coarser than the 0.01 peak-location gate; shape metrics are retained but cannot independently decide peak fidelity"
+          }
+        },
+        "MQ": {
+          "mie": {
+            "paper_points": 212,
+            "paper_x_range": [
+              0.3697125,
+              0.9991572
+            ],
+            "domain": [
+              0.2,
+              1.0
+            ],
+            "rmse": 0.025559729654967944,
+            "mae": 0.016100657771701114,
+            "p95_absolute_error": 0.05695000626278197,
+            "max_absolute_error": 0.10895481215918945,
+            "mean_signed_error": -0.003047524229181492,
+            "absolute_error_gt_0_05_count": 14,
+            "absolute_error_gt_0_05_x": [
+              0.5243115,
+              0.5298294,
+              0.5353276,
+              0.5506733,
+              0.5561585,
+              0.5605076,
+              0.5659732,
+              0.9443179,
+              0.9497704,
+              0.9530615,
+              0.9585533,
+              0.9607801,
+              0.9640712,
+              0.9695434
+            ],
+            "paper_peak_x": 0.5429710500000006,
+            "paper_peak_y": 5.006570429580279,
+            "local_peak_x": 0.5429501563615561,
+            "local_peak_y": 5.000000543866008,
+            "peak_x_difference": 2.0893638444485774e-05,
+            "peak_height_difference": 0.00656988571427064,
+            "status": "UNRESOLVED",
+            "spacing_diagnostics": {
+              "source_curve_points": 214,
+              "source_max_x_gap": 0.2302626,
+              "source_max_x_gap_interval": [
+                0.1394499,
+                0.3697125
+              ],
+              "primary_peak_window": [
+                0.5,
+                0.58
+              ],
+              "primary_peak_window_max_x_gap": 0.002252900000000002,
+              "secondary_peak_window": [
+                0.9,
+                0.98
+              ],
+              "secondary_peak_window_max_x_gap": 0.008789500000000006
+            }
+          },
+          "exact": {
+            "paper_points": 23,
+            "paper_x_range": [
+              0.2501735,
+              0.9772391
+            ],
+            "domain": [
+              0.2501735,
+              0.9772391
+            ],
+            "rmse": 0.029995411344851584,
+            "mae": 0.017942372283760357,
+            "p95_absolute_error": 0.06747800118654727,
+            "max_absolute_error": 0.08916777613033577,
+            "mean_signed_error": -0.0045216474846416915,
+            "absolute_error_gt_0_05_count": 3,
+            "absolute_error_gt_0_05_x": [
+              0.5693002,
+              0.9476155,
+              0.9772391
+            ],
+            "paper_peak_x": 0.5434752643609909,
+            "paper_peak_y": 4.972973781411611,
+            "local_peak_x": 0.5418280182067698,
+            "local_peak_y": 4.978998590566334,
+            "peak_x_difference": 0.0016472461542210715,
+            "peak_height_difference": 0.006024809154723698,
+            "status": "DESCRIPTIVE_ONLY",
+            "marker_x_spacing_median": 0.029595800000000005,
+            "strict_metrics_status": "UNRESOLVED",
+            "shape_metrics_status": "UNRESOLVED",
+            "independent_peak_verdict": false,
+            "peak_verdict": "DESCRIPTIVE_ONLY",
+            "reason": "exact-marker spacing is coarser than the 0.01 peak-location gate; shape metrics are retained but cannot independently decide peak fidelity"
+          }
+        }
+      },
+      "graphical_floor": {
+        "ED": {
+          "same_marker_points": 26,
+          "paper_internal_mie_vs_exact": {
+            "rmse": 0.01571995364843006,
+            "mae": 0.01013632052760068,
+            "p95_absolute_error": 0.031198866072028264,
+            "max_absolute_error": 0.04132230256666958
+          },
+          "local_mie_vs_paper_mie": {
+            "rmse": 0.006741349346613142,
+            "mae": 0.005968012516164598,
+            "p95_absolute_error": 0.011010357866783671,
+            "max_absolute_error": 0.011321852918826092
+          },
+          "assessment": "CONSISTENT_WITH_PAPER_GRAPHICAL_FLOOR",
+          "overrides_strict_gate": false
+        },
+        "MD": {
+          "same_marker_points": 25,
+          "paper_internal_mie_vs_exact": {
+            "rmse": 0.01812745331188838,
+            "mae": 0.011474627786062529,
+            "p95_absolute_error": 0.04180563282813736,
+            "max_absolute_error": 0.041940414492558364
+          },
+          "local_mie_vs_paper_mie": {
+            "rmse": 0.00782341833899127,
+            "mae": 0.006476081578487218,
+            "p95_absolute_error": 0.014190099922253917,
+            "max_absolute_error": 0.018122241259347138
+          },
+          "assessment": "CONSISTENT_WITH_PAPER_GRAPHICAL_FLOOR",
+          "overrides_strict_gate": false
+        },
+        "EQ": {
+          "same_marker_points": 21,
+          "paper_internal_mie_vs_exact": {
+            "rmse": 0.017986874011868766,
+            "mae": 0.01204437330009873,
+            "p95_absolute_error": 0.04243138624203002,
+            "max_absolute_error": 0.04266080770074687
+          },
+          "local_mie_vs_paper_mie": {
+            "rmse": 0.010232192963630598,
+            "mae": 0.00748407422639053,
+            "p95_absolute_error": 0.023816240829185542,
+            "max_absolute_error": 0.027403133825402826
+          },
+          "assessment": "CONSISTENT_WITH_PAPER_GRAPHICAL_FLOOR",
+          "overrides_strict_gate": false
+        },
+        "MQ": {
+          "same_marker_points": 23,
+          "paper_internal_mie_vs_exact": {
+            "rmse": 0.024302105943257324,
+            "mae": 0.011568529502840697,
+            "p95_absolute_error": 0.06186587951829785,
+            "max_absolute_error": 0.0710695666219534
+          },
+          "local_mie_vs_paper_mie": {
+            "rmse": 0.009326519191935317,
+            "mae": 0.007358040466605342,
+            "p95_absolute_error": 0.02104180392780459,
+            "max_absolute_error": 0.023141280524626495
+          },
+          "assessment": "CONSISTENT_WITH_PAPER_GRAPHICAL_FLOOR",
+          "overrides_strict_gate": false
+        }
+      },
+      "q_factor_diagnostics": {
+        "ED": {
+          "paper": {
+            "peak_x": 0.4996474499999998,
+            "peak_y": 3.0239047586732966,
+            "half_max_y": 1.5119523793366483,
+            "left_half_x": 0.37471495869119575,
+            "right_half_x": 0.5673120250736197,
+            "status": "EVALUATED",
+            "fwhm": 0.1925970663824239,
+            "q_factor": 2.5942630351798384
+          },
+          "local": {
+            "peak_x": 0.499785259385949,
+            "peak_y": 3.000000006190703,
+            "half_max_y": 1.5000000030953515,
+            "left_half_x": 0.3739170434871001,
+            "right_half_x": 0.5680924639158746,
+            "status": "EVALUATED",
+            "fwhm": 0.19417542042877456,
+            "q_factor": 2.5738852954834988
+          },
+          "relative_error_tolerance": 0.05,
+          "supplemental_only": true,
+          "promotion_eligible": false,
+          "relative_error": 0.007854924277147166,
+          "status": "PASS"
+        },
+        "MD": {
+          "paper": {
+            "peak_x": 0.3845226500000024,
+            "peak_y": 3.0129461797299086,
+            "half_max_y": 1.5064730898649543,
+            "left_half_x": 0.35518694742668505,
+            "right_half_x": 0.4698960855466869,
+            "status": "EVALUATED",
+            "fwhm": 0.11470913812000183,
+            "q_factor": 3.352153597368484
+          },
+          "local": {
+            "peak_x": 0.38480823038765016,
+            "peak_y": 2.999999944196304,
+            "half_max_y": 1.499999972098152,
+            "left_half_x": 0.35545094155691903,
+            "right_half_x": 0.4727511546089861,
+            "status": "EVALUATED",
+            "fwhm": 0.11730021305206706,
+            "q_factor": 3.2805416151873654
+          },
+          "relative_error_tolerance": 0.05,
+          "supplemental_only": true,
+          "promotion_eligible": false,
+          "relative_error": 0.021362977590685447,
+          "status": "PASS"
+        },
+        "EQ": {
+          "paper": {
+            "peak_x": 0.6471515500000312,
+            "peak_y": 5.00911905245971,
+            "half_max_y": 2.504559526229855,
+            "left_half_x": 0.5920171090301619,
+            "right_half_x": 0.6977978073888634,
+            "status": "EVALUATED",
+            "fwhm": 0.10578069835870152,
+            "q_factor": 6.117860441850604
+          },
+          "local": {
+            "peak_x": 0.6472368256861976,
+            "peak_y": 5.000000004838853,
+            "half_max_y": 2.5000000024194264,
+            "left_half_x": 0.5916422186862864,
+            "right_half_x": 0.6981379968633226,
+            "status": "EVALUATED",
+            "fwhm": 0.10649577817703615,
+            "q_factor": 6.077582010906065
+          },
+          "relative_error_tolerance": 0.05,
+          "supplemental_only": true,
+          "promotion_eligible": false,
+          "relative_error": 0.0065837446485385205,
+          "status": "PASS"
+        },
+        "MQ": {
+          "paper": {
+            "peak_x": 0.5429710500000006,
+            "peak_y": 5.006570429580279,
+            "half_max_y": 2.5032852147901394,
+            "left_half_x": 0.5255569511191499,
+            "right_half_x": 0.5680859497554773,
+            "status": "EVALUATED",
+            "fwhm": 0.04252899863632742,
+            "q_factor": 12.767078168076253
+          },
+          "local": {
+            "peak_x": 0.5429501563615561,
+            "peak_y": 5.000000543866008,
+            "half_max_y": 2.500000271933004,
+            "left_half_x": 0.5259997011748164,
+            "right_half_x": 0.568416301028066,
+            "status": "EVALUATED",
+            "fwhm": 0.042416599853249526,
+            "q_factor": 12.800416776451279
+          },
+          "relative_error_tolerance": 0.05,
+          "supplemental_only": true,
+          "promotion_eligible": false,
+          "relative_error": 0.002611295077552504,
+          "status": "PASS"
+        }
+      },
+      "consistency_status": "UNRESOLVED"
+    },
+    "b": {
+      "comparison_domain": [
+        0.25839793281653745,
+        1.0
+      ],
+      "curves": {
+        "ED": {
+          "mie": {
+            "paper_points": 71,
+            "paper_x_range": [
+              0.2677387,
+              0.9980418
+            ],
+            "domain": [
+              0.25839793281653745,
+              0.9980418
+            ],
+            "rmse": 0.008009758010147033,
+            "mae": 0.006741458570268052,
+            "p95_absolute_error": 0.014383699579574916,
+            "max_absolute_error": 0.015790110658314593,
+            "mean_signed_error": 0.004645778667670486,
+            "absolute_error_gt_0_05_count": 0,
+            "absolute_error_gt_0_05_x": [],
+            "paper_peak_x": 0.4733531500000028,
+            "paper_peak_y": 2.018175224022009,
+            "local_peak_x": 0.47324972919516195,
+            "local_peak_y": 2.0117292169677876,
+            "peak_x_difference": 0.00010342080484082583,
+            "peak_height_difference": 0.006446007054221603,
+            "status": "PASS_VECTOR_CONSISTENT"
+          },
+          "exact": {
+            "paper_points": 25,
+            "paper_x_range": [
+              0.2787127,
+              0.97722
+            ],
+            "domain": [
+              0.25839793281653745,
+              0.97722
+            ],
+            "rmse": 0.011059541594158522,
+            "mae": 0.009816295986405519,
+            "p95_absolute_error": 0.019218204994986665,
+            "max_absolute_error": 0.02006015771106817,
+            "mean_signed_error": 0.0059254640583468075,
+            "absolute_error_gt_0_05_count": 0,
+            "absolute_error_gt_0_05_x": [],
+            "paper_peak_x": 0.4821099999999998,
+            "paper_peak_y": 2.018559718140671,
+            "local_peak_x": 0.47427280587229037,
+            "local_peak_y": 2.0123700254924017,
+            "peak_x_difference": 0.007837194127709446,
+            "peak_height_difference": 0.006189692648269407,
+            "status": "DESCRIPTIVE_ONLY",
+            "marker_x_spacing_median": 0.029598249999999993,
+            "strict_metrics_status": "PASS_VECTOR_CONSISTENT",
+            "shape_metrics_status": "PASS_VECTOR_CONSISTENT",
+            "independent_peak_verdict": false,
+            "peak_verdict": "DESCRIPTIVE_ONLY",
+            "reason": "exact-marker spacing is coarser than the 0.01 peak-location gate; shape metrics are retained but cannot independently decide peak fidelity"
+          }
+        },
+        "MD": {
+          "mie": {
+            "paper_points": 68,
+            "paper_x_range": [
+              0.2677387,
+              0.9980418
+            ],
+            "domain": [
+              0.25839793281653745,
+              0.9980418
+            ],
+            "rmse": 0.0063260049695870535,
+            "mae": 0.005525892636462794,
+            "p95_absolute_error": 0.011683867092257131,
+            "max_absolute_error": 0.013257221632101412,
+            "mean_signed_error": 0.0008440713372489689,
+            "absolute_error_gt_0_05_count": 0,
+            "absolute_error_gt_0_05_x": [],
+            "paper_peak_x": 0.9053807999999988,
+            "paper_peak_y": 2.5308798943620197,
+            "local_peak_x": 0.909033040675271,
+            "local_peak_y": 2.52505572561563,
+            "peak_x_difference": 0.003652240675272256,
+            "peak_height_difference": 0.005824168746389802,
+            "status": "PASS_VECTOR_CONSISTENT"
+          },
+          "exact": {
+            "paper_points": 25,
+            "paper_x_range": [
+              0.2787127,
+              0.97722
+            ],
+            "domain": [
+              0.25839793281653745,
+              0.97722
+            ],
+            "rmse": 0.017846265862266016,
+            "mae": 0.012252169148833137,
+            "p95_absolute_error": 0.04290736124162675,
+            "max_absolute_error": 0.04475083342864217,
+            "mean_signed_error": -0.0018099624118263636,
+            "absolute_error_gt_0_05_count": 0,
+            "absolute_error_gt_0_05_x": [],
+            "paper_peak_x": 0.890011849999994,
+            "paper_peak_y": 2.537238539994785,
+            "local_peak_x": 0.9061559919096379,
+            "local_peak_y": 2.5243250358238356,
+            "peak_x_difference": 0.01614414190964386,
+            "peak_height_difference": 0.012913504170949608,
+            "status": "DESCRIPTIVE_ONLY",
+            "marker_x_spacing_median": 0.029598249999999993,
+            "strict_metrics_status": "UNRESOLVED",
+            "shape_metrics_status": "PASS_VECTOR_CONSISTENT",
+            "independent_peak_verdict": false,
+            "peak_verdict": "DESCRIPTIVE_ONLY",
+            "reason": "exact-marker spacing is coarser than the 0.01 peak-location gate; shape metrics are retained but cannot independently decide peak fidelity"
+          }
+        },
+        "EQ": {
+          "mie": {
+            "paper_points": 62,
+            "paper_x_range": [
+              0.3598412,
+              0.9980418
+            ],
+            "domain": [
+              0.25839793281653745,
+              0.9980418
+            ],
+            "rmse": 0.008362549026556343,
+            "mae": 0.006900908002103562,
+            "p95_absolute_error": 0.01590386578075919,
+            "max_absolute_error": 0.016747832802267215,
+            "mean_signed_error": -0.0017344066036575807,
+            "absolute_error_gt_0_05_count": 0,
+            "absolute_error_gt_0_05_x": [],
+            "paper_peak_x": 0.7820311499999996,
+            "paper_peak_y": 4.099634355782989,
+            "local_peak_x": 0.7815359669970103,
+            "local_peak_y": 4.08563256441051,
+            "peak_x_difference": 0.0004951830029892301,
+            "peak_height_difference": 0.014001791372479033,
+            "status": "PASS_VECTOR_CONSISTENT"
+          },
+          "exact": {
+            "paper_points": 25,
+            "paper_x_range": [
+              0.2787127,
+              0.97722
+            ],
+            "domain": [
+              0.25839793281653745,
+              0.97722
+            ],
+            "rmse": 0.021234333423302883,
+            "mae": 0.01617664513149806,
+            "p95_absolute_error": 0.039655559867776434,
+            "max_absolute_error": 0.05301831607554641,
+            "mean_signed_error": -0.004725681268794483,
+            "absolute_error_gt_0_05_count": 1,
+            "absolute_error_gt_0_05_x": [
+              0.8609523
+            ],
+            "paper_peak_x": 0.7975292996503615,
+            "paper_peak_y": 4.094258651661995,
+            "local_peak_x": 0.7839943292067467,
+            "local_peak_y": 4.086202496487999,
+            "peak_x_difference": 0.013534970443614736,
+            "peak_height_difference": 0.00805615517399616,
+            "status": "DESCRIPTIVE_ONLY",
+            "marker_x_spacing_median": 0.029598249999999993,
+            "strict_metrics_status": "UNRESOLVED",
+            "shape_metrics_status": "UNRESOLVED",
+            "independent_peak_verdict": false,
+            "peak_verdict": "DESCRIPTIVE_ONLY",
+            "reason": "exact-marker spacing is coarser than the 0.01 peak-location gate; shape metrics are retained but cannot independently decide peak fidelity"
+          }
+        },
+        "MQ": {
+          "mie": {
+            "paper_points": 49,
+            "paper_x_range": [
+              0.4728079,
+              0.9980418
+            ],
+            "domain": [
+              0.25839793281653745,
+              0.9980418
+            ],
+            "rmse": 0.006257067123984778,
+            "mae": 0.005415072290788718,
+            "p95_absolute_error": 0.01126832375929062,
+            "max_absolute_error": 0.012834019775611473,
+            "mean_signed_error": 0.0007468315375773433,
+            "absolute_error_gt_0_05_count": 0,
+            "absolute_error_gt_0_05_x": [],
+            "paper_peak_x": 0.9980418,
+            "paper_peak_y": 1.540964269285741,
+            "local_peak_x": 0.9980418,
+            "local_peak_y": 1.537272944517833,
+            "peak_x_difference": 0.0,
+            "peak_height_difference": 0.003691324767908011,
+            "status": "PASS_VECTOR_CONSISTENT"
+          },
+          "exact": {
+            "paper_points": 25,
+            "paper_x_range": [
+              0.2787127,
+              0.97722
+            ],
+            "domain": [
+              0.25839793281653745,
+              0.97722
+            ],
+            "rmse": 0.008244426333408486,
+            "mae": 0.006625234926091853,
+            "p95_absolute_error": 0.015693266807183498,
+            "max_absolute_error": 0.018497878688747527,
+            "mean_signed_error": -0.0009925376192924497,
+            "absolute_error_gt_0_05_count": 0,
+            "absolute_error_gt_0_05_x": [],
+            "paper_peak_x": 0.97722,
+            "paper_peak_y": 1.437707897932409,
+            "local_peak_x": 0.97722,
+            "local_peak_y": 1.429704609235769,
+            "peak_x_difference": 0.0,
+            "peak_height_difference": 0.00800328869663991,
+            "status": "DESCRIPTIVE_ONLY",
+            "marker_x_spacing_median": 0.029598249999999993,
+            "strict_metrics_status": "PASS_VECTOR_CONSISTENT",
+            "shape_metrics_status": "PASS_VECTOR_CONSISTENT",
+            "independent_peak_verdict": false,
+            "peak_verdict": "DESCRIPTIVE_ONLY",
+            "reason": "exact-marker spacing is coarser than the 0.01 peak-location gate; shape metrics are retained but cannot independently decide peak fidelity"
+          }
+        }
+      },
+      "graphical_floor": {
+        "ED": {
+          "same_marker_points": 25,
+          "paper_internal_mie_vs_exact": {
+            "rmse": 0.009647609974849244,
+            "mae": 0.00786587913372708,
+            "p95_absolute_error": 0.016970652206952194,
+            "max_absolute_error": 0.0185593361858869
+          },
+          "local_mie_vs_paper_mie": {
+            "rmse": 0.007044591396788757,
+            "mae": 0.00566431110928066,
+            "p95_absolute_error": 0.012668910924658404,
+            "max_absolute_error": 0.013348168034440666
+          },
+          "assessment": "CONSISTENT_WITH_PAPER_GRAPHICAL_FLOOR",
+          "overrides_strict_gate": false
+        },
+        "MD": {
+          "same_marker_points": 25,
+          "paper_internal_mie_vs_exact": {
+            "rmse": 0.018355238011483175,
+            "mae": 0.012343790199502493,
+            "p95_absolute_error": 0.04494142275485976,
+            "max_absolute_error": 0.048880541624713114
+          },
+          "local_mie_vs_paper_mie": {
+            "rmse": 0.004867158096710008,
+            "mae": 0.0041635324294225316,
+            "p95_absolute_error": 0.007943056288879013,
+            "max_absolute_error": 0.008225830354814001
+          },
+          "assessment": "CONSISTENT_WITH_PAPER_GRAPHICAL_FLOOR",
+          "overrides_strict_gate": false
+        },
+        "EQ": {
+          "same_marker_points": 25,
+          "paper_internal_mie_vs_exact": {
+            "rmse": 0.02039063576027054,
+            "mae": 0.01585196661636956,
+            "p95_absolute_error": 0.03613745949091295,
+            "max_absolute_error": 0.04788263498544154
+          },
+          "local_mie_vs_paper_mie": {
+            "rmse": 0.006773551609670382,
+            "mae": 0.00537107446160603,
+            "p95_absolute_error": 0.013396264379004845,
+            "max_absolute_error": 0.0151699957168141
+          },
+          "assessment": "CONSISTENT_WITH_PAPER_GRAPHICAL_FLOOR",
+          "overrides_strict_gate": false
+        },
+        "MQ": {
+          "same_marker_points": 25,
+          "paper_internal_mie_vs_exact": {
+            "rmse": 0.009737845401208482,
+            "mae": 0.006015005334995511,
+            "p95_absolute_error": 0.020968577753164252,
+            "max_absolute_error": 0.022992486818945723
+          },
+          "local_mie_vs_paper_mie": {
+            "rmse": 0.004758625553105793,
+            "mae": 0.0037859466172790223,
+            "p95_absolute_error": 0.007450193423090022,
+            "max_absolute_error": 0.012661382490265494
+          },
+          "assessment": "CONSISTENT_WITH_PAPER_GRAPHICAL_FLOOR",
+          "overrides_strict_gate": false
+        }
+      },
+      "q_factor_diagnostics": {
+        "ED": {
+          "paper": {
+            "peak_x": 0.4733531500000028,
+            "peak_y": 2.018175224022009,
+            "half_max_y": 1.0090876120110046,
+            "left_half_x": 0.30724123062781344,
+            "right_half_x": 0.7463178957602459,
+            "status": "EVALUATED",
+            "fwhm": 0.43907666513243243,
+            "q_factor": 1.0780649202963952
+          },
+          "local": {
+            "peak_x": 0.4732499258248255,
+            "peak_y": 2.011729268103641,
+            "half_max_y": 1.0058646340518205,
+            "left_half_x": 0.306336021819494,
+            "right_half_x": 0.7474970368052288,
+            "status": "EVALUATED",
+            "fwhm": 0.44116101498573485,
+            "q_factor": 1.0727374127564926
+          },
+          "relative_error_tolerance": 0.05,
+          "supplemental_only": true,
+          "promotion_eligible": false,
+          "relative_error": 0.004941731652336787,
+          "status": "PASS"
+        },
+        "MD": {
+          "paper": {
+            "peak_x": 0.9053807999999988,
+            "peak_y": 2.5308798943620197,
+            "half_max_y": 1.2654399471810098,
+            "left_half_x": 0.6263614943547896,
+            "right_half_x": null,
+            "status": "NOT_EVALUABLE",
+            "reason": "both in-domain half-height crossings are not available"
+          },
+          "local": {
+            "peak_x": 0.9090613768293871,
+            "peak_y": 2.525064947296414,
+            "half_max_y": 1.262532473648207,
+            "left_half_x": 0.6255906326262988,
+            "right_half_x": null,
+            "status": "NOT_EVALUABLE",
+            "reason": "both in-domain half-height crossings are not available"
+          },
+          "relative_error_tolerance": 0.05,
+          "supplemental_only": true,
+          "promotion_eligible": false,
+          "status": "NOT_EVALUABLE",
+          "reason": "paper or local curve lacks two reliable in-domain half-height crossings"
+        },
+        "EQ": {
+          "paper": {
+            "peak_x": 0.7820311499999996,
+            "peak_y": 4.099634355782989,
+            "half_max_y": 2.0498171778914944,
+            "left_half_x": 0.5903087446119525,
+            "right_half_x": null,
+            "status": "NOT_EVALUABLE",
+            "reason": "both in-domain half-height crossings are not available"
+          },
+          "local": {
+            "peak_x": 0.7815359547796633,
+            "peak_y": 4.0856328158857735,
+            "half_max_y": 2.0428164079428868,
+            "left_half_x": 0.5896419343746491,
+            "right_half_x": null,
+            "status": "NOT_EVALUABLE",
+            "reason": "both in-domain half-height crossings are not available"
+          },
+          "relative_error_tolerance": 0.05,
+          "supplemental_only": true,
+          "promotion_eligible": false,
+          "status": "NOT_EVALUABLE",
+          "reason": "paper or local curve lacks two reliable in-domain half-height crossings"
+        },
+        "MQ": {
+          "paper": {
+            "peak_x": 0.9980418,
+            "peak_y": 1.540964269285741,
+            "half_max_y": 0.7704821346428705,
+            "left_half_x": 0.8272839893840371,
+            "right_half_x": null,
+            "status": "NOT_EVALUABLE",
+            "reason": "both in-domain half-height crossings are not available"
+          },
+          "local": {
+            "peak_x": 0.9979600843363295,
+            "peak_y": 1.536830290599276,
+            "half_max_y": 0.768415145299638,
+            "left_half_x": 0.8277870627118071,
+            "right_half_x": null,
+            "status": "NOT_EVALUABLE",
+            "reason": "both in-domain half-height crossings are not available"
+          },
+          "relative_error_tolerance": 0.05,
+          "supplemental_only": true,
+          "promotion_eligible": false,
+          "status": "NOT_EVALUABLE",
+          "reason": "paper or local curve lacks two reliable in-domain half-height crossings"
+        }
+      },
+      "coverage_status": "MATERIAL_DOMAIN_LIMITED",
+      "masked_x_range": [
+        0.2,
+        0.25839793281653745
+      ],
+      "masked_reason": "Johnson-Christy source ends at 1935 nm; Olmon substitution forbidden",
+      "consistency_status": "PASS_VECTOR_CONSISTENT"
+    }
+  },
+  "attribution_order": [
+    "axis_or_curve_identity",
+    "solid_marker_overlap",
+    "JC_domain_or_interpolation",
+    "paper_COMSOL_numerics",
+    "gold_material_sample",
+    "local_physics_candidate"
+  ],
+  "strict_vector_fidelity_status": "UNRESOLVED",
+  "graphical_floor_assessment": "CONSISTENT_WITH_PAPER_GRAPHICAL_FLOOR",
+  "method_claim_status": "PASS",
+  "paper_fidelity_status": "UNRESOLVED",
+  "coverage_status": "MATERIAL_DOMAIN_LIMITED",
+  "gate4_decision": "PASS_WITH_LIMITATIONS",
+  "result_class": "partial_physical_match",
+  "promotion_to_physical_reproduction_success": "DENIED",
+  "overall_status": "UNRESOLVED",
+  "overall_note": "The Table2/Mie method claim passes, but the pre-registered strict vector gate remains UNRESOLVED for dielectric MQ and the full gold panel remains MATERIAL_DOMAIN_LIMITED. The paper's own line/marker discrepancy establishes a graphical floor consistent with the local result, but it does not retroactively override the strict gate or promote the SEPR result_class beyond partial_physical_match."
+}

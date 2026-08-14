@@ -1,0 +1,447 @@
+\section{FC2015 多极积分方法——精确偶极矩的源头}
+%=============================================================================
+
+Alaee 2018 的表 2 精确多极矩并非凭空而来——它的数学源头是
+\textbf{Fernandez-Corbaton, Nanz, Alaee, Rockstuhl}（Opt. Express 2015,
+"Exact dipolar moments of a localized electric current distribution"），
+本文记为 \textbf{FC2015}。本章完整介绍 FC2015 的方法，它是理解
+Alaee 表 2 为什么带 $j_l(kr)$ 的关键。
+
+\subsection{传统偶极矩为何失效}
+
+经典的小源近似偶极矩（Alaee 表 1 的偶极部分）：
+\begin{equation}
+  \mathbf{p} = \int \mathbf{r}\,\rho\,d^3r,\qquad
+  \mathbf{m} = \frac12\int \mathbf{r}\times\mathbf{J}\,d^3r
+\end{equation}
+只在 $kR\ll1$（源远小于波长）时精确。FC2015 的问题意识：
+\begin{itemize}
+  \item 光学频率下纳米粒子的尺寸 $R$ 可与 $\lambda$ 比拟，$kR\sim1$，近似失效
+  \item 需要\textbf{任意源尺寸都精确}的偶极矩表达式
+  \item 且要求新表达式"形式上只比近似略复杂"（只多球 Bessel 函数）
+\end{itemize}
+
+\subsection{动量空间方法：Devaney--Wolf 结果}
+
+FC2015 的核心洞察来自\textbf{动量（傅里叶）空间}。设电流密度 $\mathbf{J}_\omega(\mathbf{r})$
+的傅里叶变换为 $\mathbf{J}_\omega(\mathbf{p})$。Devaney--Wolf 结果表明：
+
+\begin{nontrivial}
+\textbf{辐射场只由动量球壳 $|\mathbf{p}|=\omega/c$ 上的分量决定}。
+源外部的横电磁场完全由 $\mathbf{J}_\omega(\mathbf{p})$ 在 $|\mathbf{p}|=\omega/c$
+处的取值决定——因为辐射场是频率 $\omega$ 的平面波叠加，其波矢模长固定为 $k=\omega/c$。
+\end{nontrivial}
+
+记 $\mathring{\mathbf{J}}_\omega(\hat{\mathbf{p}})$ 为 $\mathbf{J}_\omega$ 在球壳
+$|\mathbf{p}|=k$ 上的角向分量（$\hat{\mathbf{p}}$ 是动量方向）。这是推导的出发点。
+
+\subsection{动量空间多极函数基}
+
+在动量球壳上，$\mathring{\mathbf{J}}_\omega(\hat{\mathbf{p}})$ 用一组完备的
+\textbf{矢量多极函数基}展开（FC2015 Eq.(2)）：
+\begin{equation}
+  \mathbf{X}_{jm}(\hat{\mathbf{p}}) = \frac{1}{\sqrt{j(j+1)}}\,\mathbf{L}Y_{jm}(\hat{\mathbf{p}}),
+  \qquad
+  \mathbf{Z}_{jm}(\hat{\mathbf{p}}) = i\hat{\mathbf{p}}\times\mathbf{X}_{jm}(\hat{\mathbf{p}}),
+  \qquad
+  \mathbf{W}_{jm}(\hat{\mathbf{p}}) = \hat{\mathbf{p}}\,Y_{jm}(\hat{\mathbf{p}})
+  \label{eq:fc_basis}
+\end{equation}
+
+\begin{stepbox}{三个基的物理角色}
+\begin{itemize}
+  \item $\mathbf{X}_{jm}$：横向（$\perp\hat{\mathbf{p}}$），对应\textbf{磁多极}辐射
+  \item $\mathbf{Z}_{jm}=i\hat{\mathbf{p}}\times\mathbf{X}_{jm}$：横向，对应\textbf{电多极}辐射
+  \item $\mathbf{W}_{jm}=\hat{\mathbf{p}}Y_{jm}$：纵向（$\parallel\hat{\mathbf{p}}$），纵场——源外部辐射为零，
+    与电荷密度的贡献相消（连续性方程）
+\end{itemize}
+三族一起构成球壳上的正交完备基。
+\end{stepbox}
+
+展开（FC2015 Eq.(6)）：
+\begin{equation}
+  \mathring{\mathbf{J}}_\omega(\hat{\mathbf{p}})
+  = \sum_{jm}\Bigl[a^\omega_{jm}\mathbf{Z}_{jm}(\hat{\mathbf{p}})
+    + b^\omega_{jm}\mathbf{X}_{jm}(\hat{\mathbf{p}})
+    + c^\omega_{jm}\mathbf{W}_{jm}(\hat{\mathbf{p}})\Bigr]
+  \label{eq:fc_expand}
+\end{equation}
+
+系数由正交性给出（FC2015 Eq.(7)）：
+\begin{equation}
+  q^\omega_{jm} = \langle\mathbf{Q}_{jm}\vert\mathring{\mathbf{J}}_\omega\rangle
+  = \int d\hat{\mathbf{p}}\,\mathbf{Q}^\dagger_{jm}(\hat{\mathbf{p}})\,\mathring{\mathbf{J}}_\omega(\hat{\mathbf{p}})
+  \label{eq:fc_coeff}
+\end{equation}
+其中 $q^\omega_{jm}$ 代表 $a^\omega_{jm},b^\omega_{jm},c^\omega_{jm}$ 三者之一。
+
+\begin{noteworthy}
+\textbf{关键}：$\{a^\omega_{jm},b^\omega_{jm}\}$ 正是\textbf{电多极和磁多极辐射系数}
+（散射场在出射电/磁多极上的投影，对应 Grahn 的 $a_E/a_M$）。
+FC2015 的路线：把这些系数写成\textbf{坐标空间的精确积分}。
+\end{noteworthy}
+
+\subsection{混合傅里叶--坐标积分（核心公式）}
+
+把 $\mathring{\mathbf{J}}_\omega(\hat{\mathbf{p}})$ 的傅里叶变换
+（FC2015 Eq.(11)，模长固定为 $k=\omega/c$）：
+\begin{equation}
+  \mathring{\mathbf{J}}_\omega(\hat{\mathbf{p}})
+  = \frac{1}{(2\pi)^{3/2}}\int d^3r\,\mathbf{J}_\omega(\mathbf{r})\,
+    e^{-ik\hat{\mathbf{p}}\cdot\mathbf{r}}
+  \label{eq:fc_fourier}
+\end{equation}
+代入 Eq.~(\ref{eq:fc_coeff})，并把平面波 $e^{-ik\hat{\mathbf{p}}\cdot\mathbf{r}}$ 按球谐展开：
+\begin{equation}
+  e^{-ik\hat{\mathbf{p}}\cdot\mathbf{r}} = 4\pi\sum_{\bar{l},\bar{m}}(-i)^{\bar{l}}
+    Y^*_{\bar{l}\bar{m}}(\hat{\mathbf{r}})Y_{\bar{l}\bar{m}}(\hat{\mathbf{p}})\,j_{\bar{l}}(kr)
+  \label{eq:plane_expand}
+\end{equation}
+
+\begin{stepbox}{平面波的球面波展开（Rayleigh 展开）——快速理解}
+式~(\ref{eq:plane_expand}) 叫做\textbf{平面波的球面波展开}（又称 \textbf{Rayleigh 展开}）。
+它的物理意义：\textbf{一个沿特定方向传播的平面波，可以分解为无数个不同角动量 $l$ 的球面波的叠加}。
+
+要快速得出这个公式，不需要做复杂积分，只需记住以下\textbf{四步标准套路}：
+
+\smallskip
+\textbf{第一步：球谐函数的加法定理}。设 $\hat{\mathbf{r}}$ 与 $\hat{\mathbf{p}}$ 的夹角为 $\gamma$，勒让德多项式可按两者各自的球谐展开：
+\begin{equation}
+  P_l(\cos\gamma) = \frac{4\pi}{2l+1}\sum_{m=-l}^{l}
+    Y_{lm}^*(\hat{\mathbf{r}})\,Y_{lm}(\hat{\mathbf{p}})
+\end{equation}
+
+\textbf{第二步：标准 Rayleigh 展开}。平面波 $e^{ik\hat{\mathbf{p}}\cdot\mathbf{r}}$ 用球 Bessel 函数 $j_l(kr)$ 与勒让德多项式展开：
+\begin{equation}
+  e^{ik\hat{\mathbf{p}}\cdot\mathbf{r}} = \sum_{l=0}^{\infty} i^l(2l+1)\,j_l(kr)\,P_l(\cos\gamma)
+\end{equation}
+
+\textbf{第三步：两者合并}。把 $(2l+1)P_l(\cos\gamma)$ 用第一步的加法定理替换，$(2l+1)$ 恰好抵消：
+\begin{equation}
+  e^{ik\hat{\mathbf{p}}\cdot\mathbf{r}} = 4\pi\sum_{l=0}^{\infty}\sum_{m=-l}^{l}
+    i^l\,Y_{lm}^*(\hat{\mathbf{r}})Y_{lm}(\hat{\mathbf{p}})\,j_l(kr)
+\end{equation}
+
+\textbf{第四步：调整符号}。式~(\ref{eq:plane_expand}) 左边是 $e^{-ik\hat{\mathbf{p}}\cdot\mathbf{r}}$（多一个负号）。
+按欧拉公式的共轭性质，把 $i^l$ 换成 $(-i)^l$ 即得最终结果。
+（正文中因 $l,m$ 已用作多极阶数，改用哑标 $\bar{l},\bar{m}$，无实质区别。）
+
+\smallskip
+\textbf{$\star$ 各项物理含义速查}：
+\begin{itemize}
+  \item $k$：波矢大小（动量）。
+  \item $l,\,m$：轨道角动量量子数及其投影。
+  \item $j_l(kr)$：球 Bessel 函数，代表\textbf{径向}的波动形态。
+  \item $Y_{lm}(\hat{\mathbf{r}})$ 与 $Y_{lm}(\hat{\mathbf{p}})$：球谐函数，代表\textbf{角度}部分的分布；
+    $Y_{lm}(\hat{\mathbf{p}})$ 充当投影系数——告诉我们平面波里含有多少特定的角动量成分。
+  \item $(-i)^l$：相位因子，由平面波在原点 $r=0$ 处必须有限（正则性）这个边界条件决定。
+\end{itemize}
+\end{stepbox}
+
+得到\textbf{FC2015 Eq.(14)——混合傅里叶--坐标积分}（FC2015 原文写为
+$\frac{(2\pi)^{3/2}}{4\pi}q^\omega_{jm}=\sum\cdots$，两边同乘 $4\pi/(2\pi)^{3/2}$ 即得下式）：
+\begin{equation}
+  \boxed{\;
+  q^\omega_{jm} = \frac{4\pi}{(2\pi)^{3/2}}\sum_{\bar{l},\bar{m}}(-i)^{\bar{l}}
+    \underbrace{\int d\hat{\mathbf{p}}\,\mathbf{Q}^\dagger_{jm}(\hat{\mathbf{p}})Y_{\bar{l}\bar{m}}(\hat{\mathbf{p}})}_{\text{动量空间角积分（解析）}}
+    \int d^3r\,\mathbf{J}_\omega(\mathbf{r})\,Y^*_{\bar{l}\bar{m}}(\hat{\mathbf{r}})\,j_{\bar{l}}(kr)
+  \;}
+  \label{eq:fc14}
+\end{equation}
+
+\begin{nontrivial}
+\textbf{为什么要分开两个积分}：
+\begin{itemize}
+  \item \textbf{动量空间角积分} $\int d\hat{\mathbf{p}}\,\mathbf{Q}^\dagger_{jm}Y_{\bar{l}\bar{m}}$
+    只涉及已知的多极函数和球谐，\textbf{可完全解析执行}，与电流无关
+  \item \textbf{坐标空间积分} $\int d^3r\,\mathbf{J}_\omega\,Y^*_{\bar{l}\bar{m}}j_{\bar{l}}(kr)$
+    只依赖电流——这就是带 $j_{\bar{l}}(kr)$ 的精确矩积分
+  \item 所以"精确矩" = "解析的角动量投影" $\times$ "电流积分"
+\end{itemize}
+\end{nontrivial}
+
+\subsubsection{关键选择定则}
+
+FC2015 附录 B 证明了对偶极阶（$j=1$）：
+\begin{itemize}
+  \item \textbf{磁偶极} $b^\omega_{1m}$：只有 $\bar{l}=1$ 贡献
+  \item \textbf{电偶极} $a^\omega_{1m}$：$\bar{l}=0$ 和 $\bar{l}=2$ 都贡献
+  \item \textbf{纵场} $c^\omega_{1m}$：$\bar{l}=0$ 和 $\bar{l}=2$ 贡献
+\end{itemize}
+这解释了表 2 中 $j_0$ 和 $j_2$ 的成对出现——它们来自电偶极的两个 $\bar{l}$ 贡献。
+
+\subsection{磁偶极的精确表达式}
+
+对磁偶极，取 $\mathbf{Q}=\mathbf{X}$、$j=1$（FC2015 Eq.(15)，用修正后的式~(\ref{eq:fc14}) 系数）：
+\begin{equation}
+  i\,b^\omega_{1m} = \frac{4\pi}{(2\pi)^{3/2}}\sum_{m'}\underbrace{\int d\hat{\mathbf{p}}\,
+    \mathbf{X}^\dagger_{1m}(\hat{\mathbf{p}})Y_{1m'}(\hat{\mathbf{p}})}_{\text{解析}}
+    \int d^3r\,\mathbf{J}_\omega(\mathbf{r})\,Y^*_{1m'}(\hat{\mathbf{r}})\,j_1(kr)
+\end{equation}
+（FC2015 原文 Eq.(15) 左边为 $i\,b^\omega_{1m}$，含显式 $i$ 因子；它最终被吸收进 Eq.(20) 的整体系数中。）
+
+动量空间积分用 $Y_{1m'}$ 的显式形式（$Y_{1m'}\propto\hat{p}_{m'}$）解析完成：
+\begin{equation}
+  \sum_{m'}\mathbf{X}^\dagger_{1m}(\hat{\mathbf{p}})Y_{1m'}(\hat{\mathbf{p}})
+  \;\longrightarrow\;
+  \frac{3}{4\pi}\bigl(\hat{\mathbf{p}}\times\cdot\bigr)\ \text{的组合}
+\end{equation}
+代回并用 $\hat{\mathbf{r}}=\mathbf{r}/r$ 识别叉乘，得\textbf{FC2015 Eq.(20)}：
+\begin{equation}
+  \boxed{\;
+  b^\omega_{1m} = -\frac{\sqrt{3}}{2\pi}\int d^3r\,
+    \bigl(\hat{\mathbf{r}}\times\mathbf{J}_\omega(\mathbf{r})\bigr)_m\,j_1(kr)
+  \;}
+  \label{eq:fc_bmd}
+\end{equation}
+
+\begin{stepbox}{与经典磁偶极的联系}
+$kr\to0$ 时 $j_1(kr)\to kr/3$，$\hat{\mathbf{r}}\times\mathbf{J}\,j_1(kr)
+\to \frac{k}{3}\mathbf{r}\times\mathbf{J}$：
+\begin{equation}
+  b^\omega_{1m} \xrightarrow{kr\to0}
+  -\frac{\sqrt{3}}{2\pi}\cdot\frac{k}{3}\int(\mathbf{r}\times\mathbf{J})_m\,d^3r
+  \propto \mathbf{m}
+\end{equation}
+经典磁偶极 $\mathbf{m}=\frac12\int\mathbf{r}\times\mathbf{J}$ 作为 $kr\to0$ 首项自然恢复
+（整体系数与辐射系数 $b^\omega_{1m}$ 到物理矩 $\mathbf{m}$ 的归一化有关）。$\checkmark$
+\end{stepbox}
+
+\subsection{电偶极的精确表达式}
+
+电偶极 $a^\omega_{1m}$ 更复杂，因为 $\bar{l}=0$ 和 $\bar{l}=2$ 都贡献
+（FC2015 附录 D 完整推导，FC2015 Eq.(21)）：
+\begin{equation}
+  \boxed{\;
+  a^\omega_{1m} = -\frac{1}{\pi\sqrt{3}}\int d^3r\,J_{m}(\mathbf{r})\,j_0(kr)
+    - \frac{1}{2\pi\sqrt{3}}\int d^3r\,
+    \bigl[3\hat{r}_m(\hat{\mathbf{r}}\cdot\mathbf{J}_\omega) - J_{m}\bigr]\frac{j_2(kr)}{(kr)^2}\,k^2r^2
+  \;}
+  \label{eq:fc_emd}
+\end{equation}
+
+\begin{stepbox}{两项的物理来源}
+\begin{itemize}
+  \item \textbf{$\bar{l}=0$ 项}：$j_0(kr)$ 核，$kr\to0$ 时 $j_0\to1$，恢复经典电偶极 $\int J_m$
+  \item \textbf{$\bar{l}=2$ 项}：$j_2(kr)/(kr)^2$ 核——这是\textbf{toroidal 偶极}的精确来源！
+    它描述电流的高阶绕流模式，$kr\to0$ 时 $j_2/(kr)^2\to1/15$ 给出经典 toroidal 修正
+\end{itemize}
+\end{stepbox}
+
+\begin{nontrivial}
+\textbf{toroidal 不是独立自由度}：FC2015 明确证明，环形偶极矩只是
+\textbf{电偶极展开中的高阶项}，不需要单独引入第三类多极。
+这与 Alaee 2018 的结论一致（FC2017 严格证明 toroidal 不可独立耦合）。
+\end{nontrivial}
+
+\subsection{与 Alaee 表 2 的联系}
+
+对比 FC2015 Eq.~(\ref{eq:fc_emd}) 与 Alaee 表 2 的电偶极矩：
+\begin{equation}
+  p_\alpha = -\frac{1}{i\omega}\int d^3r\Bigl[
+    J_\alpha\,j_0(kr) + \frac{k^2}{2}\bigl(3(\mathbf{r}\cdot\mathbf{J})r_\alpha - r^2J_\alpha\bigr)
+    \frac{j_2(kr)}{(kr)^2}\Bigr]
+  \label{eq:alaee_ed_again}
+\end{equation}
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+& \textbf{FC2015（辐射系数）} & \textbf{Alaee 表 2（多极矩）} \\
+\midrule
+对象 & $a^\omega_{1m},b^\omega_{1m}$（散射场系数） & $p_\alpha,m_\alpha$（物理多极矩） \\
+偶极阶 & ED + MD + toroidal & ED + MD + EQ + MQ \\
+$j_l(kr)$ 核 & $j_0,j_1,j_2$ & $j_0,j_1,j_2,j_3$ \\
+推广 & 偶极（$j=1$） & 到四极（$j=2$） \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{noteworthy}
+\textbf{本质关系}：Alaee 表 2 是 FC2015 方法从偶极扩展到四极、
+并把"辐射系数"重新归一化为"物理多极矩"的结果。
+两者共享\textbf{同一个出发点}：FC2015 Eq.(14) 的混合积分 + 动量空间角积分解析化。
+这也解释了为什么表 2 的形式与表 1 如此相似——表 2 只是把常数核替换为 $j_l(kr)$。
+\end{noteworthy}
+
+\subsection{坐标空间的统一表述：多极积分核}
+
+FC2015 的动量空间路线与坐标空间矢势展开（\S6）给出\textbf{同一个坐标空间核}。
+从散射矢势 $\mathbf{A}_s(\mathbf{r}) = \frac{\mu_0}{4\pi}\int\mathbf{J}\frac{e^{ik|\mathbf{r}-\mathbf{r}'|}}{|\mathbf{r}-\mathbf{r}'|}d^3r'$
+出发，远场极限后所有精确多极矩都归结为对\textbf{多极积分核}的积分：
+\begin{equation}
+  \boxed{\;\mathbf{M}_{lm} \equiv \int d^3r'\,\mathbf{J}(\mathbf{r}')\,j_l(kr')\,Y_{lm}^*(\hat{\mathbf{r}}')\;}
+  \label{eq:Mlm2}
+\end{equation}
+
+\begin{nontrivial}
+\textbf{多极积分核是表 1/表 2 的公共根}：\\
+所有多极矩都是电流对同一组固定核 $\{j_l(kr')Y_{lm}^*(\hat{r}')\}$ 的积分。\\
+粒子的全部信息都浓缩在 $\mathbf{M}_{lm}$ 里；\\
+表 1 与表 2 的差异只在于\emph{如何从 $\mathbf{M}_{lm}$ 提取笛卡尔张量}。
+\end{nontrivial}
+
+\subsection{球 Bessel 的三大工具}
+
+后续推导反复使用三个工具：
+
+\textbf{(1) 小宗量极限}（用于退化验证）：
+\begin{equation}
+  j_0(z)\to 1,\quad j_1(z)\to\frac{z}{3},\quad
+  j_2(z)\to\frac{z^2}{15},\quad j_3(z)\to\frac{z^3}{105}
+\end{equation}
+
+\textbf{(2) 递推关系}（用于拆分 $j_l$）：
+\begin{equation}
+  j_{l-1}(z) + j_{l+1}(z) = \frac{2l+1}{z}\,j_l(z)
+  \;\Longrightarrow\;
+  j_0 + j_2 = \frac{3j_1}{kr},\qquad
+  j_1 + j_3 = \frac{5j_2}{kr}
+\end{equation}
+
+\textbf{(3) 平面波角积分}（连接傅里叶空间与 $j_l$，表 2 推导的关键）：
+\begin{align}
+  \int_{S^2} d\hat{k}\,e^{-ik\hat{\mathbf{k}}\cdot\mathbf{r}} &= 4\pi\,j_0(kr) \notag\\
+  \int_{S^2} d\hat{k}\,\hat{k}_\alpha\,e^{-ik\hat{\mathbf{k}}\cdot\mathbf{r}}
+    &= -4\pi i\,j_1(kr)\,\hat{r}_\alpha \notag\\
+  \int_{S^2} d\hat{k}\,\bigl(\hat{k}_\alpha\hat{k}_\beta - \tfrac13\delta_{\alpha\beta}\bigr)e^{-ik\hat{\mathbf{k}}\cdot\mathbf{r}}
+    &= -4\pi\,j_2(kr)\,\bigl(\hat{r}_\alpha\hat{r}_\beta - \tfrac13\delta_{\alpha\beta}\bigr)
+  \label{eq:angular_int}
+\end{align}
+
+\begin{noteworthy}
+角积分恒等式~(\ref{eq:angular_int}) 是"傅里叶空间球面平均 $\to$ 坐标空间球 Bessel"的桥梁。
+Alaee 论文所说"执行傅里叶空间积分后即得表 2"，指的就是用这些恒等式把 $e^{-ik\hat{k}\cdot r}$ 的角积分换成 $j_l(kr)$。
+\end{noteworthy}
+
+\subsection{FC2017：toroidal 偶极非独立的严格证明}
+
+FC2015 的精确偶极矩引出一个深刻问题：电偶极展开里的 toroidal 项（表 1 的 $k^2/10$ 项）
+能否构成\textbf{独立}的物理自由度？Fernandez-Corbaton, Nanz \& Rockstuhl
+（\textit{Sci. Rep.} 7, 7527, 2017，记为 \textbf{FC2017}）用严格的代数证明了\textbf{不能}：
+toroidal 是电偶极精确展开的次低阶项，且它与电部分的分离会引入\textbf{不可单独观测}的非辐射分量。
+本节完整复现其证明。
+
+\subsubsection{出发点：FC2015 的精确电偶极（FC2017 Eq.(4)）}
+
+FC2017 从 FC2015 的精确电偶极辐射系数出发，即 \S9.6 的式~(\ref{eq:fc_emd})：
+\begin{equation}
+  a^\omega_{1m} = -\frac{1}{\pi\sqrt{3}}\int d^3r\,J_m\,j_0(kr)
+    - \frac{1}{2\pi\sqrt{3}}\int d^3r\bigl[3\hat{r}_m(\hat{\mathbf{r}}\cdot\mathbf{J}) - J_m\bigr]j_2(kr)
+  \label{eq:fc17_start}
+\end{equation}
+（FC2017 原文 Eq.(4)，即本文 \ref{eq:fc_emd}。）
+
+\subsubsection{形式意义：toroidal = 电偶极的次低阶项}
+
+把两个球 Bessel 函数做\textbf{小宗量展开}（\S9.9 的工具）：
+\begin{equation}
+  j_0(kr) \approx 1 - \frac{(kr)^2}{6},\qquad
+  j_2(kr) \approx \frac{(kr)^2}{15}
+\end{equation}
+代入式~(\ref{eq:fc17_start})，按 $k$ 的幂次分组。
+
+\textbf{$k^0$ 项}（FC2017 Eq.(5)）：
+\begin{equation}
+  e^\omega_1 = -\frac{1}{\pi\sqrt{3}}\int d^3r\,J_m(\mathbf{r})
+\end{equation}
+这正是经典小源电偶极的辐射系数形式。
+
+\textbf{$k^2$ 项}（FC2017 Eq.(6)）——两部分各贡献 $k^2$ 修正，
+来自 $j_0$ 展开的 $-\frac{(kr)^2}{6}$ 项 \emph{和}来自 $j_2$ 的 $\frac{(kr)^2}{15}$ 项：
+\begin{align}
+  t^\omega_1 &= \frac{1}{\pi\sqrt{3}}\int J_m\,\frac{(kr)^2}{6}\,d^3r
+    - \frac{1}{2\pi\sqrt{3}}\cdot\frac{k^2}{15}\int\bigl[3\hat{r}_m(\hat{\mathbf{r}}\cdot\mathbf{J}) - J_m\bigr]r^2\,d^3r \notag\\
+  &= \frac{k^2}{\pi\sqrt{3}}\int r^2\Bigl[\frac{J_m}{6} - \frac{3\hat{r}_m(\hat{\mathbf{r}}\cdot\mathbf{J}) - J_m}{30}\Bigr]d^3r \notag\\
+  &= \frac{k^2}{10\pi\sqrt{3}}\int\bigl[2r^2J_m - r_m(\mathbf{r}\cdot\mathbf{J})\bigr]d^3r
+  \label{eq:fc17_t1}
+\end{align}
+（末步用 $r^2\hat{r}_m(\hat{\mathbf{r}}\cdot\mathbf{J}) = r_m(\mathbf{r}\cdot\mathbf{J})$。）
+
+\begin{stepbox}{与表 1 的 toroidal 项完全同源}
+式~(\ref{eq:fc17_t1}) 与 \S11.3.3 退化验证得到的表 1 的 ED toroidal 项
+$$
+-\frac{k^2}{10i\omega}\int\bigl[(\mathbf{r}\cdot\mathbf{J})r_\alpha - 2r^2J_\alpha\bigr]d^3r
+$$
+\textbf{结构完全相同}（差 $i\omega\pi\sqrt{3}$ 归一化因子，因 $a^\omega_{1m}$ 是辐射系数而 $p_\alpha$ 是物理矩）。
+这是 FC2017 证明的第一环：\textbf{表 1 的 toroidal 项不是新自由度，而是 $a^\omega_{1m}$ 精确展开的 $k^2$ 阶修正}。
+\end{stepbox}
+
+\subsubsection{物理意义：分裂引入不可观测的非辐射分量}
+
+\textbf{关键事实}：精确积分式~(\ref{eq:fc17_start}) 只含有\textbf{on-shell}（$|\mathbf{p}|=\omega/c$）
+电流分量。这是因为球 Bessel 函数的傅里叶变换对应动量空间径向 $\delta$ 函数
+（\S9.2 的 Devaney--Wolf 结果）：
+\begin{equation}
+  \int d^3r\,J(\mathbf{r})\,j_l(kr)\,Y_{lm}^*(\hat{\mathbf{r}})
+  \;\propto\; \text{仅}\ |\mathbf{p}|=\omega/c\ \text{球壳上的分量}
+\end{equation}
+
+而\textbf{分裂后的两部分各自含有 off-shell 分量}：
+\begin{itemize}
+  \item 电部分 $e^\omega_1\propto\int\mathbf{J}$：其傅里叶变换 $\propto \mathbf{J}(\mathbf{p}=0)$，
+    而 $|\mathbf{p}|=0\neq\omega/c$——\textbf{off-shell}；
+  \item 既然 $a^\omega_{1m}=e^\omega_1+t^\omega_1$ 无 off-shell 分量（精确式保证），
+    toroidal 部分 $t^\omega_1$ \textbf{必须}包含与 $e^\omega_1$ 等量反号的 off-shell 分量，使总和抵消。
+\end{itemize}
+
+\begin{nontrivial}
+\textbf{off-shell 分量不产生任何外部可测的电磁效应}（Devaney--Wolf：源外部场只由
+$|\mathbf{p}|=\omega/c$ 决定）。因此：
+\begin{itemize}
+  \item 电部分与 toroidal 部分\textbf{各自}都含不可观测的 off-shell 贡献；
+  \item 只有它们的\textbf{和}（精确的 $a^\omega_{1m}$）才有物理意义；
+  \item 因而无法通过测量源外部辐射、或源与外场耦合来\textbf{单独}确定电部分或 toroidal 部分。
+\end{itemize}
+结论：\textbf{不存在独立的 toroidal 辐射，也不存在独立的 toroidal 电磁耦合。}
+\end{nontrivial}
+
+\subsubsection{推广到一般 $j\ge1$ 与两个推论}
+
+FC2017 把上述论证推广到任意 $j\ge1$：$a^\omega_{jm}$ 的展开中最低阶项
+$(\propto(kr)^{j-1})$ 归"电部分"，其余全部归"toroidal 部分"；
+分裂必然把 off-shell 分量灌入两个部分。
+
+由此得到两个经常被引用的推论：
+\begin{itemize}
+  \item \textbf{源需三族、场只需两族}：展开源电流需要 $\{\mathbf{X},\mathbf{Z},\mathbf{W}\}$ 三族
+    （含纵向 $\mathbf{W}$），但源外部场只需横向两族 $\{\mathbf{X},\mathbf{Z}\}$。
+    第三族是\textbf{纵向}多极，\emph{不是} toroidal。
+  \item \textbf{宇称二值性}：电（宇称 $(-1)^j$）与磁（宇称 $(-1)^{j+1}$）两族加上纵向无辐射，
+    恰好完备——没有第三类（toroidal）的容身之地。
+\end{itemize}
+
+\begin{noteworthy}
+\textbf{与本文的呼应}：FC2017 的式~(\ref{eq:fc17_t1}) 与 \S11.3.3 的退化验证、
+\S9.6 的 toroidal 来源、表 1/表 2 的 $k^2/10$ 系数，\textbf{指向同一个数学事实}：
+toroidal = 精确电多极展开的次低阶项。这就是全文多次强调"toroidal 不是独立自由度"的严格根据。
+\end{noteworthy}
+
+\begin{chaptersummary}
+
+\textbf{\S9 章节总结}
+
+\textbf{FC2015 方法的四步}：
+\begin{enumerate}
+  \item \textbf{动量空间}：辐射场只由 $|\mathbf{p}|=\omega/c$ 球壳上的电流决定（Devaney--Wolf）
+  \item \textbf{基展开}：球壳上电流用 $\{\mathbf{X},\mathbf{Z},\mathbf{W}\}$ 三族多极函数展开，
+    系数 $\{a^\omega_{jm},b^\omega_{jm}\}$ 即电/磁多极辐射系数
+  \item \textbf{混合积分}：系数 = 动量空间角积分（解析）$\times$ 坐标空间电流积分（带 $j_l(kr)$）
+  \item \textbf{偶极结果}：$b^\omega_{1m}\propto\int(\hat{\mathbf{r}}\times\mathbf{J})j_1$；
+    $a^\omega_{1m}\propto\int J\,j_0 + \int[3\hat{r}(\hat{r}\cdot J)-J]j_2$
+\end{enumerate}
+
+\textbf{与 Alaee 的关系}：Alaee 表 2 是 FC2015 的偶极方法扩展到四极 +
+重新归一化为物理多极矩。toroidal 偶极是电偶极展开的高阶项，非独立自由度。
+
+\textbf{FC2017 的严格证明}：从 FC2015 精确电偶极出发，小宗量展开后
+$k^0$ 项是经典电偶极、$k^2$ 项是 toroidal 偶极（与表 1 的 $k^2/10$ 项同源）。
+分裂后电/toroidal 两部分各含 off-shell 非辐射分量、互相抵消，
+故无法单独测量——\textbf{无独立 toroidal 辐射，也无独立 toroidal 耦合}（见 \S9.10）。
+
+\textbf{关键收获}：精确多极矩 = 电流对固定核 $\{j_l(kr)Y_{lm}^*(\hat{r})\}$ 的积分，
+粒子的全部信息在电流，核是普适的。这正是 \S10--\S12 表 1/表 2 推导的基础。
+
+\end{chaptersummary}
+
+\newpage

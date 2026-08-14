@@ -1,0 +1,220 @@
+{
+  "generated_at_utc": "2026-08-12T15:07:13.594999+00:00",
+  "threshold_declared_before_calculation": {
+    "strict_max_relative_error": 0.01,
+    "support_floor": {
+      "tidy3d": 0.01,
+      "menp_nm2": 1.0
+    },
+    "decision_rule": "PASS only if every channel strict max <= 1%; support metrics are diagnostic and cannot upgrade a FAIL"
+  },
+  "tidy3d": {
+    "source_branch": "develop (main URL returned 404)",
+    "radius_um": 0.18,
+    "wavelength_um": [
+      1.4,
+      0.55
+    ],
+    "n_points": 101,
+    "axis_semantics": "wavelength in um; notebook wls=np.linspace(1.4,0.55,101); values are scattering efficiency divided by geometric cross section",
+    "stats": {
+      "ED": {
+        "n": 101,
+        "n_support": 99,
+        "max": 0.30721439370670217,
+        "p95": 0.03207583708500002,
+        "mean": 0.013134280235410295,
+        "support_max": 0.05092570106167613,
+        "support_p95": 0.029066205934706574,
+        "support_mean": 0.008078320937785695
+      },
+      "MD": {
+        "n": 101,
+        "n_support": 100,
+        "max": 0.029985120997181466,
+        "p95": 0.02400507279013074,
+        "mean": 0.008008221249114131,
+        "support_max": 0.029985120997181466,
+        "support_p95": 0.023902177373732778,
+        "support_mean": 0.007797248046894956
+      },
+      "EQ": {
+        "n": 101,
+        "n_support": 64,
+        "max": 0.05069247562540034,
+        "p95": 0.02033391474793684,
+        "mean": 0.0041510613257865125,
+        "support_max": 0.04486575931542459,
+        "support_p95": 0.020108662504227916,
+        "support_mean": 0.004924064607014127
+      },
+      "MQ": {
+        "n": 101,
+        "n_support": 58,
+        "max": 0.1539165008681004,
+        "p95": 0.048424602941355914,
+        "mean": 0.013624253659465258,
+        "support_max": 0.1539165008681004,
+        "support_p95": 0.05307765958557309,
+        "support_mean": 0.015279279676286308
+      }
+    }
+  },
+  "table2_vs_our_mie": {
+    "n_points": 11,
+    "grid": [
+      40,
+      30,
+      60
+    ],
+    "stats": {
+      "ED": {
+        "n": 11,
+        "n_support": 11,
+        "max": 0.004269989169819896,
+        "p95": 0.003537565999923782,
+        "mean": 0.0008044586734955457,
+        "support_max": 0.004269989169819896,
+        "support_p95": 0.003537565999923782,
+        "support_mean": 0.0008044586734955457
+      },
+      "MD": {
+        "n": 11,
+        "n_support": 11,
+        "max": 0.008869925746245563,
+        "p95": 0.005727279286823777,
+        "mean": 0.0011964418773628737,
+        "support_max": 0.008869925746245563,
+        "support_p95": 0.005727279286823777,
+        "support_mean": 0.0011964418773628737
+      },
+      "EQ": {
+        "n": 11,
+        "n_support": 11,
+        "max": 0.021620399813727237,
+        "p95": 0.012652819000110912,
+        "mean": 0.0029131951117136717,
+        "support_max": 0.021620399813727237,
+        "support_p95": 0.012652819000110912,
+        "support_mean": 0.0029131951117136717
+      },
+      "MQ": {
+        "n": 11,
+        "n_support": 11,
+        "max": 0.00717535943292234,
+        "p95": 0.004904906494630344,
+        "mean": 0.0011854441491583696,
+        "support_max": 0.00717535943292234,
+        "support_p95": 0.004904906494630344,
+        "support_mean": 0.0011854441491583696
+      }
+    }
+  },
+  "menp": {
+    "radius_nm": 100,
+    "wavelength_nm": [
+      400.0,
+      1000.0000000000001
+    ],
+    "n_points": 51,
+    "material": "centre voxel n,k from ENxyzf.mat",
+    "stats_exact": {
+      "ED": {
+        "n": 51,
+        "n_support": 51,
+        "max": 0.42791894906847205,
+        "p95": 0.2863631905104586,
+        "mean": 0.08133967031458084,
+        "support_max": 0.42791894906847205,
+        "support_p95": 0.2863631905104586,
+        "support_mean": 0.08133967031458084
+      },
+      "MD": {
+        "n": 51,
+        "n_support": 51,
+        "max": 0.36626704760151035,
+        "p95": 0.27582763930470733,
+        "mean": 0.07478422221357789,
+        "support_max": 0.36626704760151035,
+        "support_p95": 0.27582763930470733,
+        "support_mean": 0.07478422221357789
+      },
+      "EQ": {
+        "n": 51,
+        "n_support": 51,
+        "max": 0.2973189523725474,
+        "p95": 0.2858666507872768,
+        "mean": 0.2279788300754527,
+        "support_max": 0.2973189523725474,
+        "support_p95": 0.2858666507872768,
+        "support_mean": 0.2279788300754527
+      },
+      "MQ": {
+        "n": 51,
+        "n_support": 45,
+        "max": 1.052317348455854,
+        "p95": 0.47845894777780285,
+        "mean": 0.1912385108101236,
+        "support_max": 1.052317348455854,
+        "support_p95": 0.4953112790588956,
+        "support_mean": 0.2105344392657125
+      }
+    },
+    "stats_approx": {
+      "ED": {
+        "n": 51,
+        "n_support": 51,
+        "max": 0.7881016920716037,
+        "p95": 0.36182993691569654,
+        "mean": 0.09803668153360469,
+        "support_max": 0.7881016920716037,
+        "support_p95": 0.36182993691569654,
+        "support_mean": 0.09803668153360469
+      },
+      "MD": {
+        "n": 51,
+        "n_support": 51,
+        "max": 0.3815138660899584,
+        "p95": 0.3587051099014509,
+        "mean": 0.16912559640317193,
+        "support_max": 0.3815138660899584,
+        "support_p95": 0.3587051099014509,
+        "support_mean": 0.16912559640317193
+      },
+      "EQ": {
+        "n": 51,
+        "n_support": 51,
+        "max": 0.29685079342280046,
+        "p95": 0.28528782144774656,
+        "mean": 0.22134417119673347,
+        "support_max": 0.29685079342280046,
+        "support_p95": 0.28528782144774656,
+        "support_mean": 0.22134417119673347
+      },
+      "MQ": {
+        "n": 51,
+        "n_support": 45,
+        "max": 0.8232270326301061,
+        "p95": 0.3846636307449516,
+        "mean": 0.18669502960666232,
+        "support_max": 0.8232270326301061,
+        "support_p95": 0.3873299980684901,
+        "support_mean": 0.19890203925766228
+      }
+    }
+  },
+  "files_sha256": {
+    "demo_approx.csv": "beefa71bcfe073a873473183aab7c9f33a45e91e66b2f816d9412a987d6e9238",
+    "demo_approx.m": "ae5d47024bb9197bccaa832e2535eb84e2c0429d2c419108eb9e9c7f9c63b0c2",
+    "demo_exact.csv": "ef564fea3c4e040408da538d59f00e8581cf4ffd66ee77eacf65771002c607f3",
+    "demo_exact.m": "b2bd9192b91959629a97d7af2894735c89ea987ea4c9020998fd8f77ded6515a",
+    "ENxyzf.mat": "8ab5d0c251592a405fe9fef1691caee8023a26bad2ef60f28b86167676e0c0fc",
+    "mie_electric_dipole": "0c2833e2ab1d121302784796e2f394b9f823f6467aef704df11e438046da14a5",
+    "mie_electric_quadrupole": "f95fdb4232277862359fbb354a5f4105fb3297a4ecf06567b79272ed98ab90aa",
+    "mie_magnetic_dipole": "f2d76f33398c2e950a0389bf2da096b1fd0a77fb0b2f002f6e4f5f8484b9ff6a",
+    "mie_magnetic_quadrupole": "8caf9e16f6d09ad7336866bc0f724a4e78384318b0f898664ea6b6486239c645",
+    "MultipoleExpansion.ipynb": "37c4199e78c83f3b4ffdc77c87611fd774d728ba57b433dd0fb79e0ef144fa21",
+    "PROVENANCE.md": "90a424cd0f24ef6898f54789e5ad37b67de0fd34cc1d63ba6125ff571bbd3aab",
+    "Si-Green-2008.yml": "4b785ec47ca9a5ac71626dc90194115fba00575689a52c2baf1e78676c752ce4"
+  }
+}

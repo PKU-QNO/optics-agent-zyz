@@ -1,0 +1,39 @@
+\section{总览与证据口径}
+
+\subsection{四轮结果总表}
+
+本项目按“单图 formalization - 实现 - 数值验证 - 对抗审查 - 人工 gate”的循环推进。表~\ref{tab:overview} 把执行状态、gate 状态和 result class 分列；其中 \rc{PASS\_WITH\_LIMITATIONS} 是 gate 决定，不等同于七级 SEPR result class。
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabularx}{\textwidth}{p{1.35cm}p{2.45cm}X p{3.2cm}}
+\toprule
+轮次 & 结果等级/治理状态 & 最强可支持结论 & 仍然禁止的结论 \\
+\midrule
+Fig.1 & 历史 limited；post-B1 class 未重签 & Table 2--Mie 四通道 200 点合同通过；exact $s=0.75$ 的复矩 ED/MD 误差均大于 100\%，单点论文声明有强审 PASS 证据 & metric 条款已由 2026-08-11 superseding receipt（`GATE4-FIG1-SUPERSEDING-RECEIPT-20260811.md`）按 B13 复矩口径关闭（单点 PASS）；不写 unrestricted physical success，也不把散射分项 $C$ 误差称作论文矩误差 \\
+Fig.2 & partial physical match；gate 4 limited；latest UQ 8/8 lanes unresolved & Table 2--Mie 方法通过；legacy point-estimate 下介电 ED/MD/EQ 与 JC 支持域内金球四通道 paper-vector 通过 & 正式 fail-closed UQ 不允许沿用 legacy PASS；介电 MQ strict fidelity 与完整金球域限制仍在 \\
+Grahn & method consistency；gate 4 待用户关闭 & Path A/B、逐 $m$、解析 fixture、光学定理与独立远场共同支持映射方法一致性 & 不等同于论文图、实验或完整物理复现 \\
+Fig.3 & partial physical match（COMSOL 频域 FEM 真解谱）；BEM 方法论验证 & COMSOL FEM 真解谱（9 点 $x=0.26$--$0.42$，ED 主导 + MD/EQ $x=0.36$ 磁共振）+ $x=0.36$ 网格收敛（$0.3$--$1.0$，Richardson 外推 $p\approx1.3$）+ 远场/功率闭合（unresolved $<0.08\%$）；BEM 双金盘 128G 跑通 + 原生远场闭合（对比 FEM 900G 省 7 倍） & MD/EQ 网格残差 $\sim2\%$ 未完全收敛；高阶 $l>4$ 未逐阶；PEC 近似下 MD/EQ 磁共振被抑制（需 IBC 加损耗） \\
+\bottomrule
+\end{tabularx}
+\caption{四轮最终诚实状态。}
+\label{tab:overview}
+\end{table}
+
+Fig.2 同时保留两层不可互换的证据：legacy point-estimate/vector gate 记录历史逐通道结果；B3 最新 fail-closed UQ 则要求 calibrated axis、interpolation 和 physics uncertainty、有效 coverage 及 dense-mode 专属阈值。后者在 panel (a)/(b) 的 ED/MD/EQ/MQ 共八条正式 lane 上全部为 \rc{UNRESOLVED}，因此不能用前者的 PASS 覆盖最新 UQ gate。
+
+\subsection{证据层级与本报告重算}
+
+最终数字采用以下优先级：冻结的 \texttt{data/*.csv|json} 与当前函数只读重算 $>$ 最新机器 gate/不可变收据 $>$ 当前 formalization spec $>$ 轮次报告 $>$ \texttt{WORK\_LOG.md}。本报告另建 61 项数字台账，逐项记录定义、来源字段和重算方式；对于 gate 与声称边界，另建审查台账并检查全部可用的 Opus RESULT。
+
+需要特别区分三类误差：
+\begin{enumerate}
+  \item Table 2--Mie 是同一球场、同一材料下的\textbf{方法合同}；
+  \item 论文 PDF-vector 与本地曲线比较是\textbf{图形/论文保真}；
+  \item 论文 line 与 marker 自身的差异是\textbf{graphical floor}，只能解释可辨识下限，不能覆盖预注册 strict gate。
+\end{enumerate}
+
+\subsection{全局结论}
+
+四轮共同建立了一条从局域散射电流 $\mathbf J(\mathbf r)$ 到 Cartesian 多极矩、球多极系数和可观测散射量的可审计链。该链在球体上的 Mie 真值和 Grahn 双路径映射上得到强数值支持；耦合金纳米盘由 COMSOL 频域 FEM 求得真解谱（9 点 + $x=0.36$ 网格收敛），并额外验证了 BEM 边界元方法（128G 对比 FEM 900G 内存）作为更省内存的替代求解器。因此，本项目最强的整体表述是“\textbf{方法链已被多重验证，论文物理保真按轮次分级，Fig.3 达到 partial physical match（COMSOL 真解谱）但 MD/EQ 网格残差与高阶多极待补}”，而不是“四图全部 unrestricted physical success”。

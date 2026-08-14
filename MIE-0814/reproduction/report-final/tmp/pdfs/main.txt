@@ -1,0 +1,721 @@
+         mie-f 
+
+Fig.1 Fig.2 Grahn  Fig.3 
+
+             CodexB10  PDF 
+                              2026-08-11
+
+                                                           
+
+       Alaee """gate 
+""result class """ CSV/JSON
+Fig.1  Table
+2­Mie  gate 
+ superseding receiptFig.2  partial_physical_match MQ 
+Grahn  method_consistencyFig.3  surrogate_fallback  diagnostic_only
+
+
+""/
+physical_reproduction_successCOMSOL runtime
+smoke 
+
+
+
+1                                                                    3
+
+1.1  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+
+1.2  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 3
+
+1.3  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+
+2                                                                    4
+
+2.1  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+
+2.2 Alaee Table 1  Table 2 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+
+2.3 Alaee Eq.(1)  Mie  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 4
+
+2.4 Grahn  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+
+2.5 Fano  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 5
+
+3                                                                    6
+
+3.1  1 Fig.1  . . . . . . . . . . . . . . . . . . . . . . . . . . . . 6
+
+3.2  2 Fig.2  . . . . . . . . . . . . . . . . . . . . . . . . . . . . 7
+mie-f      2026-08-11
+
+3.3  3 Grahn  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 8
+3.4  4 Fig.3  COMSOL  . . . . . . . . . . . . . . . . . . . . . . . . . 9
+
+4          10
+
+4.1  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+
+4.2  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+
+4.3  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 11
+
+5          12
+
+5.1  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+
+5.2 Table 2­Mie  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+
+5.3 Grahn  gate . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 12
+
+5.4  vector  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+
+5.5 Fig.3  crosspath . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+
+6 Gate     13
+
+6.1 Gate  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 13
+
+6.2  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+
+6.3 Result class  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 14
+
+7          15
+
+7.1  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 15
+
+7.2  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+
+7.3  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 16
+
+8          17
+
+8.1  promotion  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+
+8.2  Fig.3  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+
+8.3  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 17
+
+8.4  . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 18
+
+        2
+mie-f                                                2026-08-11
+
+1 
+
+1.1 
+
+      " formalization -  -  -  -  gate" 1 
+gate  result class  PASS_WITH_LIMITATIONS  gate 
+SEPR result class
+
+          /                                          
+Fig.1  
+
+Fig.2    limited Table 2­Mie  200 exact s = 0.75      superseding
+Grahn                                                receipt  un-
+Fig.3  post-B1 class   ED/MD  100%                   restricted physical suc-
+                                                     cess
+                          PASS                       C 
+                                                     
+       partial physical  Table 2­Mie  ED/MD/EQ  JC    MQ strict fidelity
+       matchgate 4        paper-vector                unresolved
+       limited                                       
+                                                     
+       method consis-    Path A/B m fixture          
+       tencygate 4                                   
+       
+       B7 surrogateB8     Mie Tribelsky/Fu com-      
+       diagnosticfull    parator                      COMSOL 
+       not achieved                                  Mie­COMSOL  
+                                                     
+
+                          1: 
+
+1.2 
+
+       data/*.csv|json  >  gate/
+ >  formalization spec >  > WORK_LOG.md 61 
+ gate  Opus
+RESULT
+
+      
+  1. Table 2­Mie 
+  2.  PDF-vector /
+  3.  line  marker  graphical floor strict
+
+      gate
+
+                                 3
+mie-f                                                                          2026-08-11
+
+1.3 
+
+       J(r)  Cartesian 
+ Mie  Grahn 
+ COMSOL  runtime smoke  skeleton
+"Fig.3 "
+""
+
+2 
+
+2.1 
+
+ e-it  k = 2nd/0 = 2/dAlaee  Mie 
+
+                   =        2a    xMie = ka = xA.                              (1)
+               xA              ,
+                            d
+
+                                  [                ]
+
+               J(r) = -i0 r(r) - r,d E(r),                                     (2)
+
+ Mie 
+
+
+2.2 Alaee Table 1  Table 2
+
+Table 1  kr  0 Table 2  Bessel  [1, 2]
+
+Table 2 
+
+            1  {
+  p = - i
+                     Jj0(kr) d3r
+
+                  k2              [                r2J]               }        (3)
+               +                   3(r
+                                        ·  J)r  -        j2(kr)  d3r     .
+                   2                                     (kr)2
+
+MDEQMQ  j1/(kr)j1/(kr)  j3/(kr)3  j2/(kr)2 j0  1
+j1/  1/3j2/2  1/15j3/3  1/105
+u = r/a r/a r · Jr × J 
+
+2.3 Alaee Eq.(1)  Mie 
+
+ authority  arXiv:1701.00755v2 
+
+                 k4         [     (             |m|2 )
+             620|E0                 |p|2          c2
+  Csca    =          |2                    +
+                                           (
+                                   1                     |kQm |2  )]           (4)
+                               +                            c2
+                                           |kQe |2    +                     .
+                                  120
+                                        
+
+                                        4
+mie-f                                                                                     2026-08-11
+
+ d2/(2) 
+
+      CED  =   x6                                        CMD      =   x8                   (5)
+              122      |p|2,                                         122      |m|2,
+
+                                                                          
+
+      CEQ  =     x8                                      CMQ      =    x10                 (6)
+              14402          |Qe |2,                                 14402      |Qm |2 .
+
+                                                                            
+
+Bohren­Huffman  [3]
+
+         CED = 3|a1|2, CMD = 3|b1|2, CEQ = 5|a2|2, CMQ = 5|b2|2.                           (7)
+
+ Table 2  glyph 
+ resolved
+
+2.4 Grahn 
+
+Grahn  J  aE(l, m)aM (l, m)[4] m 
+
+                 Csca  =               +  1)  (     (l,  m)|2  +  |aM (l, m)|2) .          (8)
+                          k2      (2l          |aE
+
+                              l,m
+
+Path A  raw M (1)M (2)M (3) 
+
+MSTF  =  1    +  MT)   -  1   trM,     MA     =  1       -  M T ),   M = MSTF + MA + Mtr.  (9)
+          (M               I                      (M
+
+         2                3                      2
+
+Alaee  Qe = 6 STF(M2) Path B  Grahn Eq.(15)(16)  Bessel/Riccati
+ m  Eq.(22) 
+ a/b 
+
+2.5 Fano 
+
+ Fano feature  [5]
+
+                                    ( + q)2          = 2(x - x0) .                         (10)
+                          F () = 1 + 2 ,                      
+
+
+
+              I  |Abg + Ares|2 = |Abg|2 + |Ares|2 + 2 Re(AbgAres).                         (11)
+
+
+­ [6, 7] Alaee
+Fig.3  observable  ED/MD/EQ/MQ  Table 1/Table 2  Fano 
+ Fig.3 result class
+
+                                              5
+mie-f                                                        2026-08-11
+
+3 
+
+3.1  1 Fig.1 
+
+       r = 6.25 xA = 0.2­1.0  200  MieTable 2  Table 1Table 2­Mie 
+ mask CMie  10-3 max CMie ED 0.140419%MD 0.038324%
+EQ 0.202006%MQ 0.125188% < 1% 
+
+ 1: Fig.1 MieTable 2  Table 1 Table 1 /
+
+
+                            2:  mask  Table 2­Mie 
+ B1 metric gate  exact s = xA = 0.75 
+
+                                                          6
+mie-f                                                    2026-08-11
+
+%                     ED  MD  EQ   MQ
+
+|CT 1 - CMie|/|CMie|  86.9148 215.9110 103.0775 55.7510
+
+MT 1 - MT 2/MT 2 136.1669 277.7424 42.5195 24.7950
+
+         2: Fig.1 exact s = 0.75 
+
+       multipole moments B13  ED/MD 
+ receipt" metric 
+ superseding receipt" canonical physical_reproduction_success
+
+3.2  2 Fig.2 
+
+       Olmon-EV  500­2500 nm (60, 61, 120)  200 Table
+2­Mie  max rel  ED 0.011856%MD 0.016992%EQ 0.016104%MQ 0.024139% p95 
+0.024%max abs  2.64 × 10-4 0.045213%0.064187%0.060844%
+0.090694% 0.1%
+
+ 3: Fig.2 Layer 3  vector  PDF-vector 
+  RMSE  0.02p95 absolute error  0.05  0.01
+
+                                                           7
+mie-f   2026-08-11
+
+ED/MD/EQ MQ  RMSE 0.0255597p95 0.0569500 2.089×10-5 UNRESOLVED
+ 23  marker x  Mie line  exact marker  RMSE/p95  0.024302/0.061866
+ Mie  Mie  0.009327/0.021042 CONSISTENT_WITH_PAPER_GRAPHICAL_FLOOR
+ strict gate
+
+       Johnson­Christy  xA  500/1935 = 0.258398 
+partial_physical_match Fig.2 fidelity
+
+3.3  3 Grahn 
+
+      Path A  xA  0.1  43  gate  Table 1 max/p95  5.706 ×
+10-7/4.493 × 10-7Path A  EQ  max 1.385%  rank-4 
+ gate
+
+                          4: Path A  Table 1/Mie gate 
+      Path B  200  Mie l  2 max/p95  2.935×10-4/1.322×10-4
+ED/MD/EQ/MQ  CMie  10-4  0.301923%0.038334%0.236555%
+0.127564%mask  13/31/44/63
+
+                                                                8
+mie-f   2026-08-11
+
+                                      5: Path B  mask 
+        m  1470  1298  max/p95  1.517 × 10-3/3.185 × 10-4 fixture
+  1.185 × 10-14Eq.(13/14)  Eq.(15/16)  16  1.620 × 10-14dark
+ failures  0Rayleigh slope=6.098392Eq.(22)  5.963 × 10-7 max complex
+ rel 7.744 × 10-15 PASS_WITH_NOTES / method_consistency gate 4 
+  maskrank-4 note  ceiling
+
+ 3.4  4 Fig.3  COMSOL 
+
+        spec "Fig.3 Fano" a = 250 nmt = 80 nmg = 120 nm
+  FEM  ED/MD/EQ/MQ Table 1/Table 2 
+  Mie B7 
+
+     6: Fig.3  Mie  COMSOL 
+       B7  301  297  -24.9256xA = 0.82 +4.48683
+
+xA = 0.5275Tribelsky comparator  q = -1, x0 = 1.34,  = 0.04/
+                                                                 9
+mie-f                                                             2026-08-11
+
+1.32002/1.35998 1.32/1.36  feature  2 × 10-5Fu 2013 sanity  F /B = 11.0443
+ 8  38.05% sanity_only
+
+      B8  generic COMSOL 6.3 runtime probe  MPHFig.3
+skeleton  FileSecret staging  compile JC host/spacer/PML
+// Table 1/Table 2  Fig.3 physical solve
+ Mie­COMSOL crosspath B7 surrogate_fallbackB8 diagnostic_only
+full Fig.3 NOT_ACHIEVED
+
+4 
+
+4.1 
+
+       refractiveindex.info database  YAML   = (n + i)2
+ |m|2manifest  2026-08-07 URL SHA-256
+
+                         n (550 nm)  (550 nm)  1         2
+
+  Johnson­Christy[8]     0.424  2.472          -5.93113  2.09704
+  Olmon-EV[9]            0.326  2.507          -6.17903  1.63256
+  McPeak[10]             0.324  2.597          -6.64030  1.68260
+
+  pairwise range/|mean|                        11.346% 25.746%
+
+ 3: 550 nm /
+
+                                
+            500­1935 nm
+  Johnson­                      
+  Christy   500­2500 nm         
+  Olmon-EV  500­1700 nm            Table 2­Mie 
+                                 JC/Olmon/McPeak  min­max envelope
+                                
+
+                          4: 
+
+                         10
+mie-f   2026-08-11
+
+ 7:  Table 2­Mie 
+
+
+      600­1000 nm  1             7.49199%790 nm    pairwise
+range/|mean|  13.13970%            manifest        SHA-
+256    555C84AF...A2D311021561...D779E0506DD2...0AA        
+data/_gold_sources/manifest.yaml
+
+4.2 
+
+       u = r/a  /
+ Bessel    0  0/0Mie  Wiscombe  [11]
+nmax 
+
+      Fig.2  (40, 41, 80)  (60, 61, 120)  0.1%Fig.1  200 
+ maskGrahn Path B/ m  10-4  maskmask 
+/
+
+4.3 
+
+      B10  61  Fig.1 exact Fig.2 refined//Layer 3/MQ
+UQGrahn A/B/per-m/Fig.3 CSV//
+B10  gate  codex-prompts/o
+ut/B10-audit-numbers.md
+
+                                                               11
+mie-f                                                            2026-08-11
+
+5 
+
+5.1 
+
+                                                              /
+
+Table 2  Mie       Cartesian               Fig.1/Fig.2        /
+                   vs Lorenz­Mie           PASS               / x  Table 1
+Table 2  Table 1                           PASS                exact truth
+Grahn Path A  Ta-                            PASSEQ            m 
+ble 1                                      rank-4 note        
+Grahn Path B  Mie   vs Mie                 PASS                digitization/ floor 
+                   l2                                         runtime smoke 
+Grahn Eq.(22)      extinction vs scatter-  rel 5.963 × 10-7    Fano/ Alaee Fig.3 class
+Eq.(20)            ing
+ Mie                     vs                Fig.2  dielectric
+vector             PDF-vector              MQ  PASS
+Mie  COMSOL        / vs                    NOT_AVAILABLE
+Fig.3              
+Tribelsky/Fu com-   observ-                strict-
+parator            able                    feature/sanity
+                                           
+
+                      5: 
+
+5.2 Table 2­Mie 
+
+      Table 2  Mie  ED/MD/EQ/MQ Fig.1 
+Fig.2 
+"/"
+
+      Table 2  retained order 
+ Mie  Fig.3  FEM/COMSOL
+ Fig.1/2  Fig.3 
+
+5.3 Grahn  gate
+
+      Grahn Path A  Table 1 Path B  m 
+ Mie miepython fixture  1.593 × 10-15 7.744 × 10-15
+ fixture raw/STF  mask D1 
+API  qe fail-closed Qe = 6 STF(M2) /
+
+                                             12
+mie-f   2026-08-11
+
+            8: Grahn  m  mask
+
+5.4  vector 
+
+      Fig.2  PDF-vector  CSV  CSV  metadata  source_pdf
+ reproduction  PDF  checkout "vector CSV  metric"
+"PDF  vector CSV" provenance 
+
+
+5.5 Fig.3  crosspath
+
+       Mie­COMSOL  xA  d host/spacer
+ mask  common support B8 
+ E, H, J  NOT_AVAILABLE"""
+"
+
+6 Gate
+
+6.1 Gate 
+
+      """/"
+ gate " result class" 105 passed124 passed  PDF 
+ promotion gate
+
+                                                               13
+mie-f                                                         2026-08-11
+
+                 6:  gate 
+
+        gate            /                       
+Fig.1
+       2026-08-09    A1  moment/C metric   PASS paper
+Fig.2
+Grahn   B1 B13  exact  claim  PASS 
+
+Fig.3   limited  PASS                            post-B1   super-
+
+       pass                                     seding receipt  canoni-
+
+                                                cal class
+
+       Layer 2  gate    Opus #08 "              gate       4  limited
+       Layer 3  MQ      " strict gate
+                        2026-08-09              class=partial physical
+
+                                                matchpromotion denied
+
+       Opus #09­#12      #14b  PASSA2            PASS with notes /
+        BLOCKED          A1                     method consistencygate
+        spec  v4D1                              4  notes 
+       #14  raw/STF/Qe                          ceiling
+       
+
+       BLOCKED
+
+       A4  red-team     B11/B12  gate           G0/G2/G3 
+        draftB7/B8      FIG3-G0­G6              G1/G4/G5/G6 
+        run-                 ceiling            physical solve 
+       time/skeleton    partial_physical_match
+
+6.2 
+
+  1. Fig.1  169.7%/167.7%/2275%/2453%  B1 exact B1  interpolation 
+       gate  direct exact
+
+  2. Fig.2 "0.23026  gap  MQ " Opus #08  gap MQ 
+       UNRESOLVED
+
+  3. Grahn #14  BLOCKED  #14b PASS  D1 
+       gate 4
+
+  4. Fig.3 formal spec "APPROVED" B11 candidate 
+      draft_pending_human_approval gate 
+
+  5. B9s mode-analysis / Fig.3 frequency-domain scatter-
+      ing template
+
+6.3 Result class 
+
+       SEPR class Grahn spec  method_consistency
+ ceiling pipeline completed physical repro-
+
+                        14
+mie-f       2026-08-11
+
+duction successFig.1 PASS_WITH_LIMITATIONS  metric_decision_pending  gate/
+ class
+
+7 
+
+7.1 
+
+  1. Fig.1  moment gate  C  exact  ED/MD 
+       receipt
+
+  2. Fig.2 dielectric MQRMSE/p95=0.02556/0.05695  0.02/0.05graphical floor "
+      " strict fidelity  paper fidelity  UNRESOLVED
+
+  3. Fig.2 Johnson­Christy  Fig.2  1935 nmxA < 0.258398 
+       MATERIAL_DOMAIN_LIMITED
+
+  4. Grahn Path AEQ  1.385%  rank-4 Path A  Table 1  exact
+      truth
+
+  5. Grahn gate 4 masknotes  method_consistency ceiling
+  6. Fig.3 "Fig.3 Fano"Fano/ diagnostic
+
+      
+  7. Fig.3 COMSOL generic runtime smokeskeleton  compile 
+
+       physical solve Mie­COMSOL crosspath
+  8. Fig.3 hostspacerJC 1937­2000 nm panel-(b) metric/UQ  gate
+
+      arXiv-v2 Eq.(1)  implementation authorityjournal-final glyph 
+  9. Fig.2 vector CSV  PDF  vector  PDF
+
+       checkout 
+10.  exact matchobservable 
+
+      /
+
+        15
+mie-f                             2026-08-11
+
+7.2 
+
+                           /
+
+""                          classFig.1  pendingFig.2 partialGrahn method consistency
+                           Fig.3 not achieved
+"Fig.2 MQ /                strict  graphical-floor consistency
+"
+"JC  500­2500 nm           JC  Olmon-EV
+"
+"Grahn                     / observable
+"
+" Mie                       spacer  ceiling  surrogate fallback
+"
+"COMSOL "                  generic runtime smokeskeleton stagingphysical solve 
+"Tribelsky/Fu comparator    observable strict-feature  sanity-only
+ Fig.3"
+" Eq.(1)  glyph             hash/version-bound arXiv v2  authority
+"
+
+                            7: 
+
+7.3 
+
+      Table 2­Mie Grahn  m 
+Fig.3 """
+"""""
+
+                              16
+mie-f                              2026-08-11
+
+8 
+
+8.1  promotion 
+
+        ceiling/               
+Fig.1
+        pending                 gate hash-bound superseding receipt
+Fig.2                           SEPR class physical success paper-vector/
+Grahn  partial physical match  
+Fig.3   method consis-          uncertainty-aware dense/physics UQ  Q 
+       tency                   / trace MQ strict gate  gate 4
+       full not achieved        gate 4 observ-
+                               ableLayer 3  gate
+                                   G0­G3        hash-bound         
+                               /mesh/PML/ E/H/J/ closureTable 1/2 
+                               paper trace  UQ G4­G6 partial physical match
+
+        8: 
+
+8.2  Fig.3 
+
+  1.  observablearXiv-v2 Eq.(1)relative-error floor/mask  B7 surrogate 
+  2.  hostspacerJC current domains  xA 
+  3.  COMSOL frequency-domain scattering template hashrun-
+
+      time/job receipt 
+  4.  meshPML/ E, H, J 
+  5.  J  Table 1/Table 2  panel (a)/(b) traceUQ 
+  6.  observable  Fano fitFano  promotion gate
+
+8.3 
+
+       MieGrahn 
+m fixture
+
+   · Fig.1 Table 2­Mie  0.0383%  0.2020% exact s = 0.75 ED 
+      136.1669%MD  277.7424%
+
+   · Fig.2 refined     0.01186%­0.02414%       0.09069%   MQ strict
+      RMSE/p95=0.02556/0.05695 UNRESOLVED
+
+   · Grahn Path A total max 5.706 × 10-7Path B total max 2.935 × 10-4 m max 1.517 × 10-3
+   · Fig.3  -24.9256  +4.48683Tribelsky / 1.32002/1.35998
+
+      
+
+      "/"Fig.1  metric 
+PASS Fig.2  partial_physical_matchGrahn  method_consistency
+Fig.3 / full NOT_ACHIEVED promotion UQ
+
+                               17
+mie-f       2026-08-11
+
+ receipt class
+
+8.4 
+
+      LaTeX  report-final/ PDF  report-final/main_aux/main.pdfB10
+ gate/ codex-prompts/out/B10-audit-numbers.md 
+codex-prompts/out/B10-audit-gates.md
+
+
+
+
+ [1] Rasoul Alaee, Carsten Rockstuhl, and Ivan Fernandez-Corbaton. An electromagnetic multipole expan-
+      sion beyond the long-wavelength approximation. Optics Communications, 407:17­21, 2018.
+
+ [2] Ivan Fernandez-Corbaton, Stefan Nanz, Rasoul Alaee, and Carsten Rockstuhl. Exact dipolar moments
+      of a localized electric current distribution. Optics Express, 23(26):33044­33064, 2015.
+
+ [3] Craig F. Bohren and Donald R. Huffman. Absorption and Scattering of Light by Small Particles. Wiley,
+      New York, 1983.
+
+ [4] Patrick Grahn, Andriy Shevchenko, and Matti Kaivola. Electromagnetic multipole theory for optical
+      nanomaterials. New Journal of Physics, 14(9):093033, 2012.
+
+ [5] Andrey E. Miroshnichenko, Sergej Flach, and Yuri S. Kivshar. Fano resonances in nanoscale structures.
+      Reviews of Modern Physics, 82:2257­2298, 2010.
+
+ [6] Michael I. Tribelsky, Jean-Michel Geffrin, Amelie Litman, Christelle Eyraud, and Fernando Moreno.
+      Directional fano resonances in light scattering by a high refractive index dielectric sphere. Physical
+      Review B, 94:121110(R), 2016.
+
+ [7] Y. H. Fu, A. I. Kuznetsov, A. E. Miroshnichenko, Y. F. Yu, and B. Luk'yanchuk. Directional visible
+      light scattering by silicon nanoparticles. Nature Communications, 4:1527, 2013.
+
+ [8] Peter B. Johnson and Ronald W. Christy. Optical constants of the noble metals. Physical Review B,
+      6(12):4370­4379, 1972.
+
+ [9] Robert L. Olmon, Brian Slovick, Timothy W. Johnson, Douglas Shelton, Sang-Hyun Oh, Glenn D.
+      Boreman, and Markus B. Raschke. Optical dielectric function of gold. Physical Review B,
+      86(23):235147, 2012.
+
+[10] Kevin M. McPeak, Sriharsha V. Jayanti, Stephan J. P. Kress, Stefan Meyer, Stelio Iotti, Aurelio
+      Rossinelli, and David J. Norris. Plasmonic films can easily be better: Rules and recipes for better
+      plasmonic films. ACS Photonics, 2(3):326­333, 2015.
+
+[11] Warren J. Wiscombe. Improved mie scattering algorithms. Applied Optics, 19(9):1505­1509, 1980.
+
+        18
+

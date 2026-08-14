@@ -1,0 +1,64 @@
+\section{理论推导全貌}
+
+完整逐步推导见 \url{https://github.com/PKU-QNO/optics-agent-zyz/blob/main/MIE-0814/reports/vector-multipole-derivation.pdf}（本地 \texttt{vector-multipole-derivation/main\_aux/main.pdf}，66 页）。本手册给出脉络与关键公式，便于快速检索。
+
+\subsection{推导主链（16 个步骤）}
+
+\[
+\boxed{\text{Maxwell}} \to \boxed{\text{矢量球谐 } \mathbf M,\mathbf N} \to \boxed{\text{Mie 严格解}} \to \boxed{\text{多极投影}} \to \boxed{\text{散射电流}} \to \boxed{\text{电流积分}} \to \boxed{\text{分部积分}} \to \boxed{\text{电流多极矩}} \to \boxed{\text{FC2015 精确偶极}} \to \boxed{\text{长波近似（Table 1）}} \to \boxed{\text{精确多极矩（Table 2）}}
+\]
+
+\subsection{四篇论文的定位}
+
+\begin{longtable}{p{3.4cm}p{3.6cm}p{7.5cm}}
+\toprule
+论文 & 定位 & 我的推导对应 \\
+\midrule
+\endhead
+Grahn 2012（NJP 14 093033） & 电流多极矩 $\to$ 散射场系数映射 & 主链第 1--9 步 \\
+Fernandez-Corbaton 2015（Opt. Express 23 33044） & 精确电偶极矩（保留全部 $kr$ 阶） & 第 9 步 \\
+Fernandez-Corbaton 2017（Sci. Rep. 7 7527） & toroidal 非独立严格证明 & 第 9.7 步 \\
+Alaee 2018（Opt. Commun. 407 17） & Table 1（长波）/ Table 2（精确） & 第 10--11 步 \\
+\bottomrule
+\end{longtable}
+
+\subsection{关键公式}
+
+\textbf{矢量球谐}（正交完备基）：
+\[
+\mathbf M_{lm}=\frac{1}{\sqrt{l(l+1)}}\nabla\times(\mathbf r Y_{lm}),\quad
+\mathbf N_{lm}=\frac{1}{k}\nabla\times\mathbf M_{lm}
+\]
+
+\textbf{Grahn 映射常数}（正文 Eq.~(35)--(48)）：
+\[
+C_1=-\frac{ik^3}{6\pi E_0},\quad C_2=-\frac{k^4}{60\pi E_0},\quad C_3=-\frac{ik^5}{210\pi E_0}
+\]
+
+\textbf{Table 1（长波近似）}——熟知的偶极/四极矩，例如：
+\[
+p_\alpha=\int P_\alpha\,dV,\quad m_\alpha=\frac{i\omega}{2}\int(\mathbf r\times\mathbf P)_\alpha\,dV,\quad
+Q_{\alpha\beta}=\int\left(3r_\alpha P_\beta+3r_\beta P_\alpha-2(\mathbf r\cdot\mathbf P)\delta_{\alpha\beta}\right)dV
+\]
+电偶极散射贡献含 toroidal 项（$k^2/10$ 修正）。
+
+\textbf{Table 2（精确）}——保留球 Bessel 核 $j_l(kr)$，例如精确电偶极矩由核 $j_1(kr)/(kr)$ 给出。退化关键：
+\[
+\frac{j_l(kr)}{(kr)^l}\xrightarrow{kr\to0}\frac{1}{(2l+1)!!}
+\]
+使 Table 2 在 $kr\to0$ 退化回 Table 1。
+
+\textbf{FC2017 的核心结论}：toroidal 不是独立自由度——电部分与 toroidal 部分各自含不可观测的非辐射（off-shell）分量，求和才抵消；toroidal 只是电偶极系数对电磁尺寸展开的高阶修正项。
+
+\subsection{退化检查的完整清单（我做的）}
+
+我在推导结尾系统检查了 Table 2 $\to$ Table 1 的逐条退化：
+
+\begin{itemize}
+  \item \textbf{ED}：$j_1/(kr)\to1/3$，$\int r'_\alpha\rho=p_\alpha$（系数 $3$ 由退化固定）；
+  \item \textbf{MD}：$m_\alpha\to\frac12\int(\mathbf r'\times\mathbf J)_\alpha$（$j_0\to1$ 与 $3/2\times1/3=1/2$）；
+  \item \textbf{EQ}：四极矩的 $j_2/(kr)^2$ 核；
+  \item \textbf{MQ}：$15\times j_2/(kr)^2\to15\times1/15=1$。
+\end{itemize}
+
+每一项都在长波极限下回到 Table 1 的已知结果，锁定了所有系数。

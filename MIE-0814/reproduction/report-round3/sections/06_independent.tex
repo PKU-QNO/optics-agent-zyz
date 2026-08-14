@@ -1,0 +1,39 @@
+\section{独立路径与错误注入}
+
+\subsection{远场投影}
+
+\texttt{far\_field\_projection} 不调用 Path B 的体积分角函数，而是独立构造 scipy \texttt{sph\_harm\_y} VSH、显式 outgoing Hankel $h_l^{(1)}=j_l+i y_l$，在包围球面执行 Grahn Eq.(3)(4) 的角向投影。样本半径为 $r/a=2$ 的验收调用，最大复相对误差为 $7.7439334\times10^{-15}$；该结果作为相位和通道标签的独立互证，不替代 Path B gate。
+
+\subsection{解析 bump 与直接导数交叉}
+
+解析 fixture 使用全空间 $C^2$ 多项式 bump，给出均匀极化球、双斑、环流和三个磁四极 $m$ 案例。对于已注册 bump，Eq.(13)(14) 的 raw 直接导数和 Eq.(15)(16) clean kernel 在 16 个 $(branch,l,m)$ 上逐项比较；最大误差 $1.6201542\times10^{-14}$。真实 Mie 球的直接导数接口 fail-closed，避免把边界分布项误当作普通有限差分。
+
+\subsection{miepython 交叉}
+
+在 $x_{\rm mie}=0.5$、$m=2.5$，独立库给出 $q_{\rm sca}=0.07842660729283048$，baseline 为 $0.07842660729283035$，相对误差 $1.5925729\times10^{-15}$，状态 PASS；缺少依赖时实现返回 BLOCKED，不以 pytest skip 伪装 gate 通过。
+
+\subsection{故意错误注入}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{lXl}
+\toprule
+注入 & 被测契约 & 结果 \\
+\midrule
+\texttt{ab\_swap} & 交换 $a_n/b_n$ 标签 & 可检测 \\
+\texttt{drop\_m} & 丢弃 $m=0,\pm1,\pm2$ 任一项 & 可检测 \\
+\texttt{translate} & 原点平移导致 raw $M^{(2)}$ 改变 & 可检测 \\
+\texttt{phase}, \texttt{phase\_em} & 时间/电磁通道相位约定 & 可检测 \\
+\texttt{rhat} & $\mathbf r\to\hat{\mathbf r}$ 少一个 $U$ 因子 & 可检测 \\
+\texttt{derivative} & Riccati $\Psi''$ 递推 & 可检测 \\
+\texttt{tau\_pi} & 角函数 $\tau_{lm}/\pi_{lm}$ 互换 & 可检测 \\
+\bottomrule
+\end{tabularx}
+\caption{\texttt{test\_grahn.py} 中的八类错误注入。每项均要求注入后验收量显著偏离。}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{per_m_errors.png}
+\caption{逐 $m$ 复系数误差分布；虚线为 v4 复相对阈值 1\%。}
+\end{figure}

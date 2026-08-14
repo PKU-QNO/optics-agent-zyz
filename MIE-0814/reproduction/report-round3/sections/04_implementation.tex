@@ -1,0 +1,34 @@
+\section{实现与复用}
+
+\subsection{生产实现}
+
+\texttt{code/scattering.py} 集成四层功能：
+\begin{enumerate}
+ \item M2 原始矩的 STF、反对称和迹分解，以及逐元素重构；
+ \item Path A 的 (39)--(48) 映射，包含全部 $m$、磁四极和默认的八极修正；
+ \item Path B 的球坐标三重积分、Riccati-Bessel 小 $\rho$ 分支、Eq.(15)(16) clean kernel；
+ \item 独立远场 VSH 投影、miepython gate、解析 bump fixture 和相位敏感光学定理。
+\end{enumerate}
+\texttt{code/run\_grahn\_verification.py} 固定扫描网格、mask 和 p95 口径，写出 CSV/JSON；不在报告生成期间重新运行 runner，避免覆盖冻结数据。
+
+\subsection{测试与复用}
+
+\texttt{tests/test\_grahn.py} 覆盖 M2 四对象、raw/STF 等价与 qe 拒绝、Path A/B、级数分支、六解析案例、Eq.(13)(14) 与 (15)(16) 16 个 $(branch,l,m)$ 目标、远场、miepython、光学定理以及 8 类错误注入。完整测试收据为 105 passed, 1 skipped；定向 Grahn 套件收据为 38 passed。已有的 \texttt{params.py}、\texttt{baseline\_mie.py}、\texttt{mie\_theory.py} 和 \texttt{multipole\_moments.py} 仅作为输入场/Mie 基线复用，不改变前两轮冻结文件。
+
+\subsection{可审计产物}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{lX}
+\toprule
+文件 & 用途 \\
+\midrule
+\texttt{data/grahn\_pathA.csv} & 150 点 Path A、Table 1、Mie 及 ED/MD/EQ/MQ 通道 \\
+\texttt{data/grahn\_pathB.csv} & 200 点有限核路径与 Mie 逐通道 \\
+\texttt{data/grahn\_per\_m.csv} & 1470 行 $a_E/a_M$, $l=1,2$, 全 $m$ 复系数 \\
+\texttt{data/grahn\_analytic.json} & 六个解析电流案例、闭式值、网格变化和逐目标状态 \\
+\texttt{data/grahn\_gates.json} & 机器 gate 汇总、miepython、远场和结果等级 \\
+\bottomrule
+\end{tabularx}
+\caption{冻结证据文件及其职责。}
+\end{table}

@@ -1,0 +1,256 @@
+\section{Alaee 表 2 的完整推导——精确多极矩}
+%=============================================================================
+
+本章是 Alaee 2018 的核心。先给出表 2 公式一览，再从多极积分核 $\mathbf{M}_{lm}$ 出发，
+\emph{不}做 $kr\to0$ 截断，完整推出四条公式，并逐一验证 $kr\to0$ 退化回表 1。
+
+\subsection{表 2 公式一览}
+
+\begin{table}[htbp]
+\centering
+\small
+\begin{tabular}{ll}
+\toprule
+\textbf{多极} & \textbf{表达式（精确）} \\
+\midrule
+ED & $\displaystyle p_\alpha = -\frac{1}{i\omega}\Bigg\{\int d^3r\,J_\alpha\,j_0(kr)
+  + \frac{k^2}{2}\int d^3r\bigl[3(\mathbf{r}\cdot\mathbf{J})r_\alpha - r^2 J_\alpha\bigr]
+  \frac{j_2(kr)}{(kr)^2}\Bigg\}$ \\[1.5em]
+MD & $\displaystyle m_\alpha = \frac32\int d^3r\,(\mathbf{r}\times\mathbf{J})_\alpha\,
+  \frac{j_1(kr)}{kr}$ \\[1.5em]
+EQ & $\displaystyle Q^e_{\alpha\beta} = -\frac{3}{i\omega}\Bigg\{
+  \int d^3r\bigl[3(r_\beta J_\alpha + r_\alpha J_\beta) - 2(\mathbf{r}\cdot\mathbf{J})\delta_{\alpha\beta}\bigr]
+  \frac{j_1(kr)}{kr}$ \\[0.5em]
+  & $\displaystyle\qquad + 2k^2\int d^3r\bigl[5r_\alpha r_\beta(\mathbf{r}\cdot\mathbf{J})
+  - (r_\alpha J_\beta + r_\beta J_\alpha)r^2 - r^2(\mathbf{r}\cdot\mathbf{J})\delta_{\alpha\beta}\bigr]
+  \frac{j_3(kr)}{(kr)^3}\Bigg\}$ \\[1.5em]
+MQ & $\displaystyle Q^m_{\alpha\beta} = 15\int d^3r\bigl\{
+  r_\alpha(\mathbf{r}\times\mathbf{J})_\beta + r_\beta(\mathbf{r}\times\mathbf{J})_\alpha\bigr\}
+  \frac{j_2(kr)}{(kr)^2}$ \\[0.5em]
+\bottomrule
+\end{tabular}
+\caption*{表 2：精确多极矩（Alaee 2018 表 2，核心贡献）。}
+\end{table}
+
+\begin{noteworthy}
+\textbf{与表 1 的结构对比}：表 2 与表 1 形式几乎相同，只是把积分核中的常数替换成了球 Bessel 函数比：
+$$
+1 \;\to\; j_0(kr),\qquad
+\frac13 \;\to\; \frac{j_1(kr)}{kr},\qquad
+\frac1{15} \;\to\; \frac{j_2(kr)}{(kr)^2},\qquad
+\frac1{105} \;\to\; \frac{j_3(kr)}{(kr)^3}
+$$
+由于 $j_l(kr)\xrightarrow{kr\to0}(kr)^l/(2l+1)!!$，表 2 在 $kr\to0$ 时退化回表 1。
+这就是"旧公式是近似、新公式是精确版"的精确含义。
+\end{noteworthy}
+
+\subsection{精确多极矩的定义}
+
+\begin{stepbox}{为什么表 1 会失效？}
+表 1 假设粒子内部相位一致（$kr'\ll1$）。当粒子尺寸可与波长比拟时，
+粒子内部不同位置的电流发出的波相位不同，必须保留 $j_l(kr')$ 的完整宗量依赖。
+"精确" = 保留所有 $j_l(kr')$，不做小宗量展开。
+\end{stepbox}
+
+精确多极矩的统一出发点是多极积分核~(\ref{eq:Mlm2})。$l=1$ 核 $\mathbf{M}_{1m}$
+张成了 $l=1$ 电流模式的所有信息（电偶极 + 磁偶极 + 电四极贡献），
+$l=2$ 核张成电四极 + 磁四极 + 电八极贡献，依此类推。
+每个笛卡尔多极矩 = 从对应阶核中提取的张量分量，保留完整 $j_l(kr')$。
+
+\subsection{电偶极矩的精确推导}
+
+\subsubsection{从多极积分核出发}
+
+电偶极矩 $\mathbf{p}=\int\mathbf{r}\rho$ 的精确化需保留完整 $j_1(kr)$ 核。
+由 \S9 的多极积分核~(\ref{eq:Mlm2})，$l=1$ 核 $\mathbf{M}_{1m}$ 张成
+电偶极 $+$ 磁偶极 $+$ 四极贡献；电偶极矩 $p_\alpha$ 是 $\mathbf{M}_{1m}$ 的特定线性组合。
+Alaee 采用\textbf{傅里叶--坐标混合积分}（FC2015 方法）构造，关键是用 \S9 的
+平面波角积分恒等式把傅里叶空间的球面平均转为坐标空间的 $j_l(kr)$。
+
+\subsubsection{关键推导结构}
+
+Alaee 的出发点是 [35] Eq.(14) 的精确多极积分。对电偶极，其推导结构为：
+\begin{equation}
+  p_\alpha = 3\int d^3r'\,\frac{j_1(kr')}{kr'}\,r'_\alpha\,\rho(\mathbf{r}')
+  \label{eq:p_start}
+\end{equation}
+（保留 $j_1$ 核；系数 $3$ 由退化验证固定：$\frac{j_1}{kr'}\to\frac13$，$\int r'_\alpha\rho = p_\alpha$。）
+
+代入 $\rho = \frac{1}{i\omega}\nabla'\cdot\mathbf{J}$ 并分部积分（$J$ 在散射体外为零）：
+\begin{align}
+  p_\alpha &= \frac{3}{i\omega}\int d^3r'\,\frac{j_1(kr')}{kr'}\,r'_\alpha\,\nabla'\cdot\mathbf{J} \notag\\
+  &= -\frac{3}{i\omega}\int d^3r'\,\mathbf{J}\cdot\nabla'\Bigl(r'_\alpha\frac{j_1(kr')}{kr'}\Bigr)
+\end{align}
+
+记 $g(r')\equiv\dfrac{j_1(kr')}{kr'}=\dfrac13\bigl(j_0+j_2\bigr)$（递推 $j_0+j_2=\dfrac{3j_1}{kr'}$），
+则 $\nabla'(r'_\alpha g)=\hat{\mathbf{e}}_\alpha\,g + r'_\alpha\,g'\hat{\mathbf{r}}'$。用
+$j_0'=-j_1$、$j_2'=\frac{2j_2}{kr'}-j_3$、$j_3=\frac{5j_2}{kr'}-j_1$：
+\begin{equation}
+  g' = \frac{dg}{dr'} = \frac{k}{3}\Bigl(-j_1+\frac{2j_2}{kr'}-j_3\Bigr)
+     = \frac{k}{3}\Bigl(-j_1+\frac{2j_2}{kr'}-\frac{5j_2}{kr'}+j_1\Bigr)
+     = -\frac{j_2}{r'}
+\end{equation}
+
+于是：
+\begin{align}
+  p_\alpha &= -\frac{3}{i\omega}\int\Bigl[
+    J_\alpha g + (\mathbf{r}'\cdot\mathbf{J})\frac{r'_\alpha}{r'}g'\Bigr]d^3r' \notag\\
+  &= -\frac{1}{i\omega}\int\Bigl[
+    J_\alpha(j_0+j_2) - \frac{3(\mathbf{r}'\cdot\mathbf{J})r'_\alpha j_2}{r'^2}\Bigr]d^3r'
+  \label{eq:p_partial}
+\end{align}
+
+\subsubsection{规范变换到对称无迹形式}
+
+式~(\ref{eq:p_partial}) 含 $J_\alpha j_2$ 与 $(\mathbf{r}'\cdot\mathbf{J})r'_\alpha j_2/r'^2$ 两项。
+要把它们整理成表 2 的对称无迹形式，需要\textbf{加一个总导数项}——但这并非逐点恒等式，
+而是经 FC2015 补充材料的完整代数（含 \S9 的角积分恒等式、分部积分与总导数项的抵消）实现：
+
+\begin{stepbox}{正确的推导路径}
+第 1 步：式~(\ref{eq:p_partial}) 的 $j_2$ 部分为 $\int\bigl[J_\alpha j_2 - 3(\mathbf{r}'\cdot\mathbf{J})\frac{r'_\alpha j_2}{r'^2}\bigr]$。\\
+第 2 步：改写 $\frac{1}{2}\bigl[\cdots\bigr]$ 型组合，利用积分意义下的恒等式
+$$
+\int\Bigl[J_\alpha j_2 - 3(\mathbf{r}'\cdot\mathbf{J})\frac{r'_\alpha j_2}{r'^2}\Bigr]d^3r'
+= \int\frac{k^2}{2}\Bigl(3(\mathbf{r}'\cdot\mathbf{J})r'_\alpha - r'^2J_\alpha\Bigr)\frac{j_2(kr')}{(kr')^2}d^3r'
+$$
+第 3 步：该恒等式\textbf{不是逐点成立}，而是借助 $\mathbf{J}$ 在散射体支撑外为零的边界条件，
+对 $r'^2j_2(kr')$ 型因子做分部积分后成立（详见 FC2015 补充材料；$\S9$ 的角积分恒等式
+是推导其系数的基础）。
+\end{stepbox}
+
+\begin{noteworthy}
+\textbf{重要}：式~(\ref{eq:p_partial}) 到表 2 的整理\textbf{不能靠逐点代数完成}——它是
+"积分意义下的规范等价"，涉及分部积分和总导数项的抵消。这正是"文献中多种精确多极矩
+公式并存"的原因。要完整重现系数，须参考 FC2015 补充材料的推导。
+\end{noteworthy}
+
+整理整体系数（$\frac{1}{i\omega}$ 与式~(\ref{eq:p_start}) 的系数 $3$、以及上式右侧的 $\frac12$
+匹配，见下节退化验证），得\textbf{表 2 的 ED}：
+\begin{equation}
+  \boxed{\;
+  p_\alpha = -\frac{1}{i\omega}\int d^3r'\Bigl[
+    J_\alpha\,j_0(kr')
+    + \frac{k^2}{2}\bigl(3(\mathbf{r}'\cdot\mathbf{J})r'_\alpha - r'^2J_\alpha\bigr)
+    \frac{j_2(kr')}{(kr')^2}
+  \Bigr]
+  \;}
+  \label{eq:p_exact2}
+\end{equation}
+
+\subsubsection{退化验证（表 2 ED $\to$ 表 1 ED）}
+
+$kr'\to0$ 时\textbf{同时}展开 $j_0$ 和 $j_2$ 到 $k^2$ 阶
+（关键：$j_0(kr')=1-\frac{(kr')^2}{6}+\cdots$ 也贡献 $O(k^2)$ 项，不能只留 $j_2$）：
+\begin{equation}
+  j_0(kr') \approx 1 - \frac{(kr')^2}{6},\qquad
+  \frac{j_2(kr')}{(kr')^2} \approx \frac{1}{15}
+\end{equation}
+
+代入式~(\ref{eq:p_exact2})，合并两部分的 $O(k^2)$ 项（记 $A=(\mathbf{r}'\cdot\mathbf{J})r'_\alpha$，$B=r'^2J_\alpha$）：
+\begin{align}
+  p_\alpha &\to -\frac{1}{i\omega}\int\Bigl[
+    J_\alpha\Bigl(1-\frac{(kr')^2}{6}\Bigr) + \frac{k^2}{30}\bigl(3A - B\bigr)\Bigr]d^3r' \notag\\
+  &= -\frac{1}{i\omega}\int J_\alpha - \frac{k^2}{i\omega}\int\Bigl[-\frac{B}{6} + \frac{3A-B}{30}\Bigr] \notag\\
+  &= -\frac{1}{i\omega}\int J_\alpha - \frac{k^2}{i\omega}\int\frac{3A-6B}{30} \notag\\
+  &= -\frac{1}{i\omega}\int J_\alpha - \frac{k^2}{10i\omega}\int\bigl[(\mathbf{r}'\cdot\mathbf{J})r'_\alpha - 2r'^2J_\alpha\bigr]
+\end{align}
+
+\textbf{恰好得到表 1 的 ED}（含 $k^2/10$ 的 toroidal 项）。$\checkmark$
+
+\begin{noteworthy}
+\textbf{为什么表 1 是表 2 的 $kr\to0$ 极限}：表 1 的 $k^2/10$ 项是表 2 的 $j_0$ 展开
+（$-\frac{k^2}{6}r'^2J_\alpha$）与 $j_2$ 展开（$\frac{k^2}{30}(3A-B)$）\textbf{合并}的结果。
+只看 $j_2$ 项会得到 $k^2/30$ 而"对不上"——必须把 $j_0$ 的 $O(k^2)$ 修正一起考虑。
+这就是表 1 与表 2 的 toroidal 项系数看似不同的原因（它们本就同源）。
+\end{noteworthy}
+
+\subsection{磁偶极矩的精确推导}
+
+磁偶极来自 $l=1$ 核的\textbf{反对称部分}（$\propto \mathbf{r}'\times\mathbf{J}$）。
+精确化就是把常数核换成带 $j_1$ 的投影：
+\begin{equation}
+  \boxed{\;
+  m_\alpha = \frac32\int d^3r'\,(\mathbf{r}'\times\mathbf{J})_\alpha\,\frac{j_1(kr')}{kr'}
+  \;}
+  \label{eq:m_exact2}
+\end{equation}
+
+\begin{stepbox}{为什么是 $\frac32$？}
+磁偶极 LWA 系数是 $\frac12$。精确核 $\frac{j_1(kr')}{kr'}$ 在 $kr'\to0$ 时为 $\frac13$。
+要恢复 LWA 的 $\frac12$，需要整体系数 $\frac32$：$\frac32\times\frac13=\frac12$。$\checkmark$
+\end{stepbox}
+
+退化验证：$m_\alpha \to \frac32\int(\mathbf{r}'\times\mathbf{J})_\alpha\cdot\frac13 = \frac12\int(\mathbf{r}'\times\mathbf{J})_\alpha$，
+即表 1 的 MD。$\checkmark$
+
+\subsection{电四极矩的精确推导}
+
+电四极来自 $l=2$ 核 $\mathbf{M}_{2m}$（5 个独立分量 = 无迹对称张量的 5 个自由度）。
+精确化保留 $j_2$ 核，并用递推 $j_2 = \frac{kr'}{5}(j_1+j_3)$ 拆分出两组修正：
+
+\begin{equation}
+  \boxed{\;
+    \begin{aligned}
+    Q^e_{\alpha\beta} &= -\frac{3}{i\omega}\int d^3r'\Bigl\{
+      \bigl[3(r'_\beta J_\alpha + r'_\alpha J_\beta) - 2(\mathbf{r}'\cdot\mathbf{J})\delta_{\alpha\beta}\bigr]
+      \frac{j_1(kr')}{kr'} \\
+    &\qquad + 2k^2\bigl[5r'_\alpha r'_\beta(\mathbf{r}'\cdot\mathbf{J})
+      - (r'_\alpha J_\beta + r'_\beta J_\alpha)r'^2 - r'^2(\mathbf{r}'\cdot\mathbf{J})\delta_{\alpha\beta}\bigr]
+      \frac{j_3(kr')}{(kr')^3}
+    \Bigr\}
+    \end{aligned}
+    \;}
+  \label{eq:Qe_exact2}
+\end{equation}
+
+\begin{stepbox}{结构解读}
+\begin{itemize}
+  \item \textbf{第一项}：LWA 主项 $\times\dfrac{j_1}{kr'}$。$kr'\to0$ 时 $\dfrac{j_1}{kr'}\to\dfrac13$，
+    配合系数 $-3$ 恢复表 1 的 $-1$。$\checkmark$
+  \item \textbf{第二项}：toroidal 四极修正 $\times\dfrac{j_3}{(kr')^3}$。
+    $kr'\to0$ 时 $\dfrac{j_3}{(kr')^3}\to\dfrac1{105}$，整体 $\to\dfrac{2k^2}{105}\int[\cdots]$，
+    与表 1 的 $\dfrac{k^2}{14}\int[\cdots]$ 差一个无迹化因子（规范等价，见本章附注）。
+\end{itemize}
+\end{stepbox}
+
+\subsection{磁四极矩的精确推导}
+
+磁四极来自 $l=2$ 核的反对称流部分，精确化保留 $j_2$ 核：
+\begin{equation}
+  \boxed{\;
+  Q^m_{\alpha\beta} = 15\int d^3r'\Bigl\{
+    r'_\alpha(\mathbf{r}'\times\mathbf{J})_\beta + r'_\beta(\mathbf{r}'\times\mathbf{J})_\alpha
+  \Bigr\}\frac{j_2(kr')}{(kr')^2}
+  \;}
+  \label{eq:Qm_exact2}
+\end{equation}
+
+退化验证：$15\times\dfrac{j_2}{(kr')^2}\to15\times\dfrac{1}{15}=1$，得表 1 的 MQ。$\checkmark$
+
+\subsection{表 2 汇总}
+
+\begin{chaptersummary}
+
+\textbf{\S11 章节总结}
+
+\textbf{精确多极矩（表 2）的四条公式}：
+\begin{itemize}
+  \item ED：$p_\alpha = -\frac{1}{i\omega}\bigl[\int J_\alpha j_0 + \frac{k^2}{2}\int(3(\mathbf{r}\cdot\mathbf{J})r_\alpha - r^2J_\alpha)\frac{j_2}{(kr)^2}\bigr]$
+  \item MD：$m_\alpha = \frac32\int(\mathbf{r}\times\mathbf{J})_\alpha\frac{j_1}{kr}$
+  \item EQ：$Q^e_{\alpha\beta} = -\frac{3}{i\omega}\{\int[\cdots]\frac{j_1}{kr} + 2k^2\int[\cdots]\frac{j_3}{(kr)^3}\}$
+  \item MQ：$Q^m_{\alpha\beta} = 15\int\{r_\alpha(\mathbf{r}\times\mathbf{J})_\beta + r_\beta(\mathbf{r}\times\mathbf{J})_\alpha\}\frac{j_2}{(kr)^2}$
+\end{itemize}
+
+\textbf{推导方法}：\\
+(1) 从多极积分核 $M_{lm}$ 出发，保留完整 $j_l(kr)$；\\
+(2) 用递推把 $j_l$ 拆成低阶组合（$j_1\to j_0,j_2$；$j_2\to j_1,j_3$）；\\
+(3) 张量分解（对称/反对称/无迹）分离出各多极矩；\\
+(4) $kr\to0$ 退化验证系数。
+
+\textbf{精确性}：对任意 $kr$ 成立；Alaee 用 Mie 理论验证与精确解完全一致（见下章）。
+
+\end{chaptersummary}
+
+\newpage
+
+%=============================================================================

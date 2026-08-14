@@ -1,0 +1,56 @@
+\section{代码结构与数据清单}
+
+工程根：\url{https://github.com/PKU-QNO/optics-agent-zyz/tree/main/MIE-0814/reproduction}（本地 \texttt{reproduction/}）、\url{https://github.com/PKU-QNO/optics-agent-zyz/tree/main/comsol/runtime/cases/alaee2018_fig3}（本地 \texttt{optics\_agent/comsol/...}）、\url{https://github.com/PKU-QNO/optics-agent-zyz/blob/main/MIE-0814/reports/vector-multipole-derivation.pdf}（本地 \texttt{vector-multipole-derivation/}）。
+
+\subsection{代码职责（reproduction/code/）}
+
+\begin{longtable}{p{5.2cm}p{7.6cm}}
+\toprule
+文件 & 职责 \\
+\midrule
+\endhead
+\texttt{mie\_theory.py} & Lorenz--Mie 系数 $a_n,b_n,c_n,d_n$ + 内部场 + 消光/散射截面（球体解析真值） \\
+\texttt{multipole\_moments.py} & Table 2 精确多极矩（体积分，含球 Bessel 核 $j_l$） \\
+\texttt{multipole\_approx.py} & Table 1 长波近似多极矩（$kr\to0$ 截断） \\
+\texttt{optical\_theorem.py} & 光学定理 $S(0)$ 双路独立实现（级数求和 + 前向极限） \\
+\texttt{run\_grahn\_verification.py} & Grahn 双路径映射 + 逐 $m$ + 解析 fixture + 独立远场投影 \\
+\texttt{b34\_cross\_validate.py} & 第三方（Tidy3D/MENP）交叉验证 \\
+\bottomrule
+\end{longtable}
+
+COMSOL Java 构建器（\url{https://github.com/PKU-QNO/optics-agent-zyz/tree/main/comsol/runtime/cases/alaee2018_fig3}，本地 \texttt{optics\_agent/comsol/runtime/cases/alaee2018\_fig3/}）：
+\begin{itemize}
+  \item \texttt{Alaee2018Fig3ComsolScattering.java}：频域有限元（FEM）双金盘散射；
+  \item \texttt{Alaee2018Fig3ComsolScatteringBEM.java}：边界元（BEM）双金盘散射（PEC 近似 + 原生远场）。
+\end{itemize}
+
+\subsection{回归测试（reproduction/tests/）}
+
+\begin{longtable}{p{5.2cm}p{7.6cm}}
+\toprule
+文件 & 覆盖 \\
+\midrule
+\endhead
+\texttt{test\_mie.py} & 能量守恒（:55,65）、光学定理（:102）、Rayleigh 散射（:73-79）、多极矩之和$=$总散射（:131） \\
+\texttt{test\_multipole.py} & Table 2 $\to$ Table 1 退化（:46）、Table 1 大尺寸失效（:100） \\
+\texttt{test\_optical\_theorem.py} & 光学定理双路 \\
+\texttt{test\_grahn.py} / \texttt{test\_grahn\_spec.py} & Grahn 映射与 spec 校验 \\
+\bottomrule
+\end{longtable}
+
+\subsection{冻结数据（reproduction/data/）}
+
+\begin{longtable}{p{6.0cm}p{6.8cm}}
+\toprule
+文件 & 含义 \\
+\midrule
+\endhead
+\texttt{fig1a\_multipole\_\{mie,table1,table2\}.csv} & Fig.~1 三路多极矩（Mie/Table1/Table2） \\
+\texttt{fig2\_gold\_olmon\_refined.csv} & Fig.~2 金球加密网格（Olmon-EV，$60\times61\times120$） \\
+\texttt{grahn\_gates.json} & Grahn 全部 gate 数字（optical\_theorem、rayleigh\_slope、per\_m） \\
+\texttt{fig3\_b32\_convergence\_closure.json} & Fig.~3 网格收敛 + 远场闭合 \\
+\texttt{fig3\_b35\_mesh030\_x360\_closure.csv} & Fig.~3 0.3 网格闭合 \\
+\texttt{fig3\_b42\_bem\_mesh050\_x360\_closure.csv} & BEM 远场闭合 \\
+\texttt{third\_party\_cross\_consistency\_receipt.json} & 第三方交叉一致性收据 \\
+\bottomrule
+\end{longtable}

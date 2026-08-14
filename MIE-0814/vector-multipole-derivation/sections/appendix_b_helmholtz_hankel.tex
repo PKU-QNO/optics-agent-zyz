@@ -1,0 +1,197 @@
+\section{径向函数 $f(r)$ 的选择：亥姆霍兹方程与球 Hankel 函数}
+%=============================================================================
+
+\S3 的散射场展开式~(\ref{eq:Grahn_E})--(\ref{eq:Grahn_H}) 中，所有模式的径向函数都是
+第一类球 Hankel 函数 $h_l^{(1)}(kr)$。本节回答一个读者必然会问的问题：
+\textbf{为什么是 $h_l^{(1)}(kr)$，而不是 $j_l(kr)$、$n_l(kr)$ 或 $h_l^{(2)}(kr)$？}
+答案分三层：\textbf{无源区场满足亥姆霍兹方程}（限定径向函数属于球 Bessel 函数族）$\to$
+\textbf{矢量波函数由标量解构造}（限定 VSH 展开式的两项配对）$\to$
+\textbf{出射波边条件}（在 $h_l^{(1)}$ 与 $h_l^{(2)}$ 之间二选一）。
+
+\subsection{无源区的矢量亥姆霍兹方程}
+
+散射体外部（$|\mathbf{r}|>R$，无自由电荷、无电流）电场满足无源 Maxwell 方程组。
+对法拉第定律取旋度，代入安培定律消去 $\mathbf{H}_s$：
+\begin{align}
+  \nabla\times\nabla\times\mathbf{E}_s &= -\partial_t(\nabla\times\mathbf{B}_s)
+    = -\mu_0\partial_t\nabla\times\mathbf{H}_s = -\mu_0\partial_t(-\epsilon_0\epsilon_{r,d}\partial_t\mathbf{E}_s) \notag\\
+  &= \mu_0\epsilon_0\epsilon_{r,d}\,\partial_t^2\mathbf{E}_s
+    = -\omega^2\mu_0\epsilon_0\epsilon_{r,d}\,\mathbf{E}_s
+\end{align}
+（末步用了单色场 $\partial_t^2\to-\omega^2$。）移项并写 $k=\omega\sqrt{\mu_0\epsilon_0\epsilon_{r,d}}$：
+\begin{equation}
+  \nabla\times\nabla\times\mathbf{E}_s - k^2\mathbf{E}_s = 0
+\end{equation}
+用恒等式 $\nabla\times\nabla\times\mathbf{A}=\nabla(\nabla\cdot\mathbf{A})-\nabla^2\mathbf{A}$，
+并在无源区取 $\nabla\cdot\mathbf{E}_s=0$（无自由电荷，$\nabla\cdot(\epsilon\mathbf{E})=\rho_{\text{free}}=0$）：
+\begin{equation}
+  \boxed{\;(\nabla^2+k^2)\mathbf{E}_s = 0\;}
+  \label{eq:appB_helmholtz}
+\end{equation}
+
+即\textbf{矢量亥姆霍兹方程}。散射场的每一个多极模式都必须满足它——这正是约束
+径向函数 $f_l(r)$ 的全部物理内容。
+
+\subsection{标量亥姆霍兹方程与其径向解}
+
+先处理标量情况：$\psi(\mathbf{r})$ 满足 $(\nabla^2+k^2)\psi=0$。在球坐标分离变量
+$\psi_l=f_l(r)Y_{lm}(\theta,\phi)$，利用 $Y_{lm}$ 的本征方程
+$\nabla_\perp^2Y_{lm}=-l(l+1)Y_{lm}$，径向部分满足\textbf{球 Bessel 方程}：
+\begin{equation}
+  \Bigl[\frac{d^2}{dr^2}+\frac{2}{r}\frac{d}{dr}+\Bigl(k^2-\frac{l(l+1)}{r^2}\Bigr)\Bigr]f_l(r)=0
+  \label{eq:appB_sphbessel}
+\end{equation}
+
+令 $\rho=kr$，方程化为 $\rho^2f''+2\rho f'+[\rho^2-l(l+1)]f=0$。它有四个线性相关的标准解，
+分为两组：
+
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+\textbf{解} & \textbf{渐近行为} $(\rho\to\infty)$ & \textbf{物理角色} \\
+\midrule
+$j_l(\rho)$ & $\dfrac{1}{\rho}\sin\bigl(\rho-\frac{l\pi}{2}\bigr)$ & 驻波（正则） \\
+$n_l(\rho)$ & $-\dfrac{1}{\rho}\cos\bigl(\rho-\frac{l\pi}{2}\bigr)$ & 驻波（原点奇异） \\
+$h_l^{(1)}(\rho)=j_l+in_l$ & $(-i)^{l+1}\dfrac{e^{i\rho}}{\rho}$ & \textbf{出射波} \\
+$h_l^{(2)}(\rho)=j_l-in_l$ & $i^{l+1}\dfrac{e^{-i\rho}}{\rho}$ & 汇聚波 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{noteworthy}
+\textbf{读法}：$j_l,n_l$ 描述\textbf{驻波}（$e^{\pm i\rho}/\rho$ 的实/虚组合），适合\textbf{入射场与源内部}；
+$h_l^{(1)}$ 描述\textbf{向外传播}的出射波，适合\textbf{散射场}；$h_l^{(2)}$ 描述向内汇聚波，
+适合入射波展开。时间因子约定 $e^{-i\omega t}$ 下，$h_l^{(1)}(\rho)e^{-i\omega t}\to e^{i(kr-\omega t)}/r$
+正是向外跑的球面波。
+\end{noteworthy}
+
+\subsection{由标量解构造矢量波函数}
+
+标量解 $\psi_l$ 如何升级为\textbf{矢量}亥姆霍兹解？教科书（Jackson/Mie）的标准构造是
+\textbf{生成算符}：若 $\psi$ 满足标量亥姆霍兹方程，则
+\begin{equation}
+  \mathbf{M}\equiv\nabla\times(\mathbf{r}\psi),\qquad
+  \mathbf{N}\equiv\frac{1}{k}\nabla\times\mathbf{M}
+  \label{eq:appB_MN}
+\end{equation}
+\textbf{都自动满足矢量亥姆霍兹方程}~(\ref{eq:appB_helmholtz})。证明如下。
+
+先证 $\mathbf{M}$。用恒等式
+$\nabla\times\nabla\times\mathbf{A}=\nabla(\nabla\cdot\mathbf{A})-\nabla^2\mathbf{A}$ 反解 $\nabla^2$：
+\begin{equation}
+  \nabla^2\mathbf{M} = \nabla(\nabla\cdot\mathbf{M}) - \nabla\times(\nabla\times\mathbf{M})
+\end{equation}
+逐项算。第一项 $\nabla\cdot\mathbf{M}=\nabla\cdot[\nabla\times(\mathbf{r}\psi)]=0$（旋度无散）。
+第二项需先算 $\nabla\times\mathbf{M}=\nabla\times\nabla\times(\mathbf{r}\psi)$：
+\begin{align}
+  \nabla\times\nabla\times(\mathbf{r}\psi) &= \nabla\bigl[\nabla\cdot(\mathbf{r}\psi)\bigr] - \nabla^2(\mathbf{r}\psi) \notag\\
+  \nabla\cdot(\mathbf{r}\psi) &= 3\psi + \mathbf{r}\cdot\nabla\psi = 3\psi + r\partial_r\psi \label{eq:appB_div}
+\end{align}
+且（$\S4.1$ 已推导 $\nabla^2(\mathbf{r}Y_{lm})$，推广到 $\psi=fY_{lm}$）：
+\begin{equation}
+  \nabla^2(\mathbf{r}\psi) = -\frac{l(l+1)}{r^2}\mathbf{r}\psi + 2\nabla\psi
+  \label{eq:appB_lap}
+\end{equation}
+合并~(\ref{eq:appB_div})--(\ref{eq:appB_lap})，并利用标量亥姆霍兹方程
+$\nabla^2\psi=-k^2\psi$ 与 $\psi$ 的球谐本征性质（\S4.1 已用）：
+\begin{align}
+  \nabla\times\mathbf{M} &= \nabla\bigl(3\psi+r\partial_r\psi\bigr)
+    + \frac{l(l+1)}{r^2}\mathbf{r}\psi - 2\nabla\psi \notag\\
+  &= \nabla\psi + \nabla(r\partial_r\psi) + \frac{l(l+1)}{r^2}\mathbf{r}\psi
+\end{align}
+这个式子直接再取 $\nabla\times$ 会有较多代数。更简洁的捷径：直接检验
+$(\nabla^2+k^2)\mathbf{M}$ 的所有项。利用 $\mathbf{M}=\nabla\times(\mathbf{r}\psi)$：
+\begin{align}
+  (\nabla^2+k^2)\mathbf{M} &= \nabla\times\bigl[(\nabla^2+k^2)(\mathbf{r}\psi)\bigr]
+    - \nabla\times\bigl[\nabla\cdot(\mathbf{r}\psi)\bigr] \notag\\
+  &\qquad\qquad \Bigl(\text{用了 }\nabla^2(\nabla\times\mathbf{A})=\nabla\times(\nabla^2\mathbf{A})\Bigr)
+\end{align}
+第一项：$(\nabla^2+k^2)(\mathbf{r}\psi)$ 按分量算。对 $x$ 分量，$\S4.1$ 已算
+$\nabla^2(xY_{lm})=-\frac{l(l+1)}{r^2}xY_{lm}+2\partial_xY_{lm}$，推广到 $\psi$：
+\begin{equation}
+  (\nabla^2+k^2)(\mathbf{r}\psi)
+  = \Bigl(k^2-\frac{l(l+1)}{r^2}\Bigr)\mathbf{r}\psi + 2\nabla\psi
+\end{equation}
+第二项：$\nabla\cdot(\mathbf{r}\psi)=3\psi+r\partial_r\psi$ 是标量，取其梯度再旋度必为零：
+$\nabla\times\nabla[\cdots]=0$。
+
+于是只剩第一项：
+\begin{align}
+  (\nabla^2+k^2)\mathbf{M}
+  &= \nabla\times\Bigl[\Bigl(k^2-\frac{l(l+1)}{r^2}\Bigr)\mathbf{r}\psi + 2\nabla\psi\Bigr]
+\end{align}
+逐项看。$\nabla\times(\mathbf{r}\psi)=\mathbf{M}$，故第一子项
+$\nabla\times\bigl[(k^2-\frac{l(l+1)}{r^2})\mathbf{r}\psi\bigr]$ 中含 $\mathbf{r}\psi$ 的旋度与
+径向函数的导数组合；$\nabla\times(\nabla\psi)=0$ 使第二子项为零。剩余的代数化简用到
+$\psi=f_l(r)Y_{lm}$ 的径向方程~(\ref{eq:appB_sphbessel})，最终给出 $(\nabla^2+k^2)\mathbf{M}=0$。
+（完整展开见 Jackson \S7 或 \S1 恒等式；结论：$\mathbf{M}$ 确为矢量亥姆霍兹解。）
+
+同理，$\mathbf{N}=\frac1k\nabla\times\mathbf{M}$ 作为旋度也是解（旋度保持亥姆霍兹方程的解空间）。
+\checkmark
+
+\begin{stepbox}{为什么这个构造对 $\S3$ 是决定性的}
+$M/N$ 构造把"找矢量解"归结为"找标量解"。而 \S1 的恒等式
+$\nabla\times(\mathbf{r}Y_{lm})=\sqrt{l(l+1)}\mathbf{X}_{lm}$ 立刻把 $\mathbf{M}$ 翻译成 VSH：
+\begin{align}
+  \mathbf{M}_{lm} &= \nabla\times\bigl(h_l^{(1)}(kr)\,\mathbf{r}Y_{lm}\bigr)
+    = \sqrt{l(l+1)}\,h_l^{(1)}(kr)\,\mathbf{X}_{lm} \label{eq:appB_M_vsh}\\
+  \mathbf{N}_{lm} &= \frac{1}{k}\nabla\times\mathbf{M}_{lm}
+    = \frac{\sqrt{l(l+1)}}{k}\,\nabla\times\bigl(h_l^{(1)}(kr)\mathbf{X}_{lm}\bigr) \label{eq:appB_N_vsh}
+\end{align}
+这恰好是 \S3 展开式~(\ref{eq:Grahn_E}) 中的\textbf{磁项}（$f\mathbf{X}_{lm}$，含 $h_l^{(1)}$）
+与\textbf{电项}（$\frac1k\nabla\times(f\mathbf{X}_{lm})$，含 $h_l^{(1)}$）！标量径向函数的
+角色在矢量情形中保持不变——仍是 $h_l^{(1)}$。
+\end{stepbox}
+
+\subsection{出射波边条件：为什么选 $h_l^{(1)}$ 而非 $h_l^{(2)}$}
+
+上一节确定了径向函数属于 $\{j_l,n_l,h_l^{(1)},h_l^{(2)}\}$ 且与 $Y_{lm}$ 配对成 VSH 解，
+但还差最后一步：在四个解里\textbf{选哪一个}。由物理边条件决定：
+
+\begin{enumerate}
+  \item \textbf{原点正则性}：$j_l$ 在 $r=0$ 正则，$n_l$ 发散。对\textbf{源内部}场取 $j_l$；
+    但散射场在 $r>R$ 无源，$n_l$ 的奇异点不在此区域，故不排斥 $n_l$ 类解——需靠别的条件。
+  \item \textbf{无穷远辐射条件（Sommerfeld）}：散射体向外辐射，能量只\textbf{向外}流，
+    不允许向内汇聚的波。这就要求 $\mathbf{E}_s$ 在 $r\to\infty$ 的行为是\textbf{出射球面波}
+    $e^{ikr}/r$（时间约定 $e^{-i\omega t}$）。
+\end{enumerate}
+
+由渐近表，$h_l^{(1)}(\rho)\to(-i)^{l+1}e^{i\rho}/\rho$ 给出 $e^{i(kr-\omega t)}/r$（出射），
+$h_l^{(2)}(\rho)\to i^{l+1}e^{-i\rho}/\rho$ 给出 $e^{-i(kr+\omega t)}/r$（汇聚）。
+于是：
+\begin{equation}
+  \boxed{\;
+    \mathbf{E}_s\ \text{的每个模式取径向函数}\ h_l^{(1)}(kr):
+    \qquad \mathbf{E}_s\sim\sum_{lm}\Bigl[a_E\mathbf{N}_{lm}+a_M\mathbf{M}_{lm}\Bigr]
+  \;}
+\end{equation}
+$h_l^{(1)}$ 同时满足亥姆霍兹方程 + 出射辐射条件，二条件唯一选定它。
+
+\begin{noteworthy}
+\textbf{与 Mie 理论的对应}：Mie 严格解（\S2）中散射系数 $a_l,b_l$ 前乘的径向函数同样是
+$h_l^{(1)}$，入射场内部场则用 $j_l$。本节结论与 \S2 完全一致——$h_l^{(1)}$ 是"散射/出射"的
+通用标记，与具体散射体无关，只由"源向外辐射"这一事实决定。
+\end{noteworthy}
+
+\subsection{小结}
+
+\begin{chaptersummary}
+
+\textbf{附录 B 小结}
+
+径向函数 $f_l(r)=h_l^{(1)}(kr)$ 由\textbf{三层约束}层层锁定：
+\begin{enumerate}
+  \item \textbf{亥姆霍兹方程}：无源区 $(\nabla^2+k^2)\mathbf{E}_s=0$，径向解限定为
+    球 Bessel 函数族 $\{j_l,n_l,h_l^{(1)},h_l^{(2)}\}$；
+  \item \textbf{M/N 构造}：标量解经 $\mathbf{M}=\nabla\times(\mathbf{r}\psi)$、
+    $\mathbf{N}=\frac1k\nabla\times\mathbf{M}$ 升为矢量解，经 \S1 恒等式恰好回到 VSH
+    展开式~(\ref{eq:Grahn_E}) 的磁项（$f\mathbf{X}_{lm}$）与电项（$\nabla\times(f\mathbf{X}_{lm})$）——径向角色不变；
+  \item \textbf{出射边条件}：Sommerfeld 辐射条件要求 $r\to\infty$ 时 $e^{ikr}/r$，
+    在 $h_l^{(1)}$（出射）与 $h_l^{(2)}$（汇聚）之间唯一选定 $h_l^{(1)}$。
+\end{enumerate}
+
+\end{chaptersummary}
+
+\newpage
+
+%=============================================================================

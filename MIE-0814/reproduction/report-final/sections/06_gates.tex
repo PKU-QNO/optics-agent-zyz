@@ -1,0 +1,40 @@
+\section{Gate、对抗审查与版本覆盖}
+
+\subsection{Gate 不是测试结果的别名}
+
+机器测试回答“当前实现是否满足冻结合同”；对抗审查回答“合同是否有物理/治理漏洞”；人工 gate 决定“是否接受证据及其 result class”。因此 105 passed、124 passed 或 PDF 编译成功都不能自动越过人工 promotion gate。
+
+\begin{longtable}{p{1.4cm}p{3.3cm}p{5.2cm}p{4.0cm}}
+\caption{四轮关键 gate 时间线与覆盖关系。}\label{tab:gates}\\
+\toprule
+轮次 & 历史 gate & 后续覆盖/补证 & 当前裁决 \\
+\midrule
+\endfirsthead
+\toprule
+轮次 & 历史 gate & 后续覆盖/补证 & 当前裁决 \\
+\midrule
+\endhead
+Fig.1 & 2026-08-09 不可变收据关闭方法路径，历史决定为 limited pass & A1 发现 moment/$C$ metric 漂移，B1 受控重开；B13 选择 exact 复矩口径并判单点 PASS & 方法 PASS；单点 paper claim 有 PASS 证据；2026-08-11 已补 superseding receipt（`GATE4-FIG1-SUPERSEDING-RECEIPT-20260811.md`）关闭 metric 条款（单点 PASS）；canonical class 未签发 \\
+\addlinespace
+Fig.2 & Layer 2 方法 gate 通过；Layer 3 发现 MQ 与材料域限制 & Opus \#08 保留 legacy strict gate；B3 最新 fail-closed UQ 将 panel (a)/(b) 的 ED/MD/EQ/MQ 八条正式 lane 全判 UNRESOLVED & gate 4 limited；legacy point-estimate 保留；latest UQ unresolved；promotion denied \\
+\addlinespace
+Grahn & Opus \#09--\#12 多轮 BLOCKED 推动 spec 到 v4；D1 \#14 因 raw/STF/Qe 数据流不闭合而 BLOCKED & 最小修复后 \#14b 明确 PASS；A2 当前快照与 A1 独立复核补齐测试证据 & 机器 PASS with notes / method consistency；gate 4 仍需用户接受 notes 与 ceiling \\
+\addlinespace
+Fig.3 & A4 两轮 red-team 后仅为 draft；B7/B8 代理与 runtime 探索；B29--B32/B35 求得 COMSOL 频域 FEM 真解谱 + 网格收敛 + 远场/功率闭合；B41 验证 BEM 128G 替代路径 & B11/B12 将 gate 重组为 FIG3-G0--G6，首次全门后候选 ceiling 限 \rc{partial\_physical\_match} & G4 已得 COMSOL 真解（partial pass，MD/EQ 网格残差 $\sim2\%$）；G0/G2/G3/G6 待人类批准；G1 host/spacer 材料缺口与高阶 $l>4$ 逐阶仍阻塞 \\
+\bottomrule
+\end{longtable}
+
+\subsection{必须使用的最新版本语义}
+
+\begin{enumerate}
+  \item Fig.1 的 169.7\%/167.7\%/2275\%/2453\% 已作废；采用 B1 exact 值。B1 的 interpolation 文本与脚本行为不一致，最终 gate 只用 direct exact。
+  \item Fig.2 的“0.23026 大 gap 导致 MQ 削峰”已被 Opus \#08 推翻；该 gap 位于断段，MQ 根因必须保持 \rc{UNRESOLVED}。
+  \item Fig.2 的 legacy point-estimate/vector 结果与 B3 最新 fail-closed UQ 是不同 gate。前者的逐通道结果继续披露；后者因 calibrated uncertainty、coverage 和 dense-mode 阈值不完备，将八条正式 lane 全部保持 \rc{UNRESOLVED}，不得继承 legacy PASS。
+  \item Grahn \#14 的 BLOCKED 被 \#14b PASS 和后续当前快照复验覆盖；但这只覆盖 D1 实现缺口，不替用户签发 gate 4。
+  \item Fig.3 spec 顶部的 \rc{APPROVED\_AS\_PATH\_CANDIDATE} 只表示主 agent 采纳 B12 路径设计；正文仍是 \rc{draft\_pending\_human\_approval}，正式执行与晋升须完成 FIG3-G0--G6。
+  \item B9s mode-analysis 研究产物已经存在，但不等于已配置/已求解的 Fig.3 frequency-domain scattering template。
+\end{enumerate}
+
+\subsection{Result class 合同演进}
+
+旧路线图列出七级 SEPR class，但后续 Grahn spec 采用项目局部的 \rc{method\_consistency}。本报告保留这一名称并明确其 ceiling，不静默归一化为 pipeline completed，也不包装为 physical reproduction success。Fig.1 则相反：\rc{PASS\_WITH\_LIMITATIONS} 与 \rc{metric\_decision\_pending} 是 gate/治理标签，不应虚构成一个已签发的七级 class。

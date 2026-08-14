@@ -1,0 +1,36 @@
+\section{概述与目标}
+
+\subsection{本轮目标}
+
+复现 \textbf{Alaee 2018 Fig.2}（Opt. Commun.\ 407 (2018) 17--21）：介电球与金球的\textbf{多极分解}——各多极（ED/MD/EQ/MQ）对散射截面的贡献，用\textbf{表2 精确多极矩}与 \textbf{Mie 理论}对比。
+
+论文 Fig.2 双面板（PDF 页4 caption 逐字）：
+\begin{itemize}
+  \item (a) 介电球（$\varepsilon_r = 2.5^2 = 6.25$，$n=2.5$）各多极贡献 vs 尺寸参数 $2a/\lambda$
+  \item (b) 金球（$a=250$~nm 固定，色散材料）各多极贡献 vs $2a/\lambda$（\textbf{非波长轴}，与 Fig.1(b) 不同）
+\end{itemize}
+
+验收标准来自论文原文：\textit{``the results from our exact expressions are in excellent agreement with those from Mie theory, irrespective of the particle's size parameter. Indeed, they are indistinguishable up to a numerical noise level.''}
+
+量化验收（Codex 对抗审查硬化，预注册）：高信号区最大相对误差 $<1\%$、p95 $<0.1\%$、全点最大绝对误差 $<2\times10^{-3}$、网格收敛 $<0.1\%$。
+
+\subsection{与第一轮（Fig.1）的关系}
+
+\begin{itemize}
+  \item \textbf{同一物理}：表2 精确多极矩 vs Mie 理论的 per-multipole 贡献对比
+  \item Fig.1 是三曲线对比（表1 近似 + 表2 精确 + Mie，含误差面板 c/d）；Fig.2 是\textbf{仅表2 vs Mie}（表1 不参与）
+  \item 介电球面板 (a) 物理上与 Fig.1(a) 相同 → 数据直接复用第一轮 fig1a CSV
+  \item 本轮新增：金球复介电函数色散（3 源核对）+ 复折射率 Mie
+\end{itemize}
+
+\subsection{本轮结果摘要（前 3 项核心结论）}
+
+\begin{enumerate}
+  \item \textbf{表2 vs Mie 方法验收 PASS}：Olmon-EV 200 点加密网格 (60,61,120)，四通道最大相对误差 0.0119--0.0241\%（$<1\%$）、p95 $<0.1\%$、绝对误差 $<2\times10^{-3}$；介电球九点比值 0.9991--1.0005；网格收敛 $<0.1\%$
+  \item \textbf{Layer3 论文图对比}：金球 JC 有效域（$2a/\lambda\geq0.2584$）四通道 PASS\_VECTOR\_CONSISTENT；介电球 ED/MD/EQ PASS、MQ strict gate UNRESOLVED（峰位差仅 $2.1\times10^{-5}$，幅值残差与论文图形底噪一致）
+  \item \textbf{金介电函数三源核对}：550~nm $\varepsilon_1$ 互差 11.35\%、$\varepsilon_2$ 互差 25.75\%——材料敏感性而非同一真值；方法一致性对材料源不敏感（同一 $\varepsilon$ 下互比）
+\end{enumerate}
+
+\subsection{result\_class 速览}
+
+\texttt{gate4\_decision = PASS\_WITH\_LIMITATIONS}；\texttt{method\_claim\_status = PASS}；\texttt{paper\_fidelity\_status = UNRESOLVED}；\texttt{coverage\_status = MATERIAL\_DOMAIN\_LIMITED}；最终 \texttt{result\_class = partial\_physical\_match}（晋级 \texttt{physical\_reproduction\_success} 为 \texttt{DENIED}，条件见 §8）。

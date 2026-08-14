@@ -1,0 +1,76 @@
+\section{工作流程与执行路径}
+
+\subsection{多轮循环框架}
+
+复现任务按图拆分为多轮，每轮独立走 7 步循环：
+
+\begin{verbatim}
+第 1 轮：Fig.1（介电球散射截面）  —— 本轮报告
+第 2 轮：Fig.2（多极分解）        —— 复用 mie_theory.py
+第 3 轮：Grahn 映射验证            —— 复用 code/
+第 4 轮：Fig.3 Fano（可选，延后） —— 需求解器或降级
+\end{verbatim}
+
+每轮内部的 7 步为：\textbf{01} PDF 预处理（提取参数/公式/图数据）$\to$
+\textbf{02} 形式化（写 formalization yaml）$\to$
+\textbf{03} 理论笔记（对标讲义 §9--§12）$\to$
+\textbf{04} 实现（code + TDD 测试）$\to$
+\textbf{05} 运行收集数据 $\to$
+\textbf{06} 物理验证（3 层）$\to$
+\textbf{07} 分析与报告。
+
+\subsection{四人工作模式}
+
+按 repro-plan-v2.md §2.4 用户拍板的执行方式：
+
+\begin{itemize}
+  \item 多模态（读论文图/图表数据点）：codex；
+  \item 普通写代码：Claude 内置子 agent（general-purpose/Explore）；
+  \item 高能力审查：用户开 claude-opus 独立对话（本报告的表2 blocker 解阻即由
+        用户修复 + 主 agent 独立复核完成）；
+  \item 物理判断、归因、gate 裁决：Claude 主循环；
+  \item 对抗性独立审查：\textbf{W-sub 子 agent}（本报告第 7 节）。
+\end{itemize}
+
+\subsection{四个 gate}
+
+\begin{table}[H]
+\centering
+\caption{四个人工 gate}
+\begin{tabular}{clp{7cm}}
+\toprule
+\textbf{gate} & \textbf{触发点} & \textbf{用户核对内容} \\
+\midrule
+① 参数 gate & step02 末 & 参数、单位、范围（$\varepsilon_r=6.25$、$2a/\lambda$ 范围） \\
+② spec gate & formalization 后 & 物理形式化 spec 与论文物理问题一致 \\
+③ 公式 gate & step04/05 末 & Mie 系数 $a_n,b_n$ 对 B\&H 教材核对 \\
+④ 误差 gate & step07 末 & \textbf{看量化误差数字，不接受"看起来一致"} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{关键换算：横轴与尺寸参数}
+
+Alaee 横轴是 \textbf{$2a/\lambda$}，Mie 系数用 Bohren--Huffman 尺寸参数 $x=ka$。
+host 为空气（$\varepsilon_d=1$）时：
+\begin{equation}
+  x = ka = \frac{2\pi a}{\lambda} = \pi\cdot\frac{2a}{\lambda}.
+  \label{eq:xconv}
+\end{equation}
+这一 $\pi$ 换算是 gate③ 强调的翻车点：若把 $2a/\lambda$ 直接当 $x$ 用，
+Mie 共振峰位将整体偏移 $\pi$ 倍。锚点验证（step04 实测，$n=2.5$）：
+
+\begin{table}[H]
+\centering
+\caption{共振峰位锚点（实测值与换算校验）}
+\begin{tabular}{lccc}
+\toprule
+\textbf{多极} & \textbf{Mie 系数} & \textbf{$2a/\lambda$ 峰位} & \textbf{$x$ 峰位} \\
+\midrule
+ED 电偶极 & $a_1$ & 0.500 & $\pi/2\approx1.571$（Fröhlich 共振） \\
+MD 磁偶极 & $b_1$ & 0.385 & 1.209（$ka\cdot n\approx\pi$ 球内驻波） \\
+EQ 电四极 & $a_2$ & 0.647 & 2.033 \\
+MQ 磁四极 & $b_2$ & 0.543 & 1.705 \\
+\bottomrule
+\end{tabular}
+\end{table}

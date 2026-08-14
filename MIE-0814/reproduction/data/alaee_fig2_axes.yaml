@@ -1,0 +1,136 @@
+figure: "fig2"
+image_px:
+  width: 315
+  height: 360
+source: "C:/Users/27370/Desktop/project/optics_agent/papers/mie-f/01-主论文/Alaee_2018.ocr/images/02192d8544a177a4c1b50a6f5a11045a7ba9b7b8f0fbb63cda55366e562e1053_25.jpg"
+background_rgb: [255, 255, 255]
+panels:
+  - name: "a"
+    x_scale: linear
+    y_scale: linear
+    confidence: high
+    tick_label_hint: "x: linear 2a/lambda (0.2,0.4,0.6,0.8,1.0); y: linear 1,3,5,7 (normalized C_sca) — vision-mcp 2通道收敛 2026-08-07, 旧 log 判定作废"
+    x_axis:
+      row: 192
+      col_range: [36, 311]
+      run_len: 109
+      ticks:
+      tick_count: 0
+      tick_gaps_px: []
+      ticks_evenly_spaced: n/a
+    y_axis:
+      col: 36
+      row_range: [73, 192]
+      run_len: 120
+      ticks:
+        - row: 73
+          col_range: [36, 50]
+        - row: 107
+          col_range: [36, 38]
+        - row: 141
+          col_range: [36, 38]
+        - row: 192
+          col_range: [36, 42]
+      tick_count: 4
+      tick_gaps_px: [34, 34, 51]
+      ticks_evenly_spaced: true
+    origin_px:
+      x: 36
+      y: 192
+    tick_labels:
+      - region: "y_tick_label"
+        bbox_px: [28, 103, 30, 103]
+      - region: "y_tick_label"
+        bbox_px: [30, 107, 30, 109]
+      - region: "y_tick_label"
+        bbox_px: [29, 138, 30, 139]
+      - region: "y_tick_label"
+        bbox_px: [29, 141, 30, 143]
+      - region: "y_tick_label"
+        bbox_px: [29, 172, 29, 178]
+  - name: "b"
+    x_scale: linear
+    y_scale: linear
+    confidence: high
+    tick_label_hint: "x: linear 2a/lambda (0.2,0.4,0.6,0.8,1.0, gold a=250nm); y: linear 1,3,5,7 — vision-mcp 2通道收敛 2026-08-07, 旧 log 判定作废"
+    x_axis:
+      row: 325
+      col_range: [36, 311]
+      run_len: 193
+      ticks:
+        - col: 55
+          row_range: [323, 325]
+        - col: 183
+          row_range: [323, 325]
+        - col: 311
+          row_range: [322, 325]
+      tick_count: 3
+      tick_gaps_px: [128, 128]
+      ticks_evenly_spaced: true
+    y_axis:
+      col: 36
+      row_range: [207, 325]
+      run_len: 119
+      ticks:
+        - row: 308
+          col_range: [36, 38]
+      tick_count: 1
+      tick_gaps_px: []
+      ticks_evenly_spaced: n/a
+    origin_px:
+      x: 36
+      y: 325
+    tick_labels:
+      - region: "x_tick_label"
+        bbox_px: [116, 331, 116, 337]
+      - region: "x_tick_label"
+        bbox_px: [122, 331, 125, 337]
+      - region: "x_tick_label"
+        bbox_px: [310, 331, 310, 338]
+      - region: "x_tick_label"
+        bbox_px: [112, 332, 112, 336]
+      - region: "x_tick_label"
+        bbox_px: [176, 332, 176, 337]
+      - region: "x_tick_label"
+        bbox_px: [180, 332, 180, 336]
+      - region: "x_tick_label"
+        bbox_px: [244, 332, 244, 336]
+      - region: "x_tick_label"
+        bbox_px: [48, 333, 48, 336]
+      - region: "x_tick_label"
+        bbox_px: [53, 333, 53, 335]
+      - region: "x_tick_label"
+        bbox_px: [250, 333, 252, 335]
+      - region: "x_tick_label"
+        bbox_px: [185, 334, 185, 336]
+      - region: "x_tick_label"
+        bbox_px: [189, 334, 189, 337]
+      - region: "x_tick_label"
+        bbox_px: [58, 338, 61, 338]
+      - region: "y_tick_label"
+        bbox_px: [27, 239, 30, 242]
+      - region: "y_tick_label"
+        bbox_px: [30, 275, 30, 277]
+      - region: "y_tick_label"
+        bbox_px: [28, 305, 29, 312]
+curve_colors:
+  - rgb: [224, 224, 128]
+    pixels: 1453
+  - rgb: [32, 128, 192]
+    pixels: 617
+  - rgb: [224, 192, 64]
+    pixels: 487
+  - rgb: [224, 128, 96]
+    pixels: 780
+  - rgb: [128, 64, 128]
+    pixels: 650
+  - rgb: [96, 160, 192]
+    pixels: 304
+  - rgb: [192, 96, 32]
+    pixels: 281
+  - rgb: [160, 192, 224]
+    pixels: 86
+  - rgb: [224, 160, 160]
+    pixels: 49
+  - rgb: [160, 160, 64]
+    pixels: 48

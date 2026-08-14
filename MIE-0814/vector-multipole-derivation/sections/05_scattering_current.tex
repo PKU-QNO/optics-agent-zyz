@@ -1,0 +1,193 @@
+\section{散射电流密度与波动方程}
+%=============================================================================
+
+前节的 Eqs.(3)--(4) 需要球面上的 $\mathbf{E}_s$，在阵列中无法直接使用。
+Grahn 的核心创新是用\textbf{散射电流密度}作为源，将 $a_E/a_M$ 转化为粒子内部的体积分。
+
+\subsection{散射电流密度的定义}
+
+Grahn Eq.(6) 给出了散射电流密度的定义：
+\begin{equation}
+  \boxed{\;
+    \mathbf{J}_S(\mathbf{r}) = -i\omega\epsilon_0\bigl(\epsilon_r(\mathbf{r}) - \epsilon_{r,d}\bigr)\,\mathbf{E}(\mathbf{r})
+    \;}
+  \label{eq:Js}
+\end{equation}
+
+\begin{stepbox}{为什么这样定义？}
+从 Maxwell 方程组出发：
+$$
+\nabla\times\mathbf{H} = -i\omega\epsilon_0\epsilon_r\mathbf{E}
+$$
+将介质分解为背景 $\epsilon_{r,d}$ 和散射体产生的扰动 $\Delta\epsilon_r = \epsilon_r - \epsilon_{r,d}$：
+$$
+\nabla\times\mathbf{H} = -i\omega\epsilon_0\epsilon_{r,d}\mathbf{E} + \underbrace{(-i\omega\epsilon_0\Delta\epsilon_r\,\mathbf{E})}_{\mathbf{J}_S}
+$$
+$\mathbf{J}_S$ 可视为等效的散射源电流——知道 $\mathbf{J}_S$ 就知道散射体对电磁场的全部影响。
+更关键的是：$\mathbf{E} = \mathbf{E}_i + \sum_j\mathbf{E}_{s,j}$ 在 $\mathbf{J}_S$ 中包含了所有多体耦合，
+但 $\mathbf{J}_S$ \textbf{只在散射体内部非零}（因为 $\Delta\epsilon_r=0$ 在背景中）。
+\end{stepbox}
+
+\subsection{Maxwell 方程组的散度和旋度方程}
+
+从散射电流 $\mathbf{J}_S$ 出发，考虑散射场 $\mathbf{E}_s,\mathbf{H}_s$（即总场减去入射场）满足的 Maxwell 方程：
+
+\begin{align}
+  \nabla\cdot\mathbf{E}_s &= \frac{\rho_S}{\epsilon_0\epsilon_{r,d}} \label{eq:divE}\\
+  \nabla\cdot\mathbf{H}_s &= 0 \label{eq:divH}\\
+  \nabla\times\mathbf{E}_s &= i\omega\mu_0\mathbf{H}_s \label{eq:curlE}\\
+  \nabla\times\mathbf{H}_s &= -i\omega\epsilon_0\epsilon_{r,d}\mathbf{E}_s + \mathbf{J}_S \label{eq:curlH}
+\end{align}
+
+这些分别是 Grahn 的 Eqs.(7)--(10)。
+
+\begin{stepbox}{注意源项的位置}
+对比自由空间的 Maxwell 方程组：散射电磁场的源项是 $\mathbf{J}_S$ 和 $\rho_S$。
+电荷密度 $\rho_S$ 通过连续性方程与 $\mathbf{J}_S$ 关联：
+$$
+\nabla\cdot\mathbf{J}_S = i\omega\rho_S
+$$
+这将在后面的推导中使用。
+\end{stepbox}
+
+\subsection{标量波动方程的推导}
+
+我们的目标是找到 $a_E/a_M$ 用 $\mathbf{J}_S$ 表达的积分形式。
+关键一步是推导 $\mathbf{r}\cdot\mathbf{E}_s$ 和 $\mathbf{r}\cdot\mathbf{H}_s$ 满足的\textbf{标量波动方程}。
+
+\subsubsection{$\mathbf{r}\cdot\mathbf{E}_s$ 的波动方程}
+
+从 Maxwell 旋度方程出发：
+$$
+\nabla\times(\nabla\times\mathbf{E}_s) = i\omega\mu_0\nabla\times\mathbf{H}_s
+$$
+
+左边用矢量恒等式 $\nabla\times\nabla\times = \nabla(\nabla\cdot) - \nabla^2$：
+$$
+\nabla(\nabla\cdot\mathbf{E}_s) - \nabla^2\mathbf{E}_s = i\omega\mu_0(-i\omega\epsilon_0\epsilon_{r,d}\mathbf{E}_s + \mathbf{J}_S)
+$$
+
+代入 Eq.(7) $\nabla\cdot\mathbf{E}_s = \rho_S/\epsilon_0\epsilon_{r,d}$：
+$$
+\nabla\Bigl(\frac{\rho_S}{\epsilon_0\epsilon_{r,d}}\Bigr) - \nabla^2\mathbf{E}_s
+= \omega^2\mu_0\epsilon_0\epsilon_{r,d}\mathbf{E}_s + i\omega\mu_0\mathbf{J}_S
+$$
+
+整理：
+\begin{equation}
+  (\nabla^2 + k^2)\mathbf{E}_s = \nabla\Bigl(\frac{\rho_S}{\epsilon_0\epsilon_{r,d}}\Bigr) - i\omega\mu_0\mathbf{J}_S
+  \label{eq:helmholtz_E}
+\end{equation}
+
+其中 $k^2 = \omega^2\mu_0\epsilon_0\epsilon_{r,d}$。
+
+$\blacktriangleright$ 现在两边点乘 $\mathbf{r}$：
+$$
+\mathbf{r}\cdot(\nabla^2 + k^2)\mathbf{E}_s = \mathbf{r}\cdot\nabla\Bigl(\frac{\rho_S}{\epsilon_0\epsilon_{r,d}}\Bigr) - i\omega\mu_0\,\mathbf{r}\cdot\mathbf{J}_S
+$$
+
+我们需要将 $\mathbf{r}\cdot\nabla^2\mathbf{E}_s$ 转化为 $\nabla^2(\mathbf{r}\cdot\mathbf{E}_s)$ 的形式。
+利用矢量恒等式：
+$$
+\nabla^2(\mathbf{r}\cdot\mathbf{E}_s) = \mathbf{r}\cdot\nabla^2\mathbf{E}_s + 2\nabla\cdot\mathbf{E}_s
+$$
+（这一恒等式可以通过在直角坐标系中展开 $\nabla^2(xE_x+yE_y+zE_z)$ 来验证。）
+
+因此：
+$$
+\nabla^2(\mathbf{r}\cdot\mathbf{E}_s) + k^2(\mathbf{r}\cdot\mathbf{E}_s) - 2\nabla\cdot\mathbf{E}_s
+= \mathbf{r}\cdot\nabla\Bigl(\frac{\rho_S}{\epsilon_0\epsilon_{r,d}}\Bigr) - i\omega\mu_0\,\mathbf{r}\cdot\mathbf{J}_S
+$$
+
+代入 $\nabla\cdot\mathbf{E}_s = \rho_S/\epsilon_0\epsilon_{r,d}$ 并利用 $\mathbf{r}\cdot\nabla\rho_S = r\partial_r\rho_S$：
+\begin{equation}
+  (\nabla^2 + k^2)(\mathbf{r}\cdot\mathbf{E}_s) = \frac{2\rho_S}{\epsilon_0\epsilon_{r,d}}
+    + \frac{r\partial_r\rho_S}{\epsilon_0\epsilon_{r,d}} - i\omega\mu_0\,\mathbf{r}\cdot\mathbf{J}_S
+  \label{eq:scalar_eq_rE}
+\end{equation}
+
+这就是 Grahn 的 Eq.(11)。
+
+\subsubsection{$\mathbf{r}\cdot\mathbf{H}_s$ 的波动方程}
+
+对 $\mathbf{H}_s$ 的推导更简单，因为 $\nabla\cdot\mathbf{H}_s=0$，没有电荷源项。
+
+从 $\nabla\times$ Eq.(9) 开始：
+$$
+\nabla\times(\nabla\times\mathbf{H}_s) = \nabla\times(-i\omega\epsilon_0\epsilon_{r,d}\mathbf{E}_s + \mathbf{J}_S)
+= -i\omega\epsilon_0\epsilon_{r,d}\nabla\times\mathbf{E}_s + \nabla\times\mathbf{J}_S
+$$
+
+代入 $\nabla\times\mathbf{E}_s = i\omega\mu_0\mathbf{H}_s$：
+$$
+\nabla\times\nabla\times\mathbf{H}_s = -i\omega\epsilon_0\epsilon_{r,d}(i\omega\mu_0\mathbf{H}_s) + \nabla\times\mathbf{J}_S
+= k^2\mathbf{H}_s + \nabla\times\mathbf{J}_S
+$$
+
+左边用恒等式 $\nabla\times\nabla\times = \nabla(\nabla\cdot) - \nabla^2$，其中 $\nabla\cdot\mathbf{H}_s=0$：
+$$
+-\nabla^2\mathbf{H}_s = k^2\mathbf{H}_s + \nabla\times\mathbf{J}_S
+$$
+
+整理：
+\begin{equation}
+  (\nabla^2 + k^2)\mathbf{H}_s = -\nabla\times\mathbf{J}_S
+  \label{eq:helmholtz_H}
+\end{equation}
+
+两边点乘 $\mathbf{r}$：
+$$
+\mathbf{r}\cdot(\nabla^2 + k^2)\mathbf{H}_s = -\mathbf{r}\cdot(\nabla\times\mathbf{J}_S)
+$$
+
+利用与电场相同的恒等式 $\nabla^2(\mathbf{r}\cdot\mathbf{H}_s) = \mathbf{r}\cdot\nabla^2\mathbf{H}_s + 2\nabla\cdot\mathbf{H}_s$，
+其中 $\nabla\cdot\mathbf{H}_s=0$，因此 $\mathbf{r}\cdot\nabla^2\mathbf{H}_s = \nabla^2(\mathbf{r}\cdot\mathbf{H}_s)$：
+\begin{equation}
+  (\nabla^2 + k^2)(\mathbf{r}\cdot\mathbf{H}_s) = -\,\mathbf{r}\cdot(\nabla\times\mathbf{J}_S)
+  \label{eq:scalar_eq_rH}
+\end{equation}
+
+这是 Grahn 的 Eq.(12)。
+
+\begin{stepbox}{为什么只推导 $\mathbf{r}\cdot\mathbf{E}_s$ 和 $\mathbf{r}\cdot\mathbf{H}_s$？}
+回顾 \S4：$a_E$ 的提取需要 $\hat{\mathbf{r}}\cdot\mathbf{E}_s$（即 $\mathbf{r}\cdot\mathbf{E}_s/r$），
+而 $a_M$ 需要 $\mathbf{X}_{lm}^*$ 与 $\mathbf{E}_s$ 的点乘——后者可以通过 $\mathbf{H}_s$ 的旋度方程
+与 $\nabla\times\mathbf{J}_S$ 关联。因此标量波动方程~(\ref{eq:scalar_eq_rE})--(\ref{eq:scalar_eq_rH})
+是将 $a_E/a_M$ 转化为 $\mathbf{J}_S$ 积分的桥梁。
+\end{stepbox}
+
+\begin{chaptersummary}
+
+\textbf{§5 章节总结}
+
+本章解决 §4 的局限：阵列中无法在包围球面上直接测量每个粒子的散射场。
+
+\textbf{核心创新：散射电流密度（Grahn Eq.(6)）}
+$$
+\mathbf{J}_S(\mathbf{r}) = -i\omega\epsilon_0\bigl(\epsilon_r(\mathbf{r}) - \epsilon_{r,d}\bigr)\,\mathbf{E}(\mathbf{r})
+$$
+其中 $\mathbf{E} = \mathbf{E}_i + \sum_j\mathbf{E}_{s,j}$ 包含所有入射场和散射场的总电场。
+\textbf{关键性质：}$\mathbf{J}_S$ 只在散射体内部非零（因为 $\epsilon_r-\epsilon_{r,d}$ 只在散射体内非零），
+因此自动将问题域限制在粒子体积内。
+
+由此导出的 $\mathbf{J}_S$ 的 Maxwell 方程组 Eq.(7)--(10) 将 $\mathbf{J}_S$ 视为等效源项，
+代入 $\nabla\times\mathbf{E}_s$ 和 $\nabla\times\mathbf{H}_s$ 后得到两个 Helmholtz 方程。
+
+\textbf{标量波动方程（桥梁公式）：}
+\begin{itemize}
+  \item $\displaystyle(\nabla^2 + k^2)(\mathbf{r}\cdot\mathbf{E}_s) = \frac{2\rho_S+r\partial_r\rho_S}{\epsilon_0\epsilon_{r,d}} - i\omega\mu_0\,\mathbf{r}\cdot\mathbf{J}_S$ \quad （Eq.(11)，连接 $a_E$ 与 $\mathbf{J}_S$）
+  \item $\displaystyle(\nabla^2 + k^2)(\mathbf{r}\cdot\mathbf{H}_s) = -\mathbf{r}\cdot(\nabla\times\mathbf{J}_S)$ \quad （Eq.(12)，连接 $a_M$ 与 $\mathbf{J}_S$）
+\end{itemize}
+为什么是 $\mathbf{r}\cdot\mathbf{E}_s$ 和 $\mathbf{r}\cdot\mathbf{H}_s$？
+因为 §4 告诉我们：$a_E$ 的投影需要 $\hat{\mathbf{r}}\cdot\mathbf{E}_s$（即 $\mathbf{r}\cdot\mathbf{E}_s/r$），
+$a_M$ 的投影可通过 $\mathbf{H}_s$ 的旋度方程与 $\nabla\times\mathbf{J}_S$ 关联。
+
+\textbf{逻辑链：} 球面积分 $\mathbf{E}_s$ 不可行
+$\to$ 用 $\mathbf{J}_S$ 作源解波动方程 $\to$ 得到 $\mathbf{r}\cdot\mathbf{E}_s$ 和 $\mathbf{r}\cdot\mathbf{H}_s$
+$\to$ 代入投影公式得 $a_E/a_M$ 的体积分形式。
+
+\end{chaptersummary}
+
+\newpage
+
+%=============================================================================

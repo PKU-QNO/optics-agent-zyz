@@ -1,0 +1,761 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phybench.local/schemas/grahn-v4.schema.json",
+  "title": "Grahn mapping formalization v4",
+  "description": "Machine-checkable contract for formalization/grahn.yaml.",
+  "type": "object",
+  "required": [
+    "meta",
+    "geometry",
+    "materials",
+    "equations",
+    "boundary_conditions",
+    "sources",
+    "solver",
+    "observables",
+    "verification",
+    "assumptions",
+    "missing_fields",
+    "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": [
+        "paper",
+        "case",
+        "target_figure",
+        "formula_primary_source",
+        "formula_cross_check_source",
+        "result_class_ceiling",
+        "review_09_era",
+        "review_10_era",
+        "review_11_era",
+        "review_12_era",
+        "version",
+        "test_status"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "paper": { "$ref": "#/$defs/nonEmptyString" },
+        "case": { "const": "grahn-mapping" },
+        "target_figure": { "$ref": "#/$defs/nonEmptyString" },
+        "formula_primary_source": { "$ref": "#/$defs/nonEmptyString" },
+        "formula_cross_check_source": { "$ref": "#/$defs/nonEmptyString" },
+        "result_class_ceiling": { "$ref": "#/$defs/nonEmptyString" },
+        "review_09_era": { "$ref": "#/$defs/nonEmptyString" },
+        "review_10_era": { "$ref": "#/$defs/nonEmptyString" },
+        "review_11_era": { "$ref": "#/$defs/nonEmptyString" },
+        "review_12_era": { "$ref": "#/$defs/nonEmptyString" },
+        "version": { "const": "v4 (2026-08-10, review 12 revised)" },
+        "test_status": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "required": [
+        "description",
+        "parameters",
+        "mie_size_param_conversion",
+        "coordinate"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "description": { "$ref": "#/$defs/nonEmptyString" },
+        "parameters": {
+          "type": "object",
+          "required": [
+            "host",
+            "sphere",
+            "path_A_domain",
+            "path_B_domain",
+            "path_B_low_x_segment"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "host": {
+              "type": "object",
+              "required": ["epsilon_rd", "note"],
+              "additionalProperties": false,
+              "properties": {
+                "epsilon_rd": { "type": "number", "exclusiveMinimum": 0 },
+                "note": { "$ref": "#/$defs/nonEmptyString" }
+              }
+            },
+            "sphere": {
+              "type": "object",
+              "required": ["epsilon_r", "note", "magnetic"],
+              "additionalProperties": false,
+              "properties": {
+                "epsilon_r": { "type": "number", "exclusiveMinimum": 0 },
+                "note": { "$ref": "#/$defs/nonEmptyString" },
+                "magnetic": { "$ref": "#/$defs/nonEmptyString" }
+              }
+            },
+            "path_A_domain": { "$ref": "#/$defs/sampleDomain" },
+            "path_B_domain": { "$ref": "#/$defs/sampleDomain" },
+            "path_B_low_x_segment": {
+              "type": "object",
+              "required": ["x_alaee", "note"],
+              "additionalProperties": false,
+              "properties": {
+                "x_alaee": { "$ref": "#/$defs/range2" },
+                "note": { "$ref": "#/$defs/nonEmptyString" }
+              }
+            }
+          }
+        },
+        "mie_size_param_conversion": { "$ref": "#/$defs/nonEmptyString" },
+        "coordinate": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "materials": {
+      "type": "object",
+      "required": [
+        "inside",
+        "outside",
+        "host_absolute_permittivity",
+        "magnetic",
+        "dispersion"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "inside": {
+          "type": "object",
+          "required": ["epsilon_r", "source"],
+          "properties": {
+            "epsilon_r": { "type": "number", "exclusiveMinimum": 0 },
+            "source": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        },
+        "outside": { "type": "object", "minProperties": 1 },
+        "host_absolute_permittivity": { "$ref": "#/$defs/nonEmptyString" },
+        "magnetic": { "$ref": "#/$defs/nonEmptyString" },
+        "dispersion": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "equations": {
+      "type": "object",
+      "required": [
+        "conventions",
+        "incident",
+        "J_S",
+        "current_multipole_tensor",
+        "M3_symmetry_test",
+        "M2_four_objects",
+        "Qe_stf_conversion",
+        "mapping_E2",
+        "mapping_E1",
+        "mapping_M2",
+        "mapping_M1",
+        "Qm_O_bridge",
+        "coefficients",
+        "C_sca",
+        "normalization",
+        "kernel_paths",
+        "dual_paths",
+        "error_injection_targets"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "conventions": { "type": "object", "minProperties": 1 },
+        "incident": { "$ref": "#/$defs/nonEmptyString" },
+        "J_S": { "type": "object", "minProperties": 1 },
+        "current_multipole_tensor": { "type": "object", "minProperties": 1 },
+        "M3_symmetry_test": { "$ref": "#/$defs/nonEmptyString" },
+        "M2_four_objects": { "type": "object", "minProperties": 1 },
+        "Qe_stf_conversion": { "type": "object", "minProperties": 1 },
+        "mapping_E2": {
+          "type": "object",
+          "required": [
+            "input_contract",
+            "projection_reason",
+            "a_E_2_pm2",
+            "a_E_2_pm1",
+            "a_E_2_0"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "input_contract": {
+              "type": "object",
+              "required": [
+                "source_object",
+                "equivalent_numeric_input",
+                "allowed_api_values",
+                "forbidden_api_value",
+                "qe_to_e2_conversion",
+                "m1_input"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "source_object": { "const": "M2_raw" },
+                "equivalent_numeric_input": { "const": "M2_stf" },
+                "allowed_api_values": {
+                  "type": "array",
+                  "prefixItems": [
+                    { "const": "raw" },
+                    { "const": "stf" }
+                  ],
+                  "minItems": 2,
+                  "maxItems": 2
+                },
+                "forbidden_api_value": { "const": "qe" },
+                "qe_to_e2_conversion": { "const": "Qe/6" },
+                "m1_input": { "const": "M2_raw_antisymmetric_part" }
+              }
+            },
+            "projection_reason": { "$ref": "#/$defs/nonEmptyString" },
+            "a_E_2_pm2": { "type": "object", "minProperties": 1 },
+            "a_E_2_pm1": { "type": "object", "minProperties": 1 },
+            "a_E_2_0": { "type": "object", "minProperties": 1 }
+          }
+        },
+        "mapping_E1": { "type": "object", "minProperties": 1 },
+        "mapping_M2": { "type": "object", "minProperties": 1 },
+        "mapping_M1": {
+          "type": "object",
+          "required": ["input_contract", "a_M_1_pm1", "a_M_1_0", "note"],
+          "additionalProperties": false,
+          "properties": {
+            "input_contract": {
+              "type": "object",
+              "required": ["source_object", "used_part", "forbidden_inputs"],
+              "additionalProperties": false,
+              "properties": {
+                "source_object": { "const": "M2_raw" },
+                "used_part": { "const": "M2_antisym" },
+                "forbidden_inputs": {
+                  "type": "array",
+                  "prefixItems": [
+                    { "const": "M2_stf" },
+                    { "const": "Qe" }
+                  ],
+                  "minItems": 2,
+                  "maxItems": 2
+                }
+              }
+            },
+            "a_M_1_pm1": { "type": "object", "minProperties": 1 },
+            "a_M_1_0": { "type": "object", "minProperties": 1 },
+            "note": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        },
+        "Qm_O_bridge": { "type": "object", "minProperties": 1 },
+        "coefficients": { "type": "object", "minProperties": 1 },
+        "C_sca": { "type": "object", "minProperties": 1 },
+        "normalization": { "type": "object", "minProperties": 1 },
+        "kernel_paths": { "type": "object", "minProperties": 1 },
+        "dual_paths": { "type": "object", "minProperties": 1 },
+        "error_injection_targets": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "boundary_conditions": {
+      "type": "object",
+      "required": ["interface", "radiation", "role_in_spec"],
+      "properties": {
+        "interface": { "$ref": "#/$defs/nonEmptyString" },
+        "radiation": { "$ref": "#/$defs/nonEmptyString" },
+        "role_in_spec": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "sources": {
+      "type": "object",
+      "required": ["incident", "polarization", "role"],
+      "properties": {
+        "incident": { "$ref": "#/$defs/nonEmptyString" },
+        "polarization": { "$ref": "#/$defs/nonEmptyString" },
+        "role": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "solver": {
+      "type": "object",
+      "required": ["type", "strategy", "m_truncation", "environment", "n_max"],
+      "additionalProperties": false,
+      "properties": {
+        "type": { "$ref": "#/$defs/nonEmptyString" },
+        "strategy": { "$ref": "#/$defs/nonEmptyString" },
+        "m_truncation": { "$ref": "#/$defs/nonEmptyString" },
+        "environment": { "$ref": "#/$defs/nonEmptyString" },
+        "n_max": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "observables": {
+      "type": "object",
+      "required": ["description", "primary", "per_multipole_mapping", "figure"],
+      "additionalProperties": false,
+      "properties": {
+        "description": { "$ref": "#/$defs/nonEmptyString" },
+        "primary": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["quantity", "source", "domain", "unit"],
+            "additionalProperties": false,
+            "properties": {
+              "quantity": { "$ref": "#/$defs/nonEmptyString" },
+              "source": { "$ref": "#/$defs/nonEmptyString" },
+              "domain": { "$ref": "#/$defs/nonEmptyString" },
+              "unit": { "$ref": "#/$defs/nonEmptyString" }
+            }
+          }
+        },
+        "per_multipole_mapping": { "$ref": "#/$defs/nonEmptyString" },
+        "figure": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "verification": { "$ref": "#/$defs/verification" },
+    "assumptions": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/nonEmptyString" }
+    },
+    "missing_fields": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["field", "detail"],
+        "additionalProperties": false,
+        "properties": {
+          "field": { "$ref": "#/$defs/nonEmptyString" },
+          "detail": { "$ref": "#/$defs/nonEmptyString" }
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": [
+        "source_artifact",
+        "evidence_type",
+        "timestamp_version",
+        "scope_applicability",
+        "confidence_result_class"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "source_artifact": { "$ref": "#/$defs/nonEmptyString" },
+        "evidence_type": { "$ref": "#/$defs/nonEmptyString" },
+        "timestamp_version": { "$ref": "#/$defs/nonEmptyString" },
+        "scope_applicability": { "$ref": "#/$defs/nonEmptyString" },
+        "confidence_result_class": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "numericString": {
+      "type": "string",
+      "pattern": "^[+-]?(?:[0-9]+(?:\\.[0-9]*)?|\\.[0-9]+)(?:[eE][+-]?[0-9]+)?$"
+    },
+    "range2": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": { "type": "number" }
+    },
+    "sampleDomain": {
+      "type": "object",
+      "required": ["x_alaee", "points", "spacing", "note"],
+      "additionalProperties": false,
+      "properties": {
+        "x_alaee": { "$ref": "#/$defs/range2" },
+        "points": { "type": "integer", "minimum": 2 },
+        "spacing": { "enum": ["linear", "log"] },
+        "note": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "required": [
+        "acceptance_contract",
+        "mq_kr_sweep",
+        "miepython_gate",
+        "analytic_benchmarks",
+        "layer_tests",
+        "equivalence_test",
+        "error_injection",
+        "dependency_graph",
+        "grahn_optical_theorem",
+        "layer1_hard_constraints",
+        "existing_tests"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "acceptance_contract": { "$ref": "#/$defs/acceptanceContract" },
+        "mq_kr_sweep": {
+          "type": "object",
+          "required": ["kR_values", "separation", "note"],
+          "additionalProperties": false,
+          "properties": {
+            "kR_values": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "number", "minimum": 0 }
+            },
+            "separation": { "$ref": "#/$defs/nonEmptyString" },
+            "note": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        },
+        "miepython_gate": {
+          "type": "object",
+          "required": ["policy", "note"],
+          "additionalProperties": false,
+          "properties": {
+            "policy": { "$ref": "#/$defs/nonEmptyString" },
+            "note": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        },
+        "analytic_benchmarks": { "$ref": "#/$defs/analyticBenchmarks" },
+        "layer_tests": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "equivalence_test": { "type": "object", "minProperties": 1 },
+        "error_injection": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/nonEmptyString" }
+        },
+        "dependency_graph": { "$ref": "#/$defs/dependencyGraph" },
+        "grahn_optical_theorem": { "$ref": "#/$defs/opticalTheorem" },
+        "layer1_hard_constraints": {
+          "type": "array",
+          "minItems": 1,
+          "contains": {
+            "type": "object",
+            "required": ["rayleigh_limit"],
+            "additionalProperties": false,
+            "properties": {
+              "rayleigh_limit": { "$ref": "#/$defs/rayleighLimit" }
+            }
+          },
+          "minContains": 1,
+          "maxContains": 1
+        },
+        "existing_tests": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "acceptanceContract": {
+      "type": "object",
+      "required": [
+        "path_B_vs_mie",
+        "path_A_vs_table1",
+        "far_field_projection_vs_pathB",
+        "analytic_benchmarks"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path_B_vs_mie": {
+          "type": "object",
+          "required": [
+            "domain",
+            "metric",
+            "per_m_tolerances",
+            "mask_report",
+            "asymptotic_oracle"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "domain": { "$ref": "#/$defs/nonEmptyString" },
+            "metric": { "$ref": "#/$defs/nonEmptyString" },
+            "per_m_tolerances": {
+              "type": "object",
+              "required": ["ED_MD", "EQ_MQ", "zero_targets"],
+              "additionalProperties": false,
+              "properties": {
+                "ED_MD": {
+                  "type": "object",
+                  "required": ["relative", "note"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "relative": { "type": "number", "minimum": 0, "maximum": 1 },
+                    "note": { "$ref": "#/$defs/nonEmptyString" }
+                  }
+                },
+                "EQ_MQ": {
+                  "type": "object",
+                  "required": ["relative", "absolute_floor", "note"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "relative": { "type": "number", "minimum": 0, "maximum": 1 },
+                    "absolute_floor": { "type": "number", "minimum": 0 },
+                    "note": { "$ref": "#/$defs/nonEmptyString" }
+                  }
+                },
+                "zero_targets": {
+                  "type": "object",
+                  "required": ["absolute_zero", "note"],
+                  "additionalProperties": false,
+                  "properties": {
+                    "absolute_zero": { "type": "number", "minimum": 0 },
+                    "note": { "$ref": "#/$defs/nonEmptyString" }
+                  }
+                }
+              }
+            },
+            "mask_report": { "$ref": "#/$defs/nonEmptyString" },
+            "asymptotic_oracle": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        },
+        "path_A_vs_table1": {
+          "type": "object",
+          "required": ["domain", "metric", "gate_subdomain", "report_only", "truth"],
+          "additionalProperties": false,
+          "properties": {
+            "domain": { "$ref": "#/$defs/nonEmptyString" },
+            "metric": { "$ref": "#/$defs/nonEmptyString" },
+            "gate_subdomain": {
+              "type": "object",
+              "required": ["range", "note", "threshold"],
+              "additionalProperties": false,
+              "properties": {
+                "range": { "$ref": "#/$defs/range2" },
+                "note": { "$ref": "#/$defs/nonEmptyString" },
+                "threshold": { "type": "number", "minimum": 0, "maximum": 1 }
+              }
+            },
+            "report_only": {
+              "type": "object",
+              "required": ["range", "note"],
+              "additionalProperties": false,
+              "properties": {
+                "range": { "$ref": "#/$defs/range2" },
+                "note": { "$ref": "#/$defs/nonEmptyString" }
+              }
+            },
+            "truth": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        },
+        "far_field_projection_vs_pathB": {
+          "type": "object",
+          "required": ["metric", "threshold", "note"],
+          "additionalProperties": false,
+          "properties": {
+            "metric": { "$ref": "#/$defs/nonEmptyString" },
+            "threshold": { "type": "number", "minimum": 0, "maximum": 1 },
+            "note": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        },
+        "analytic_benchmarks": {
+          "type": "object",
+          "required": ["metric", "threshold", "note"],
+          "additionalProperties": false,
+          "properties": {
+            "metric": { "$ref": "#/$defs/nonEmptyString" },
+            "threshold": { "type": "number", "minimum": 0, "maximum": 1 },
+            "note": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        }
+      }
+    },
+    "analyticBenchmarks": {
+      "type": "object",
+      "required": ["bump_function", "case_count_note", "cases", "numerical_scale"],
+      "additionalProperties": false,
+      "properties": {
+        "bump_function": {
+          "type": "object",
+          "required": ["formula", "smoothness", "closed_forms"],
+          "additionalProperties": false,
+          "properties": {
+            "formula": { "$ref": "#/$defs/nonEmptyString" },
+            "smoothness": { "$ref": "#/$defs/nonEmptyString" },
+            "closed_forms": {
+              "type": "object",
+              "required": ["I0", "I2", "I4", "I22", "note"],
+              "additionalProperties": false,
+              "properties": {
+                "I0": { "$ref": "#/$defs/nonEmptyString" },
+                "I2": { "$ref": "#/$defs/nonEmptyString" },
+                "I4": { "$ref": "#/$defs/nonEmptyString" },
+                "I22": { "$ref": "#/$defs/nonEmptyString" },
+                "note": { "$ref": "#/$defs/nonEmptyString" }
+              }
+            }
+          }
+        },
+        "case_count_note": { "$ref": "#/$defs/nonEmptyString" },
+        "cases": {
+          "type": "array",
+          "minItems": 5,
+          "items": {
+            "type": "object",
+            "required": ["name", "current", "purpose", "closed_form"],
+            "properties": {
+              "name": { "$ref": "#/$defs/nonEmptyString" },
+              "current": { "$ref": "#/$defs/nonEmptyString" },
+              "purpose": { "$ref": "#/$defs/nonEmptyString" },
+              "closed_form": { "$ref": "#/$defs/nonEmptyString" },
+              "note": { "$ref": "#/$defs/nonEmptyString" }
+            }
+          }
+        },
+        "numerical_scale": {
+          "type": "object",
+          "required": [
+            "R",
+            "J0",
+            "omega",
+            "d",
+            "kR",
+            "quad",
+            "integration_domain",
+            "note"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "R": { "type": "number", "exclusiveMinimum": 0 },
+            "J0": { "type": "number" },
+            "omega": { "type": "number", "exclusiveMinimum": 0 },
+            "d": { "$ref": "#/$defs/nonEmptyString" },
+            "kR": { "$ref": "#/$defs/nonEmptyString" },
+            "quad": { "$ref": "#/$defs/nonEmptyString" },
+            "integration_domain": { "$ref": "#/$defs/nonEmptyString" },
+            "note": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        }
+      }
+    },
+    "dependencyGraph": {
+      "type": "object",
+      "required": [
+        "path_B",
+        "path_A",
+        "far_field_projection",
+        "miepython",
+        "analytic_benchmarks"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "path_B": { "$ref": "#/$defs/dependencyPath" },
+        "path_A": { "$ref": "#/$defs/dependencyPath" },
+        "far_field_projection": {
+          "type": "object",
+          "required": [
+            "field_source",
+            "vsh",
+            "bessel",
+            "angular",
+            "angular_contract",
+            "cross_section"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "field_source": { "$ref": "#/$defs/nonEmptyString" },
+            "vsh": { "$ref": "#/$defs/nonEmptyString" },
+            "bessel": { "$ref": "#/$defs/nonEmptyString" },
+            "angular": { "$ref": "#/$defs/nonEmptyString" },
+            "angular_contract": {
+              "type": "object",
+              "required": ["N_mu", "N_phi", "l_max_rule", "r_over_a", "min_kr", "note"],
+              "additionalProperties": false,
+              "properties": {
+                "N_mu": { "type": "integer", "minimum": 1 },
+                "N_phi": { "type": "integer", "minimum": 1 },
+                "l_max_rule": { "$ref": "#/$defs/nonEmptyString" },
+                "r_over_a": { "type": "number", "exclusiveMinimum": 0 },
+                "min_kr": { "type": "number", "minimum": 0 },
+                "note": { "$ref": "#/$defs/nonEmptyString" }
+              }
+            },
+            "cross_section": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        },
+        "miepython": {
+          "type": "object",
+          "required": ["field_source", "note"],
+          "additionalProperties": false,
+          "properties": {
+            "field_source": { "$ref": "#/$defs/nonEmptyString" },
+            "note": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        },
+        "analytic_benchmarks": {
+          "type": "object",
+          "required": ["field_source", "note"],
+          "additionalProperties": false,
+          "properties": {
+            "field_source": { "$ref": "#/$defs/nonEmptyString" },
+            "note": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        }
+      }
+    },
+    "dependencyPath": {
+      "type": "object",
+      "required": ["field_source", "vsh", "bessel", "cross_section"],
+      "properties": {
+        "field_source": { "$ref": "#/$defs/nonEmptyString" },
+        "vsh": { "$ref": "#/$defs/nonEmptyString" },
+        "bessel": { "$ref": "#/$defs/nonEmptyString" },
+        "angular": { "$ref": "#/$defs/nonEmptyString" },
+        "cross_section": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "opticalTheorem": {
+      "type": "object",
+      "required": ["new_gate", "old_y8"],
+      "additionalProperties": false,
+      "properties": {
+        "new_gate": {
+          "type": "object",
+          "required": ["formula", "domain", "metric", "threshold", "mask", "note"],
+          "additionalProperties": false,
+          "properties": {
+            "formula": { "$ref": "#/$defs/nonEmptyString" },
+            "domain": { "$ref": "#/$defs/nonEmptyString" },
+            "metric": { "$ref": "#/$defs/nonEmptyString" },
+            "threshold": { "type": "number", "minimum": 0, "maximum": 1 },
+            "mask": { "$ref": "#/$defs/nonEmptyString" },
+            "note": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        },
+        "old_y8": { "$ref": "#/$defs/nonEmptyString" }
+      }
+    },
+    "rayleighLimit": {
+      "type": "object",
+      "required": [
+        "object",
+        "variable",
+        "fit_contract",
+        "observed",
+        "observed_note",
+        "threshold",
+        "ed_channel_oracle"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "object": { "$ref": "#/$defs/nonEmptyString" },
+        "variable": { "$ref": "#/$defs/nonEmptyString" },
+        "fit_contract": { "$ref": "#/$defs/nonEmptyString" },
+        "observed": { "type": "number" },
+        "observed_note": { "$ref": "#/$defs/nonEmptyString" },
+        "threshold": {
+          "type": "object",
+          "required": ["slope_range", "note"],
+          "additionalProperties": false,
+          "properties": {
+            "slope_range": { "$ref": "#/$defs/range2" },
+            "note": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        },
+        "ed_channel_oracle": {
+          "type": "object",
+          "required": ["slope", "tolerance", "note"],
+          "additionalProperties": false,
+          "properties": {
+            "slope": { "type": "number" },
+            "tolerance": { "type": "number", "minimum": 0 },
+            "note": { "$ref": "#/$defs/nonEmptyString" }
+          }
+        }
+      }
+    }
+  }
+}

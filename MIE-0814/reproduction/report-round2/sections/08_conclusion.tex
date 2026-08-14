@@ -1,0 +1,49 @@
+\section{结论与 result\_class}
+
+\subsection{核心结论}
+
+\begin{enumerate}
+  \item \textbf{表2 精确多极矩 vs Mie 理论 indistinguishable 成立}（论文 Fig.2 核心声称）：
+    \begin{itemize}
+      \item Olmon-EV 200 点加密网格：四通道最大相对误差 $0.012$--$0.024\%$（$<1\%$），p95 $<0.1\%$，绝对误差 $<2\times10^{-3}$
+      \item 介电球 (a)：九点比值 $0.9991$--$1.0005$，峰位全压普适上限
+      \item 网格收敛 $<0.1\%$，miepython 复数路径交叉通过
+    \end{itemize}
+  \item \textbf{金介电函数三源核对}：550~nm $\varepsilon_1$ 互差 11.35\%、$\varepsilon_2$ 互差 25.75\%——材料敏感性而非同一真值；方法一致性（表2 vs Mie）对材料源不敏感（同一 $\varepsilon$ 下互比）
+  \item \textbf{Layer3 论文图对比}：金球 JC 域内四通道通过；介电 MQ strict gate 未决但与论文 graphical floor 一致；完整金球面板仍受 JC 数据覆盖限制
+\end{enumerate}
+
+\subsection{result\_class}
+
+\begin{itemize}
+  \footnotesize
+  \raggedright
+  \setlength{\itemsep}{0.15em}
+  \setlength{\parsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \item \texttt{method\_claim\_status=PASS}：表2 vs Mie 方法验收通过
+  \item \texttt{paper\_fidelity\_status=UNRESOLVED}：介电 MQ 未通过预注册 strict vector gate
+  \item \texttt{coverage\_status=MATERIAL\_DOMAIN\_LIMITED}：JC 不覆盖完整金球论文域
+  \item \texttt{graphical\_floor\_assessment=CONSISTENT\_WITH\_PAPER\_GRAPHICAL\_FLOOR}：作为诊断，不覆盖 strict gate
+  \item gate 4：\texttt{PASS\_WITH\_LIMITATIONS}
+  \item 最终 SEPR 等级：\texttt{partial\_physical\_match}；本轮晋级状态为 \texttt{DENIED}
+\end{itemize}
+
+MQ 不阻塞“表2/Mie 方法复现成功”的窄结论，但在现有 SEPR 合同下阻塞完整 Fig.2 晋级。若未来要晋级，须另开一轮并在计算前登记 uncertainty-aware Layer3 和 Q 因子口径，再重新通过人工 gate 4。
+
+\subsection{证据文件索引}
+
+\begin{itemize}
+  \footnotesize
+  \raggedright
+  \setlength{\itemsep}{0.15em}
+  \setlength{\parsep}{0pt}
+  \setlength{\parskip}{0pt}
+  \item 验收：\texttt{notes/fig2-numerical-acceptance.md}、\texttt{data/fig2\_gold\_olmon\_refined\_summary.json}
+  \item 网格收敛：\texttt{data/fig2\_gold\_olmon\_grid\_convergence.json}
+  \item 九点比值：\texttt{notes/fig2-nine-point-ratios.md}、\texttt{data/fig2\_nine\_point\_ratios.csv}
+  \item 金数据：\texttt{notes/fig2-parameters.md}、\texttt{data/gold\_epsilon.csv}、\texttt{data/\_gold\_sources/manifest.yaml}
+  \item spec：\texttt{formalization/alaee2018-fig2.yaml}（reviewed-ready，gate 2 放行）
+  \item 最终对抗审查：\texttt{opus-prompts/08-fig2-final-acceptance-review-RESULT.md}
+  \item 测试：\texttt{tests/test\_fig2\_reproduction.py} + \texttt{tests/test\_fig2\_layer3.py}（67 passed, 1 skipped）
+\end{itemize}

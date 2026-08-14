@@ -1,0 +1,44 @@
+\documentclass[12pt,a4paper,UTF8,fontset=windows]{ctexart}
+
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+\usepackage{fontspec}
+\setmainfont[AutoFakeBold=2,AutoFakeSlant=0.2,FallbackFont={Arial,SimSun}]{Times New Roman}
+\setmonofont{Consolas}
+\ctexset{section={name={,、},number=\arabic{section},format=\zihao{3}\bfseries,aftername=\quad},subsection={name={,、},number=\arabic{section}.\arabic{subsection},format=\zihao{4}\bfseries},subsubsection={name={,、},number=\arabic{section}.\arabic{subsection}.\arabic{subsubsection},format=\zihao{-4}\bfseries}}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\usepackage{booktabs,multirow,tabularx,array,float,caption,subcaption}
+\usepackage{siunitx}
+\sisetup{exponent-product=\ensuremath{\times},detect-all}
+\usepackage{xcolor,listings}
+\lstset{basicstyle=\ttfamily\footnotesize,backgroundcolor=\color{gray!10},frame=single,breaklines=true,showstringspaces=false}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue,pdfborder={0 0 0}}
+
+\title{\textbf{Grahn 映射第 3 轮完整报告（report-round3）}\\[0.3em]
+\large M2 四对象、双路径散射系数与独立验收}
+\author{Codex（B6 报告与 gate 4 材料） / 主 agent 编排}
+\date{2026-08-11}
+
+\begin{document}
+\maketitle
+\thispagestyle{empty}
+\tableofcontents
+\newpage
+
+\input{sections/01_overview}
+\input{sections/02_workflow}
+\input{sections/03_theory}
+\input{sections/04_implementation}
+\input{sections/05_numerical}
+\input{sections/06_independent}
+\input{sections/07_review}
+\input{sections/08_conclusion}
+
+\bibliographystyle{unsrt}
+\bibliography{bib/references}
+\end{document}

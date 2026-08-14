@@ -1,0 +1,122 @@
+\setcounter{section}{-1}
+\section{从 Mie 球散射出发——动机与全景}
+%=============================================================================
+
+本章先给出全篇的\textbf{结论和物理图像}，不展开数学推导。
+后面各章按文献谱系逐步推演：\S1（矢量球谐工具）$\to$ \S2（Mie 严格解）
+$\to$ \S3--\S8（Grahn 2012 电流框架）$\to$ \S9（FC2015 多极积分方法）
+$\to$ \S10--\S12（Alaee 2018 精确多极矩与散射截面）。
+
+\subsection{为什么从 Mie 理论开始？}
+
+\begin{stepbox}{Mie 理论的历史与地位}
+1908 年 Gustav Mie 求解了平面波入射均匀介电球的散射问题，得到\textbf{严格解析解}。
+它是电磁多极展开理论最经典的起点：
+\begin{itemize}
+  \item \textbf{最简单}：单个均匀球、球对称、可分离变量
+  \item \textbf{解析}：散射系数闭式表达，无需求解方程组或做数值近似
+  \item \textbf{基准}：所有更一般的方法（Grahn 框架、Alaee 公式、数值求解器）都必须能复现 Mie 结果
+\end{itemize}
+\end{stepbox}
+
+\subsection{物理图像：一个球如何散射光}
+
+一束平面波 $\mathbf{E}_i = E_0e^{ikz}\hat{\mathbf{x}}$ 入射到一个半径为 $a$、折射率 $n$ 的球上：
+
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+  \shade[ball color=gray!30] (0,0) circle (1.2);
+  \draw[->, thick] (-3,1.5) -- (-0.5,0.5) node[midway,above] {$\mathbf{E}_i$};
+  \draw[->, thick] (0.8,0.8) -- (2.5,2.0) node[midway,above right] {$\mathbf{E}_s$};
+  \draw[->, thick] (0.8,-0.5) -- (2.5,-1.2) node[midway,below right] {$\mathbf{E}_s$};
+  \node at (0,-1.5) {半径 $a$, $\epsilon_r=n^2$};
+  \node at (0,1.8) {$\epsilon_{r,d}$};
+\end{tikzpicture}
+\end{center}
+
+物理过程：入射场在球内感应出\textbf{位移电流}（对介电球）或\textbf{传导电流}（对金属球），
+这些电流作为次级源向外辐射散射场。关键是：
+
+\begin{nontrivial}
+\textbf{多极分解的核心思想}：感应电流产生的散射场可以分解为
+\textbf{电多极}（TM 模）和\textbf{磁多极}（TE 模）的叠加，
+每阶 $l$ 有独立的散射系数。不同多极模在不同波长处\textbf{共振}，
+形成散射光谱中的峰——这是纳米光学设计的核心自由度。
+\end{nontrivial}
+
+\subsection{结论先行：Mie 系数与散射截面}
+
+先给出全篇最重要的结论（完整推导见 \S2）：
+
+\begin{stepbox}{Mie 散射系数（经典记号）}
+\begin{equation}
+  \boxed{\;
+  a_l = \frac{m\psi_l(mx)\psi'_l(x) - \psi_l(x)\psi'_l(mx)}
+            {m\psi_l(mx)\xi'_l(x) - \xi_l(x)\psi'_l(mx)}
+  \;}
+  \label{eq:mot_al}
+\end{equation}
+\begin{equation}
+  \boxed{\;
+  b_l = \frac{\psi_l(mx)\psi'_l(x) - m\psi_l(x)\psi'_l(mx)}
+            {\psi_l(mx)\xi'_l(x) - m\xi_l(x)\psi'_l(mx)}
+  \;}
+  \label{eq:mot_bl}
+\end{equation}
+其中 $\psi_l(z)=z\,j_l(z)$，$\xi_l(z)=z\,h_l^{(1)}(z)$ 是 Riccati--Bessel 函数，
+$x=ka=\frac{2\pi n_d a}{\lambda_0}$ 是尺度参数，$m=n/n_d$ 是相对折射率。
+\end{stepbox}
+
+\begin{stepbox}{散射截面与消光截面}
+\begin{equation}
+  C_{\text{sca}} = \frac{2\pi}{k^2}\sum_{l=1}^\infty(2l+1)\bigl(|a_l|^2+|b_l|^2\bigr)
+  \label{eq:mot_Csca}
+\end{equation}
+\begin{equation}
+  C_{\text{ext}} = \frac{2\pi}{k^2}\sum_{l=1}^\infty(2l+1)\,\Re(a_l+b_l)
+  \label{eq:mot_Cext}
+\end{equation}
+\end{stepbox}
+
+\begin{noteworthy}
+\textbf{如何解读}：
+\begin{itemize}
+  \item $|a_l|^2$ 是\textbf{电多极}贡献，$|b_l|^2$ 是\textbf{磁多极}贡献（Bohren--Huffman 记号，\S2 详细说明）
+  \item $x=ka\ll1$（小粒子）时只有电偶极 $a_1$ 显著——瑞利散射，$C_{\text{sca}}\propto\lambda^{-4}$
+  \item $x\sim1$（粒子尺寸可比拟波长）时高阶多极（磁偶极 $b_1$、电四极 $a_2$）依次出现，
+    产生 Mie 共振
+  \item $C_{\text{ext}}$ 由光学定理从前向散射振幅的虚部给出，$C_{\text{abs}}=C_{\text{ext}}-C_{\text{sca}}$
+\end{itemize}
+\end{noteworthy}
+
+\subsection{全篇谱系预告}
+
+\begin{center}\small
+\begin{tabular}{llp{6.5cm}}
+\toprule
+\textbf{章节} & \textbf{依据文献} & \textbf{内容} \\
+\midrule
+\S1 & Jackson, 标准教材 & 矢量球谐函数 $Y_{lm},\mathbf{X}_{lm}$ 数学工具 \\
+\S2 & Mie 1908 & 球散射严格解：Debye 势、Mie 系数、散射截面 \\
+\S3--\S8 & Grahn 2012 & 散射电流框架：$a_E/a_M$ 展开、投影、电流积分、分部积分、电流多极张量映射 \\
+\S9 & FC2015 & 精确多极矩的动量空间方法（Alaee 的数学源头） \\
+\S10--\S12 & Alaee 2018 & 精确多极矩表 1/表 2 推导、升级规则、截面统一 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{chaptersummary}
+
+\textbf{\S0 章节总结}
+
+\textbf{核心信息}：
+\begin{itemize}
+  \item Mie 理论是最简单、最精确的散射基准——一切方法的试金石
+  \item 散射场 = 电/磁多极模的叠加，每阶模在特定波长共振
+  \item Mie 系数 $a_l,b_l$ 闭式给出，散射截面 $C_{\text{sca}}=\frac{2\pi}{k^2}\sum(2l+1)(|a_l|^2+|b_l|^2)$
+  \item 后续按谱系展开：VSH 工具 $\to$ Mie $\to$ Grahn 电流框架 $\to$ FC2015 $\to$ Alaee
+\end{itemize}
+
+\end{chaptersummary}
+
+\newpage

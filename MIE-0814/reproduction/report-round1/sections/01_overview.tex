@@ -1,0 +1,51 @@
+\section{报告概览与执行状态}
+
+\subsection{复现目标}
+
+本报告记录 Alaee 2018 \cite{Alaee2018} 论文 Fig.\,1(a) 面板的数值复现全过程。
+复现对象是嵌入空气（host）的均匀介电球（半径 $a$、相对介电常数 $\varepsilon_r=6.25$，
+即折射率 $n=2.5$）的散射截面，按尺寸参数 $2a/\lambda\in[0.2,1.0]$ 扫描，
+对比三套独立计算：
+
+\begin{itemize}
+  \item \textbf{Mie 理论}（基准）：Bohren--Huffman 散射系数 $a_n,b_n$ \cite{Bohren1983}，逐多极提取；
+  \item \textbf{表2 精确多极矩}（Alaee 表2）：从内部场电流 $J(r)$ 做球坐标体积分，
+        保留完整球 Bessel 核 $j_l(kr)/(kr)^l$；
+  \item \textbf{表1 长波长近似}（Alaee 表1）：同一电流积分的 $kr\to0$ 极限（常数核）。
+\end{itemize}
+
+\subsection{核心结果}
+
+修复后表2 精确多极矩与 Mie 理论在全区间 $2a/\lambda\in[0.2,1.0]$ 一致。
+按图中实际使用的近零掩码 $C_{\mathrm{Mie}}<10^{-3}\max C_{\mathrm{Mie}}$，
+200 点最大相对误差为 ED $0.1404\%$、MD $0.0383\%$、EQ $0.2020\%$、MQ $0.1252\%$，
+统一合同为每通道 $<1\%$。
+在精确 $s=2a/\lambda=0.75$，论文所说的复多极矩向量误差（表1 对表2）为
+ED $136.1669\%$、MD $277.7424\%$（均 $>100\%$）；派生的散射分项 $C$ 误差则为
+ED $86.9148\%$、MD $215.9110\%$、EQ $103.0775\%$、MQ $55.7510\%$，两种口径不混用。
+
+\subsection{执行状态与 gate 停点}
+
+本轮遵循 repro-plan-v2.md 的按图多轮循环（Fig.1 $\to$ Fig.2 $\to$ Grahn 映射 $\to$ Fig.3），
+执行了单轮内 7 步。前三个（参数/规格/公式）已通过；历史 gate④ 关闭收据见
+\texttt{GATE4-FIG1-CLOSURE-RECEIPT.md}。A1 审计后仅重开 Fig.1 的指标口径条款，B1
+候选合同与双口径裁决材料待用户拍板，不影响 Mie/Table2 数值路径。
+
+\begin{table}[H]
+\centering
+\caption{第一轮 Fig.1 执行状态}
+\begin{tabular}{lccl}
+\toprule
+\textbf{环节} & \textbf{状态} & \textbf{gate} & \textbf{说明} \\
+\midrule
+step01--02 参数/规格 & 完成 & gate①② 通过 & 介电球 $\varepsilon_r=6.25$、$2a/\lambda$ 横轴 \\
+step03 理论笔记 & 完成 & --- & 讲义 §10--§12 对标 \\
+step04 实现 & 完成 & gate③ 通过 & $a_n/b_n$ 对 B\&H 原书核对 \\
+step05 运行 & 完成 & --- & 200 点数据落盘 \\
+step06 验证 & 完成 & --- & 3 层物理验证全过 \\
+表2 blocker & 已解阻 & --- & 坐标径向因子修复 \\
+W-sub 独立审查 & 完成 & --- & 六项审查全部通过 \\
+step07 收尾 & B1 重 gate & 指标裁决 & 复向量为论文主口径；C 误差仅作图示诊断 \\
+\bottomrule
+\end{tabular}
+\end{table}

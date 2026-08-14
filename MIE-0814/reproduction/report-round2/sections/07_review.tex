@@ -1,0 +1,35 @@
+\section{对抗审查记录}
+
+本轮共 3 次对抗审查（异构模型，防 self-preference），全部落盘 \texttt{opus-prompts/}：
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{clll}
+\toprule
+\# & 时机 & 审查内容 & 结果 \\
+\midrule
+06 & gate② 前 & Fig.2 spec + 金数据 3 源 & 接受：硬化为三层用途、$\varepsilon=m^2$、禁外推；Codex 数值验收闭环后 gate② 放行 \\
+07 & Layer3 前 & 论文图提取方法 + RMSE 口径 & 接受：改用 PDF vector 提取（非 vision 描点），预注册阈值 \\
+08 & gate④ 前 & 全量验收 + result\_class & \texttt{PASS\_WITH\_LIMITATIONS} / \texttt{partial\_physical\_match}（见下） \\
+\bottomrule
+\end{tabular}
+\caption{第 2 轮对抗审查（强模型/Codex 异构）}
+\end{table}
+
+\subsection{审查 08 关键裁决}
+
+\begin{itemize}
+  \item \textbf{gate④ 有条件放行}：允许以 \texttt{PASS\_WITH\_LIMITATIONS} 关闭本轮，不允许宣称完整论文图全面通过
+  \item \textbf{result\_class = partial\_physical\_match}：方法 PASS 是铁证；论文 fidelity UNRESOLVED 不反向推翻方法
+  \item \textbf{MQ 不阻塞}方法复现成功，但阻塞本轮晋级 \texttt{physical\_reproduction\_success}
+  \item \textbf{阈值定性}：0.02/0.05/0.01 保留为严格 vector fidelity 警报，不单独裁决物理成败，\textbf{未事后放宽}
+\end{itemize}
+
+\subsection{主 agent 独立核实（复述纪律）}
+
+\begin{itemize}
+  \item 审查 08 声称的数字与 \texttt{data/fig2\_layer3\_summary.json} 逐位一致（ED 0.01001 / MD 0.01070 / EQ 0.01282 / MQ 0.02556）
+  \item MQ 误差重算：共同域 212 点、14 点 $|\Delta y|>0.05$ 集中在峰区；Codex 推翻我初判的 ``max gap 0.23 削顶'' 归因（0.23 间距在断段 x=0.139$\to$0.370，不在峰区）——诚实接受，归因降级为"高曲率区未唯一归因"
+  \item graphical floor 诊断：论文 Mie 实线 vs 论文 exact marker 自身 RMSE 0.0243 也超阈值 $\rightarrow$ 论文图内部差异即超 strict gate
+\end{itemize}

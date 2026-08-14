@@ -1,0 +1,152 @@
+figure: "fig3"
+image_px:
+  width: 434
+  height: 305
+source: "C:/Users/27370/Desktop/project/optics_agent/papers/mie-f/01-主论文/Alaee_2018.ocr/images/ded61c4a86c5bce4b17917a37ac03bc4be32bbbbefeca5431a0326d5d1f3ea20_35.jpg"
+background_rgb: [255, 255, 255]
+panels:
+  - name: "a"
+    x_scale: linear
+    y_scale: log
+    confidence: medium
+    tick_label_hint: "x: linear wavelength (nm); y: log (coupled nanopatch multipole contribution, C_sca)"
+    x_axis:
+      row: 133
+      col_range: [45, 319]
+      run_len: 265
+      ticks:
+        - col: 100
+          row_range: [131, 133]
+        - col: 173
+          row_range: [131, 133]
+        - col: 246
+          row_range: [131, 133]
+      tick_count: 3
+      tick_gaps_px: [73, 73]
+      ticks_evenly_spaced: true
+    y_axis:
+      col: 45
+      row_range: [9, 133]
+      run_len: 123
+      ticks:
+        - row: 45
+          col_range: [45, 47]
+        - row: 80
+          col_range: [45, 47]
+        - row: 115
+          col_range: [45, 47]
+      tick_count: 3
+      tick_gaps_px: [35, 35]
+      ticks_evenly_spaced: true
+    origin_px:
+      x: 45
+      y: 133
+    tick_labels:
+      - region: "y_tick_label"
+        bbox_px: [37, 43, 39, 44]
+      - region: "y_tick_label"
+        bbox_px: [23, 53, 23, 56]
+      - region: "y_tick_label"
+        bbox_px: [39, 79, 40, 81]
+      - region: "y_tick_label"
+        bbox_px: [38, 111, 38, 118]
+  - name: "b"
+    x_scale: linear
+    y_scale: linear
+    confidence: medium
+    tick_label_hint: "x: linear wavelength (nm); y: linear relative error %"
+    x_axis:
+      row: 269
+      col_range: [45, 319]
+      run_len: 242
+      ticks:
+        - col: 173
+          row_range: [267, 269]
+        - col: 246
+          row_range: [267, 269]
+      tick_count: 2
+      tick_gaps_px: []
+      ticks_evenly_spaced: n/a
+    y_axis:
+      col: 45
+      row_range: [145, 269]
+      run_len: 123
+      ticks:
+        - row: 176
+          col_range: [45, 47]
+        - row: 207
+          col_range: [45, 47]
+        - row: 238
+          col_range: [45, 47]
+      tick_count: 3
+      tick_gaps_px: [31, 31]
+      ticks_evenly_spaced: true
+    origin_px:
+      x: 45
+      y: 269
+    tick_labels:
+      - region: "x_tick_label"
+        bbox_px: [106, 277, 106, 282]
+      - region: "x_tick_label"
+        bbox_px: [167, 277, 167, 279]
+      - region: "x_tick_label"
+        bbox_px: [176, 277, 177, 282]
+      - region: "x_tick_label"
+        bbox_px: [240, 277, 240, 282]
+      - region: "x_tick_label"
+        bbox_px: [244, 277, 244, 282]
+      - region: "x_tick_label"
+        bbox_px: [93, 278, 93, 281]
+      - region: "x_tick_label"
+        bbox_px: [171, 278, 171, 282]
+      - region: "x_tick_label"
+        bbox_px: [250, 278, 252, 280]
+      - region: "x_tick_label"
+        bbox_px: [98, 279, 98, 281]
+      - region: "x_tick_label"
+        bbox_px: [180, 280, 180, 282]
+      - region: "y_tick_label"
+        bbox_px: [25, 145, 25, 148]
+      - region: "y_tick_label"
+        bbox_px: [29, 145, 29, 147]
+      - region: "y_tick_label"
+        bbox_px: [34, 145, 36, 148]
+      - region: "y_tick_label"
+        bbox_px: [40, 145, 40, 147]
+      - region: "y_tick_label"
+        bbox_px: [30, 172, 34, 172]
+      - region: "y_tick_label"
+        bbox_px: [37, 174, 39, 175]
+      - region: "y_tick_label"
+        bbox_px: [36, 205, 36, 210]
+      - region: "y_tick_label"
+        bbox_px: [40, 205, 40, 209]
+      - region: "y_tick_label"
+        bbox_px: [30, 206, 33, 208]
+      - region: "y_tick_label"
+        bbox_px: [31, 234, 33, 235]
+      - region: "y_tick_label"
+        bbox_px: [36, 266, 36, 269]
+      - region: "y_tick_label"
+        bbox_px: [40, 266, 40, 269]
+curve_colors:
+  - rgb: [224, 224, 96]
+    pixels: 1513
+  - rgb: [224, 128, 96]
+    pixels: 1103
+  - rgb: [96, 160, 192]
+    pixels: 835
+  - rgb: [224, 192, 160]
+    pixels: 436
+  - rgb: [32, 128, 192]
+    pixels: 226
+  - rgb: [160, 96, 160]
+    pixels: 395
+  - rgb: [160, 128, 64]
+    pixels: 379
+  - rgb: [160, 192, 224]
+    pixels: 90
+  - rgb: [224, 160, 32]
+    pixels: 74
+  - rgb: [96, 64, 128]
+    pixels: 68

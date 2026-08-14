@@ -1,0 +1,115 @@
+\section{散射场的多极展开}
+%=============================================================================
+
+本章建立散射场的多极展开形式——整个 Grahn 推导的出发点。\S1 建立的矢量球谐基
+$\mathbf{X}_{lm}$ 在此把散射场 $\mathbf{E}_s,\mathbf{H}_s$ 展开为电/磁多极模的叠加：
+先给出 Jackson 的经典形式（Eq. 9.120），再过渡到 Grahn 的归一化约定（Eqs.(1)--(2)），
+并说明 $a_E,a_M$ 的物理含义与两套约定之间的换算。
+
+\subsection{Jackson 的经典多极展开}
+
+Jackson \textit{Classical Electrodynamics} 第 9 章给出了辐射场的多极展开。从矢势 $\mathbf{A}$ 出发，
+在库仑规范下求解 Helmholtz 方程，并利用矢量球谐函数展开，可得电场 $\mathbf{E}$ 和磁场 $\mathbf{H}$ 的展开式。
+
+Jackson Eq.(9.120) 的形式为：
+\begin{align}
+  \mathbf{E}(r,\theta,\phi) &= \sum_{l=1}^\infty\sum_{m=-l}^l \Bigl[
+    a_E(l,m)\,\frac{1}{k}\nabla\times\bigl(h_l^{(1)}(kr)\mathbf{X}_{lm}\bigr) \notag\\
+    &\qquad\qquad\qquad + a_M(l,m)\,h_l^{(1)}(kr)\mathbf{X}_{lm} \Bigr] \label{eq:Jackson_E}
+\end{align}
+
+\begin{stepbox}{为什么展开形式是这样？}
+两项分别对应两种独立的多极模：
+\begin{itemize}
+  \item \textbf{电多极项}（含 $\nabla\times$）：电场有径向分量，磁场无径向分量——横磁模（TM）
+  \item \textbf{磁多极项}（不含 $\nabla\times$）：电场无径向分量，磁场有径向分量——横电模（TE）
+\end{itemize}
+$a_E$ 中的 $E$ 代表"electric"（电多极），$a_M$ 中的 $M$ 代表"magnetic"（磁多极）。
+\end{stepbox}
+
+\subsection{Grahn 的归一化约定}
+
+Grahn 2012 在 Jackson 的基础上选择了不同的归一化系数，使散射截面公式更简洁。
+Eqs.(1)--(2) 为：
+
+\begin{align}
+  \mathbf{E}_s(r,\theta,\phi) &= E_0\sum_{l=1}^\infty\sum_{m=-l}^l
+    i^l[\pi(2l+1)]^{1/2} \Bigl[
+      a_E(l,m)\,\frac{1}{k}\nabla\times\bigl(h_l^{(1)}(kr)\mathbf{X}_{lm}\bigr) \notag\\
+    &\qquad\qquad\qquad + a_M(l,m)\,h_l^{(1)}(kr)\mathbf{X}_{lm} \Bigr] \label{eq:Grahn_E}\\[0.8em]
+  \mathbf{H}_s(r,\theta,\phi) &= \frac{E_0}{\eta}\sum_{l=1}^\infty\sum_{m=-l}^l
+    i^{l-1}[\pi(2l+1)]^{1/2} \Bigl[
+      a_M(l,m)\,\frac{1}{k}\nabla\times\bigl(h_l^{(1)}(kr)\mathbf{X}_{lm}\bigr) \notag\\
+    &\qquad\qquad\qquad + a_E(l,m)\,h_l^{(1)}(kr)\mathbf{X}_{lm} \Bigr] \label{eq:Grahn_H}
+\end{align}
+
+其中 $h_l^{(1)}(x)$ 是第一类球 Hankel 函数（对应\textbf{出射波}边条件），
+$\eta = \sqrt{\mu_0/\epsilon_0\epsilon_{r,d}}$ 是周围介质的波阻抗，
+$k = \omega\sqrt{\mu_0\epsilon_0\epsilon_{r,d}}$ 是波数。
+
+\begin{stepbox}{对比 Jackson 与 Grahn 的约定}
+Jackson Eq.(9.120) 的归一化系数不同：
+\begin{itemize}
+  \item Jackson 使用 $[l(l+1)]^{-1/2}$ 归一化 $\mathbf{X}_{lm}$，Grahn 相同
+  \item Jackson 的展开系数定义中不含 $i^l[\pi(2l+1)]^{1/2}$ 因子
+  \item Grahn 引入这些因子后，散射截面 $C_s$ 的表达式简化为单纯的模平方求和（见 \S12）
+  \item \textbf{映射时需注意}：同一组 $a_E/a_M$ 在两种约定下数值不同
+\end{itemize}
+\end{stepbox}
+
+\subsection{电场和磁场的对称性}
+
+对比~(\ref{eq:Grahn_E}) 和~(\ref{eq:Grahn_H}) 可见一种\textbf{对偶对称性}：
+\begin{align}
+  \mathbf{E}_s &: a_E \leftrightarrow \nabla\times\text{项},\quad a_M \leftrightarrow \text{无旋项} \\
+  \mathbf{H}_s &: a_M \leftrightarrow \nabla\times\text{项},\quad a_E \leftrightarrow \text{无旋项}
+\end{align}
+
+\begin{stepbox}{为什么 $a_E$ 和 $a_M$ 在 $\mathbf{E}$ 和 $\mathbf{H}$ 中互换角色？}
+这是 Maxwell 方程组的对偶性（$\mathbf{E}\leftrightarrow\eta\mathbf{H}$ 互换，
+电多极 $\leftrightarrow$ 磁多极互换）在展开式中的体现。
+这一对称性将在 \S4 中帮助我们推导 $a_E$ 和 $a_M$ 的投影公式。
+\end{stepbox}
+
+另需注意：求和从 $l=1$ 开始（$l=0$ 对应单极子项，对于辐射场，单极子不贡献辐射）。
+
+\begin{chaptersummary}
+
+\textbf{§3 章节总结}
+
+本章给出了散射场的多极展开显式形式，这是整个推导的出发点。
+
+\textbf{电场（Grahn Eq.(1)）：}
+$$
+\mathbf{E}_s = E_0\sum_{lm} i^l[\pi(2l+1)]^{1/2}
+\Bigl[a_E\,\frac{1}{k}\nabla\times\bigl(h_l^{(1)}\mathbf{X}_{lm}\bigr)
++ a_M\,h_l^{(1)}\mathbf{X}_{lm}\Bigr]
+$$
+
+\textbf{磁场（Grahn Eq.(2)）：}
+$$
+\mathbf{H}_s = \frac{E_0}{\eta}\sum_{lm} i^{l-1}[\pi(2l+1)]^{1/2}
+\Bigl[a_M\,\frac{1}{k}\nabla\times\bigl(h_l^{(1)}\mathbf{X}_{lm}\bigr)
++ a_E\,h_l^{(1)}\mathbf{X}_{lm}\Bigr]
+$$
+
+\textbf{关键理解：$a_E$ 和 $a_M$ 的角色在 $\mathbf{E}$ 和 $\mathbf{H}$ 中互换。}
+\begin{itemize}
+  \item 电多极（$a_E$）在 $\mathbf{E}$ 中带 $\nabla\times$（TM 模，有径向 $\mathbf{E}$），在 $\mathbf{H}$ 中不带。
+  \item 磁多极（$a_M$）在 $\mathbf{E}$ 中不带（TE 模，纯角向），在 $\mathbf{H}$ 中带 $\nabla\times$。
+\end{itemize}
+这是 Maxwell 方程组的对偶性 $\mathbf{E}\leftrightarrow\eta\mathbf{H}$ 的体现。
+
+\textbf{与 Jackson 的对比：} Jackson Eq.(9.120) 没有 $i^l[\pi(2l+1)]^{1/2}$ 因子，
+Grahn 引入这些系数后散射截面 $C_s$ 简化为各模的模平方求和，形式更简洁。
+
+\textbf{径向函数：} 出射波边条件固定为球 Hankel 第一类 $h_l^{(1)}(kr)$，
+它满足球 Bessel 方程，在无穷远处对应 $e^{ikr}/r$ 行为。
+
+\textbf{求和范围：} $l=1$ 起（$l=0$ 单极子不产生辐射），$|m|\le l$。
+
+\end{chaptersummary}
+
+\newpage
+
+%=============================================================================

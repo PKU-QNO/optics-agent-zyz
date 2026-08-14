@@ -1,0 +1,44 @@
+\section{理论：Grahn 映射与双路径契约}
+
+\subsection{host、时间和归一化}
+
+采用 $e^{-i\omega t}$、$\mathbf E_i=\hat{\mathbf x}E_0e^{ikz}$。host 的绝对介电常数、波数和阻抗为
+\begin{equation}
+ \epsilon_d=\epsilon_0\epsilon_{rd},\qquad k=\omega\sqrt{\mu_0\epsilon_d},\qquad \eta_d=\sqrt{\mu_0/\epsilon_d}.
+\end{equation}
+散射电流为 $\mathbf J_S=-i\omega(\epsilon-\epsilon_d)\mathbf E$。代码使用 $a=1,E_0=1$ 和无量纲 $\widetilde{\mathbf J}=(\epsilon_r-\epsilon_{rd})\mathbf E$；公共因子解析合并，故系数与 Mie $a_n,b_n$ 同为无量纲。
+
+Grahn 原文 Eq.(20) 的任意入射全 $m$ 截面写成
+\begin{equation}
+ C_{\rm sca}=\frac{\pi}{k^2}\sum_{l,m}(2l+1)\left(|a_E(l,m)|^2+|a_M(l,m)|^2\right),\quad m=-l,\ldots,l .
+\end{equation}
+本报告的 canonical 量为 $C_{\rm sca}/(\lambda_d^2/(2\pi))$；不把 x 偏振球体的 $m=\pm1$ 简化误用于一般源。
+
+\subsection{M2 四对象与 $Q^e$ 换算}
+
+Grahn Eq.(27) 定义 $M^{(l)}=i[(l-1)!\omega]^{-1}\int \mathbf J\,\mathbf r\cdots\mathbf r\,d^3r$。因此 $M^{(2)}$ 是一般不对称的 3x3 原始矩，而不是先验对称的 quadrupole。实现逐项分解为
+\begin{align}
+ M_{\rm STF}&=\tfrac12(M+M^T)-\tfrac13I\,\mathrm{tr}M, & M_A&=\tfrac12(M-M^T),\\
+ M_{\rm tr}&=\tfrac13I\,\mathrm{tr}M, & M&=M_{\rm STF}+M_A+M_{\rm tr}.
+\end{align}
+STF 是 5 维电四极对象，反对称部分的 3 维对偶给出 $m_\gamma=\frac{i\omega}{2}\epsilon_{\gamma\alpha\beta}M^{(2)}_{\alpha\beta}$，迹是暗模。Alaee 记号的 $Q^e=6\,\mathrm{STF}(M_2)$ 只在无 Bessel 核的长波域成立；Grahn (39)--(41) 直接消费 Eq.(27) 的 raw 组合。故 API 接受 raw 或 stf，拒绝未转换的 qe 输入（需要先做 $Q^e/6$）。
+
+\subsection{路径 A：无核张量映射}
+
+路径 A 对 $p=M^{(1)}$、$M^{(2)}$ 和 $O=M^{(3)}$ 做体积分，随后应用 Grahn (39)--(48)：电四极 $a_E(2,m)$、含八极修正的电偶极 $a_E(1,m)$、磁四极 (44)--(46)，以及从 raw 反对称部分得到磁偶极 (47)--(48)。系数为
+\begin{equation}
+ C_1=-\frac{ik^3}{6\pi\epsilon_dE_0},\quad C_2=-\frac{k^4}{60\pi\epsilon_dE_0},\quad C_3=-\frac{ik^5}{210\pi\epsilon_dE_0}.
+\end{equation}
+它与 Alaee Table 1 都是无核长波近似，所以 A-vs-Table-1 只作为代数诊断；A-vs-Mie 和 Table1-vs-Mie 分开报告截断误差。
+
+\subsection{路径 B：有限 Bessel 核积分}
+
+路径 B 使用 Grahn Eq.(15)(16) 的 clean 形式（等价于 Eq.(13)(14) 的分部积分结果），含 $j_l(kr)$ 或 $\Psi_l(kr)=krj_l(kr)$ 核以及 Eq.(17)--(19) 的 $O_{lm},\tau_{lm},\pi_{lm}$。$\Psi_l''$ 用 Riccati 递推和 $\rho\to0$ 级数，不用二阶有限差分。真实球的电流在边界不连续，直接导数式仅对注册的全空间 $C^2$ bump 开放，避免遗漏表面分布项。
+
+\subsection{逐 $m$、相位和独立证据}
+
+目标系数逐 $m$ 比较 $l=1,2$ 的 $m=-l,\ldots,l$ 全域；通道权重 $(2l+1)(|a_E|^2+|a_M|^2)\ge10^{-4}$ 时用复相对误差，低于 mask 时用 absolute floor，零目标用 $10^{-8}$ absolute-zero。相位由 Eq.(22) 的
+\begin{equation}
+ C_{\rm ext,x}=-\frac{\pi}{k^2}\sum_l\sum_{m=\pm1}(2l+1)\operatorname{Re}[m a_E(l,m)+a_M(l,m)]
+\end{equation}
+锁定；这使 $a/b$ 互换、$m$ 符号或 $a_E/a_M$ 相位错误不会被模平方截面掩盖。

@@ -42,7 +42,7 @@ public class Alaee2018Fig3ComsolScatteringBEM {
     currentCaseId = caseId;
     currentMeshScale = meshScale;
     Model model = ModelUtil.create("Alaee2018Fig3BEM");
-    model.modelNode().create("comp1");
+    model.component().create("comp1");
     setParameters(model);
     defineJohnsonChristy(model);
     buildGeometry(model);
@@ -59,8 +59,8 @@ public class Alaee2018Fig3ComsolScatteringBEM {
       + " physics_tag=embe"
       + " x_alaee=0.36 lambda_nm=" + (500.0/0.36)
       + " mesh_scale=" + currentMeshScale
-      + " surface_elements=" + model.mesh("mesh1").getNumElem()
-      + " min_quality=" + model.mesh("mesh1").getMinQuality()
+      + " surface_elements=" + model.component("comp1").mesh("mesh1").getNumElem()
+      + " min_quality=" + model.component("comp1").mesh("mesh1").getMinQuality()
       + " sbc=false pml=false air_box=false"
       + " postprocess=surface_farfield_vsh_ready"
     );
@@ -97,8 +97,10 @@ public class Alaee2018Fig3ComsolScatteringBEM {
     model.func("kAu").set("extrap", "none");
     model.func("kAu").set("argunit", "nm");
     model.func("kAu").set("fununit", "1");
-    model.variable().create("matvars");
-    model.variable("matvars").set("epsAu", "(nAu(lambda0)+i*kAu(lambda0))^2");
+    model.component("comp1").variable().create("matvars");
+    model.component("comp1").variable("matvars").set(
+      "epsAu", "(nAu(lambda0)+i*kAu(lambda0))^2"
+    );
   }
 
   private static String[][] toTable(String[][] src, int valueColumn) {
@@ -111,100 +113,150 @@ public class Alaee2018Fig3ComsolScatteringBEM {
   }
 
   private static void buildGeometry(Model model) {
-    model.geom().create("geom1", 3);
-    model.geom("geom1").lengthUnit("nm");
-    model.geom("geom1").create("diskLower", "Cylinder");
-    model.geom("geom1").feature("diskLower").set("r", "a");
-    model.geom("geom1").feature("diskLower").set("h", "t");
-    model.geom("geom1").feature("diskLower").set(
+    model.component("comp1").geom().create("geom1", 3);
+    model.component("comp1").geom("geom1").lengthUnit("nm");
+    model.component("comp1").geom("geom1").create("diskLower", "Cylinder");
+    model.component("comp1").geom("geom1").feature("diskLower").set("r", "a");
+    model.component("comp1").geom("geom1").feature("diskLower").set("h", "t");
+    model.component("comp1").geom("geom1").feature("diskLower").set(
       "pos", new String[]{"0", "0", "-g/2-t"}
     );
-    model.geom("geom1").feature("diskLower").set("selresult", true);
-    model.geom("geom1").feature("diskLower").set("selresultshow", "dom");
-    model.geom("geom1").create("diskUpper", "Cylinder");
-    model.geom("geom1").feature("diskUpper").set("r", "a");
-    model.geom("geom1").feature("diskUpper").set("h", "t");
-    model.geom("geom1").feature("diskUpper").set(
+    model.component("comp1").geom("geom1").feature("diskLower").set("selresultshow", "bnd");
+    model.component("comp1").geom("geom1").create("diskUpper", "Cylinder");
+    model.component("comp1").geom("geom1").feature("diskUpper").set("r", "a");
+    model.component("comp1").geom("geom1").feature("diskUpper").set("h", "t");
+    model.component("comp1").geom("geom1").feature("diskUpper").set(
       "pos", new String[]{"0", "0", "g/2"}
     );
-    model.geom("geom1").feature("diskUpper").set("selresult", true);
-    model.geom("geom1").feature("diskUpper").set("selresultshow", "dom");
-    model.geom("geom1").run();
+    model.component("comp1").geom("geom1").feature("diskUpper").set("selresultshow", "bnd");
+    model.component("comp1").geom("geom1").run();
     System.out.println(
       "B41_BEM_GEOMETRY_OK objects=2 air_box=false infinite_void=true"
     );
   }
 
   private static void buildMaterials(Model model) {
-    model.material().create("matGoldLower", "Common");
-    model.material("matGoldLower").selection().named("geom1_diskLower_dom");
-    setGoldProperties(model, "matGoldLower");
-    model.material().create("matGoldUpper", "Common");
-    model.material("matGoldUpper").selection().named("geom1_diskUpper_dom");
-    setGoldProperties(model, "matGoldUpper");
+    model.component("comp1").material().create("matAir", "Common");
+    model.component("comp1").material("matAir").selection().set(new int[]{});
+    model.component("comp1").material("matAir").selection().allVoids();
+    model.component("comp1").material("matAir").propertyGroup("def").set(
+      "relpermittivity", "1"
+    );
+    model.component("comp1").material("matAir").propertyGroup("def").set(
+      "relpermeability", "1"
+    );
+    model.component("comp1").material("matAir").propertyGroup("def").set(
+      "electricconductivity", "0[S/m]"
+    );
+    // B41b PEC path: the two disk surfaces are PEC boundaries (BEM default),
+    // so no dispersive gold material domain is defined here.  (matGoldLower/
+    // matGoldUpper removed together with the Wave Equation, Electric nodes.)
   }
 
   private static void setGoldProperties(Model model, String tag) {
-    model.material(tag).propertyGroup("def").set(
+    model.component("comp1").material(tag).propertyGroup("def").set(
       "relpermittivity", new String[]{"epsAu", "0", "0", "0", "epsAu", "0", "0", "0", "epsAu"}
     );
-    model.material(tag).propertyGroup("def").set(
+    model.component("comp1").material(tag).propertyGroup("def").set(
       "relpermeability", new String[]{"1", "0", "0", "0", "1", "0", "0", "0", "1"}
     );
-    model.material(tag).propertyGroup("def").set("electricconductivity", "0[S/m]");
+    model.component("comp1").material(tag).propertyGroup("def").set(
+      "electricconductivity", "0[S/m]"
+    );
   }
 
   private static void buildPhysics(Model model) {
-    model.physics().create("embe", "ElectromagneticWavesBoundaryElements", "geom1");
-    model.physics("embe").selection().allVoids();
-    model.physics("embe").feature("wee1").set("DisplacementFieldModel", "RelativePermittivity");
-    model.physics("embe").feature("wee1").set("epsilonr_mat", "userdef");
-    model.physics("embe").feature("wee1").set("epsilonr", "epsHost");
-    model.physics("embe").feature("wee1").set("mur_mat", "userdef");
-    model.physics("embe").feature("wee1").set("mur", "1");
-    model.physics("embe").feature("wee1").set("sigma_mat", "userdef");
-    model.physics("embe").feature("wee1").set("sigma", "0[S/m]");
+    model.component("comp1").physics().create(
+      "embe", "ElectromagneticWavesBoundaryElements", "geom1"
+    );
+    // B41: clear default domain selection before allVoids(), else FreeTri
+    // cannot infer a BEM boundary selection (surface_elements=0 bug in r4).
+    model.physics("embe").selection().set(new int[]{});
+    model.component("comp1").physics("embe").selection().set(new int[]{});
+    model.component("comp1").physics("embe").selection().allVoids();
+    model.component("comp1").physics("embe").feature("wee1").set("DisplacementFieldModel", "RelativePermittivity");
+    model.component("comp1").physics("embe").feature("wee1").set("epsilonr_mat", "userdef");
+    model.component("comp1").physics("embe").feature("wee1").set("epsilonr", "epsHost");
+    model.component("comp1").physics("embe").feature("wee1").set("mur_mat", "userdef");
+    model.component("comp1").physics("embe").feature("wee1").set("mur", "1");
+    model.component("comp1").physics("embe").feature("wee1").set("sigma_mat", "userdef");
+    model.component("comp1").physics("embe").feature("wee1").set("sigma", "0[S/m]");
 
-    model.physics("embe").create("weeAuLower", "WaveEquationElectric", 3);
-    model.physics("embe").feature("weeAuLower").selection().named("geom1_diskLower_dom");
-    model.physics("embe").feature("weeAuLower").set("DisplacementFieldModel", "RelativePermittivity");
-    model.physics("embe").create("weeAuUpper", "WaveEquationElectric", 3);
-    model.physics("embe").feature("weeAuUpper").selection().named("geom1_diskUpper_dom");
-    model.physics("embe").feature("weeAuUpper").set("DisplacementFieldModel", "RelativePermittivity");
+    // B41b-IBC path, step 1 (PEC approximation): the BEM scattered-field
+    // formulation only supports constant-permittivity dielectric scatterers
+    // and metallic PEC scatterers (official COMSOL 6.4 doc: "supports both
+    // metallic PEC scatterers and dielectric scatterers"; a Wave Equation,
+    // Electric node requires constant material params and cannot be
+    // dispersive like Johnson-Christy gold).  Dispersive-metal material
+    // domains (weeAuLower/weeAuUpper) leave the cylinder surfaces unselected
+    // -> surface_elements=0.  Drop the dispersive Wave Equation, Electric
+    // domains so the two cylinder surfaces fall back to the BEM default PEC
+    // boundary, which IS meshed.  This is the Zs->0 limit of the intended
+    // Impedance Boundary Condition; IBC (finite surface impedance) is added
+    // next once the PEC path is confirmed.
+    // (weeAuLower/weeAuUpper removed; the two disk surfaces become PEC.)
 
-    model.physics("embe").prop("BackgroundField").set("SolveFor", "scatteredField");
-    model.physics("embe").prop("BackgroundField").set(
+    model.component("comp1").physics("embe").prop("BackgroundField").set("SolveFor", "scatteredField");
+    model.component("comp1").physics("embe").prop("BackgroundField").set(
       "Eb", new String[]{"E0*exp(-i*k0*z)", "0", "0"}
     );
+    // B42 scheme A: ask the BEM interface to form COMSOL's native
+    // Stratton-Chu far-field operator on every PEC surface adjacent to the
+    // homogeneous infinite void.  FarName=Efar generates the direction
+    // functions Efarx(dx,dy,dz), Efary(...), and Efarz(...).  COMSOL also
+    // registers embe.Efarx/embe.Efary/embe.Efarz as variables, but the
+    // callable direction functions themselves are intentionally unprefixed.
+    model.component("comp1").physics("embe").create(
+      "ffc1", "FarFieldCalculation", 2
+    );
+    model.component("comp1").physics("embe").feature("ffc1")
+      .selection().geom("geom1", 2);
+    model.component("comp1").physics("embe").feature("ffc1")
+      .selection().all();
+    model.component("comp1").physics("embe").feature("ffc1")
+      .set("FarName", "Efar");
+    model.component("comp1").physics("embe").feature("ffc1")
+      .set("FarFieldBoundarySide", "FarFieldBoundaryOutside");
     System.out.println(
       "B41_BEM_PHYSICS_OK physics_type=ElectromagneticWavesBoundaryElements"
       + " physics_tag=embe formulation=scatteredField"
       + " incident=E0_exp_minus_i_k0_z polarization=x propagation=plus_z"
-      + " finite_wave_equations=2 far_field_calculation=false"
-      + " far_field_path=infinite_void_sphere_interp"
+      + " finite_wave_equations=2 far_field_calculation=true"
+      + " far_field_feature=ffc1 far_field_name=Efar"
+      + " far_field_selection=all_pec_surfaces boundary_side=outside"
+      + " far_field_path=Efar_direction_functions"
     );
   }
 
   private static void buildSurfaceMesh(Model model) {
-    model.mesh().create("mesh1", "geom1");
-    model.mesh("mesh1").feature().create("size1", "Size");
-    model.mesh("mesh1").feature("size1").set(
+    model.component("comp1").mesh().create("mesh1", "geom1");
+    model.component("comp1").mesh("mesh1").feature().create("size1", "Size");
+    model.component("comp1").mesh("mesh1").feature("size1").set(
       "hmax", Double.toString(35.0*currentMeshScale) + "[nm]"
     );
-    model.mesh("mesh1").feature("size1").set(
+    model.component("comp1").mesh("mesh1").feature("size1").set(
       "hmin", Double.toString(8.0*currentMeshScale) + "[nm]"
     );
-    model.mesh("mesh1").feature().create("ftri1", "FreeTri");
-    model.mesh("mesh1").feature("ftri1").selection().all();
-    model.mesh("mesh1").run();
+    model.component("comp1").mesh("mesh1").feature().create("ftri1", "FreeTri");
+    // In a 3-D model FreeTri operates on boundaries (GEOMDIM=2), and its
+    // default selection is empty. Calling all() without first fixing the
+    // selection dimension left the two material-domain cylinders unmeshed
+    // (B41 r3: surface_elements=0). The official COMSOL 6.3
+    // rcs_sphere_bem.mph stores ftri1 as dim=2/hDim=2; make that contract
+    // explicit here so all exterior faces of both Au domains are selected.
+    model.component("comp1").mesh("mesh1").feature("ftri1")
+      .selection().geom("geom1", 2);
+    model.component("comp1").mesh("mesh1").feature("ftri1").selection().all();
+    model.component("comp1").mesh("mesh1").run();
     System.out.println(
       "B41_BEM_SURFACE_MESH_OK"
       + " case_id=" + currentCaseId
-      + " mesh_type=FreeTri mesh_scale=" + currentMeshScale
+      + " mesh_type=FreeTri selection_dim=2 selection_scope=all_boundaries"
+      + " mesh_scale=" + currentMeshScale
       + " hmax_nm=" + (35.0*currentMeshScale)
       + " hmin_nm=" + (8.0*currentMeshScale)
-      + " surface_elements=" + model.mesh("mesh1").getNumElem()
-      + " min_quality=" + model.mesh("mesh1").getMinQuality()
+      + " surface_elements=" + model.component("comp1").mesh("mesh1").getNumElem()
+      + " min_quality=" + model.component("comp1").mesh("mesh1").getMinQuality()
     );
   }
 
@@ -224,15 +276,11 @@ public class Alaee2018Fig3ComsolScatteringBEM {
     final int nPhi = 32;
     double[][] gauss = gaussLegendre(nMu);
     model.result().dataset("dset1").set("solution", "sol1");
-    model.result().numerical().create("interpFar", "Interp");
-    model.result().numerical("interpFar").set("data", "dset1");
-    model.result().numerical("interpFar").set("edim", 3);
-    model.result().numerical("interpFar").set("expr", new String[]{
-      "embe.relEx", "embe.relEy", "embe.relEz"
-    });
+    model.result().numerical().create("gevFar", "EvalGlobal");
+    model.result().numerical("gevFar").set("data", "dset1");
 
     String filename = "alaee2018_fig3_" + currentCaseId + "_farfield.csv";
-    PrintWriter out = new PrintWriter(filename, "UTF-8");
+    java.io.PrintWriter out = new java.io.PrintWriter(filename, "UTF-8");
     out.println("mu,phi_rad,weight,dx,dy,dz,Efarx_re,Efarx_im,Efary_re,Efary_im,Efarz_re,Efarz_im");
     double weightedNorm2 = 0.0;
     try {
@@ -248,26 +296,19 @@ public class Alaee2018Fig3ComsolScatteringBEM {
           String sx = String.format(Locale.US, "%.17g", dx);
           String sy = String.format(Locale.US, "%.17g", dy);
           String sz = String.format(Locale.US, "%.17g", dz);
-          model.result().numerical("interpFar").setInterpolationCoordinates(
-            new double[][]{{1.0e-4*dx}, {1.0e-4*dy}, {1.0e-4*dz}}
-          );
-          double[][] real = model.result().numerical("interpFar").getReal();
-          double[][] imag = model.result().numerical("interpFar").getImag();
+          model.result().numerical("gevFar").set("expr", new String[]{
+            "Efarx(" + sx + "," + sy + "," + sz + ")/E0",
+            "Efary(" + sx + "," + sy + "," + sz + ")/E0",
+            "Efarz(" + sx + "," + sy + "," + sz + ")/E0"
+          });
+          double[][] real = model.result().numerical("gevFar").getReal();
+          double[][] imag = model.result().numerical("gevFar").getImag();
           double rx = resultValue(real, 0);
           double ry = resultValue(real, 1);
           double rz = resultValue(real, 2);
           double ix = resultValue(imag, 0);
           double iy = resultValue(imag, 1);
           double iz = resultValue(imag, 2);
-          // Convert the physical field at Rfar=100 um to COMSOL's standard
-          // 1 m far-field amplitude.  The common phase exp(+ikR) is irrelevant
-          // for modal powers and is intentionally not restored.
-          rx *= 1.0e-4;
-          ry *= 1.0e-4;
-          rz *= 1.0e-4;
-          ix *= 1.0e-4;
-          iy *= 1.0e-4;
-          iz *= 1.0e-4;
           double weight = wMu*2.0*Math.PI/nPhi;
           weightedNorm2 += weight*(rx*rx+ix*ix+ry*ry+iy*iy+rz*rz+iz*iz);
           out.printf(
@@ -285,14 +326,15 @@ public class Alaee2018Fig3ComsolScatteringBEM {
       + " case_id=" + currentCaseId
       + " n_mu=" + nMu + " n_phi=" + nPhi
       + " samples=" + (nMu*nPhi)
-      + " evaluation_radius_m=1.0E-4"
+      + " far_field_feature=ffc1 far_field_name=Efar"
+      + " evaluation=Efar_direction_functions_over_E0"
       + " quadrature_weight_sum=" + (4.0*Math.PI)
       + " C_sca_farfield_m2=" + weightedNorm2
       + " filename=" + filename
     );
   }
 
-  private static double resultValue(double[][] values, int index) {
+private static double resultValue(double[][] values, int index) {
     if (values == null || values.length == 0) return 0.0;
     if (values.length == 1 && values[0].length > index) return values[0][index];
     if (values.length > index && values[index].length > 0) return values[index][0];

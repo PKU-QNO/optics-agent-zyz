@@ -1,0 +1,51 @@
+\section{代码实现与测试}
+
+\subsection{复用（第 1/2 轮共享）}
+
+\begin{itemize}
+  \item \texttt{code/params.py}：$\varepsilon_r=6.25$、$x$ 换算、Wiscombe 截断 \cite{Wiscombe1980}
+  \item \texttt{code/baseline\_mie.py}：独立 Mie 基准（scipy 直算 $a_n/b_n$ + 截面）
+  \item \texttt{code/mie\_theory.py}：内部场 $c_n/d_n$ + $E_{\rm in}$ + $J$（复折射率路径本轮补齐）
+  \item \texttt{code/multipole\_moments.py}：表2 精确多极矩（Eq.1 解析常数）
+  \item \texttt{code/multipole\_approx.py}：表1 近似（Layer2 退化基准）
+\end{itemize}
+
+\subsection{新增（本轮专属）}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{ll}
+\toprule
+文件 & 职责 \\
+\midrule
+\texttt{code/run\_fig2.py} & 金球扫描：波长域插值禁外推 + 同一 $m$ 双方法 + 误差 mask + gate 摘要 \\
+\texttt{code/plot\_fig2.py} & 双面板复现图（图标准 lessons 12） \\
+\texttt{code/build\_fig2\_sensitivity.py} & 三源材料敏感性包络 \\
+\texttt{code/report\_fig2\_ratios.py} & 九点比值表 \\
+\texttt{code/extract\_fig2\_vector.py} & 论文图 PDF vector 提取（轴 tick 拟合标定） \\
+\texttt{code/compare\_fig2\_paper.py} & 论文曲线 vs 本地曲线 RMSE/峰位/峰高 + graphical floor \\
+\texttt{tests/test\_fig2\_reproduction.py} & 插值域/passivity/200 点 gate/网格收敛回归 \\
+\texttt{tests/test\_fig2\_layer3.py} & Layer3 专项（vector 提取/对比/gate 4 回归） \\
+\bottomrule
+\end{tabular}
+\caption{第 2 轮新增代码文件}
+\end{table}
+
+\subsection{关键实现细节}
+
+\begin{enumerate}
+  \item \textbf{横轴独立变量}：$s = 2a/\lambda \in [0.2, 1.0]$，200 点均匀采样；金球 $a=250$~nm，$\lambda = 500/s$~nm（非均匀波长网格）
+  \item \textbf{同一 $m$ 双方法}：每点先由数据源插值 $m(\lambda) = n+i\kappa$，再分别算 Mie per-multipole 与表2 体积分（\texttt{compute\_gold\_point}）
+  \item \textbf{误差 mask}：相对误差只在 Mie $\geq 10^{-4}$ 统计（近零通道看绝对误差）；gate = max rel $<1\%$ 且 p95 $<0.1\%$ 且 max abs $<2\times10^{-3}$
+  \item \textbf{材料源域}：\texttt{\_valid\_x\_grid} 只生成数据源覆盖内的 $x$（JC 上限 $\lambda=1935$~nm $\rightarrow x\geq0.2584$；McPeak $\lambda=1700$~nm）；越界抛错禁止静默外推
+  \item \textbf{复数 Mie}：$\operatorname{Im}(m)>0$ 主值；$C_{\rm abs}\geq0$ 校验；miepython 独立交叉 $a_n/b_n/c_n/d_n$
+\end{enumerate}
+
+\subsection{测试}
+
+\begin{itemize}
+  \item 完整回归：\textbf{67 passed, 1 skipped}（skip = 原介电球慢速扫描，不影响已落盘验收）
+  \item Layer3/gate 4 专项：15 项全过
+  \item 覆盖率要点：插值域无外推、passivity、200 点 gate、网格收敛、vector 提取、paper 对比、graphical floor
+\end{itemize}

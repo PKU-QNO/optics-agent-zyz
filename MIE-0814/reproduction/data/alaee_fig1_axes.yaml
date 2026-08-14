@@ -1,0 +1,294 @@
+figure: "fig1"
+image_px:
+  width: 745
+  height: 302
+source: "C:/Users/27370/Desktop/project/optics_agent/papers/mie-f/01-主论文/Alaee_2018.ocr/images/79dac15c16e9134218ce7128867ba2c7f0757b47b806b1784c292d1300ef84ab_60.jpg"
+background_rgb: [255, 255, 255]
+panels:
+  - name: "a"
+    x_scale: linear
+    y_scale: linear
+    confidence: high
+    tick_label_hint: "x: 0.2-1.0 (2a/lambda, step 0.2, linear); y: LINEAR, 1,3,5,7 (normalized C_sca/(lambda^2/2pi); (2j+1) universal limit: j=0->1, j=1->3, j=2->5, j=3->7)"
+    x_axis:
+      row: 131
+      col_range: [36, 310]
+      run_len: 207
+      ticks:
+        - col: 119
+          row_range: [128, 131]
+        - col: 183
+          row_range: [128, 131]
+        - col: 223
+          row_range: [129, 131]
+      tick_count: 3
+      tick_gaps_px: [64, 40]
+      ticks_evenly_spaced: true
+    y_axis:
+      col: 36
+      row_range: [8, 131]
+      run_len: 123
+      ticks:
+        - row: 43
+          col_range: [36, 38]
+        - row: 78
+          col_range: [36, 38]
+        - row: 113
+          col_range: [36, 39]
+        - row: 130
+          col_range: [36, 38]
+      tick_count: 4
+      tick_gaps_px: [35, 35, 17]
+      ticks_evenly_spaced: false
+    origin_px:
+      x: 36
+      y: 131
+    tick_labels:
+      - region: "y_tick_label"
+        bbox_px: [27, 41, 30, 43]
+      - region: "y_tick_label"
+        bbox_px: [14, 52, 14, 55]
+      - region: "y_tick_label"
+        bbox_px: [28, 74, 30, 75]
+      - region: "y_tick_label"
+        bbox_px: [29, 109, 29, 116]
+  - name: "b"
+    x_scale: linear
+    y_scale: linear
+    confidence: high
+    tick_label_hint: "x: 400-1000 nm (wavelength, step 100, linear); y: LINEAR, 1,3,5,7, gold sphere normalized C_sca"
+    x_axis:
+      row: 131
+      col_range: [469, 741]
+      run_len: 273
+      ticks:
+        - col: 675
+          row_range: [128, 131]
+      tick_count: 1
+      tick_gaps_px: []
+      ticks_evenly_spaced: n/a
+    y_axis:
+      col: 469
+      row_range: [8, 131]
+      run_len: 124
+      ticks:
+        - row: 69
+          col_range: [469, 471]
+        - row: 100
+          col_range: [469, 471]
+      tick_count: 2
+      tick_gaps_px: []
+      ticks_evenly_spaced: n/a
+    origin_px:
+      x: 469
+      y: 131
+    tick_labels:
+      - region: "y_tick_label"
+        bbox_px: [449, 8, 449, 11]
+      - region: "y_tick_label"
+        bbox_px: [453, 8, 453, 10]
+      - region: "y_tick_label"
+        bbox_px: [457, 8, 457, 10]
+      - region: "y_tick_label"
+        bbox_px: [459, 8, 459, 10]
+      - region: "y_tick_label"
+        bbox_px: [453, 35, 457, 35]
+      - region: "y_tick_label"
+        bbox_px: [461, 35, 463, 35]
+      - region: "y_tick_label"
+        bbox_px: [460, 37, 462, 38]
+      - region: "y_tick_label"
+        bbox_px: [459, 67, 459, 71]
+      - region: "y_tick_label"
+        bbox_px: [463, 67, 463, 72]
+      - region: "y_tick_label"
+        bbox_px: [455, 96, 456, 97]
+      - region: "y_tick_label"
+        bbox_px: [453, 103, 457, 103]
+      - region: "y_tick_label"
+        bbox_px: [463, 127, 463, 131]
+      - region: "y_tick_label"
+        bbox_px: [459, 128, 459, 131]
+  - name: "c"
+    x_scale: linear
+    y_scale: linear
+    confidence: high
+    tick_label_hint: "x: 0.2-1.0 (2a/lambda, step 0.2, linear); y: LINEAR relative error % 0,25,50,75,100"
+    x_axis:
+      row: 266
+      col_range: [36, 310]
+      run_len: 275
+      ticks:
+        - col: 55
+          row_range: [264, 266]
+        - col: 183
+          row_range: [264, 266]
+        - col: 246
+          row_range: [264, 266]
+      tick_count: 3
+      tick_gaps_px: [128, 63]
+      ticks_evenly_spaced: false
+    y_axis:
+      col: 36
+      row_range: [143, 266]
+      run_len: 124
+      ticks:
+        - row: 178
+          col_range: [36, 38]
+        - row: 213
+          col_range: [36, 38]
+        - row: 248
+          col_range: [36, 38]
+      tick_count: 3
+      tick_gaps_px: [35, 35]
+      ticks_evenly_spaced: true
+    origin_px:
+      x: 36
+      y: 266
+    tick_labels:
+      - region: "x_tick_label"
+        bbox_px: [116, 272, 116, 274]
+      - region: "x_tick_label"
+        bbox_px: [124, 272, 125, 278]
+      - region: "x_tick_label"
+        bbox_px: [310, 272, 310, 279]
+      - region: "x_tick_label"
+        bbox_px: [112, 273, 112, 277]
+      - region: "x_tick_label"
+        bbox_px: [176, 273, 176, 278]
+      - region: "x_tick_label"
+        bbox_px: [180, 273, 180, 278]
+      - region: "x_tick_label"
+        bbox_px: [185, 273, 186, 277]
+      - region: "x_tick_label"
+        bbox_px: [240, 273, 240, 278]
+      - region: "x_tick_label"
+        bbox_px: [244, 273, 244, 277]
+      - region: "x_tick_label"
+        bbox_px: [53, 274, 53, 277]
+      - region: "x_tick_label"
+        bbox_px: [59, 279, 61, 279]
+      - region: "y_tick_label"
+        bbox_px: [28, 177, 30, 179]
+      - region: "y_tick_label"
+        bbox_px: [14, 187, 14, 191]
+      - region: "y_tick_label"
+        bbox_px: [29, 210, 30, 211]
+      - region: "y_tick_label"
+        bbox_px: [29, 213, 30, 214]
+      - region: "y_tick_label"
+        bbox_px: [29, 245, 29, 252]
+  - name: "d"
+    x_scale: linear
+    y_scale: linear
+    confidence: high
+    tick_label_hint: "x: 400-1000 nm (wavelength, step 100, linear); y: LINEAR relative error % 0,25,50,75,100"
+    x_axis:
+      row: 266
+      col_range: [469, 741]
+      run_len: 229
+      ticks:
+        - col: 610
+          row_range: [264, 266]
+        - col: 675
+          row_range: [264, 266]
+      tick_count: 2
+      tick_gaps_px: []
+      ticks_evenly_spaced: n/a
+    y_axis:
+      col: 469
+      row_range: [143, 266]
+      run_len: 122
+      ticks:
+        - row: 174
+          col_range: [469, 471]
+        - row: 205
+          col_range: [469, 471]
+        - row: 235
+          col_range: [469, 471]
+        - row: 263
+          col_range: [469, 471]
+      tick_count: 4
+      tick_gaps_px: [31, 30, 28]
+      ticks_evenly_spaced: true
+    origin_px:
+      x: 469
+      y: 266
+    tick_labels:
+      - region: "x_tick_label"
+        bbox_px: [476, 272, 476, 274]
+      - region: "x_tick_label"
+        bbox_px: [484, 272, 485, 275]
+      - region: "x_tick_label"
+        bbox_px: [549, 272, 551, 278]
+      - region: "x_tick_label"
+        bbox_px: [472, 273, 472, 277]
+      - region: "x_tick_label"
+        bbox_px: [538, 273, 538, 278]
+      - region: "x_tick_label"
+        bbox_px: [542, 273, 542, 277]
+      - region: "x_tick_label"
+        bbox_px: [669, 273, 669, 278]
+      - region: "x_tick_label"
+        bbox_px: [673, 273, 673, 278]
+      - region: "x_tick_label"
+        bbox_px: [603, 274, 603, 276]
+      - region: "x_tick_label"
+        bbox_px: [608, 274, 608, 277]
+      - region: "x_tick_label"
+        bbox_px: [613, 274, 613, 278]
+      - region: "x_tick_label"
+        bbox_px: [680, 275, 682, 278]
+      - region: "x_tick_label"
+        bbox_px: [617, 276, 617, 278]
+      - region: "x_tick_label"
+        bbox_px: [482, 279, 485, 279]
+      - region: "y_tick_label"
+        bbox_px: [449, 143, 449, 147]
+      - region: "y_tick_label"
+        bbox_px: [453, 143, 453, 145]
+      - region: "y_tick_label"
+        bbox_px: [458, 143, 459, 145]
+      - region: "y_tick_label"
+        bbox_px: [464, 143, 464, 146]
+      - region: "y_tick_label"
+        bbox_px: [454, 171, 457, 171]
+      - region: "y_tick_label"
+        bbox_px: [461, 171, 463, 171]
+      - region: "y_tick_label"
+        bbox_px: [460, 173, 463, 175]
+      - region: "y_tick_label"
+        bbox_px: [464, 203, 464, 207]
+      - region: "y_tick_label"
+        bbox_px: [460, 206, 460, 208]
+      - region: "y_tick_label"
+        bbox_px: [456, 232, 457, 234]
+      - region: "y_tick_label"
+        bbox_px: [460, 234, 462, 234]
+      - region: "y_tick_label"
+        bbox_px: [454, 239, 457, 239]
+      - region: "y_tick_label"
+        bbox_px: [464, 264, 464, 266]
+curve_colors:
+  - rgb: [224, 224, 128]
+    pixels: 3170
+  - rgb: [64, 128, 192]
+    pixels: 1446
+  - rgb: [224, 128, 96]
+    pixels: 2045
+  - rgb: [160, 96, 160]
+    pixels: 1083
+  - rgb: [224, 192, 64]
+    pixels: 521
+  - rgb: [160, 192, 224]
+    pixels: 561
+  - rgb: [224, 160, 160]
+    pixels: 169
+  - rgb: [192, 96, 32]
+    pixels: 279
+  - rgb: [160, 96, 96]
+    pixels: 85
+  - rgb: [160, 160, 64]
+    pixels: 67
+  - rgb: [96, 64, 160]
+    pixels: 41

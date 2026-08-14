@@ -1,0 +1,97 @@
+\section{Layer3：与论文 Fig.2 量化对比}
+
+\subsection{方法（Codex 实现，对抗审查定稿）}
+
+\begin{itemize}
+  \item \textbf{PDF vector 提取}（非 vision 描点）：源 PDF 第 4 页含 840 个 drawing object，Fig.2 四种颜色 Mie polyline 与 exact 圆形 marker 均保留为 vector path → PyMuPDF 直接提取
+  \item 提取 1578 行曲线点；轴用 vector tick 拟合（x: 0.2-1.0 五点，y: 1,3,5,7 四点）。原始残差 0.00044/0.00657 分别处于 x/归一化 y 数据坐标；换算后最大约 0.068/0.053 PDF point（$<$ 0.5 gate）
+  \item 源 PDF SHA256：\texttt{c79e243e9b0d05e2...e7ebcc8dda973e}（完整值见机器摘要）
+  \item vision 描点方案降级为 \texttt{DESCRIPTIVE\_ONLY} fallback（raster descriptive RMSE 0.08）
+  \item 阈值（预注册）：RMSE $\leq 0.02$、p95 绝对误差 $\leq 0.05$、峰位差 $\leq 0.01$
+  \item 证据：\texttt{data/fig2\_paper\_vector\_curves.csv}、\texttt{data/fig2\_layer3\_summary.json}、\texttt{figs/fig2\_layer3\_overlay.png}
+\end{itemize}
+
+\subsection{面板 (a) 介电球：Mie 实线 vs 本地解析 Mie}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrrl}
+\toprule
+通道 & RMSE & p95 绝对误差 & 峰位差 & 峰高差 & 状态 \\
+\midrule
+ED & 0.01001 & 0.01932 & 0.00014 & 0.024 & PASS \\
+MD & 0.01070 & 0.02051 & 0.00029 & 0.013 & PASS \\
+EQ & 0.01282 & 0.02606 & 0.00009 & 0.009 & PASS \\
+MQ & 0.02556 & 0.05695 & 0.00002 & 0.007 & \textbf{UNRESOLVED} \\
+\bottomrule
+\end{tabular}
+\caption{面板 (a) Mie 实线对比。ED/MD/EQ 全过；MQ 峰位差仅 $2.1\times10^{-5}$（几乎完全一致）但 RMSE/p95 略超阈值。}
+\end{table}
+
+\textbf{MQ UNRESOLVED 复算纠错}：共同域实际为 212 点，其中 14 点满足
+$|\Delta y|>0.05$，而非旧稿的 16/214。旧稿用 ``max gap=0.23'' 证明尖峰被稀疏
+polyline 削顶，这个因果论据不成立：0.23026 的间距位于
+$x=0.13945\to0.36971$ 的断段，不在峰区；第一峰窗口 $(0.50,0.58)$ 和第二峰
+窗口 $(0.90,0.98)$ 的最大间距分别仅 0.002253 和 0.008790。故这里只能判定误差
+集中在高曲率区，可能包含论文绘图、坐标标定或原始数值采样效应，不能声称根因已被唯一证明。
+
+\subsection{论文图形底噪诊断（不覆盖 strict gate）}
+
+在相同的 23 个 MQ exact-marker 横坐标处作同支撑比较：
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrr}
+\toprule
+对比 & 点数 & RMSE & p95 绝对误差 \\
+\midrule
+论文 Mie 实线 vs 论文 exact marker & 23 & 0.02430 & 0.06187 \\
+本地 Mie vs 论文 Mie 实线 & 23 & 0.00933 & 0.02104 \\
+\bottomrule
+\end{tabular}
+\caption{MQ graphical floor。同一论文图内部的 Mie/exact 差异也超过 0.02/0.05；本地结果在同一 marker 支撑上更接近论文实线。}
+\end{table}
+
+因此新增 \texttt{CONSISTENT\_WITH\_PAPER\_GRAPHICAL\_FLOOR} 诊断。它说明
+strict 阈值不适合作为物理失败的单一判据，但\textbf{不追溯性覆盖}预注册阈值；
+MQ 的 \texttt{strict\_vector\_fidelity\_status} 仍为 \texttt{UNRESOLVED}。
+
+\subsection{面板 (b) 金球：JC 有效域内全过}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrrl}
+\toprule
+通道 & RMSE & p95 绝对误差 & 峰位差 & 峰高差 & 状态 \\
+\midrule
+ED & 0.00801 & 0.01438 & 0.00010 & 0.006 & PASS \\
+MD & 0.00633 & 0.01168 & 0.00365 & 0.006 & PASS \\
+EQ & 0.00836 & 0.01590 & 0.00050 & 0.014 & PASS \\
+MQ & 0.00626 & 0.01127 & 0.00000 & 0.004 & PASS \\
+\bottomrule
+\end{tabular}
+\caption{面板 (b) JC 有效域（$2a/\lambda \geq 0.2584$）内全部 PASS\_VECTOR\_CONSISTENT。}
+\end{table}
+
+\begin{itemize}
+  \item 完整面板状态 \texttt{MATERIAL\_DOMAIN\_LIMITED}：论文 $[0.2, 0.2584)$ 段波长 $>1935$~nm，超出 JC 原始覆盖（\textbf{未用 Olmon 静默补齐}）
+  \item exact marker 点间距 $\sim0.0296$ $>$ 峰位 gate 0.01 → 所有通道的 marker 峰位裁决统一为 \texttt{DESCRIPTIVE\_ONLY}；RMSE/p95 作为形状指标保留，但不参与主实线 gate
+\end{itemize}
+
+\subsection{Q 因子补充诊断}
+
+仅当峰的左右半高交点都位于共同域且相邻 vector 点间距小于 0.03 时计算
+$Q=x_{\rm peak}/{\rm FWHM}$，补充容差为相对误差 $\le5\%$。介电球 ED/MD/EQ/MQ
+及金球 ED 均通过；金球 MD/EQ/MQ 缺少域内右半高交点，标记为
+\texttt{NOT\_EVALUABLE}，不伪造通过。该指标在观察 Layer3 后补充，明确标为
+\texttt{supplemental\_only}，不能用于追溯性晋级 result class。
+
+\subsection{总体状态}
+
+\begin{itemize}
+  \item 面板 (b) JC 有效域内：\texttt{PASS\_VECTOR\_CONSISTENT}
+  \item 面板 (a)：ED/MD/EQ PASS，MQ strict \texttt{UNRESOLVED}；差异未被唯一归因
+  \item strict vector 总状态 \texttt{UNRESOLVED}，graphical floor 状态 \texttt{CONSISTENT\_WITH\_PAPER\_GRAPHICAL\_FLOOR}
+  \item \textbf{表2/Mie 方法声称为 PASS}；Layer3 未决项不支持升级为表2公式错误
+  \item gate 4 最终裁决：\texttt{PASS\_WITH\_LIMITATIONS}；论文 fidelity 为 \texttt{UNRESOLVED}，最终 SEPR \texttt{result\_class=partial\_physical\_match}
+\end{itemize}

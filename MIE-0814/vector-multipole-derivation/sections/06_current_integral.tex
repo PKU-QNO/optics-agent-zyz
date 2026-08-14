@@ -1,0 +1,201 @@
+\section{从电流积分到 $a_E/a_M$}
+%=============================================================================
+
+本节是推导的核心：将标量波动方程的解代入 Eqs.(3)--(4)，得到 $a_E/a_M$ 以 $\mathbf{J}_S$ 表示的积分式。
+
+\subsection{标量波动方程的 Green 函数解}
+
+对于形如 $(\nabla^2 + k^2)\psi(\mathbf{r}) = -f(\mathbf{r})$ 的标量 Helmholtz 方程，
+出射波边条件的解为：
+$$
+\psi(\mathbf{r}) = \int G(\mathbf{r},\mathbf{r}')\,f(\mathbf{r}')\,d^3r'
+$$
+其中出射 Green 函数为：
+$$
+G(\mathbf{r},\mathbf{r}') = \frac{e^{ik|\mathbf{r}-\mathbf{r}'|}}{4\pi|\mathbf{r}-\mathbf{r}'|}
+$$
+
+利用球谐函数的加法公式展开：
+$$
+G(\mathbf{r},\mathbf{r}') = ik\sum_{l=1}^\infty\sum_{m=-l}^l j_l(kr_<)\,h_l^{(1)}(kr_>)\,
+  Y_{lm}(\theta,\phi)\,Y_{lm}^*(\theta',\phi')
+$$
+其中 $r_< = \min(r,r')$，$r_> = \max(r,r')$。
+
+\subsection{$a_M$ 的电流积分形式}
+
+我们需要将 $\mathbf{r}\cdot\mathbf{H}_s$ 代入 $a_M$ 的表达式。从 \S4 我们知道 $a_M$ 可以通过
+$\mathbf{H}_s$ 表达。利用对偶性，从 Eq.(2) 出发，用 $\hat{\mathbf{r}}\cdot$ 提取 $a_M$：
+
+由 §3 的 Grahn Eq.(2)：$\mathbf{H}_s$ 的展开式中 $a_M$ 出现在 $\nabla\times$ 项（含径向分量），
+$a_E$ 出现在 $\mathbf{X}_{lm}$ 项（纯切向）。因此提取 $a_M$ 可以用 $\mathbf{H}_s$ 的径向分量做投影
+（Grahn 的 Eq.(5) 对偶路径）。
+
+从 Eq.(2) 的径向分量：
+$$
+\hat{\mathbf{r}}\cdot\mathbf{H}_s = \frac{E_0}{\eta}\sum_{lm} i^{l-1}[\pi(2l+1)]^{1/2}
+  a_M(l,m)\,\frac{\sqrt{l(l+1)}}{kr}\,h_l^{(1)}(kr)\,Y_{lm}
+$$
+
+因此：
+$$
+a_M(l,m) = \frac{(-i)^{l}kr\,\eta}{h_l^{(1)}(kr)E_0[\pi(2l+1)l(l+1)]^{1/2}}
+  \int Y_{lm}^*\,\hat{\mathbf{r}}\cdot\mathbf{H}_s\,d\Omega
+$$
+（这是从 $\mathbf{H}_s$ 径向投影的对偶路径，与 Eq.(3) 的 $\mathbf{E}_s$ 投影不同；
+中间态相位 $(-i)^l$ 与随后 Green 展开的 $ik$ 因子中的 $i$ 合并为 $(-i)^{l-1}$，
+最终与 Grahn Eq.(14) 一致。原文 Eq.(5) 的中间相位需对照 Grahn 原文确认。）
+
+$\blacktriangleright$ 现在代入 $\mathbf{r}\cdot\mathbf{H}_s$ 的 Green 函数解 (Eq.(12) 的解)。
+
+Eq.(12) 写为标准 Helmholtz 形式：$(\nabla^2+k^2)(\mathbf{r}\cdot\mathbf{H}_s) = -\mathbf{r}\cdot(\nabla\times\mathbf{J}_S)$。
+
+在散射体外部（取球面半径 $r$ 大于所有源点 $r'$），$r_> = r$，$r_< = r'$：
+$$
+\mathbf{r}\cdot\mathbf{H}_s(\mathbf{r}) = ik\int \sum_{lm} j_l(kr')\,h_l^{(1)}(kr)\,
+  Y_{lm}(\theta,\phi)\,Y_{lm}^*(\theta',\phi')\,
+  \bigl[\mathbf{r}'\cdot(\nabla'\times\mathbf{J}_S(\mathbf{r}'))\bigr]\,d^3r'
+$$
+
+因此：
+$$
+\hat{\mathbf{r}}\cdot\mathbf{H}_s = \frac{ik}{r}\int \sum_{lm} j_l(kr')\,h_l^{(1)}(kr)\,
+  Y_{lm}(\theta,\phi)\,Y_{lm}^*(\theta',\phi')\,
+  \bigl[\mathbf{r}'\cdot(\nabla'\times\mathbf{J}_S)\bigr]\,d^3r'
+$$
+
+乘以 $Y_{l'm'}^*$ 并在球面积分：
+$$
+\int Y_{l'm'}^*\,\hat{\mathbf{r}}\cdot\mathbf{H}_s\,d\Omega
+= \frac{ik}{r} h_l^{(1)}(kr)\,
+  \sum_{lm} \delta_{ll'}\delta_{mm'}\,
+  \int j_l(kr')\,Y_{lm}^*(\theta',\phi')\,
+  \bigl[\mathbf{r}'\cdot(\nabla'\times\mathbf{J}_S)\bigr]\,d^3r'
+$$
+$$
+= \frac{ik}{r} j_{l'}(kr')\,h_{l'}^{(1)}(kr)\,
+  \int Y_{l'm'}^*(\theta',\phi')\,
+  \bigl[\mathbf{r}'\cdot(\nabla'\times\mathbf{J}_S)\bigr]\,d^3r'
+$$
+（注意 $j_{l'}(kr')$ 依赖积分变量 $r'$，故移入体积分内。）
+
+代回 $a_M$ 表达式（注意 Green 展开的 $ik$ 因子中的 $i$ 与 $(-i)^l$ 合并：$(-i)^l\cdot i=(-i)^{l-1}$）：
+$$
+a_M(l,m) = \frac{(-i)^{l}kr\,\eta}{h_l^{(1)}(kr)E_0[\pi(2l+1)l(l+1)]^{1/2}}
+  \cdot\frac{ik}{r} h_l^{(1)}(kr)
+  \int j_l(kr')\,Y_{lm}^*(\theta',\phi')\,
+  \mathbf{r}'\cdot(\nabla'\times\mathbf{J}_S)\,d^3r'
+$$
+
+$h_l^{(1)}(kr)$ 和 $r$ 消去，$(-i)^l\cdot i=(-i)^{l-1}$ 后，整理得到：
+\begin{equation}
+  \boxed{\;
+    a_M(l,m) = \frac{(-i)^{l-1}k^2\eta}{E_0[\pi(2l+1)l(l+1)]^{1/2}}
+    \int Y_{lm}^*(\theta,\phi)\,j_l(kr)\,
+    \mathbf{r}\cdot\bigl[\nabla\times\mathbf{J}_S(\mathbf{r})\bigr]\,d^3r
+    \;}
+  \label{eq:aM_J}
+\end{equation}
+
+这就是 Grahn 的 Eq.(14)。\textbf{磁多极系数来自 $\mathbf{J}_S$ 的旋度}。
+
+\subsection{$a_E$ 的电流积分形式}
+
+类似地，利用 Eq.(11) 的解代入 Eq.(3)。
+
+Eq.(11) 写为：$(\nabla^2+k^2)(\mathbf{r}\cdot\mathbf{E}_s) = S_E(\mathbf{r})$，其中
+$$
+S_E(\mathbf{r}) = \frac{2\rho_S + r\partial_r\rho_S}{\epsilon_0\epsilon_{r,d}} - i\omega\mu_0\,\mathbf{r}\cdot\mathbf{J}_S
+$$
+
+利用连续性方程 $\nabla\cdot\mathbf{J}_S = i\omega\rho_S$，可以将 $\rho_S$ 项用 $\nabla\cdot\mathbf{J}_S$ 表示：
+$$
+\frac{2\rho_S + r\partial_r\rho_S}{\epsilon_0\epsilon_{r,d}} = \frac{1}{i\omega\epsilon_0\epsilon_{r,d}}\bigl(2\nabla\cdot\mathbf{J}_S + r\partial_r(\nabla\cdot\mathbf{J}_S)\bigr)
+$$
+
+其中 $(2+r\partial_r)(\nabla\cdot\mathbf{J}_S)$ 正是 Eq.(13) 的第二项。经过与 $a_M$ 类似的 Green 函数代入 + 正交投影步骤：
+
+\begin{equation}
+  \boxed{\;
+    a_E(l,m) = \frac{(-i)^{l-1}k\eta}{E_0[\pi(2l+1)l(l+1)]^{1/2}}
+    \int Y_{lm}^*(\theta,\phi)\,j_l(kr)\Bigl[
+      k^2\mathbf{r}\cdot\mathbf{J}_S + \left(2 + r\frac{d}{dr}\right)(\nabla\cdot\mathbf{J}_S)
+    \Bigr] d^3r
+    \;}
+  \label{eq:aE_J}
+\end{equation}
+
+这就是 Grahn 的 Eq.(13)。\textbf{电多极系数来自 $\mathbf{J}_S$ 的散度}。
+
+\begin{stepbox}{为什么 $a_E$ 含 $\nabla\cdot\mathbf{J}_S$ 而 $a_M$ 含 $\nabla\times\mathbf{J}_S$？}
+这是由源在 Maxwell 方程组中的角色决定的：
+\begin{itemize}
+  \item 电多极与电荷分布（$\nabla\cdot\mathbf{J}_S\sim\rho_S$）关联——电场有散度源
+  \item 磁多极与环流分布（$\nabla\times\mathbf{J}_S$）关联——磁场有旋度源
+\end{itemize}
+这一区别在下一节分部积分后仍会保留。
+\end{stepbox}
+
+\subsection{为什么 Eqs.(13)--(14) 数值计算不便？}
+
+\begin{noteworthy}
+虽然 Eqs.(13)--(14) 在理论上是干净的，但\textbf{数值实现存在严重问题}：
+\begin{enumerate}
+  \item \textbf{需要计算 $\nabla\cdot\mathbf{J}_S$ 和 $\nabla\times\mathbf{J}_S$}：
+    在 FDTD 或 FEM 网格上，$\mathbf{J}_S$ 是离散的，数值求导会放大离散误差，
+    尤其是对高阶多极（$l$ 大时角向变化快）。
+   \item \textbf{$\left(2+r\frac{d}{dr}\right)$ 算子}作用在 $\nabla\cdot\mathbf{J}_S$ 上：
+     这要求对散度场再做径向微分——对网格数据而言精度损失严重。
+  \item \textbf{不可分离性}：$\nabla\cdot\mathbf{J}_S$ 和 $\nabla\times\mathbf{J}_S$ 混叠了不同粒子的贡献，
+    不利于逐个粒子分析。
+\end{enumerate}
+\textbf{解决方案}：通过分部积分将导数从 $\mathbf{J}_S$ 转移到已知解析函数（球谐、Bessel 函数）上。
+\end{noteworthy}
+
+\begin{chaptersummary}
+
+\textbf{§6 章节总结}
+
+本章将标量波动方程的解代入 §4 的投影公式，得到 $a_E/a_M$ 的电流积分形式。
+
+\textbf{Green 函数法：} Helmholtz 方程 $(\nabla^2+k^2)\psi = -f$ 的出射波解为
+$$
+\psi(\mathbf{r}) = \int G(\mathbf{r},\mathbf{r}')\,f(\mathbf{r}')\,d^3r',\quad
+G = \frac{e^{ik|\mathbf{r}-\mathbf{r}'|}}{4\pi|\mathbf{r}-\mathbf{r}'|}
+$$
+在球坐标中展开为球 Bessel 函数和球谐的谱形式。
+
+\textbf{a$_M$ 的电流形式（Eq.(14)）——来自 $\mathbf{r}\cdot\mathbf{H}_s$ 的波动方程：}
+$$
+\boxed{\;
+a_M(l,m) = \frac{(-i)^{l-1}k^2\eta}{E_0[\pi(2l+1)l(l+1)]^{1/2}}
+\int Y_{lm}^*\,j_l(kr)\;\mathbf{r}\cdot(\nabla\times\mathbf{J}_S)\;d^3r
+\;}
+$$
+
+\textbf{a$_E$ 的电流形式（Eq.(13)）——来自 $\mathbf{r}\cdot\mathbf{E}_s$ 的波动方程：}
+$$
+\boxed{\;
+a_E(l,m) = \frac{(-i)^{l-1}k\eta}{E_0[\pi(2l+1)l(l+1)]^{1/2}}
+\int Y_{lm}^*\,j_l(kr)\Bigl[
+      k^2\mathbf{r}\cdot\mathbf{J}_S + \left(2 + r\frac{d}{dr}\right)(\nabla\cdot\mathbf{J}_S)
+\Bigr] d^3r
+\;}
+$$
+
+\textbf{电/磁多极对 $\mathbf{J}_S$ 运算的差异：}
+\begin{itemize}
+  \item $a_M$ 需要 $\nabla\times\mathbf{J}_S$（旋度，来自磁场的波动方程 Eq.(12)）。
+  \item $a_E$ 需要 $\nabla\cdot\mathbf{J}_S$ 及其径向导数（散度，来自电场的波动方程 Eq.(11) 和连续性方程）。
+\end{itemize}
+这反映了电磁对偶：旋度→磁多极、散度→电多极。
+
+\textbf{Eqs.(13)--(14) 的理论意义：} 它们将 $a_E/a_M$ 与 $\mathbf{J}_S$ 直接关联，
+不再需要包围球面上的 $\mathbf{E}_s$ 值，而是只需在散射体体积内计算 $\mathbf{J}_S$ 的积分。
+但数值实现仍有困难——下一节解决。
+
+\end{chaptersummary}
+
+\newpage
+
+%=============================================================================

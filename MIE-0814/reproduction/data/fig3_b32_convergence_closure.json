@@ -1,0 +1,29 @@
+{
+  "schema": "fig3-b32-convergence-closure-v1",
+  "point": {"x_alaee": 0.36, "lambda_nm": 1388.888888888889},
+  "mesh_sequence": {
+    "base_1p0_elements": 292687,
+    "mesh_0p7_elements": 849157,
+    "mesh_0p5_elements": 2320597,
+    "relative_change_vs_1p0": {
+      "0p7": {"ED": 0.005828875902568524, "MD": 0.039208168226506086, "EQ": 0.03377393351468184, "MQ": 0.007380554182724011},
+      "0p5": {"ED": 0.00735768489876561, "MD": 0.0633792348548491, "EQ": 0.054831894939600286, "MQ": 0.008686595938414993}
+    },
+    "relative_change_0p7_to_0p5": {"ED": 0.0015377724811561299, "MD": 0.02515744392177694, "EQ": 0.02179403159916554, "MQ": 0.0013157527400802112},
+    "formal_gate": "FAIL_OVER_1_PERCENT_FOR_MD_EQ"
+  },
+  "outer_domain": {
+    "Lbox_nm": [3000.0, 4000.0],
+    "relative_change_3000_to_4000": {"ED": 0.0066564639466406865, "MD": 0.005392805752855614, "EQ": 0.005698455055153798, "MQ": 0.006803730948219891},
+    "formal_gate": "PASS_UNDER_1_PERCENT"
+  },
+  "closure": {
+    "base_3000": {"C_sca_flux_m2": 3.5287720978710654e-12, "C_multipole_sum_m2": 3.516946949129895e-12, "unresolved_fraction": 0.0033510661536642282, "power_balance_fraction": 1.0},
+    "mesh_0p7_3000": {"C_sca_flux_m2": 3.4137691669908777e-12, "C_multipole_sum_m2": 3.4105470316270356e-12, "unresolved_fraction": 0.0009438644519372415, "power_balance_fraction": 1.0},
+    "mesh_0p5_3000": {"C_sca_flux_m2": 3.3461809324364687e-12, "C_multipole_sum_m2": 3.3463365765119817e-12, "unresolved_fraction": 4.651394489884608e-05, "power_balance_fraction": 1.0},
+    "base_4000": {"C_sca_flux_m2": 3.5203178516079358e-12, "C_multipole_sum_m2": 3.5071088378527692e-12, "unresolved_fraction": 0.003752221904943388, "power_balance_fraction": 1.0}
+  },
+  "high_order": {"resolved_order": "l<=2 (ED/MD/EQ/MQ)", "l_gt_4_resolved_terms": false, "aggregate_unresolved_fraction_max": 0.003752221904943388, "status": "PASS_WITH_AGGREGATE_BOUND_ONLY"},
+  "vector_trace": "BLOCKED_PENDING_HUMAN_APPROVAL_RASTER_SUBSTITUTE",
+  "result_class": "diagnostic_only"
+}

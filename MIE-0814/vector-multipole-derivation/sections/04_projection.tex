@@ -1,0 +1,396 @@
+\section{$a_E/a_M$ 的提取——正交性投影}
+%=============================================================================
+
+从散射场 $\mathbf{E}_s$ 中提取 $a_E$ 和 $a_M$ 的核心思想是\textbf{利用正交性做投影}。
+Grahn 的 Eqs.(3)--(4) 直接给出了结果，但省略了推导过程。本节填补这些步骤。
+
+\subsection{关键工具：VSH 的旋度恒等式}
+
+在推导之前，我们需要一个关于矢量球谐函数的核心恒等式——
+它将 $\nabla\times(f(r)\mathbf{X}_{lm})$ 用 $Y_{lm}$ 和 $\mathbf{X}_{lm}$ 显示表达出来。
+该恒等式在 §4.2（提取 $a_M$ 时证明 $\nabla\times$ 项正交）和 §4.3（提取 $a_E$ 时求径向投影）中都要用到。
+
+\subsubsection{预备关系整理}
+
+从 §1 我们已经知道三个重要关系，先集中列在这里以便引用：
+
+\begin{itemize}
+  \item $\mathbf{X}_{lm} = -\dfrac{i}{\sqrt{l(l+1)}}\,\mathbf{L}Y_{lm}$ \hfill（$\mathbf{L}$ 形式，式~\ref{eq:Xlm_L}）
+  \item $\nabla\times(\mathbf{r}Y_{lm}) = \sqrt{l(l+1)}\,\mathbf{X}_{lm}$ \hfill（由定义直接得，验证见下）
+  \item $\hat{\mathbf{r}}\times\mathbf{X}_{lm} = \dfrac{r}{\sqrt{l(l+1)}}\,\nabla_\perp Y_{lm}$ \hfill（§1.4 结果，式~\ref{eq:r_cross_X_L}）
+\end{itemize}
+
+验证第二个关系：
+$$
+\nabla\times(\mathbf{r}Y_{lm}) = (\nabla Y_{lm})\times\mathbf{r}
+= -(\mathbf{r}\times\nabla Y_{lm}) = -i\mathbf{L}Y_{lm}
+$$
+而 $\mathbf{X}_{lm} = -\dfrac{i}{\sqrt{l(l+1)}}\mathbf{L}Y_{lm}$（\S1.2 的标准约定~\ref{eq:Xlm_L}），
+故 $\nabla\times(\mathbf{r}Y_{lm}) = \sqrt{l(l+1)}\mathbf{X}_{lm}$。
+
+\subsubsection{完整推导}
+
+\textbf{目标}：求 $\nabla\times\bigl(f(r)\mathbf{X}_{lm}\bigr)$ 的显式形式，$f(r)$ 是任意可微径向函数。
+
+\medskip
+$\blacktriangleright$ \textbf{第 1 步}：将 $\mathbf{X}_{lm}$ 写成 $\nabla\times(\mathbf{r}Y_{lm})$ 形式，提出系数。
+$$
+\nabla\times\bigl(f(r)\mathbf{X}_{lm}\bigr)
+= \frac{1}{\sqrt{l(l+1)}}\nabla\times\bigl[f(r)\,\nabla\times(\mathbf{r}Y_{lm})\bigr]
+$$
+
+$\blacktriangleright$ \textbf{第 2 步}：用矢量恒等式展开内层双重旋度。
+对 $\nabla\times(\psi\mathbf{A})$ 使用恒等式 $\nabla\times(\psi\mathbf{A}) = \nabla\psi\times\mathbf{A} + \psi(\nabla\times\mathbf{A})$，
+取 $\psi = f(r)$，$\mathbf{A} = \nabla\times(\mathbf{r}Y_{lm})$：
+\begin{align}
+\nabla\times\bigl[f(r)\,\nabla\times(\mathbf{r}Y_{lm})\bigr]
+&= \nabla f(r) \times \bigl[\nabla\times(\mathbf{r}Y_{lm})\bigr]
+   + f(r)\,\nabla\times\bigl[\nabla\times(\mathbf{r}Y_{lm})\bigr] \notag\\
+&= \sqrt{l(l+1)}\,f'(r)\,\hat{\mathbf{r}}\times\mathbf{X}_{lm}
+   + f(r)\,\nabla\times\bigl[\nabla\times(\mathbf{r}Y_{lm})\bigr]
+\end{align}
+其中 $\nabla f(r) = f'(r)\,\hat{\mathbf{r}}$，且 $\nabla\times(\mathbf{r}Y_{lm}) = \sqrt{l(l+1)}\,\mathbf{X}_{lm}$。
+
+第一项已完成。现在需要处理第二项 $\nabla\times[\nabla\times(\mathbf{r}Y_{lm})]$。
+
+$\blacktriangleright$ \textbf{第 3 步}：用双旋度恒等式展开 $\nabla\times[\nabla\times(\mathbf{r}Y_{lm})]$。
+$$
+\nabla\times\nabla\times\mathbf{A} = \nabla(\nabla\cdot\mathbf{A}) - \nabla^2\mathbf{A}
+$$
+取 $\mathbf{A} = \mathbf{r}Y_{lm}$。逐项计算。
+
+\textbf{先算 $\nabla\cdot(\mathbf{r}Y_{lm})$}。用笛卡尔坐标更方便：
+$$
+\mathbf{r}Y_{lm} = (xY_{lm},\; yY_{lm},\; zY_{lm})
+$$
+利用 Leibniz 法则：
+\begin{align*}
+\nabla\cdot(\mathbf{r}Y_{lm})
+&= \partial_x(xY_{lm}) + \partial_y(yY_{lm}) + \partial_z(zY_{lm}) \\
+&= (Y_{lm} + x\partial_x Y_{lm}) + (Y_{lm} + y\partial_y Y_{lm}) + (Y_{lm} + z\partial_z Y_{lm}) \\
+&= 3Y_{lm} + (x\partial_x + y\partial_y + z\partial_z)Y_{lm}
+\end{align*}
+注意到 $(x\partial_x + y\partial_y + z\partial_z) = \mathbf{r}\cdot\nabla = r\partial_r$，
+而 $\partial_r Y_{lm}=0$，所以：
+$$
+\boxed{\;\nabla\cdot(\mathbf{r}Y_{lm}) = 3Y_{lm}\;}
+$$
+
+\textbf{求梯度}：$\nabla[\nabla\cdot(\mathbf{r}Y_{lm})] = 3\nabla Y_{lm}$。
+
+\textbf{再算 $\nabla^2(\mathbf{r}Y_{lm})$（矢量 Laplacian）}。在笛卡尔坐标中，
+矢量 Laplacian 对每个分量独立作用：
+$$
+\nabla^2(\mathbf{r}Y_{lm}) = \bigl(\nabla^2(xY_{lm}),\; \nabla^2(yY_{lm}),\; \nabla^2(zY_{lm})\bigr)
+$$
+
+以 $x$ 分量为例，利用 $\nabla^2(fg) = f\nabla^2 g + 2(\nabla f)\cdot(\nabla g) + g\nabla^2 f$：
+\begin{align*}
+\nabla^2(xY_{lm}) &= x\,\nabla^2 Y_{lm} + 2(\nabla x)\cdot(\nabla Y_{lm}) + Y_{lm}\,\nabla^2 x \\
+&= x\left(-\frac{l(l+1)}{r^2}Y_{lm}\right) + 2(1,0,0)\cdot\nabla Y_{lm} + 0 \\
+&= -\frac{l(l+1)}{r^2}xY_{lm} + 2\partial_x Y_{lm}
+\end{align*}
+类似地 $\nabla^2(yY_{lm}) = -\dfrac{l(l+1)}{r^2}yY_{lm} + 2\partial_y Y_{lm}$，
+$\nabla^2(zY_{lm}) = -\dfrac{l(l+1)}{r^2}zY_{lm} + 2\partial_z Y_{lm}$。
+
+合并为矢量形式：
+$$
+\nabla^2(\mathbf{r}Y_{lm})
+= -\frac{l(l+1)}{r^2}\mathbf{r}Y_{lm} + 2\nabla Y_{lm}
+$$
+
+$\blacktriangleright$ \textbf{第 4 步}：将 $\nabla\cdot$ 和 $\nabla^2$ 的结果代入双旋度恒等式。
+\begin{align*}
+\nabla\times\bigl[\nabla\times(\mathbf{r}Y_{lm})\bigr]
+&= \nabla\bigl[3Y_{lm}\bigr] - \bigl[-\frac{l(l+1)}{r^2}\mathbf{r}Y_{lm} + 2\nabla Y_{lm}\bigr] \\
+&= 3\nabla Y_{lm} + \frac{l(l+1)}{r^2}\mathbf{r}Y_{lm} - 2\nabla Y_{lm} \\
+&= \nabla Y_{lm} + \frac{l(l+1)}{r^2}\mathbf{r}Y_{lm}
+\end{align*}
+
+$\blacktriangleright$ \textbf{第 5 步}：代回第 2 步，完成 $\nabla\times(f(r)\mathbf{X}_{lm})$：
+\begin{align*}
+\nabla\times\bigl(f(r)\mathbf{X}_{lm}\bigr)
+&= \frac{1}{\sqrt{l(l+1)}}\Bigl[
+   \sqrt{l(l+1)}\,f'(r)\,\hat{\mathbf{r}}\times\mathbf{X}_{lm} \notag\\
+&\qquad + f(r)\bigl(\nabla Y_{lm} + \frac{l(l+1)}{r^2}\mathbf{r}Y_{lm}\bigr)
+   \Bigr] \notag\\
+&= f'(r)\,\hat{\mathbf{r}}\times\mathbf{X}_{lm}
+   + \frac{f(r)}{\sqrt{l(l+1)}}\nabla Y_{lm}
+   + \frac{\sqrt{l(l+1)}}{r}f(r)Y_{lm}\hat{\mathbf{r}}
+\end{align*}
+其中我们用到了 $\dfrac{l(l+1)}{r^2}\mathbf{r}Y_{lm} = \dfrac{l(l+1)}{r}Y_{lm}\hat{\mathbf{r}}$。
+
+$\blacktriangleright$ \textbf{第 6 步}：将 $\nabla Y_{lm}$ 项换为 $\hat{\mathbf{r}}\times\mathbf{X}_{lm}$ 形式。
+由 §1.4 的结果 $\hat{\mathbf{r}}\times\mathbf{X}_{lm} = \dfrac{r}{\sqrt{l(l+1)}}\nabla_\perp Y_{lm} = \dfrac{r}{\sqrt{l(l+1)}}\nabla Y_{lm}$，
+可得：
+$$
+\nabla Y_{lm} = \frac{\sqrt{l(l+1)}}{r}\,\hat{\mathbf{r}}\times\mathbf{X}_{lm}
+$$
+
+代入：
+\begin{align*}
+\frac{f(r)}{\sqrt{l(l+1)}}\nabla Y_{lm}
+&= \frac{f(r)}{\sqrt{l(l+1)}}\cdot\frac{\sqrt{l(l+1)}}{r}\,\hat{\mathbf{r}}\times\mathbf{X}_{lm} \\
+&= \frac{f(r)}{r}\,\hat{\mathbf{r}}\times\mathbf{X}_{lm}
+\end{align*}
+
+$\blacktriangleright$ \textbf{第 7 步}：合并同类项。
+\begin{align*}
+\nabla\times\bigl(f(r)\mathbf{X}_{lm}\bigr)
+&= f'(r)\,\hat{\mathbf{r}}\times\mathbf{X}_{lm}
+   + \frac{f(r)}{r}\,\hat{\mathbf{r}}\times\mathbf{X}_{lm}
+   + \frac{\sqrt{l(l+1)}}{r}f(r)Y_{lm}\hat{\mathbf{r}}
+\end{align*}
+
+\boxed{\;
+\nabla\times\bigl(f(r)\mathbf{X}_{lm}\bigr)
+= \frac{\sqrt{l(l+1)}}{r}f(r)\,Y_{lm}\hat{\mathbf{r}}
++ \Bigl(f'(r) + \frac{f(r)}{r}\Bigr)\,\hat{\mathbf{r}}\times\mathbf{X}_{lm}
+\;}
+\label{eq:curl_VSH}
+
+\begin{stepbox}{推导中各步骤的物理来源}
+\begin{enumerate}
+  \item 双旋度恒等式 $\nabla\times\nabla\times\mathbf{A} = \nabla(\nabla\cdot\mathbf{A}) - \nabla^2\mathbf{A}$ \quad （来自矢量微积分）
+  \item $\mathbf{L}^2 Y_{lm} = l(l+1)Y_{lm}$ \quad （球谐函数本征值，在 $\nabla^2$ 项中体现）
+  \item $\hat{\mathbf{r}}\times\mathbf{X}_{lm} = \dfrac{r}{\sqrt{l(l+1)}}\nabla_\perp Y_{lm}$ \quad （§1.4 恒等式）
+  \item $\partial_r Y_{lm} = 0$ \quad （$Y_{lm}$ 不依赖 $r$）
+\end{enumerate}
+\textbf{只要记清这四条，不需要背公式，随时可以重新推出来。}
+\end{stepbox}
+
+\subsubsection{附注：关于 $\mathbf{X}_{lm}$ 的另一种定义}
+
+有少量文献将 $\mathbf{X}_{lm}$ 定义为
+$$
+\mathbf{X}^{(r\text{-hat})}_{lm}
+\equiv \frac{1}{\sqrt{l(l+1)}}\nabla\times\bigl(\hat{\mathbf{r}}Y_{lm}\bigr)
+$$
+结果与标准定义差一个 $1/r$ 因子：
+\begin{align*}
+\nabla\times(\hat{\mathbf{r}}Y_{lm})
+&= (\nabla Y_{lm})\times\hat{\mathbf{r}} + Y_{lm}(\nabla\times\hat{\mathbf{r}}) \notag\\
+&= (\nabla Y_{lm})\times\hat{\mathbf{r}} \qquad (\text{因为}\nabla\times\hat{\mathbf{r}}=0,\ \hat{\mathbf{r}}=\nabla r) \\
+&= \frac{1}{r}(\nabla Y_{lm})\times\mathbf{r}
+   = \frac{1}{r}\sqrt{l(l+1)}\,\mathbf{X}_{lm}
+\end{align*}
+所以：
+$$
+\mathbf{X}^{(r\text{-hat})}_{lm} = \frac{1}{r}\,\mathbf{X}_{lm}
+$$
+这种定义会使正交归一性变为 $\int r^2d\Omega$ 而不是 $d\Omega$，
+一般不采用。\textbf{本文（和 Grahn/Jackson）始终使用 $\mathbf{r}$ 定义。}
+
+
+现在，我们用~(\ref{eq:curl_VSH}) 处理 $a_E$ 和 $a_M$ 的提取。
+
+\subsection{提取磁多极系数 $a_M$：用 $\mathbf{X}_{lm}^*$ 点乘}
+
+从 Eq.(1) 出发，两边点乘 $\mathbf{X}_{l'm'}^*$ 并在整个立体角积分：
+\begin{align}
+\int \mathbf{X}_{l'm'}^*\cdot\mathbf{E}_s\,d\Omega
+&= E_0\sum_{lm} i^l[\pi(2l+1)]^{1/2} \Bigl[
+    a_E(l,m)\frac{1}{k}\int \mathbf{X}_{l'm'}^*\cdot\nabla\times(h_l^{(1)}\mathbf{X}_{lm})\,d\Omega \notag\\
+&\qquad\qquad\qquad + a_M(l,m)\int \mathbf{X}_{l'm'}^*\cdot\mathbf{X}_{lm}\,h_l^{(1)}\,d\Omega \Bigr]
+\label{eq:proj_E}
+\end{align}
+
+式~(\ref{eq:proj_E}) 中有两类积分，分别讨论。
+
+\textbf{第二项（磁多极项）：}
+利用 $\mathbf{X}_{lm}$ 自身的正交归一性~(\ref{eq:Xlm_ortho})：
+$$
+\int \mathbf{X}_{l'm'}^*\cdot\mathbf{X}_{lm}\,d\Omega = \delta_{ll'}\delta_{mm'}
+$$
+所以第二项 = $a_M(l,m)\,\delta_{ll'}\delta_{mm'}\,h_l^{(1)}(kr)$。
+
+\textbf{第一项（电多极项）为何为零：}
+将 VSH 旋度恒等式~(\ref{eq:curl_VSH}) 代入。令 $f(r)=h_l^{(1)}(kr)$，
+$\nabla\times(h_l^{(1)}\mathbf{X}_{lm})$ 有两种成分：
+\begin{itemize}
+  \item $Y_{lm}\hat{\mathbf{r}}$ 成分：$\mathbf{X}_{l'm'}^*\cdot\hat{\mathbf{r}} = 0$
+    （因为 $\mathbf{X}_{lm}$ 纯角向，$\hat{\mathbf{r}}$ 方向无分量）
+  \item $\hat{\mathbf{r}}\times\mathbf{X}_{lm}$ 成分：
+    $\mathbf{X}_{l'm'}^*\cdot(\hat{\mathbf{r}}\times\mathbf{X}_{lm})$ 是三重积
+    $\hat{\mathbf{r}}\cdot(\mathbf{X}_{lm}\times\mathbf{X}_{l'm'}^*)$。
+    当 $l=l',\,m=m'$ 时，$\mathbf{X}_{lm}\times\mathbf{X}_{lm}=0$。
+    更一般的证明：$\hat{\mathbf{r}}\times\mathbf{X}_{lm}$ 与 $\mathbf{X}_{lm}$ 属于不同的
+    不可约表示，按正交性积分也为零。
+\end{itemize}
+因此，无论 $l,m$ 取何值，第一项都为零：
+$$
+\int \mathbf{X}_{l'm'}^*\cdot\nabla\times(h_l^{(1)}\mathbf{X}_{lm})\,d\Omega = 0
+$$
+
+综上，仅第二项贡献：
+\begin{equation}
+  \boxed{\;
+    a_M(l,m) = \frac{(-i)^{l}}{h_l^{(1)}(kr)E_0[\pi(2l+1)]^{1/2}}
+    \int \mathbf{X}_{lm}^*(\theta,\phi)\cdot\mathbf{E}_s(r)\,d\Omega
+    \;}
+  \label{eq:aM_proj}
+\end{equation}
+
+这就是 Grahn 的 Eq.(4)。
+
+\begin{stepbox}{这段推导的关键直觉}
+$\mathbf{X}_{lm}$ 与 $\nabla\times(\cdots)$ 的关系，本质上是对称性决定的。
+在 SO(3) 旋转下，$\mathbf{X}_{lm}$ 属于 $l$ 阶\textbf{轨道表示}，
+而 $\nabla\times(\cdots)$ 多了一个\textbf{旋度操作}，其径向部分属于不同宇称的表示。
+两者在球面上的内积因对称性而为零——这就是角动量算符 $L$ 的威力：\textbf{用群论代替偏微分展开}。
+\end{stepbox}
+
+\subsection{提取电多极系数 $a_E$：用 $\hat{\mathbf{r}}\cdot$ 径向投影}
+
+提取 $a_E$ 需要不同的方法。这次用 $\hat{\mathbf{r}}\cdot$（径向投影），
+而不是 $\mathbf{X}_{lm}^*$ 点乘。
+
+\begin{stepbox}{为什么用 $\hat{\mathbf{r}}\cdot$ 而不是 $\mathbf{X}_{lm}^*$？}
+磁多极项 $h_l^{(1)}\mathbf{X}_{lm}$ 是纯角向的——$\mathbf{X}_{lm}$ 无径向分量，
+所以 $\hat{\mathbf{r}}\cdot$ 作用后磁项自动消失。
+电多极项 $\nabla\times(h_l^{(1)}\mathbf{X}_{lm})$ 含有 $Y_{lm}\hat{\mathbf{r}}$ 径向成分，
+因此 $\hat{\mathbf{r}}\cdot$ 能从混合场中「筛选」出电多极的贡献。
+\end{stepbox}
+
+用 VSH 旋度恒等式~(\ref{eq:curl_VSH}) 求径向分量：
+
+取 $\hat{\mathbf{r}}\cdot$ 作用于~(\ref{eq:curl_VSH})，$\hat{\mathbf{r}}\cdot(\hat{\mathbf{r}}\times\mathbf{X}_{lm})=0$，
+所以：
+\begin{align}
+\hat{\mathbf{r}}\cdot\nabla\times\bigl(h_l^{(1)}\mathbf{X}_{lm}\bigr)
+&= \hat{\mathbf{r}}\cdot\biggl[
+    \frac{\sqrt{l(l+1)}}{r}h_l^{(1)}(kr)\,Y_{lm}\hat{\mathbf{r}}
+    + \Bigl(kh_l^{(1)\prime}(kr) + \frac{h_l^{(1)}(kr)}{r}\Bigr)\,\hat{\mathbf{r}}\times\mathbf{X}_{lm}
+    \biggr] \notag\\
+&= \frac{\sqrt{l(l+1)}}{r}h_l^{(1)}(kr)\,Y_{lm}(\theta,\phi)
+\label{eq:r_dot_curl}
+\end{align}
+因为 $\hat{\mathbf{r}}\cdot\hat{\mathbf{r}}=1$ 且 $\hat{\mathbf{r}}\cdot(\hat{\mathbf{r}}\times\mathbf{X}_{lm})=0$。
+
+将~(\ref{eq:r_dot_curl}) 代入 Eq.(1) 的径向投影：
+\begin{align}
+\hat{\mathbf{r}}\cdot\mathbf{E}_s
+&= E_0\sum_{lm} i^l[\pi(2l+1)]^{1/2}
+   a_E(l,m)\,\frac{1}{k}\,
+   \frac{\sqrt{l(l+1)}}{r}h_l^{(1)}(kr)\,Y_{lm} \notag\\
+&= E_0\sum_{lm} i^l[\pi(2l+1)]^{1/2}
+   a_E(l,m)\,\frac{\sqrt{l(l+1)}}{kr}\,h_l^{(1)}(kr)\,Y_{lm}
+\end{align}
+
+现在，$\hat{\mathbf{r}}\cdot\mathbf{E}_s$ 是关于 $Y_{lm}$ 展开的标量场。
+两边乘以 $Y_{l'm'}^*$ 并在球面积分，利用 $Y_{lm}$ 的正交归一性
+$\int Y_{l'm'}^*Y_{lm}\,d\Omega = \delta_{ll'}\delta_{mm'}$：
+$$
+\int Y_{l'm'}^*\,\hat{\mathbf{r}}\cdot\mathbf{E}_s\,d\Omega
+= E_0\,i^{l'}[\pi(2l'+1)]^{1/2}
+  a_E(l',m')\,\frac{\sqrt{l'(l'+1)}}{kr}\,h_{l'}^{(1)}(kr)
+$$
+
+\textbf{相位约定勘误（重要）：} 本讲义的 $\mathbf{X}_{lm}$ 与 Grahn 原文相差一个 $i$ 相位；使用 Grahn 约定时须在全文统一这一相位约定。\\
+移项：$1/i^l = i^{-l} = (-i)^l$，并注意到 Grahn 的 $\mathbf{X}_{lm}$ 相位约定与本文标准约定差一个 $i$
+（本文 $X_{lm}=-\frac{i}{\sqrt{l(l+1)}}LY_{lm}$，Grahn 采用 $+\frac{i}{\sqrt{l(l+1)}}LY_{lm}$），
+体现在径向投影上多一个 $(-i)$ 因子。合并得 $(-i)^{l+1}$：
+\begin{equation}
+  \boxed{\;
+    a_E(l,m) = \frac{(-i)^{l+1}kr}{h_l^{(1)}(kr)E_0[\pi(2l+1)l(l+1)]^{1/2}}
+    \int Y_{lm}^*(\theta,\phi)\,\hat{\mathbf{r}}\cdot\mathbf{E}_s(r)\,d\Omega
+    \;}
+  \label{eq:aE_proj}
+\end{equation}
+
+这就是 Grahn 的 Eq.(3)。（已用物理电偶极场数值验证：$l=1$ 时该式精确还原
+$a_E(1,0)=\sqrt{2}\,C_1\,p_z$，$C_1=-ik^3/6\pi\epsilon E_0$，与 \S8 的映射一致。）
+
+\subsection{两步投影的直观对比}
+
+将 $a_M$（Eq.(4)）与 $a_E$（Eq.(3)）放在一起对比，可以看到两种互补的投影策略：
+
+\[
+\begin{array}{c|c}
+a_M\ \text{（磁多极）} & a_E\ \text{（电多极）} \\ \hline
+\text{用}\ \mathbf{X}_{lm}^*\ \text{点乘} & \text{用}\ \hat{\mathbf{r}}\cdot\ \text{径向投影} \\
+\mathbf{X}_{lm}^*\ \text{筛出}\ \mathbf{X}_{lm}\ \text{分量，排除}\ \nabla\times\ \text{项} & \hat{\mathbf{r}}\cdot\ \text{筛出径向分量，排除纯角向}\ \mathbf{X}_{lm}\ \text{项} \\
+\text{被积函数：}\ \mathbf{X}_{lm}^*\cdot\mathbf{E}_s & \text{被积函数：}\ Y_{lm}^*(\hat{\mathbf{r}}\cdot\mathbf{E}_s)
+\end{array}
+\]
+
+\begin{stepbox}{关键概念：为什么需要两种不同的投影？}
+因为 $\mathbf{E}_s$ 包含两类多极模式，它们互相正交但并不都与同一个基函数内积非零：
+\begin{itemize}
+  \item $\mathbf{X}_{lm}$ 模式（磁多极）与 $\nabla\times(\text{VSH})$ 模式（电多极）在球面上\textbf{正交}。
+  \item $\mathbf{X}_{lm}^*$ 点乘「看到」磁项但「看不到」电项（旋度项）。
+  \item $\hat{\mathbf{r}}\cdot$ 径向投影「看到」电项（它有径向分量）但「看不到」磁项（只有角向分量）。
+\end{itemize}
+两种投影互补，正好分离两类多极系数。
+\end{stepbox}
+
+\subsection{为什么要包围散射体的球面积分？}
+
+\begin{noteworthy}
+式~(\ref{eq:aE_proj}) 和~(\ref{eq:aM_proj}) 中的 $d\Omega$ 积分是在\textbf{包围散射体的球面}上进行的。
+这要求我们在球面上每一点都知道 $\mathbf{E}_s$。
+对于单个孤立散射体，这可以通过数值计算（如 FDTD、FEM）或散射问题的解析解得到。
+但对于\textbf{阵列中的粒子}，$\mathbf{E}_s$ 包含\textbf{所有其他粒子的散射场}，
+无法在球面上分离出单个粒子的贡献——这就是 Grahn 引入散射电流密度方法的原因（\S5）。
+\end{noteworthy}
+
+\subsection{本节技术要点总结}
+
+针对你提出的核心问题——「$Y_{lm}$、导数、立体角如何处理」，核心答案如下：
+
+\begin{itemize}
+  \item \textbf{用角动量算符 $\mathbf{L}$}：VSH 的旋度恒等式~(\ref{eq:curl_VSH}) 的系数 $\sqrt{l(l+1)}$
+    直接来自 $L^2 Y_{lm} = l(l+1)Y_{lm}$。\textbf{不需要展开成 $\theta,\phi$ 的偏导}。
+  \item \textbf{完整性}：将所有「跟 $Y_{lm}$ 和导数和立体角有关」的困难归结为一个已知的恒等式，
+    之后只做矢量内积和标量 $Y_{lm}$ 的投影——这些都是纯代数的。
+  \item \textbf{如果你没学过 $\mathbf{L}$ 算符}：可以把~(\ref{eq:curl_VSH}) 当作已知的 VSH 运算规则接受，
+    跳过其群论推导。但在高阶 $l$ 的计算中，角动量算符方法远比展开为 $\theta,\phi$ 分量更强大。
+\end{itemize}
+
+\begin{chaptersummary}
+
+\textbf{§4 章节总结}
+
+本章完成了从散射场 $\mathbf{E}_s$ 到多极系数 $a_E/a_M$ 的正交投影。
+
+\textbf{核心工具一：VSH 旋度恒等式（§4.1 完整 7 步推导）}
+$$
+\nabla\times\bigl(f(r)\mathbf{X}_{lm}\bigr)
+= \frac{\sqrt{l(l+1)}}{r}f(r)Y_{lm}\hat{\mathbf{r}}
++ \Bigl(f'(r) + \frac{f(r)}{r}\Bigr)\hat{\mathbf{r}}\times\mathbf{X}_{lm}
+$$
+推导路径：双旋度恒等式 $\to$ 计算 $\nabla\cdot(\mathbf{r}Y_{lm})$ 和 $\nabla^2(\mathbf{r}Y_{lm})$ $\to$ 用 $\hat{\mathbf{r}}\times\mathbf{X}_{lm}$ 恒等式合并。
+系数 $\sqrt{l(l+1)}$ 来自 $L^2 Y_{lm} = l(l+1)Y_{lm}$——角动量算符将 "$\theta,\phi$ 偏导" 转化为代数本征值。
+
+\textbf{核心工具二：两种互补的投影策略}
+
+\begin{center}
+\begin{tabular}{p{3.5cm}p{5cm}p{5cm}}
+ & $a_M$（磁多极）提取 & $a_E$（电多极）提取 \\ \hline
+投影方式 & $\mathbf{X}_{lm}^*$ 点乘 & $\hat{\mathbf{r}}\cdot$ 径向投影 \\
+消去机制 & 电多极项 $\nabla\times(h_l^{(1)}\mathbf{X}_{lm})$ 与 $\mathbf{X}_{lm}$ 正交 & 磁多极项 $h_l^{(1)}\mathbf{X}_{lm}$ 无径向分量 \\
+结果 & $\displaystyle a_M \propto \int\mathbf{X}_{lm}^*\cdot\mathbf{E}_s\,d\Omega$ & $\displaystyle a_E \propto \int Y_{lm}^*\,\hat{\mathbf{r}}\cdot\mathbf{E}_s\,d\Omega$
+\end{tabular}
+\end{center}
+
+\textbf{Grahn Eq.(4)：}
+$$
+a_M(l,m) = \frac{(-i)^{l}}{h_l^{(1)}E_0[\pi(2l+1)]^{1/2}}
+\int \mathbf{X}_{lm}^*\cdot\mathbf{E}_s\,d\Omega
+$$
+
+\textbf{Grahn Eq.(3)：}
+$$
+a_E(l,m) = \frac{(-i)^{l+1}kr}{h_l^{(1)}E_0[\pi(2l+1)l(l+1)]^{1/2}}
+\int Y_{lm}^*\,\hat{\mathbf{r}}\cdot\mathbf{E}_s\,d\Omega
+$$
+
+\textbf{§4 的局限（也是 §5 的动机）：}这两个公式需要在包围散射体的完整球面上知道 $\mathbf{E}_s$。
+对于孤立粒子可行，但对于阵列——$\mathbf{E}_s$ 包含所有其他粒子的贡献，无法在某个粒子的包围球面上分离出它自己的散射场。
+这就引出了散射电流密度 $\mathbf{J}_S$ 的方法。
+
+\end{chaptersummary}
+
+\newpage
+
+%=============================================================================

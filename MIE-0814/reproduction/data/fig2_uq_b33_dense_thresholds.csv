@@ -1,0 +1,4 @@
+mode,metric,threshold_value,threshold_provenance,must_be_frozen_before_evaluation,may_inherit_strict_vertex_212,decision_status,definition
+dense_curve_uq,rmse,,absent_by_A5_v2_SPEC,True,False,UNRESOLVED_THRESHOLD_ABSENT,"finite prospective mode-scoped threshold T; PASS iff U<=T, FAIL iff L>T"
+dense_curve_uq,p95_abs,,absent_by_A5_v2_SPEC,True,False,UNRESOLVED_THRESHOLD_ABSENT,"finite prospective mode-scoped threshold T; PASS iff U<=T, FAIL iff L>T"
+dense_curve_uq,peak_x,,absent_by_A5_v2_SPEC,True,False,UNRESOLVED_THRESHOLD_ABSENT,"finite prospective mode-scoped threshold T; PASS iff U<=T, FAIL iff L>T"

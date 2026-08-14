@@ -1,0 +1,48 @@
+\section{执行流程与 gate 记录}
+
+\subsection{7 步执行}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{cXl}
+\toprule
+步 & 动作与冻结产物 & gate \\
+\midrule
+01 & 逐式核对 Grahn 原文 Eq.(13)--(22)、(27)、(35)--(48)，确定相位、$m$ 域与 host $\epsilon_d$；产物 \texttt{notes/grahn-formulas.md} & - \\
+02 & v4 formalization：M2 四对象、$Q^e=6\,\mathrm{STF}$ 长波限定、双路径、逐 $m$ mask、独立证据；产物 \texttt{formalization/grahn.yaml} & gate 2 停 \\
+03 & 将原文式号与 local label 对齐并记录禁混规则；产物 \texttt{notes/grahn-mapping.md} & - \\
+04 & 实现 \texttt{scattering.py} 与 \texttt{test\_grahn.py}，加入解析 bump、远场和错误注入 & - \\
+05 & runner 生成 Path A/B、逐 $m$、解析和 gate JSON；产物 \texttt{data/grahn\_*.csv/json} & - \\
+06 & 三层数值验收：路径各自对照、相位敏感光学定理、miepython、网格收敛与 Eq.(13)(14) 交叉；产物 \texttt{sub-report/verify-grahn.md} & - \\
+07 & 汇总报告与 gate 4 材料；本报告和 \texttt{codex-prompts/out/B6-report.md} & gate 4 停 \\
+\bottomrule
+\end{tabularx}
+\caption{第 3 轮 7 步执行链。}
+\end{table}
+
+\subsection{gate 状态}
+
+\begin{table}[H]
+\centering\small
+\begin{tabularx}{\textwidth}{c l X}
+\toprule
+gate & 状态 & 依据与本轮处理 \\
+\midrule
+gate 1 参数 & 跳过（记录原因） & $\varepsilon_r=6.25$、air host 及 $x_{\rm mie}=\pi(2a/\lambda_d)$ 已在前两轮核准；本轮不重复开参数 gate。 \\
+gate 2 formalization & 放行（等效替代审查 \#13） & A2 v4 当前复验为 PASS\_WITH\_NOTES，A1 独立复核逐位一致；D1 归一化合同由 14b 复审 PASS，主 agent 已裁决放行。 \\
+gate 3 公式/基线 & 部分跳过 & 既有 $a_n/b_n/c_n/d_n$ 与 Mie 基线复用并有历史交叉；新 Grahn M2、磁四极、$C_1/C_2/C_3$ 已在 gate 2 重点核，故只保留回归证据。 \\
+gate 4 误差/交付 & 材料齐全，停在人 gate & 本报告提供逐通道数字、mask、独立路径、错误注入、审查链和晋级建议；是否最终放行由用户按 gate 4 人工裁决。 \\
+\bottomrule
+\end{tabularx}
+\caption{gate 1-4 记录。跳过项保留原因，不把跳过写成 PASS。}
+\end{table}
+
+\subsection{可复现命令与版本绑定}
+
+\begin{quote}\small
+spec SHA256：\\
+\texttt{23D7784A9C1A3F61B66ECE3B819E565EF5F6E8F95212CDE958200C6DFD93A54F}\\
+schema SHA256：\\
+\texttt{6df8525b8abfde5ab65adb577d62f353a61de608c2e44749c770a239f0209a4e}\\
+validator：\texttt{python -B code/validate\_grahn\_spec.py}；runner：\texttt{python -B code/run\_grahn\_verification.py}。B6 不改冻结 spec、源码或数据，只消费并核对它们。
+\end{quote}

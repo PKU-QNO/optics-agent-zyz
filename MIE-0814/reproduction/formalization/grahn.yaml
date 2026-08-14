@@ -1,0 +1,321 @@
+# formalization.yaml — Grahn 2012 映射验证 spec v4（第 3 轮 A2 实现验收）
+# 步骤: 02-formalization | case: grahn-mapping | 对齐 SEPR 9 字段标准
+# 本文件是 step04 代码的唯一物理输入源：代码消费本 spec，不消费论文 prose。
+# 模板: formalization/alaee2018-fig2.yaml（第 2 轮 gate② 已放行）
+# 状态: v4（当前实现已完成；Grahn/spec 定向 38 passed，规范全回归 105 passed, 1 skipped；JSON Schema 已存在）
+# 依据: notes/grahn-formulas.md（step01）+ 讲义 §8/§12 + 审查 09/10/11/12/14 RESULT
+# 历史: v1（审查 09）→ v2（审查 10）→ v3（审查 11）→ v4（审查 12；D1 gate 14 明确 raw/STF/Qe 分层）
+
+meta:
+  paper: "Grahn 2012 (New J. Phys. 14 (2012) 093033), Electromagnetic multipole theory for optical nanomaterials"
+  case: "grahn-mapping"
+  target_figure: "无图——理论框架验证（散射电流 → 电流矩 → a_E/a_M → C_sca 双路径）"
+  formula_primary_source: "Grahn 2012 原文 PDF（Zotero/storage/33KFYX34，2026-08-09 亲读逐式核对，字形级确认 Eq.(13) 用位置向量 r 非 r̂）"
+  formula_cross_check_source: "讲义 §8（张量分解）+ Alaee 2018 Table 1/Table 2 + Bohren & Huffman Ch.4 + miepython"
+  result_class_ceiling: "method_consistency（桥接验证，非论文图复现；不得宣称 physical_reproduction_success）"
+  review_09_era: "已响应（v1 修订）"
+  review_10_era: "已响应（v2 修订）；审查 10 BLOCKED 全项接受并核实（Eq.13 逐字/15-19 机器化/归一化闭环/解析基准/MQ 三构造/边界分布）"
+  review_11_era: "已响应（v3 修订）；审查 11 BLOCKED 全项接受并核实（YAML 解析失败/闭式积分错/斜率 6/低端 mask/逐 m 目标/结构化）"
+  review_12_era: "已响应（v4 修订）；审查 12 BLOCKED 全项接受并核实（讲义残留黑名单/相位契约/低端逐通道容差/Rayleigh 口径/双斑 d/远场契约/MQ kR 扫描/path A 阈值）"
+  version: "v4 (2026-08-10, review 12 revised)"
+  test_status: "当前收据：tests/test_grahn_spec.py + tests/test_grahn.py 定向 38 passed；规范全回归 105 passed, 1 skipped（skip = 200 点慢扫描）"
+
+geometry:
+  description: >
+    单一均匀球（与第 1/2 轮相同几何），嵌入无限大均匀 host。本轮用**介电球 ε_r=6.25 无色散**为主验证对象
+    （方法桥接，避免复色散混杂两个问题域）；金球复 ε 不在本轮范围（缺失字段记录）。
+    扫描变量沿用 x_alaee = 2a/λ_d（host=air 时 x_mie = ka = π·x_alaee）。
+  parameters:
+    host: { epsilon_rd: 1.0, note: "air；ε_d = ε₀ε_rd = ε₀（数值上显式区分 ε_d 与 ε₀，防混）" }
+    sphere: { epsilon_r: 6.25, note: "无色散实值（复用第 1/2 轮）", magnetic: "μ=μ₀" }
+    path_A_domain: { x_alaee: [0.02, 0.3], points: 150, spacing: linear, note: "长波域（kr ∈ [0.063, 0.942]）；gate 子域 [0.02,0.1]，[0.1,0.3] 仅报告" }
+    path_B_domain: { x_alaee: [0.02, 1.0], points: 200, spacing: linear, note: "全域，含低端 0.02–0.2 小宗量段（审查 11 🔴5/🟡4）" }
+    path_B_low_x_segment: { x_alaee: [0.02, 0.2], note: "与 path A 报告域 [0.02,0.3] 真实重叠 + Rayleigh 斜率验证" }
+  mie_size_param_conversion: "x_mie = ka = π·(2a/λ_d)（host=air；沿用 gate③ 硬性要求，不得直接拿 2a/λ 当 x_mie）"
+  coordinate: "球坐标 (r,θ,φ)，球心为原点；内部场 = 解析 Mie 解（c_n/d_n，复用 code/mie_theory.py）"
+
+materials:
+  inside:
+    epsilon_r: 6.25           # 介电球，无色散
+    source: "Alaee 2018 Fig.2(a) caption（n=2.5 → ε=2.5²=6.25；第 1/2 轮已 gate 确认）"
+  outside:
+    epsilon_host: "ε_d = ε₀ε_rd，ε_rd = 1.0（air）"
+  host_absolute_permittivity: "⚠️ 审查 🟡2：C₁/C₂/C₃ 中的 ε 是 **host 绝对介电常数** ε_d = ε₀ε_rd。同步：k_d = ω√(μ₀ε_d)、η_d = √(μ₀/ε_d)、J_S = −iω(ε − ε_d)E。host=air 时 ε_d = ε₀ 退化成立（数值实现仍需显式区分）"
+  magnetic: "μ = μ₀ 处处成立（非磁性，与原文假设一致）"
+  dispersion: "无（本轮介电球）"
+
+equations:
+  conventions:
+    time_convention: "e^(−iωt)（与讲义/Grahn/Alaee 第 2 轮一致）；入射 E_i = x̂ E₀ e^{ikz}（原文 (21)）"
+    equation_numbering: "式号一律原文编号（Grahn 2012 NJP）。⚠️ 勘误一：审查 09 'Eq.(8–9)' 实为原文 (13)(14)（原文 (8)(9) 是 Maxwell 方程）。⚠️ 勘误二：M^(l) 定义是原文 Eq.(27)（非 Eq.(12)）。⚠️ 勘误三：译本 tex 对 Eq.(13) 第二项转录错误（(d²/dr²+k²)r∇·J 应为 (2+rd/dr)(∇·J)），以原文为准"
+    source_equation_local_equation: "每条映射公式同时记录 source_equation（原文编号）与 local_equation（讲义/译本标签）字段（审查 11 🟡7）；顶层 JSON Schema 校验（审查 12 🟡12）"
+    phase_convention:   # 审查 12 🔴4：机器化锁定
+      condon_shortley: "P_l^m 采用 Condon–Shortley 相位（含 (−1)^m）；SciPy lpmv/sph_harm_y 已含——实现必须与 SciPy 一致并测试奇数 m 翻相"
+      Y_lm_normalization: "Y_lm = N_lm P_l^m(cosθ) e^{imφ}，N_lm = √[(2l+1)/(4π)·(l−m)!/(l+m)!]（正交归一）；Y_{l,−m} = (−1)^m Y*_lm"
+      X_lm_phase: "X_lm = [l(l+1)]^{-1/2} r×∇Y_lm 整体相位以 Jackson 为基准；讲义 04_projection.tex:289-295 承认讲义与 Grahn 的 X_lm 差一个 i——实现统一按 Grahn 原文 Eq.(1)(2) 的 X_lm 定义，禁止混用讲义版"
+      scipy_api: "sph_harm_y 参数顺序 (l, m, theta=polar, phi=azimuth)（非旧 sph_harm 顺序）；实现前用 known-vector 探针测试"
+      probe_test: "零阶探针：l=1,m=0/±1 的 Y_lm、X_lm 与解析值逐项比对（含相位），不得只测模平方"
+    forbidden_source_paths:   # 审查 12 🔴1：残留错误公式源黑名单（生成型代码禁止抄取）
+      - "vector-multipole-derivation/sections/06_current_integral.tex:116-123,122,181（Eq.(13) 第二项错写 (d²/dr²+k²)r∇·J）"
+      - "vector-multipole-derivation/sections/07_integration_parts.tex:119,133-150,264（Eq.(13) 第二项错写 + O_lm 简写漏 1/√(l(l+1))·√((2l+1)/4π)）"
+      - "vector-multipole-derivation/sections/12_unified.tex:315,330（同两类错误）"
+      - "vector-multipole-derivation/sections/04_projection.tex:289-295（X_lm 相位差 i，未锁）"
+      - "grahn2012-chinese.tex:207-212（Eq.(13) 第二项转录错误）"
+      - "alaee2018-chinese.tex:206-207（/c 残留，应为 /c²）"
+      - "12_unified.tex:374（'1/c 因子' 残留，应为 1/c²）"
+  incident: "x 偏振、z 传播平面波（原文 (21)）；E₀ = 1 V/m（SI，显式）"
+  J_S:
+    formula: "J_S(r) = −iω(ε − ε_d) E(r)   [原文 (6)：J_S = −iωε₀(ε_r − ε_rd)E]"
+    field: "E = 总场 = 入射 + 散射（单球情形 = Mie 解析内部场，复用 c_n/d_n）"
+  current_multipole_tensor:
+    formula: "M^(l) = i/[(l−1)! ω] ∫ J r r⋯r d³r   [原文 Eq.(27)，非 Eq.(12)]"
+    l1: "M^(1) = p（电偶极矩，3 分量）"
+    l2: "M^(2)_αβ = i/ω ∫ J_α r_β d³r —— 9 分量一般 3×3 原始矩，**不对称**（审查 09 🔴1）"
+    l3: "M^(3) = O（八极）：O_αβγ = i/(2ω) ∫ J_α r_β r_γ d³r；**对称性 O_αβγ = O_αγβ（后两指标）** → 27 元仅 18 独立（审查 10 🟡1，原文物理页 8 例 O_xyz=O_xzy）"
+  M3_symmetry_test: "3×3×3 数组断言 O[α,β,γ] == O[α,γ,β] 全部成立（shape/schema 可执行断言，审查 11 🟡6）"
+  M2_four_objects:  # 审查 09 🔴1/🟡4：四个显式区分、归一化明确的对象
+    M2_raw: { def: "M2_raw[αβ] = i/ω ∫ J_α r_β d³r", shape: "3×3 complex", note: "9 分量原始矩" }
+    M2_sym_traceless: { def: "½(M2+M2ᵀ) − ⅓ I·tr(M2)", dim: 5, note: "对称无迹 → Q^e 相关；Q^e = 6·STF(M2_raw)" }
+    M2_antisym: { def: "½(M2−M2ᵀ)", dim: 3, note: "对偶 m_γ = (iω/2)ε_γαβ M2_αβ = ½∫(r×J)_γ d³r → 磁偶极" }
+    M2_trace: { def: "⅓ I·tr(M2)", dim: 1, note: "暗模式，球对称四极不辐射" }
+    reconstruction_test: "M2_raw = M2_sym_traceless + M2_antisym + M2_trace 逐元素重构（随机复 3×3 张量测试）"
+  Qe_stf_conversion:
+    formula: "Q^e = 6·STF(M2_raw)，STF(M2) = ½(M2+M2ᵀ) − ⅓ I·tr(M2)"
+    domain: "**仅长波（无 Bessel 核）成立**（审查 09 🔴2）：Alaee Table 2 的 Q^e 含 j₁(kr)/(kr) 与 j₃(kr)/(kr)³，有限 kr 下不得等同于 6·STF(M2)"
+    table1_rank4: "⚠️ 审查 10 🟡2：6·STF(M2) 只对应 Alaee 表 1 EQ 的**最低阶（k⁰）**项；完整表 1 EQ 含 k² rank-4 修正，在有限 kr 下也不等同。比较路径 A 时按通道报告截断阶"
+    forbidden: "Table 2 精确 Q^e **禁止**直接喂 Grahn 张量映射（路径 A 只用 M^(l) 原始矩的无核形式）"
+    finite_kr_counterexample:   # 审查 12 🟡5：范数/分母锁定
+      current: "J = J₀ ẑ x f(r)（x 偏移极化）"
+      kr: 0.5
+      kr_note: "kr = kR = 0.5（R=1.0 球，k=0.5）——**kr 实指 kR**"
+      norm_definition: "范数 = 复数张量各分量模平方和开方（Frobenius）；分母 = |Table-2 精确矩|（审查 12 建议精确 Table-2 范数）"
+      component_selection: "逐分量比较（6·STF(M2)_αβ vs Table-2 精确 Q^e_αβ 的每个非零分量），不只看范数"
+      computation: "6·STF(M2) 相关分量系数 ≈ 0.17408 vs Table-2 精确 EQ ≈ 0.17241（Frobenius 口径相对差 ≈ 0.97%）"
+      error_separation: "数值积分误差（网格收敛 <0.1%）与长波截断误差（6·STF vs Table-2 的固有差）**分别判定**；gate 只判长波截断差 > 0.5%（预注册）"
+      assertion: "逐分量相对差 > 0.5%（预注册，非 1%——实测 0.97% 不满足 >1%）；同时 kr→0（x_alaee≤0.02）断言 < 1%（长波收敛）"
+  mapping_E2:   # 原文 (39)(40)(41)
+    input_contract:
+      source_object: "M2_raw"
+      equivalent_numeric_input: "M2_stf"
+      allowed_api_values: ["raw", "stf"]
+      forbidden_api_value: "qe"
+      qe_to_e2_conversion: "Qe/6"
+      m1_input: "M2_raw_antisymmetric_part"
+    projection_reason: "Grahn (39)–(41) 的对角差、非对角和与 2Qzz−Qxx−Qyy 消去 M2_raw 的迹和反对称部分；故 raw 与 STF 数值等价。Grahn 原文 Q 仍是 Eq.(27) 的 M2_raw，不是 Alaee Qe。"
+    a_E_2_pm2: { formula: "a_E(2,±2) = 3C₂(Q_xx − Q_yy ∓ i(Q_xy + Q_yx))", source_equation: "(39)", local_equation: "eq:mapping_E2_2" }
+    a_E_2_pm1: { formula: "a_E(2,±1) = 3C₂(∓(Q_xz+Q_zx) + i(Q_yz+Q_zy))", source_equation: "(40)", local_equation: "eq:mapping_E2_1" }
+    a_E_2_0: { formula: "a_E(2,0) = √6 C₂(2Q_zz − Q_xx − Q_yy)", source_equation: "(41)", local_equation: "eq:mapping_E2_0" }
+  mapping_E1:   # 原文 (42)(43) —— 审查 09 🔴5：非 p-only
+    a_E_1_pm1: { formula: "a_E(1,±1) = C₁(∓p_x + i p_y) + 7C₃[±(O_xxx+2O_xyy+2O_xzz−O_yyx−O_zzx) − i(O_yyy+2O_yxx+2O_yzz−O_xxy−O_zzy)]", source_equation: "(42)", local_equation: "eq:mapping_E1" }
+    a_E_1_0: { formula: "a_E(1,0) = √2 C₁ p_z + 7√2 C₃(O_xxz+O_yyz−O_zzz−2O_zxx−2O_zyy)", source_equation: "(43)", local_equation: "eq:mapping_E1_0" }
+    p_only_switch: { default: false, type: boolean, note: "p-only（丢 7C₃O 项）仅最低阶截断显式开关；默认关闭；测试：零净偶极但非零八极电流在 off 时不得判为零" }
+  mapping_M2:   # 原文 (44)(45)(46) —— 审查 09 🔴4：磁四极必须纳入
+    a_M_2_pm2: { formula: "a_M(2,±2) = 7C₃[±(−O_xxz+O_yyz+O_zxx−O_zyy) + i(O_xyz+O_yzx−2O_zxy)]", source_equation: "(44)", local_equation: "eq:mapping_M2_2" }
+    a_M_2_pm1: { formula: "a_M(2,±1) = 7C₃[−O_xyy+O_xzz+O_yyx−O_zzx ∓ i(−O_yxx+O_yzz+O_xxy−O_zzy)]", source_equation: "(45)", local_equation: "eq:mapping_M2_1" }
+    a_M_2_0: { formula: "a_M(2,0) = 7√6 i C₃(O_xyz − O_yzx)", source_equation: "(46)", local_equation: "eq:mapping_M2_0" }
+  mapping_M1:   # 原文 (47)(48)
+    input_contract:
+      source_object: "M2_raw"
+      used_part: "M2_antisym"
+      forbidden_inputs: ["M2_stf", "Qe"]
+    a_M_1_pm1: { formula: "a_M(1,±1) = 5C₂(−Q_xz+Q_zx ∓ i(−Q_yz+Q_zy))", source_equation: "(47)", local_equation: "eq:mapping_M1_1" }
+    a_M_1_0: { formula: "a_M(1,0) = 5√2 i C₂(−Q_xy+Q_yx)", source_equation: "(48)", local_equation: "eq:mapping_M1_0" }
+    note: "磁偶极来自 Q 的**反对称组合**（审查 R2 铁律：错喂对称 Q^e → 磁偶极消失）"
+  Qm_O_bridge:   # 审查 10 🟡6
+    formula: "Q^m_αβ = −2iω(ε_βγδ O_δαγ + ε_αγδ O_δβγ)"
+    properties: "断言 Q^m 对称、无迹（主 agent 代数验证 + 审查 11 独立确认）"
+    test: "逐 m 比较 Grahn a_M(2,m) ↔ Mie b_2（TE 磁四极）与 Alaee Table 1 Q^m 通道——结构化复数比例/相位/容差（审查 11 🟡6）"
+  coefficients:
+    C1: "−ik³/(6πε_d E₀)"
+    C2: "−k⁴/(60πε_d E₀)"
+    C3: "−ik⁵/(210πε_d E₀)"
+    note: "原文 (48) 后 inline；ε = ε_d = host 绝对介电常数（审查 🟡2）；k = k_d = host 波数"
+  C_sca:
+    formula: "C_s = (π/k²) Σ_{l=1}^∞ Σ_{m=−l}^{l} (2l+1)(|a_E(l,m)|² + |a_M(l,m)|²)   [原文 Eq.(20)]"
+    m_sum: "任意入射全 Σ_{m=−l}^{l}（审查 09 🟡1）；球体简化（居中球、x 偏振、z 传播 → 入射场仅 m=±1）作独立简化路径；**通用全 m 与球体简化两条都测**，四极 m=0,±2 不静默丢弃"
+  normalization:   # 审查 10 🔴3 + 审查 11 🔴6：唯一口径 + 逐 m 目标
+    canonical_unit: "C_sca/(λ_d²/2π)，λ_d = 2π/k_d（host 波长）——唯一口径，不用 'm²（或归一化）'"
+    SI_dimensionality: "p/m/Q^e/Q^m 是 SI 有量纲矩（保留 SI 定义）；C_sca 输出归一化为 C_sca/(λ_d²/2π)（无量纲）；不声称 '所有无量纲矩按 SI 定义'（审查 11 🔴6 自相矛盾修正）"
+    per_m_targets:   # 审查 11 🔴6：逐项目标（球体 x 偏振 z 传播）
+      a_E_1: { m_plus_1: "-a_l", m_minus_1: "+a_l", note: "l=1 电偶极，逐项复系数" }
+      a_E_2: { m_plus_1: "-a_l", m_minus_1: "+a_l", note: "l=2 电四极" }
+      a_M_1: { m_plus_1: "-b_l", m_minus_1: "-b_l", note: "l=1 磁偶极" }
+      a_M_2: { m_plus_1: "-b_l", m_minus_1: "-b_l", note: "l=2 磁四极" }
+      tolerance: { relative: 0.01, absolute_floor: 1.0e-6, zero_target_abs: 1.0e-8, note: "逐 m 复系数：分母 |Mie 系数|，mask < 1e-4 → absolute floor；零目标（等价性 m=±1）用 absolute-zero（审查 12 🔴2 数值化）" }
+    summed_relations: "Σ_{m=±1}|a_E(l,m)|² = 2|a_l|²、Σ_{m=±1}|a_M(l,m)|² = 2|b_l|²、Σ_{m=±1} m·a_E(l,m) = −2a_l、Σ_{m=±1} a_M(l,m) = −2b_l（由 per_m_targets 推出）"
+    alaee_eq1_full: "Alaee Eq.(1) 完整机器化（/c² 版，讲义 12_unified 已核）：C_sca = k⁴/(6πε₀²|E_inc|²)[Σ_α(|p_α|² + |m_α|²/c²) + (1/120)Σ_αβ(|kQ^e_αβ|² + |kQ^m_αβ|²/c²) + …]。⚠️ 真相源 alaee2018-chinese.tex L206-207 仍残留错误 /c（审查 10 🔴3），以讲义 12_unified 的 /c² 为准；任何生成型代码不得从残留源再抄公式（审查 11 🟡9）"
+  kernel_paths:
+    path_B_integral_raw:   # 原文 Eq.(13)(14) 逐字（字形级核实）
+      formula: "a_E(l,m) = (−i)^{l−1}kη/(E₀[π(2l+1)l(l+1)]^{1/2}) ∫ Y*_lm(θ,φ) j_l(kr) {k² r·J_S + (2 + r·d/dr)(∇·J_S)} d³r；a_M(l,m) = (−i)^{l−1}k²η/(E₀[π(2l+1)l(l+1)]^{1/2}) ∫ Y*_lm(θ,φ) j_l(kr) r·(∇×J_S) d³r"
+      notes: ["第一项 r 是位置向量（非 r̂）", "第二项是 (2+rd/dr)(∇·J_S) 非 (d²/dr²+k²)r∇·J_S（译本转录错误勘误）"]
+    path_B_clean_full:   # 原文 Eq.(15)(16) 完整（实现首选）
+      formula: "a_E(l,m) = (−i)^{l−1}k²η O_lm/(E₀[π(2l+1)]^{1/2}) ∫ exp(−imφ) {[Ψ_l(kr)+Ψ''_l(kr)] P_l^m(cosθ) r̂·J_S + Ψ'_l(kr)/(kr) [τ_lm(θ) θ̂·J_S − iπ_lm(θ) φ̂·J_S]} d³r；a_M(l,m) = (−i)^{l+1}k²η O_lm/(E₀[π(2l+1)]^{1/2}) ∫ exp(−imφ) j_l(kr) [iπ_lm(θ) θ̂·J_S + τ_lm(θ) φ̂·J_S] d³r"
+      notes: ["相位：a_E 用 (−i)^{l−1}、a_M 用 (−i)^{l+1}（勿混）", "Ψ_l(kr) = kr·j_l(kr)，Ψ'、Ψ'' 对宗量 kr 求导"]
+    path_B_defs:   # 原文 Eq.(17)(18)(19)
+      O_lm: "1/[l(l+1)]^{1/2}·[(2l+1)/(4π)·(l−m)!/(l+m)!]^{1/2}"
+      tau_lm: "τ_lm(θ) = d/dθ P_l^m(cosθ)"
+      pi_lm: "π_lm(θ) = m/sinθ·P_l^m(cosθ)"
+      pole_note: "⚠️ 审查 11 🟡2：π_lm 在 θ=0,π 是可去奇性（P_l^m~sin^{|m|}θ 相消）。规定：用 μ=cosθ 的 Gauss–Legendre 内点（不取端点）或解析极限/稳定递推；禁止直接在 θ=0,π 做除法。m=±1,±2 加极点邻域测试"
+    psi_double_prime:   # 审查 11 🟡2：Ψ'' 数值实现
+      formula: "j''_l(ρ) = [l(l+1)/ρ² − 1] j_l(ρ) − (2/ρ) j'_l(ρ)；Ψ'_l = j_l + ρ j'_l；Ψ''_l = 2j'_l + ρ j''_l"
+      rho0: "ρ→0 用级数极限（j_l(ρ)~ρ^l/(2l+1)!!），禁止数值二阶差分"
+      note: "scipy 只给 j_l 与 j'_l，j'' 用此递推或 Riccati 方程（审查 11 盲区 18）"
+    direct_derivative_cross_restriction: "审查 10 🔴5：Eq.(13)(14) 的直接导数交叉（∇·J_S、∇×J_S 数值）**只允许用于全空间 C¹/C²、边界连同所需导数一起消失的解析 bump 电流**；真实球（J_S 在 r=a 不连续，导数含表面分布项）只以 Eq.(15)(16) 为主。朴素有限差分不得作为 gate"
+    far_field_projection: "原文 Eq.(3)(4)：a_E/a_M 从包围球面上 E_s 的角向积分——独立路径 ①（不依赖内部场/J）"
+  dual_paths:
+    path_A: "无核张量映射：M^(l)（原文 (27)，无 Bessel 核）→ 张量分解（M2 四对象）→ (35)–(48) 映射 → a_E/a_M → C_s (20)。对照：Alaee Table 1 长波近似（同无核域）。域：低-kr [0.02, 0.3]。逐通道报告 rank 截断阶（审查 10 🟡2/结论 4）"
+    path_B: "核积分：原文 (13)(14)/(15)(16)（含 j_l/Ψ_l 核）→ a_E/a_M → C_s (20)。对照：Mie per-multipole。域：全域 [0.02, 1.0]（含低端 0.02–0.2 与 path A 重叠 + Rayleigh 斜率）"
+    forbidden_mix: "审查 09 🔴3：两路径不得混淆——Table 2 精确矩（核）不得与 Grahn 无核张量映射（路径 A）混比；双路径一致性是诊断，不单独作为 gate"
+    path_A_truth_source: "⚠️ 审查 11 🟡4/结论 5：path A 与 Table 1 是同阶长波近似（共享 J_S），两者相符不证明逼近真值。**path A vs exact Mie、Table 1 vs exact Mie 各自逐通道误差和小宗量误差阶都必须报告**；A vs Table 1 仅作代数诊断"
+  error_injection_targets: "审查 10 结论 2.1 + 审查 11：r↔r̂、Ψ_l 导数、τ/π 函数、(−i)^{l±1} 相位、a/b 标签、m=0/±1/±2 丢弃、坐标平移、相位约定、j'' 递推——全部要有错误注入测试"
+
+boundary_conditions:
+  interface: "r=R 球面切向 E/H 连续（Mie 解自带；本轮直接使用闭式内部场）"
+  radiation: "散射场向外辐射（h_l^(1)，e^(−iωt)）；内部场原点正则（j_l(k_in r)）"
+  role_in_spec: "Grahn 框架的 J_S 在粒子内部局域支撑；本轮单球无阵列，E = Mie 解析内部场"
+
+sources:
+  incident: "x 偏振、z 传播单色平面波 E^inc = x̂ E₀ e^{i(kz−ωt)}（原文 (21)）；E₀ = 1 V/m"
+  polarization: "linear x（polarization_axis: x, propagation_axis: z）"
+  role: "路径 A/B 共用同一 J_S（同内部场、同约定）——审查 🟡3 警示共同错误 → 独立路径依赖图见 verification.dependency_graph"
+
+solver:
+  type: "解析 Mie 内部场 + 体积分（M^(l) 矩 / 核积分）——不是 FEM，不是拟合"
+  strategy: |
+    1. 内部场：Mie c_n/d_n 解析（复用 code/mie_theory.py）→ E_in → J_S = −iω(ε−ε_d)E；
+    2. 路径 B 主实现：球坐标体积分实现原文 (15)(16)（O_lm/τ_lm/π_lm/Ψ_l 核，相位 (−i)^{l±1}，Ψ'' 用递推）→ a_E/a_M → C_s (20)；
+    3. 路径 B 交叉：Eq.(13)(14) 直接数值（含 ∇·J_S、∇×J_S）**仅用于解析 bump 电流**（见 direct_derivative_cross_restriction），比对 (15)(16)；
+    4. 路径 A：M^(l) 无核体积分（原文 (27)）→ M2 四对象分解（M3 18 独立断言）→ (39)–(48) 映射（含磁四极 (44)–(46)、a_E(1,m) 含八极项）→ C_s (20)；
+    5. 对照：Alaee Table 1 矩（复用 code/multipole_approx.py）→ Alaee Eq.(1) C_sca（低-kr 域，/c² 版）；Mie per-multipole（复用 code/baseline_mie.py）→ C_sca（全域）；**path A/Table 1 各自对 Mie 真值报告误差**（审查 11 🟡4）；
+    6. 独立路径：远场投影 (3)(4)（独立 VSH 实现，见 dependency_graph）+ miepython + 解析电流基准（analytic_benchmarks）；
+    7. 光学定理：新增 Grahn Eq.(22) 相位敏感测试（grahn_optical_theorem）+ 复用 Mie Y8；
+    8. m 求和：通用全 m（l≤2 即 m=0,±1,±2 全保）与球体简化（m=±1）双路径都跑；逐 m 目标（normalization.per_m_targets）锁相位/符号。
+  m_truncation: "l ≤ 2（电偶极/电四极/磁偶极/磁四极）；l=3 八极映射 (35)–(38) 仅用于解析基准与 a_E(1,m) 的 O 修正项、Q^m-O 桥，不作为 C_sca 验收通道"
+  environment: "本地 Python（numpy + scipy + matplotlib）；miepython 交叉（见 verification.miepython_gate）；独立 VSH 实现见 dependency_graph"
+  n_max: "Wiscombe x + 4x^{1/3} + 2（仅 Mie 基准总截面用；l≤2 分项不与 Wiscombe 总和混比，审查 10 衔接 ✓）"
+
+observables:
+  description: "双路径各自给同一组物理量，量化比较"
+  primary:
+    - { quantity: C_sca_pathA, source: "Grahn 无核映射 (27)→(39)–(48)→(20)", domain: "低-kr [0.02, 0.3]", unit: "归一化 C_sca/(λ_d²/2π)" }
+    - { quantity: C_sca_pathB, source: "Grahn 核积分 (15)(16)→(20)", domain: "全域 [0.02, 1.0]", unit: "归一化" }
+    - { quantity: C_sca_table1, source: "Alaee Table 1 → Eq.(1)（/c²）", domain: "低-kr", unit: "归一化" }
+    - { quantity: C_sca_mie, source: "Mie per-multipole a_n/b_n", domain: "全域", unit: "归一化" }
+    - { quantity: complex_aE_aM, source: "复 a_E(l,m)/a_M(l,m) 全 m 分量", domain: "全域", unit: "复数，锁相位/符号" }
+  per_multipole_mapping: "a_E(1,m)→ED、a_M(1,m)→MD、a_E(2,m)→EQ、a_M(2,m)→MQ（与 Mie a_n=电/b_n=磁 对齐；自动抓 a/b 标签防写反）"
+  figure: "双路径叠加图（按多极着色，lessons 12）；标题 'Grahn mapping reproduction'；近零断线/clip 处理"
+
+verification:
+  acceptance_contract:
+    path_B_vs_mie:
+      domain: "2a/λ_d ∈ [0.02, 1.0], 200 点 linear"
+      metric: "逐 m 复系数 + 模平方"
+      per_m_tolerances:   # 审查 12 🔴2：数值化
+        ED_MD: { relative: 0.01, note: "a_E(1,m)/a_M(1,m) 逐 m，分母 = |Mie 系数|，mask |Mie| < 1e-4 → absolute" }
+        EQ_MQ: { relative: 0.01, absolute_floor: 1.0e-6, note: "a_E(2,m)/a_M(2,m) 逐 m；低端高阶通道 C 小 → absolute mask 计数报告（审查 11 🔴5）" }
+        zero_targets: { absolute_zero: 1.0e-8, note: "等价性 m=±1 零分量、暗模式零通道" }
+      mask_report: "每通道报告 masked 点数（分母 < 1e-4 的 C_Mie 点）+ 低端段 [0.02,0.2] 逐通道 mask 统计（ED/MD/EQ/MQ 各自）"
+      asymptotic_oracle: "低端小宗量系数 oracle：ED a1 ~ −(2i/3)(πx_a)³(ε−1)/(ε+2)；EQ a2 ~ (i/15)(πx_a)⁵(ε−1)/(2ε+3)（等）——逐通道渐近系数比值 < 1%"
+    path_A_vs_table1: { domain: "2a/λ_d ∈ [0.02, 0.3], 150 点", metric: "max relative error", gate_subdomain: { range: [0.02, 0.1], note: "kr ≤ 0.314", threshold: 0.01 }, report_only: { range: [0.1, 0.3], note: "长波近似预期失效，仅报告截断误差曲线" }, truth: "path A vs Mie、Table 1 vs Mie 各自逐通道阈值：max rel < 0.01（[0.02,0.1] 域，mask 同 path B）+ log-log 斜率（[0.02,0.2]，预期 ≈ 6）；A vs Table 1 仅代数诊断（审查 12 🟡10 机器化）" }
+    far_field_projection_vs_pathB: { metric: "max relative error", threshold: 0.01, note: "独立路径互证（审查 10 🟡3），复系数逐 m 比 + 相位探针（phase_convention.probe_test）" }
+    analytic_benchmarks: { metric: "闭式 vs 数值", threshold: 0.001, note: "网格收敛 (40,41,80)→(60,61,120) 高信号区相对变化 < 0.001；真实 Mie 内场在小 x/共振附近/边界附近的 Eq.(15)(16) 收敛单独测（审查 10 衔接）；MQ 基准单独 kR 扫描（见 mq_kr_sweep）" }
+  mq_kr_sweep:   # 审查 12 🟡8：MQ 有限-kR 截断单独验收
+    kR_values: [0.05, 0.1, 0.2, 0.3]
+    separation: "积分误差（网格收敛 <0.1%）与长波截断误差（无核 Eq.(44)–(46) vs 核 Eq.(15)(16) 的固有差）**分表报告**"
+    note: "kR=0.3 时 j₂(ρ)/ρ² 首项修正 ≈ 0.64% > benchmark threshold 0.001——不得共用闭式阈值；gate 只在 kR ≤ 0.1 子域（截断 <0.1%）用闭式阈值"
+  miepython_gate:   # 审查 11 🟡8：gate 证据不得静默 skip
+    policy: "miepython 作为 gate②/④ 独立证据：缺失时 FAIL 或明确 BLOCKED，不得以 skipped 计入通过"
+    note: "可保留为普通兼容测试（importorskip），但独立证据路径在缺包时必须显式报失败"
+  analytic_benchmarks:   # 审查 11 🔴2/🔴3 + 审查 12 🟢14：公共 bump + 5 案例（计数澄清）
+    bump_function: { formula: "f(r) = [1−(r/R)²]³·θ(R−r)", smoothness: "全空间 C²（边界三阶零点，延拓后一般 C² 非 C⁶——审查 11 🔴2 修正）", closed_forms: { I0: "64πR³/315", I2: "64πR⁵/3465", I4: "64πR⁷/15015", I22: "64πR⁷/45045", note: "I4 = 3·I22；审查 11 用 SymPy 独立复核 + 主 agent 数值复核一致" } }
+    case_count_note: "公共 bump（工具）+ 6 个案例（bump_polarized_sphere/double_blob/circulating_current/MQ_m0/MQ_m2/MQ_m1）——YAML cases 列表 = 6 案例 + 公共 bump 不计入案例数（审查 12 🟢14 澄清）"
+    cases:
+      - { name: bump_polarized_sphere, current: "J = J₀ ẑ f(r)", purpose: "验证 p；居中球 M2 = 0", closed_form: "p_z = (iJ₀/ω)·I0 = 64π iJ₀R³/(315ω)；M2_raw = 0；Q^e = 0、m = 0", note: "改名：bump 加权极化电流非 uniform（审查 11 🟢2）" }
+      - { name: double_blob, current: "J = J₀[ẑ f(|r−d/2 ẑ|) − ẑ f(|r+d/2 ẑ|)]", purpose: "STF/迹分解非零但 p=0", closed_form: "M2_zz = (iJ₀d/ω)·I0（正斑 +d/2、负斑 −d/2；审查 11 🔴3 修正符号/系数/量纲）", note: "⚠️ 审查 12 🟡6 + 主 agent 自纠：d = 2.5R（两半径 R 的 bump 不重叠需 d ≥ 2R，0.5R 重叠错误）；积分域 = 包含两斑的最小球（半径 d/2+R = **2.25R**，非 2R），x,y,z ∈ [−2.25R, 2.25R]" }
+      - { name: circulating_current, current: "J = J₀(−y, x, 0) f(r)", purpose: "反对称 M2 → m_z", closed_form: "m_z = J₀·I2 = 64πJ₀R⁵/3465（审查 11 🔴3：非 2J₀I2）" }
+      - { name: MQ_m0, current: "J = J₀ z(−y, x, 0) f(r)", purpose: "a_M(2,0)（原文 (46)）", closed_form: "O_xyz − O_yzx = −(iJ₀/ω)·I22 = −64π iJ₀R⁷/(45045ω)（审查 11 🔴3：少 1/2 修正）" }
+      - { name: MQ_m2, current: "J = J₀ ẑ(x²−y²) f(r)", purpose: "a_M(2,±2)（原文 (44)）", closed_form: "O_zxx − O_zyy = (iJ₀/ω)(I4−I22) = (iJ₀/ω)·(2·64πR⁷/45045) ≠ 0；虚部组合 O_xyz+O_yzx−2O_zxy = 0（奇函数积分）" }
+      - { name: MQ_m1, current: "J = J₀ x̂(y²−z²) f(r)", purpose: "a_M(2,±1)（原文 (45)）", closed_form: "−O_xyy+O_xzz = (iJ₀/ω)(I22−I4) = −(iJ₀/ω)(2·64πR⁷/45045) ≠ 0；虚部组合 0" }
+    numerical_scale: { R: 1.0, J0: 1.0, omega: 1.0, d: "2.5R（双斑不重叠，审查 12 🟡6 修正）", kR: "小 kR；MQ 基准 kR ≤ 0.1 用闭式阈值（截断 <0.1%），0.1–0.3 单独扫描表（mq_kr_sweep）", quad: "Gauss–Legendre：径向 N_r=40、极角 N_θ=41（μ 内点不取端点）、方位 N_φ=80；收敛阶验证用 (40,41,80)→(60,61,120) 高信号区变化 <0.001", integration_domain: "解析 bump：球 r ∈ [0,R]（或双斑并集域，见各案例）；真实 Mie 内场：球 r ∈ [0,R] 全角", note: "审查 11 🟡5 + 审查 12 🟡7：每个基准给闭式 + 数值积分误差 + 网格收敛 + 长波截断误差分离；path A 的 Mie 内场体积分独立网格收敛表（审查 12 🟡7）" }
+  layer_tests:   # 审查 09 🟡4 + 审查 10 🟡1
+    - "随机复 3×3 张量逐层断言：9 分量重构（raw = sym+antisym+trace）"
+    - "STF 5 维性质（无迹+对称）；反对称 3 维对偶 m；迹 1 维暗模"
+    - "Q^e = 6·STF(M2) 仅在长波极限测试（有限 kr 反例断言 ≠，见 Qe_stf_conversion.finite_kr_counterexample）"
+    - "反对称分量使 a_M(1,m) 非零；迹分量使 l=2 映射全零"
+    - "M3 对称性：O[α,β,γ] == O[α,γ,β] 全成立（18 独立）"
+  equivalence_test:   # 审查 10 🟡7 + 审查 11 🟡6：非只测非零
+    strong: "零 p 八极构造（原文 eq:equiv_example：O = O(x̂x̂ẑ+ŷŷẑ−2ẑx̂x̂−2ẑŷŷ)，p=0, Q=0）→ 比较全部三个复 a_E(1,m) 与等效偶极 p̃ = 2Ok²ẑ：m=0 分量相对差 < 1%；m=±1 分量（零目标）用 absolute-zero tolerance（审查 11 🟡6）"
+    far_field: "可选：E_s 角分布逐 θ,φ 比较"
+  error_injection:   # 审查 09 结论 4 + 审查 10 结论 2.1 + 审查 11
+    - "a/b 标签互换 → 测试抓"
+    - "m=0/±1/±2 丢弃 → 测试抓"
+    - "坐标平移（原点偏移）→ 测试抓"
+    - "相位约定（e^{+iωt} vs e^{−iωt}）→ 测试抓"
+    - "Eq.(13) 第一项 r ↔ r̂ → 测试抓（量纲/原点行为）"
+    - "Ψ_l 导数（Ψ vs Ψ' vs Ψ''）互换 → 测试抓"
+    - "τ_lm/π_lm 互换 → 测试抓"
+    - "a_E 相位 (−i)^{l−1} ↔ a_M (−i)^{l+1} 互换 → 测试抓"
+  dependency_graph:   # 审查 10 🟡3 + 审查 11 🟡3
+    path_B: { field_source: "Mie c_n/d_n 内部场（mie_theory.py）", vsh: "scattering.py 自写（lpmv + 球坐标积分）", bessel: "scipy.special", angular: "球坐标体积分 (r,θ,φ) 三重", cross_section: "Eq.(20) π/k²" }
+    path_A: { field_source: "同 path B（共享 J_S）", vsh: "无（笛卡尔张量映射）", bessel: "无", cross_section: "Eq.(20)" }
+    far_field_projection: { field_source: "Mie a_n/b_n 散射场 E_s（baseline_mie.py）——共享系数源但独立提取环节", vsh: "**独立 VSH 实现**：scipy.special.sph_harm_y 直接构造 X_lm（教科书定义 + phase_convention 锁定，不复用 scattering.py 的 VSH/角函数；sph_harm 已弃用，审查 11 🟡3）", bessel: "**spherical_jn + 1j·spherical_yn 构造 h_l^(1)**（scipy 无 spherical_hn，审查 11 🟡3）", angular: "包围球面 (θ,φ) 二维角积分（Eq.(3)(4)）", angular_contract: { N_mu: 200, N_phi: 400, l_max_rule: "l_max ≤ N_mu/2 抗混叠", r_over_a: 8.0, min_kr: 0.5, note: "主 agent 自纠（审查 12 🟡9 延伸）：r/a=2 时 x_alaee=0.02 → kr=0.126 < min_kr 0.5 病态；r/a=8 保证全域 kr≥0.5（低端 kr=0.503）；h_l^(1)(25) l≤2 稳定；半径不变性 r/a ∈ {4, 8, 16} <0.1% 变化；N_μ×N_φ 加倍收敛 <0.1%" }, cross_section: "Eq.(20)" }
+    miepython: { field_source: "独立 Mie 库（miepython）", note: "只独立了 Mie 实现，不独立于标准 Mie 约定——辅助；gate 证据不得 skip（miepython_gate）" }
+    analytic_benchmarks: { field_source: "无（直接给定解析电流）", note: "完全不依赖 Mie/球面波——真正独立（审查 10 🟡3 核心）" }
+  grahn_optical_theorem:   # 审查 12 🔴2：域/mask 契约补全
+    new_gate: { formula: "C_ext,x = −(π/k²)Σ_l Σ_{m=±1} (2l+1)Re[m·a_E(l,m) + a_M(l,m)]（原文 Eq.(22)）vs C_s（Eq.(20)）", domain: "2a/λ_d ∈ [0.05, 1.0]（避开极低端数值病态），无损球（介电球 Im ε=0）", metric: "|C_ext,x − C_s|/C_s", threshold: 0.01, mask: "C_s < 1e-4 → absolute only（abs < 1e-6），逐点报告 mask 计数", note: "相位敏感（锁 m 符号与电/磁通道符号）；逐 m 复系数测试补充（per_m_tolerances），不只用截面" }
+    old_y8: "Mie Y8（C_ext=(4π/k)Im S(0)）仅作为既有回归保留，不作为本轮相位 gate"
+  layer1_hard_constraints:
+    - dark_mode: "球对称四极电流对 C_sca 零贡献"
+    - rayleigh_limit:   # 审查 12 🔴3：统一变量 + 固定拟合契约 + 重算
+        object: "完整 Mie 总截面 C_sca/(λ_d²/2π)（含全部通道，非 ED 单通道）"
+        variable: "x_alaee = 2a/λ_d（**统一自变量**，不再用 x_mie）"
+        fit_contract: "log-log 网格 41 点（logspace(0.02, 0.2)），polyfit(log x, log y) 一阶斜率"
+        observed: 6.079
+        observed_note: "主 agent 用现有 baseline_mie.py 完整 Mie 重算：lin [0.02,0.2]=6.101、log [0.02,0.2]=6.079、lin [0.02,0.1]=6.036——审查 12 独立 6.078/6.103 吻合；v3 的 6.0008 是 ED 单通道旧口径，作废"
+        threshold: { slope_range: [6.0, 6.3], note: "覆盖 log/lin 拟合差异 6.08–6.10 + 余量；Q_sca=C_sca/(πa²) 效率斜率才是 4（概念区分保留）" }
+        ed_channel_oracle: { slope: 6.0, tolerance: 0.05, note: "ED 单通道（3|a1|²）精确幂律斜率 6.0，作补充 oracle（可选）" }
+    - energy_conservation: "无损球 C_ext = C_sca 代数恒等式（不作独立能量守恒宣称）"
+  existing_tests: "第 1/2 轮 67 passed, 1 skipped 保持 pass（回归）"
+
+assumptions:
+  - "线性、各向同性、均匀介质；μ=μ₀；e^{−iωt} 时谐约定"
+  - "单球孤立散射（无阵列耦合）；J_S 局域支撑于球内"
+  - "本轮介电球 ε_r=6.25 无色散（方法桥接验证）；金球复 ε 不在本轮"
+  - "路径 A（无核张量映射）仅低-kr 有效，截断误差随 kr 增长并如实报告；path A/Table 1 各自对 Mie 真值（审查 11 🟡4）"
+  - "C 系数 ε = host 绝对介电常数 ε_d=ε₀ε_rd"
+  - "m 求和：通用全 Σ_m 与球体简化（m=±1）两条路径都实现并测试"
+  - "l≤2 验收通道；l=3 仅作 O 修正项与解析基准"
+  - "逐 m 目标（per_m_targets）与 Eq.(22) 消光比对共同锁相位/符号（审查 11 🔴6）"
+
+missing_fields:
+  - field: "金球复 ε 下的 Grahn 映射"
+    detail: "本轮只做介电球方法桥接；金球（复 ε、色散）留作后续轮（若需要）"
+  - field: "阵列/多体耦合"
+    detail: "Grahn 框架核心卖点是阵列可用；本轮单球验证映射本身，不覆盖阵列"
+  - field: "Eq.(13)(14) 对真实球的边界分布处理"
+    detail: "审查 10 🔴5：真实球 J_S 在 r=a 不连续，直接数值导数会漏表面分布项；本轮以 Eq.(15)(16) 为主，直接导数仅限解析 bump 电流。表面分布项的弱形式/显式实现不在本轮（记录）"
+  - field: "Eq.(15)–(19) 数值稳定性定义"
+    detail: "审查 11 🟡2：π_lm 极点（μ 内点/解析极限/递推）、Ψ''（递推/Riccati）、ρ→0 级数极限——已机器化于 path_B_defs/psi_double_prime；数值实现仍在 step04"
+  - field: "Grahn↔Mie 复 per-m 约定"
+    detail: "已机器化于 normalization.per_m_targets；相位/符号最终锚定依赖 Eq.(22) 消光比对（grahn_optical_theorem）"
+  - field: "Grahn↔Alaee 绝对/归一化单位桥"
+    detail: "归一化口径 C_sca/(λ_d²/2π) 已选；Alaee Eq.(1) 的 SI 单位（k⁴/6πε₀²|E_inc|²）与 Grahn Eq.(20)（π/k²）桥接在路径 A 报告截断误差时一并量化"
+  - field: "表 1 EQ 的 rank-4 修正缺口"
+    detail: "审查 10 🟡2：6·STF(M2) 只对应表 1 EQ 最低阶；表 1 EQ 含 k² rank-4 修正，路径 A 按通道报告截断阶，不隐藏该缺口"
+  - field: "远场投影路径的独立场源"
+    detail: "远场 E_s 由 Mie a_n/b_n 生成（共享系数源）；独立性在 VSH 实现/角积分/提取环节（dependency_graph），非完全独立场源——已声明"
+  - field: "有限-kr 反例的范数/分母定义"
+    detail: "已锁定（审查 12 🟡5）：Frobenius 范数 + Table-2 精确分母 + 逐分量比较 + 积分/截断误差分判；实现层按此执行"
+  - field: "讲义残留错误公式源（4 文件）"
+    detail: "审查 12 🔴1：06/07/12 的 Eq.(13) 第二项 + 07/12 的 O_lm 简写 + 04 的 X_lm 相位——已列入 forbidden_source_paths 黑名单，生成型代码禁止抄取；讲义修正待用户批准（新增 4 处）"
+  - field: "Grahn spec 的 JSON Schema（已实现）"
+    detail: "code/schemas/grahn_schema.json 与 code/validate_grahn_spec.py 已存在；tests/test_grahn_spec.py 已覆盖当前 v4 spec、schema hash 收据和关键漂移拒绝。"
+  - field: "非 air host 的 Alaee SI→canonical 桥"
+    detail: "审查 12 🟡11：当前 host=air 可比；非 air host 的 λ_d 换算与 Alaee 绝对 SI 桥留后续轮（记录）"
+
+provenance:
+  source_artifact: "Grahn 2012 原文 PDF（33KFYX34，字形级核对 Eq.(13)）+ notes/grahn-formulas.md + grahn2012-chinese.tex（译本，含转录错误勘误）+ 讲义 06/07/12（Eq.(13) 残留，黑名单）+ 04（X_lm 相位）+ 审查 09/10/11/12 RESULT + triage + repro-plan-round3.md (v2→v3)"
+  evidence_type: "原文 PDF 逐式编号核对 + 字形级确认 r 非 r̂ + (2+rd/dr) 算子 + 讲义残留 grep 逐行核实（06:122,181 / 07:119,136,145,150,264 / 12:315 / 04:289-295）+ 完整 Mie Rayleigh 重算（lin 6.101 / log 6.079，与审查 12 独立值吻合）+ 审查 12 全项接受（triage 记录）"
+  timestamp_version: "20260810-round3-step02-v4-review12-revised"
+  scope_applicability: "第 3 轮 Grahn 映射验证（介电球单球）；双路径验收 + 独立路径 + 解析基准；结果上限 method_consistency"
+  confidence_result_class: "高（公式/编号/算子逐字对原文 + 讲义残留定位 + Rayleigh 重算吻合）+ 待 gate② 对抗审查（审查 12 修订版）/ method_consistency（上限）"

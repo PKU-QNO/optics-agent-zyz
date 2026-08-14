@@ -1,0 +1,72 @@
+\section{数值验收：表2 vs Mie 方法一致性}
+
+\subsection{主验收（Olmon-EV，200 点加密网格 (60,61,120)）}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+通道 & 最大相对误差 & p95 相对误差 & 最大绝对误差 & 近零 mask 点 \\
+\midrule
+ED & 0.0119\% & 0.0114\% & $1.74\times10^{-4}$ & 0 \\
+MD & 0.0170\% & 0.0165\% & $1.28\times10^{-4}$ & 0 \\
+EQ & 0.0161\% & 0.0161\% & $2.63\times10^{-4}$ & 4 \\
+MQ & 0.0241\% & 0.0240\% & $6.33\times10^{-5}$ & 16 \\
+\bottomrule
+\end{tabular}
+\caption{表2 vs Mie 200 点加密网格验收（机器可读：\texttt{data/fig2\_gold\_olmon\_refined\_summary.json}）。全部满足最大相对误差 $<1\%$、p95 $<0.1\%$、绝对误差 $<2\times10^{-3}$。}
+\end{table}
+
+\subsection{介电球面板 (a)（复用第一轮）}
+
+\begin{itemize}
+  \item 数据复用第一轮 fig1a CSV（同一物理），九点表2/Mie 比值 $0.99907$--$1.00049$（\texttt{data/fig2\_nine\_point\_ratios.csv}）
+  \item 峰位锚点（第一轮实测）：ED a$_1$ @$2a/\lambda=0.50$、MD b$_1$ @0.385、EQ a$_2$ @0.647、MQ b$_2$ @0.543
+  \item 普适上限 (2j+1)：ED/MD（偶极 j=1）→ 3、EQ/MQ（四极 j=2）→ 5，实测峰全压上限
+\end{itemize}
+
+\subsection{网格收敛}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{lrrrr}
+\toprule
+ & ED & MD & EQ & MQ \\
+\midrule
+最大变化（(40,41,80)→(60,61,120)） & 0.0452\% & 0.0642\% & 0.0608\% & 0.0907\% \\
+\bottomrule
+\end{tabular}
+\caption{网格收敛：高信号区最大变化全部 $<0.1\%$（\texttt{data/fig2\_gold\_olmon\_grid\_convergence.json}）}
+\end{table}
+
+\subsection{复数 Mie 交叉验证}
+
+在 550/1000/1700/1935/2500~nm，Olmon-EV 路径均满足 $\operatorname{Im}(m)>0$、$C_{\rm abs}\geq0$，并通过 \texttt{miepython} 的 $a_n, b_n, c_n, d_n$ 逐项交叉。JC 在 1935~nm 之外、McPeak 在 1700~nm 之外\textbf{禁止外推}。
+
+\subsection{测试}
+
+最终完整测试 67 passed, 1 skipped，其中 Layer3/gate 4 专项 15 项全部通过；skip = 原介电球慢速扫描，不影响已落盘验收。
+
+\subsection{复现图}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.72\textwidth]{fig2_paper_original.png}
+\caption{论文原图 Fig.2（Alaee 2018 页4，PDF 渲染）：(a) 介电球 (b) 金球，各多极对散射截面的贡献，Mie 实线 + 表2 exact 标记。}
+\label{fig:paper_original}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.72\textwidth]{fig2_reproduction.png}
+\caption{Fig.2(a,b) reproduction：双面板多极分解，实线 = Mie，虚线/标记 = 表2 精确。y 轴归一化 $C_{\rm sca}/(\lambda^2/2\pi)$，linear 1,3,5,7；x 轴 $2a/\lambda$ 0.2--1.0（vision-mcp 双通道确认轴）。}
+\label{fig:reproduction}
+\end{figure}
+
+对比图 \ref{fig:paper_original} 与 \ref{fig:reproduction}：双面板曲线形状、峰位、量级一致；差异见 §6 Layer3 量化对比。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.72\textwidth]{fig2_gold_material_sensitivity.png}
+\caption{金材料敏感性：JC/Olmon/McPeak 三源分别计算表2 vs Mie 的包络（min--max）。三源对方法一致性无实质影响（同一 $\varepsilon$ 下互比）。}
+\end{figure}

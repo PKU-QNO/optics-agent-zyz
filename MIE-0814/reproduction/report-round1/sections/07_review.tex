@@ -1,0 +1,90 @@
+\section{W-sub 独立对抗审查}
+
+本节是 W-sub 子 agent 对表2 修复的独立审查，六项逐条核验。
+审查只读，不修改任何文件；结论以独立数值复算为准。
+
+\subsection{坐标修正物理正确性（✅）}
+
+\texttt{\_cartesian\_position} 返回 $U\cdot(\sin\theta\cos\phi,\sin\theta\sin\phi,\cos\theta)$。
+逐项核对四条表2 公式的无量纲化，全部含正确的 $U$ 因子：
+
+\begin{table}[H]
+\centering
+\caption{坐标修正逐项核对}
+\begin{tabular}{llll}
+\toprule
+\textbf{多极} & \textbf{表2 公式} & \textbf{无量纲实现} & \textbf{$U$ 因子} \\
+\midrule
+ED & $p_\alpha\propto\int J_\alpha j_0+\frac{k^2}{2}(3(\mathbf r\cdot\mathbf J)r_\alpha-r^2J_\alpha)\frac{j_2}{(kr)^2}$ & $\frac{x^2}{2}(3\,\mathrm{rdotJ}\,u_\alpha-U^2J_\alpha)\frac{j_2}{\rho^2}$ & $\checkmark$ \\
+MD & $m_\alpha=\frac32\int(\mathbf r\times\mathbf J)_\alpha\frac{j_1}{kr}$ & $\frac32\int(\mathbf u\times\mathbf J)_\alpha\frac{j_1}{\rho}$ & $\checkmark$ \\
+EQ & 两项张量组合 & 都用 $u$ 分量 + $U^2$ & $\checkmark$ \\
+MQ & $15\int\{r_\alpha(\mathbf r\times\mathbf J)_\beta+\cdots\}\frac{j_2}{(kr)^2}$ & $15\int\{u_\alpha(\mathbf u\times\mathbf J)_\beta+\cdots\}\frac{j_2}{\rho^2}$ & $\checkmark$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+独立复现旧 bug（单元方向、无 $U$）：$s=0.65$ 处 ED/Mie$=34.5$
+（笔记声称 35，吻合），证明根因诊断方向正确。
+
+\subsection{host-k 正确性（✅）}
+
+\begin{itemize}
+  \item 内部场 \texttt{internal\_E\_field} 用 $\rho_{\mathrm{in}}=m x u$（内部 $k$）——正确；
+  \item 表2 球 Bessel 核用 $\rho=xU$（host $k$）——正确，默认值即 host；
+  \item 独立复现 \texttt{kernel\_k='internal'} 分支 ED/Mie$=390.85$
+        （笔记声称 390.85，完全吻合），证明 host-k 唯一正确；
+  \item 测试 \texttt{test\_table2\_host\_kernel\_is\_default...} 验证默认 host、
+        internal 分支产生 $>10$ 倍错误。
+\end{itemize}
+
+\subsection{Eq.1 解析常数推导（✅，重点项）}
+
+从 Eq.~\eqref{eq:eq1} 第一性原理推导，四条常数全部精确匹配：
+
+\begin{itemize}
+  \item ED $=x^6/(12\pi^2)$：$p_{\mathrm{phys}}=\varepsilon_0 p_{\mathrm{tilde}}$，
+        前因子 $\varepsilon_0^2$ 与分母 $\varepsilon_0^2$ 抵消，
+        $\lambda^2/(2\pi)$ 归一化给出 $k^6\to x^6$；
+  \item MD $=x^8/(12\pi^2)$：$|m|^2/c^2$ 的 $1/c^2$ 带来额外 $k^2$；
+  \item EQ $=x^8/(1440\pi^2)$：\textbf{$1/1440=1/(120\times12)$}，
+        120 来自 Eq.1 四极系数，12 来自 $6\times2$（前因子 $\times$ 归一化）；
+  \item MQ $=x^{10}/(1440\pi^2)$：磁四极带 $1/c^2$，额外 $k^2$，
+        故 $x^{10}$ 而非 $x^8$。\textbf{最容易错的地方，代码正确}。
+\end{itemize}
+
+\textbf{双路径确认}：分析推导 + 数值准静态验证（$s=0.2,0.3$ 四通道比值全部
+$\approx1.0000$，EQ/MQ 小 $x$ 纯四极直接锁定 $1/1440$）。
+
+\subsection{积分器正确性（✅）}
+
+用已知解析积分独立验证 6 个测试（含复数 $e^{i\varphi}$、$\cos\varphi$ 应精确为 0）：
+全部通过。$\phi$ 周期求和精确消去 x 偏振的 $m=\pm1$ Fourier 模式
+（$N_\phi=80$ 均匀节点无重复端点）。Simpson 在非端点 $\theta$ 网格上正确
+（$\int\sin\theta\,d\theta=2.000000$ 精确）。
+
+\subsection{$r\to0$ 处理（✅）}
+
+\texttt{\_jl\_over\_rho\_l} 对所有 $l=0..3$ 用 $1/(2l+1)!!$ 极限兜底。
+独立验证：所有核在 $\rho\to0$ 都正确趋于极限；ED/EQ 的 term2 在 $r\to0$
+是 O($r^2$)$\times$常数 $\to$ 有限，无 $0/0$。测试 \texttt{test\_r0\_jl\_limit} 覆盖。
+
+\subsection{回归检查（✅）}
+
+\begin{itemize}
+  \item \texttt{pytest tests/}：33 passed 1 skipped；
+  \item 九点表2/Mie 比值全部 $\approx1.000$，最大偏差 EQ@0.8 $=0.17\%$；
+  \item 200 点慢测：1 passed；CSV 复核最大误差与笔记逐位一致；
+  \item Mie 基准与 miepython 差 $\sim1e{-}16$；
+  \item 旧经验常数 \texttt{.00865/.00558/.000042/.000008} 已从生产代码删除，
+        只在 \texttt{\_diag\_table2.py} 作历史诊断引用；
+  \item EQ 的 $j_3$（toroidal）项：去掉后 $s=0.8$ 处 EQ/Mie$=30.85$，
+        包含时 1.0017——$j_3$ 项被正确保留，是精确性的必要部分。
+\end{itemize}
+
+\subsection{发现的一个小问题（⚠️，不阻塞）}
+
+\texttt{multipole\_ppartial.py} 的 \texttt{\_\_main\_\_} 诊断输出与它自己的
+结论打印矛盾：它打印的 ratio 序列是
+$1.000/0.968/0.877/0.465/0.593/155.345/36.920/8.548/0.025$（最差 155），
+却最后打印"ratio 恒$\approx$1"。该文件不被任何生产/测试代码 import，
+不影响生产路径，但建议修正这条 print 文案避免未来误读。

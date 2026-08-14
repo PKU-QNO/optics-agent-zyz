@@ -1,0 +1,50 @@
+\section{数值复现结果}
+
+我复现了四篇论文的核心数值结果。球体（Fig.~1/2）用解析的 Lorenz--Mie 级数作为独立真值，非球形双盘（Fig.~3）用 COMSOL 频域有限元与边界元两种数值求解器。
+
+\subsection{Alaee 2018 Fig.~1/2：球体的多极分解}
+
+\textbf{Fig.~1（介电球 $\varepsilon_r=6.25$）}：我实现 Table 2 精确多极矩（体积分），并与 Lorenz--Mie 系数（$a_n,b_n,c_n,d_n$）逐通道对比。200 点扫描的四通道最大相对误差：
+
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+ED & MD & EQ & MQ \\
+\midrule
+$0.1404\%$ & $0.0383\%$ & $0.2020\%$ & $0.1252\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{Fig.~2（金球 $a=250$ nm，Johnson--Christy 色散）}：把同一方法推广到有损色散材料，加密积分网格（$60\times61\times120$）后四通道误差降到：
+
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+ED & MD & EQ & MQ \\
+\midrule
+$0.0119\%$ & $0.0170\%$ & $0.0161\%$ & $0.0241\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+这验证了 Table 2 精确多极矩在复折射率、宽谱、有损条件下与解析 Mie 解的一致性。
+
+\subsection{Grahn 2012：电流多极矩到散射系数的映射}
+
+我实现了 Grahn 的双路径映射，并做了逐项数值验证：
+
+\begin{itemize}
+  \item \textbf{Path A（长波）} 与 Table 1 对比：总截面最大相对误差 $5.71\times10^{-7}$；
+  \item \textbf{Path B（有限核）} 与 Mie 对比：总截面最大相对误差 $2.94\times10^{-4}$；
+  \item \textbf{逐 $m$ 复系数}：1298 行保留，最大误差 $1.52\times10^{-3}$；
+  \item \textbf{六个解析电流 fixture}：最大闭式误差 $1.19\times10^{-14}$。
+\end{itemize}
+
+这验证了从局域电流分布到散射场多极系数的映射关系（Eq.~(1)--(16)）在数值上是正确的。
+
+\subsection{Alaee 2018 Fig.~3：耦合金纳米盘的频域真解}
+
+双金盘（$a=250$ nm、$t=80$ nm、$g=120$ nm）没有解析解，我用 COMSOL 频域有限元求解。9 点谱（$x=0.26$--$0.42$）显示 ED 主导、MD/EQ 在 $x=0.36$ 出现磁共振（MD $1.60\times10^{-12}$ m$^2$ 主导、EQ 伴生、MQ $\approx0$），与论文的共振形态一致。$x=0.36$ 处的四档网格收敛（$1.0\to0.7\to0.5\to0.3$，292,687 至 10,735,163 单元）给出 ED/MQ 已收敛（步进 $<0.26\%$），MD/EQ 步进 $2.26\%/1.95\%$，Richardson 外推显示收敛阶 $p\approx1.3$（表面场奇异性主导，见 §4.1）。
+
+另以边界元法（RF 模块）在同一几何上求解，用 128G 内存跑通（对比有限元 0.3 网格的 900G，省约 7 倍），验证了边界元作为更省内存替代路径的可行性（PEC 近似下的对比见 §4.1）。

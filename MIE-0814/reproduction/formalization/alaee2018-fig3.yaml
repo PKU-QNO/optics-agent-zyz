@@ -1,0 +1,416 @@
+# Alaee 2018 Fig.3 revised specification candidate
+# Status: APPROVED_AS_PATH_CANDIDATE (main agent adoption of B12 review, 2026-08-11). Formal execution remains pending FIG3-G0--G6.
+# Schema: the nine top-level SEPR fields requested by B11.
+
+method:
+  schema: "SEPR-9"
+  schema_fields:
+    - method
+    - observable
+    - parameters
+    - physics
+    - path
+    - numerics
+    - validation
+    - gates
+    - result_class
+  paper: "Alaee et al. 2018, Optics Communications 407, 17-21"
+  case: "alaee2018-fig3"
+  target_figure: "Fig.3(a,b)"
+  version: "B11-revised-candidate-20260811"
+  status: "draft_pending_human_approval"
+  target_claim: >-
+    Reproduce the ED, MD, EQ, and MQ contributions to C_sca calculated from
+    Table 1 and Table 2, and the corresponding panel-(b) relative-error
+    curves, for the coupled gold nanodisks.
+  primary_method: "COMSOL frequency-domain scattering plus Cartesian multipole post-processing"
+  supporting_method: "B7 two-center Lorenz-Mie surrogate"
+  source_records:
+    paper_text: "../alaee2018-chinese.tex:359-386"
+    a4_candidate: "codex-prompts/out/A4-notes/alaee2018-fig3.yaml"
+    a4_parameters: "codex-prompts/out/A4-notes/fig3-parameters.md"
+    a4_plan: "codex-prompts/out/A4-notes/repro-plan-round4.md"
+    b7_discrepancies: "codex-prompts/out/B7-fig3-draft-discrepancies.md"
+    b7_execution: "codex-prompts/out/B7-report.md"
+    b8_execution: "codex-prompts/out/B8-report.md"
+    structure_reference: "formalization/grahn.yaml v4"
+  authorization:
+    execution_authorized: false
+    promotion_to_formalization_authorized: false
+    note: "This file is a review candidate only."
+
+observable:
+  primary:
+    panel_a:
+      description: "Per-channel scattering-cross-section contributions from Table 1 and Table 2"
+      channels:
+        ED: {moment: "p", order: 1, family: "electric"}
+        MD: {moment: "m", order: 1, family: "magnetic"}
+        EQ: {moment: "Qe", order: 2, family: "electric"}
+        MQ: {moment: "Qm", order: 2, family: "magnetic"}
+      variants:
+        Table1: "long-wavelength approximate expressions"
+        Table2: "exact Cartesian expressions through quadrupole order"
+      quantity: "C_sca_channel / (lambda_host^2/(2*pi))"
+      unit: "dimensionless"
+      line_mapping: {Table2: "solid", Table1: "dashed"}
+    panel_b:
+      description: "Percentage relative error between Table 1 and Table 2 for ED, MD, EQ, and MQ"
+      source_status: "figure label confirmed; mathematical metric not defined by the paper"
+      metric_status: "PENDING_HUMAN_APPROVAL"
+      metric_bundle_candidate:
+        comparison_quantity: "complex multipole moment"
+        ED_MD_norm: "complex_l2"
+        EQ_MQ_norm: "complex_frobenius"
+        denominator: "Table2_exact_norm"
+        formula: "100*norm(M_Table1-M_Table2)/max(norm(M_Table2), channel_absolute_floor)"
+        channel_absolute_floor: null
+        mask_rule: "Points below the approved channel-dimensional floor use absolute error only."
+        required_reporting:
+          - "floor and its physical unit for every channel"
+          - "masked-point count for every channel"
+          - "unmasked-point count for every channel"
+          - "whether plotted values are moment error or C_sca-contribution error"
+      prohibition: "B7 exact-denominator percentages are engineering diagnostics until this bundle is approved."
+  independent_supporting:
+    - "direct far-field or Poynting-flux total C_sca from the COMSOL field"
+    - "complex E, H, and induced-current exports with coordinates and integration weights"
+    - "Mie-surrogate versus COMSOL comparison on a common dimensionless axis"
+  diagnostic:
+    fano:
+      enabled_by_default: false
+      role: "diagnostic_only_not_primary_observable"
+      gate_by_default: false
+      input_observable_options:
+        - "total_scattering"
+        - "extinction"
+        - "selected_angle_intensity"
+      reference_profile: "F(x)=B(x)+A*(q+epsilon)^2/(1+epsilon^2), epsilon=2*(x-x0)/Gamma"
+      lossy_extension_note: "For lossy multichannel gold, complex-q or lossy-q-b may be required."
+      required_outputs: ["q", "x0", "Gamma", "fit_window", "background_model", "residuals", "parameter_uncertainty"]
+      required_decisions: ["observation_operator", "model_family", "fit_window", "background_model", "acceptance_threshold"]
+      promotion_effect: "none"
+
+parameters:
+  geometry:
+    structure: "two identical coaxial coupled gold nanodisks"
+    a: {value: 250.0, unit: "nm", meaning: "disk radius", status: "paper_confirmed"}
+    t: {value: 80.0, unit: "nm", meaning: "single-disk thickness", status: "paper_confirmed"}
+    g: {value: 120.0, unit: "nm", meaning: "edge-to-edge inter-disk gap", status: "paper_value_confirmed_definition_to_be_bound_in_model"}
+    center_to_center: {value: 200.0, unit: "nm", formula: "t+g", status: "derived"}
+    origin: "midpoint of the gap"
+  spectral_axis:
+    canonical_variable: "x_alaee=2*a/lambda_host"
+    scale: "linear"
+    range: [0.25, 1.0]
+    wavelength_mapping_nm: "lambda_host_nm=500/x_alaee"
+    mapped_wavelength_range_nm: [500.0, 2000.0]
+    caption_axis_conflict: >-
+      The caption says wavelength, while the plotted axis is 2a/lambda.
+      The plotted dimensionless axis is canonical; wavelength is derived.
+    forbidden_legacy_axis: "wavelength_nm with logarithmic panel-a y axis"
+  materials:
+    particle:
+      material: "gold"
+      optical_data: "Johnson-Christy n and k, converted as epsilon=(n+i*kappa)^2"
+      local_table: "data/gold_epsilon.csv"
+      local_manifest: "data/_gold_sources/manifest.yaml"
+      interpolation_variable: "lambda_nm"
+      interpolation_method_candidate: "linear"
+      allow_extrapolation: false
+      raw_source_coverage_nm: [187.9, 1937.0]
+      continuous_local_coverage_nm: [500.0, 1937.0]
+      b7_conservative_gap_label_nm: [1935.0, 2000.0]
+      gap_note: >-
+        B7 and this task name 1935-2000 nm as the conservative scan gap.
+        The frozen raw source reaches 1937 nm, so 1935 nm must not be
+        relabeled as the source-table boundary. The approved sampling grid
+        must record exactly which points are unsupported.
+      gap_decision_options:
+        - "crop the fidelity scan to supported Johnson-Christy points"
+        - "approve a named extension source and bind its SHA-256"
+        - "keep the full axis, mark unsupported points non-fidelity, and downgrade"
+      forbidden_gap_policy: "silent extrapolation"
+    host:
+      material: null
+      epsilon_relative: null
+      status: "UNKNOWN_FOR_FIG3; air is inherited from earlier text but not frozen here"
+    spacer:
+      material: null
+      epsilon_relative: null
+      status: "UNKNOWN; g is known but spacer permittivity is not"
+  excitation:
+    type: "monochromatic plane wave"
+    polarization_candidate: "x"
+    propagation_candidate: "+z along the disk axis"
+    amplitude_candidate_V_per_m: 1.0
+    status: "relative orientation supported by the inset; exact COMSOL feature and sign convention pending"
+  sampling:
+    candidate_points: 201
+    include_both_endpoints: true
+    status: "PENDING_HUMAN_APPROVAL"
+
+physics:
+  problem_class: "three-dimensional linear frequency-domain electromagnetic scattering"
+  not_problem_class: ["eigenmode", "mode analysis", "propagation-constant extraction"]
+  neff: "NOT_APPLICABLE"
+  time_dependence: "exp(-i*omega*t)"
+  host_wave_number: "k=omega*sqrt(mu0*epsilon_host)=2*pi/lambda_host"
+  induced_current: "J=-i*omega*(epsilon-epsilon_host)*E"
+  current_domain_rule:
+    if_spacer_equals_host: "integrate the two gold disks"
+    if_spacer_differs_from_host: "integrate every domain with nonzero induced current relative to the selected host"
+    exclusion_policy: "A domain may be excluded only with source- or model-bound evidence."
+  table1_role: "Long-wavelength approximation applied to the same complex current used by Table 2"
+  table2_role: "Exact Cartesian multipole kernels through ED, MD, EQ, and MQ for the same localized current"
+  scattering_cross_section:
+    authority: "Alaee arXiv 1701.00755v2 Eq.(1)"
+    selected_magnetic_terms: ["abs(m/c)^2", "abs(k*Qm/c)^2"]
+    implementation_formula: >-
+      C_sca=k^4/(6*pi*epsilon0^2*abs(E0)^2)
+      *[sum(abs(p)^2+abs(m/c)^2)
+      +(1/120)*sum(abs(k*Qe)^2+abs(k*Qm/c)^2)]
+    local_chinese_transcription: ["abs(m)^2/c", "abs(k*Qm)^2/c"]
+    local_transcription_status: "dimensionally inconsistent divergent transcription; do not mix"
+    journal_final_glyph_status: "UNRESOLVED"
+  normalization: "C_sca/(lambda_host^2/(2*pi))"
+  multipole_interference_boundary: >-
+    Per-channel full-solid-angle modulus-square contributions are not
+    themselves Fano interference terms. Directional or same-channel
+    background-resonance interference requires a complex-amplitude observable.
+  truth_boundary: >-
+    Table 2 is formula-exact for a supplied localized current through the
+    retained order; the Fig.3 field is still a COMSOL numerical field and has
+    no independent closed-form Mie truth for the coupled nanodisks.
+
+path:
+  comsol_frequency_domain:
+    role: "primary physical path"
+    result_target: "paper-fidelity Fig.3 field solve and post-processing"
+    current_status: "NOT_RUN; B8 created a fail-closed skeleton only"
+    verified_runtime_status: "generic COMSOL 6.3 frequency-domain runtime smoke passed; Fig.3 physics did not run"
+    study: "Frequency"
+    interface: "Wave Optics or RF frequency-domain scattering/background-field interface"
+    prohibited_substitute: "mode-analysis snippets or neff output"
+    dependency:
+      accepted_options:
+        - "a successful COMSOL 6.3 GUI-exported .mph plus Model Java file"
+        - "a B9s evidence package that freezes equivalent, exact Fig.3 frequency-domain feature and parameter names, is executable, and has been run successfully"
+      b9s_scope_guard: >-
+        A B9s document about isolated-waveguide mode analysis does not satisfy
+        this dependency unless it separately covers the Fig.3 scattering model.
+      b9s_equivalence_requirements:
+        executable_model_required: true
+        successful_run_required: true
+        required_receipts:
+          - "hash-bound executable model or deterministic builder"
+          - "successful solver log with COMSOL version and licensed module"
+          - "nonzero field, induced-current, scattering-power, and multipole outputs"
+        current_status: "NOT_SATISFIED_BY_EXISTING_B9S_MODE_ANALYSIS_DOCUMENT"
+    required_settings:
+      material_interpolation:
+        - "Johnson-Christy source artifact, units, SHA-256, n/k-to-epsilon convention"
+        - "interpolation method and an explicit no-extrapolation/missing-point policy"
+        - "named gold, host, and spacer domain selections"
+      background_field:
+        - "scattered-field/background-field formulation"
+        - "x-polarized plane wave, axial propagation, amplitude and time convention"
+        - "incident intensity used to normalize scattering power"
+      open_domain:
+        - "outer-domain geometry and dimensions"
+        - "scattering boundary or PML feature, selections, thickness, coordinates, and convergence sweep"
+      mesh_solver:
+        - "gold-surface, 80 nm thickness, and 120 nm gap local mesh selections"
+        - "frequency sweep, solver sequence, tolerances, and complex-field settings"
+      postprocessing:
+        - "complex E, H, and J on named domains with coordinates and volume weights"
+        - "Table 1 and Table 2 ED/MD/EQ/MQ moments and per-channel C_sca"
+        - "direct far-field or Poynting-flux total scattering"
+        - "material, mesh, boundary, solver, and result-expression manifests"
+  mie_two_center_surrogate:
+    role: "supporting surrogate and implementation diagnostic"
+    source: "B7 implementation"
+    construction: >-
+      Lorenz-Mie a1, b1, a2, and b2 coefficients with two centers separated
+      by t+g=200 nm, a symmetric retardation factor, and a bounded weak-coupling
+      denominator; per-channel exact proxy is (2*l+1)*abs(A_l)^2 and the
+      approximate proxy uses the Rayleigh leading coefficient.
+    channels: ["ED", "MD", "EQ", "MQ"]
+    non_equivalence: >-
+      The real object is a coupled non-spherical nanodisk pair. No Mie
+      closed-form solution exists, and the surrogate does not reproduce the
+      COMSOL current distribution, spacer domains, or exact boundaries.
+    current_result_class: "surrogate_fallback"
+    result_class_ceiling: "surrogate_fallback"
+    forbidden_promotion: ["partial_physical_match", "physical_reproduction_success"]
+  cross_validation:
+    activation: "after a physically configured COMSOL Fig.3 solve exists"
+    comparison_domain: "common supported x_alaee points only"
+    required_common_contract:
+      - "same x_alaee and lambda_host mapping"
+      - "same Johnson-Christy values at compared points"
+      - "same ED/MD/EQ/MQ labels and normalization"
+      - "explicit masks for unsupported material and near-zero channels"
+    proposed_thresholds:
+      status: "PENDING_HUMAN_APPROVAL_ENGINEERING_THRESHOLDS"
+      high_signal_mask: "COMSOL channel >= max(1e-4, 0.01*that-channel maximum) in normalized C_sca"
+      normalized_shape_nrmse_max: 0.25
+      pearson_correlation_min: 0.80
+      dominant_peak_abs_delta_x_max: 0.05
+      dominant_channel_identity_fraction_min: 0.75
+      panel_b_median_abs_difference_percentage_points_max: 10.0
+      panel_b_p95_abs_difference_percentage_points_max: 25.0
+      panel_b_condition: "inactive until the panel-b metric bundle is approved identically for both paths"
+    interpretation:
+      pass: "surrogate_crosscheck_passed; no promotion of the surrogate"
+      fail: "crosspath_discrepancy; blocks this draft's complete-Fig.3 gate until explained or explicitly waived"
+      comsol_truth_note: "Failure does not by itself falsify a converged COMSOL result because the surrogate geometry is not equivalent."
+
+numerics:
+  spectral_grid:
+    proposal: "linspace(0.25,1.0,201) in x_alaee"
+    base_scan_points: 201
+    nested_convergence_points: [201, 401]
+    sufficiency_policy: "The 201-point scan is a base scan only; 201-to-401 nested or adaptive convergence is required before execution evidence can pass."
+    unsupported_material_points: "fail closed or mark non-fidelity; never extrapolate silently"
+  comsol:
+    mesh_refinement_scale_factors: [1.0, 0.7, 0.5]
+    high_signal_relative_change_max: 0.01
+    peak_or_dip_shift_max_grid_points: 2
+    peak_or_dip_shift_grid_points_role: "legacy diagnostic only; grid-point counts must not be used as the execution or promotion gate"
+    peak_position_gate_metric: "absolute delta x_alaee or a pre-approved fraction of the local linewidth"
+    pml_or_outer_boundary_relative_change_max: 0.01
+    require_nonzero_field_and_power: true
+    require_complex_fields: true
+    multipole_report_order: "l<=2 for Fig.3 ED/MD/EQ/MQ"
+    closure_order_sequence: [2, 3, 4, 6]
+    closure_order_relative_change_max: 0.01
+  mie_surrogate:
+    coefficients: ["a1", "b1", "a2", "b2"]
+    full_series_n_max_rule: "Wiscombe x+4*x^(1/3)+2 for internal convergence checks"
+    b7_observed_n_max_check: "n_max=6 matched the Wiscombe result at the recorded stress point"
+    optical_theorem_residual_max: 1.0e-10
+    rayleigh_limit_relative_error_max: 1.0e-2
+  table2_kernels:
+    origin_limits: {j0: 1.0, j1_over_rho: 0.3333333333333333, j2_over_rho2: 0.06666666666666667, j3_over_rho3: 0.009523809523809525}
+    series_switch: "PENDING_IMPLEMENTATION_REGRESSION"
+  fano_fit:
+    enabled: false
+    default_gate: false
+    candidate_fit_R2_min: 0.98
+    candidate_bootstrap_samples: 1000
+    candidate_confidence_level: 0.95
+
+validation:
+  status: "DECLARED_NOT_EXECUTED_FOR_FULL_FIG3"
+  schema:
+    require_exact_top_level_fields: ["method", "observable", "parameters", "physics", "path", "numerics", "validation", "gates", "result_class"]
+    reject_duplicate_yaml_keys: true
+  source_and_parameter_checks:
+    - "a=250 nm, t=80 nm, g=120 nm"
+    - "x_alaee=2a/lambda_host is the canonical linear axis"
+    - "unsupported Johnson-Christy points and counts are reported"
+    - "host and spacer remain unknown until evidence is approved"
+  equation_checks:
+    - "Table 1 and Table 2 consume the same complex current, origin, host k, and integration domains"
+    - "arXiv-v2 magnetic terms use abs(m/c)^2 and abs(k*Qm/c)^2"
+    - "the divergent local transcription is retained as provenance, never mixed into execution"
+    - "panel-b metric, floors, units, and masks are bound before comparison"
+  physical_checks:
+    - "C_sca and direct radiated power are nonnegative within numerical tolerance"
+    - "Table 2 approaches Table 1 in a prescribed small-|kr| oracle"
+    - "mesh, PML/outer-domain, solver, and multipole-order convergence pass"
+    - "multipole-reconstructed total closes against direct far-field/Poynting scattering"
+  peak_position_policy:
+    metric: "absolute |delta x_peak| on the common x_alaee axis; a local-linewidth fraction may be used only if approved before execution"
+    exploratory_crosspath_delta_x_max: 0.05
+    gate_role: "exploratory diagnostic band only; not a promotion hard gate"
+    prohibit_grid_point_count_as_gate: true
+  proposed_acceptance:
+    paper_panel_a:
+      vector_trace_required_for_numeric_gate: true
+      normalized_rmse_max: 0.05
+      p95_absolute_difference_max: 0.10
+      raster_only_status: "descriptive_only"
+    paper_panel_b:
+      prerequisite: "approved metric bundle"
+      median_absolute_difference_percentage_points_max: 5.0
+      p95_absolute_difference_percentage_points_max: 10.0
+    far_field_closure:
+      high_signal_p95_relative_error_max: 0.02
+      maximum_relative_error_max: 0.05
+      near_zero_policy: "approved absolute floor and masked-point report"
+    mie_comsol_crosspath: "use path.cross_validation.proposed_thresholds"
+  error_injection_required:
+    - "radius/diameter swap"
+    - "x_alaee/ka confusion"
+    - "Table 1/Table 2 label swap"
+    - "abs(m/c)^2 degraded to abs(m)^2/c"
+    - "time-convention/current-sign mismatch"
+    - "origin shift"
+    - "drop quadrupole channels"
+    - "silent Johnson-Christy extrapolation"
+  receipts_required:
+    - "source and material hashes"
+    - "COMSOL version, module, model, mesh, solver, and result-expression manifests"
+    - "per-channel convergence, mask, and metric tables"
+    - "Mie-COMSOL crosspath comparison"
+    - "paper-trace comparison"
+
+gates:
+  namespace: "fig3_round4"
+  relation_to_rounds_1_to_3: >-
+    Prior Fig.1, Fig.2, and Grahn results may supply regression evidence only.
+    None of their passed gates automatically passes a Fig.3 gate.
+  gate_set:
+    FIG3-G0-scope:
+      decision: "Approve ED/MD/EQ/MQ plus Table1/Table2 relative error as primary; keep Fano diagnostic off by default."
+      current_status: "PENDING_HUMAN_APPROVAL"
+      failure_effect: "spec remains draft"
+    FIG3-G1-inputs:
+      decision: "Freeze axis, sampling, Johnson-Christy gap route, host, spacer, excitation, and induced-current domains."
+      current_status: "BLOCKED_BY_HOST_SPACER_AND_MATERIAL_GAP"
+      failure_effect: "no paper-fidelity COMSOL run"
+    FIG3-G2-equations-and-metric:
+      decision: "Approve arXiv-v2 Eq.(1) variant and the complete panel-b metric/floor/mask bundle."
+      current_status: "PENDING_HUMAN_APPROVAL"
+      failure_effect: "panel (b) stays diagnostic; no trace gate"
+    FIG3-G3-surrogate-boundary:
+      decision: "Accept B7 only as a two-center surrogate with a hard surrogate_fallback ceiling."
+      evidence_status: "B7 evidence available"
+      current_status: "PENDING_HUMAN_APPROVAL"
+      failure_effect: "surrogate path excluded; COMSOL path unaffected"
+    FIG3-G4-comsol-truth:
+      decision: "Bind GUI/B9s settings, run the physical frequency-domain model, and pass material/field/mesh/PML/post-processing checks."
+      current_status: "BLOCKED_NO_CONFIGURED_FIG3_PHYSICAL_SOLVE"
+      failure_effect: "full Fig.3 reproduction not achieved"
+    FIG3-G5-crosspath:
+      decision: "Compare Mie surrogate and COMSOL on the common contract and apply the approved diagnostic thresholds."
+      current_status: "BLOCKED_BY_FIG3-G2_AND_FIG3-G4"
+      failure_effect: "crosspath discrepancy or explicit human waiver required before complete-Fig.3 claim"
+    FIG3-G6-paper-and-promotion:
+      decision: "Pass paper traces, convergence, closure, receipts, and result-class review."
+      current_status: "BLOCKED_BY_UPSTREAM_GATES"
+      failure_effect: "retain diagnostic_only or surrogate_fallback"
+  human_gate_required_for_promotion: true
+
+result_class:
+  candidate_spec_status: "draft_pending_human_approval"
+  current_evidence:
+    B7_mie_path: "surrogate_fallback"
+    B8_comsol_path: "diagnostic_only; runtime smoke passed but Fig.3 physical solve not run"
+    full_fig3: "NOT_ACHIEVED"
+  ceilings:
+    mie_two_center_path: "surrogate_fallback"
+    before_configured_comsol_solve: "surrogate_fallback"
+    configured_comsol_without_cross_validation_or_paper_trace: "diagnostic_only"
+  promotion_candidate_after_all_fig3_gates: "partial_physical_match"
+  physical_reproduction_success: >-
+    Not granted by this draft. It would require a configured COMSOL truth path,
+    convergence and far-field closure, approved panel-(b) semantics,
+    quantitative paper-trace agreement, crosspath evidence, complete receipts,
+    and an explicit human promotion decision.
+  honesty_statement: >-
+    Complete non-surrogate Fig.3 reproduction still requires the COMSOL
+    frequency-domain physical solution and Mie-versus-COMSOL cross-validation.
+

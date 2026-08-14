@@ -1,0 +1,63 @@
+{
+  "schema": "b31-fig3-one-sided-convergence-v1",
+  "x_alaee": 0.5,
+  "lambda_nm": 1000.0,
+  "job_id": "3437d8bc2db5c2b0",
+  "job_status": "Failed",
+  "successful_case": {
+    "case_id": "mesh_coarse_x500",
+    "mesh_scale": 1.3,
+    "mesh_elements": 133782,
+    "Lbox_nm": 3000.0
+  },
+  "baseline_case": {
+    "source": "B29 single-point physical solve",
+    "mesh_scale": 1.0,
+    "mesh_elements": 292687,
+    "Lbox_nm": 3000.0
+  },
+  "channels": {
+    "ED": {
+      "coarse_C_sca_m2": 5.253658442780267e-13,
+      "baseline_C_sca_m2": 5.2482998686e-13,
+      "signed_change": 0.0010210114350224305,
+      "absolute_relative_change": 0.0010210114350224305,
+      "within_1_percent": true
+    },
+    "MD": {
+      "coarse_C_sca_m2": 2.493918403750864e-13,
+      "baseline_C_sca_m2": 2.4999286448e-13,
+      "signed_change": -0.002404165039525243,
+      "absolute_relative_change": 0.002404165039525243,
+      "within_1_percent": true
+    },
+    "EQ": {
+      "coarse_C_sca_m2": 7.272113947204818e-14,
+      "baseline_C_sca_m2": 7.3448614862e-14,
+      "signed_change": -0.009904548796715262,
+      "absolute_relative_change": 0.009904548796715262,
+      "within_1_percent": true
+    },
+    "MQ": {
+      "coarse_C_sca_m2": 4.178572363896167e-15,
+      "baseline_C_sca_m2": 4.1716248193e-15,
+      "signed_change": 0.0016654289148977696,
+      "absolute_relative_change": 0.0016654289148977696,
+      "within_1_percent": true
+    }
+  },
+  "fine_attempt": {
+    "mesh_scale": 0.7,
+    "mesh_elements": 849157,
+    "result": "not_solved",
+    "failure": "No space left on device while COMSOL attempted model save/start"
+  },
+  "outer_domain_attempt": {
+    "Lbox_nm": 4000.0,
+    "result": "not_started_after_fine_failure"
+  },
+  "formal_gate": {
+    "status": "INCOMPLETE",
+    "reason": "one-sided coarse-to-baseline evidence only; prescribed 1.0-to-0.7-to-0.5 and outer-domain checks are absent"
+  }
+}

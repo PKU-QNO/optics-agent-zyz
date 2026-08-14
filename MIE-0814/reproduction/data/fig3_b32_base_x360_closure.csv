@@ -1,0 +1,6 @@
+% Model,Untitled.mph
+% Version,COMSOL 6.3.0.290
+% Date,"Aug 12 2026, 14:25"
+% Table,表格 2 - 
+% freq (THz),comp1.P_sca_flux (W),comp1.C_sca_flux (m^2),comp1.C_multipole_sum (m^2),comp1.C_unresolved_signed (m^2),comp1.C_unresolved_fraction (1),comp1.P_abs (W),comp1.P_total_out (W),comp1.power_balance_fraction (1)
+215.85056975999996,4.6834193735510866E-15,3.5287720978710654E-12,3.516946949129895E-12,1.182514874117044E-14,0.0033510661536642282,6.01386484467084E-16,6.202913369150096E-16,1

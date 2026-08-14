@@ -1,0 +1,72 @@
+\section{实现细节}
+
+\subsection{代码结构}
+
+复现代码位于 \texttt{code/}，测试位于 \texttt{tests/}：
+
+\begin{table}[H]
+\centering
+\caption{代码模块职责}
+\begin{tabular}{llp{6cm}}
+\toprule
+\textbf{文件} & \textbf{职责} & \textbf{要点} \\
+\midrule
+\texttt{baseline\_mie.py} & 独立 Mie 基准 & scipy 直算 $a_n,b_n$，Layer1 锚点，防"自己验证自己" \\
+\texttt{mie\_theory.py} & 内部场 & B\&H 4.53--4.54 系数 $c_n,d_n$ + 球内 $\mathbf{E}_{\mathrm{in}}$ 矢量球谐展开 \\
+\texttt{multipole\_moments.py} & 表2 精确矩 & 球 Bessel 核体积分 + Eq.1 解析常数 \\
+\texttt{multipole\_approx.py} & 表1 近似矩 & 常数核（$kr\to0$ 极限） \\
+\texttt{multipole\_ppartial.py} & 诊断路径 & eq:p\_partial 中间形式（仅诊断，不参与生产） \\
+\texttt{run\_fig1.py} & 数据收集 & 200 点扫描落盘 CSV \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{内部场与电流}
+
+球内电场展开（B\&H 4.53--4.54 + 讲义 §2，x 偏振 z 传播平面波 $E_0=1$）：
+\begin{equation}
+  \mathbf{E}_{\mathrm{in}}(\mathbf{r}) = \sum_n i^n\frac{2n+1}{n(n+1)}
+    \bigl[c_n \mathbf{M}^{(1)}_{o1n}(k_{\mathrm{in}} r) - i d_n \mathbf{N}^{(1)}_{e1n}(k_{\mathrm{in}} r)\bigr],
+  \label{eq:Ein}
+\end{equation}
+其中 $k_{\mathrm{in}}=mk$，$\mathbf{M}/\mathbf{N}$ 用正则 $j_n$。
+
+\textbf{转录修正（step04 阶段2）}：$d_n$ 分子两项都必须带 $m$
+（与 $c_n$ 分子相同，B\&H 4.52 一般 $\mu$ 形式化简）。早期 spec 把第二项写成不带 $m$，
+违背球面切向边界条件。用独立库 miepython 交叉验证：错误版差异 0.736，
+修正后差异 $1.4\times10^{-15}$。
+
+内部场验证到机器精度：
+\begin{itemize}
+  \item $m\to1$ 极限：内部场 = 入射场 $\hat{x}e^{ikz}$，误差 $1.7\times10^{-8}$；
+  \item 与 miepython 交叉：$c_n/d_n$ 逐系数一致 $<1e{-}8$，球内电场逐点一致 $<1e{-}8$；
+  \item 分母结构约束：$c_n$ 分母 $=b_n$ 分母、$d_n$ 分母 $=a_n$ 分母（B\&H 硬约束）。
+\end{itemize}
+
+\subsection{表2 多极矩的体积分实现}
+
+球坐标三重积分 $dV = u^2\sin\theta\,du\,d\theta\,d\phi$，
+$u\in[0,1]$、$\theta\in[0,\pi]$、$\phi\in[0,2\pi]$：
+
+\begin{itemize}
+  \item \textbf{$\phi$ 方向}：不含重复端点的均匀周期网格，周期求和。
+        对 x 偏振入射的 $m=\pm1$ Fourier 模式精确求积
+        （$\sum_{j=0}^{N-1}e^{im\phi_j}=0$ 对非 $N$ 倍数 $m$ 精确成立）；
+  \item \textbf{$u$、$\theta$ 方向}：Simpson 积分；
+  \item \textbf{$r\to0$ 处理}：$j_l(kr)/(kr)^l \to 1/(2l+1)!!$，
+        用极限值替换避免除零：
+        $l=0{:}1$，$l=1{:}\tfrac13$，$l=2{:}\tfrac1{15}$，$l=3{:}\tfrac1{105}$；
+  \item \textbf{复被积函数}：多极矩是复数（$J$ 复），积分全程保持复数。
+\end{itemize}
+
+默认验收网格 $(N_u,N_\theta,N_\phi)=(40,41,80)$。
+
+\subsection{坐标位置实现}
+
+\texttt{\_cartesian\_position} 返回无量纲位置 $r_\alpha/a$：
+\begin{verbatim}
+rx = U * sin(Th) * cos(Ph)
+ry = U * sin(Th) * sin(Ph)
+rz = U * cos(Th)
+\end{verbatim}
+即\textbf{含径向因子 $U$}，而非纯方向余弦。这是本轮 blocker 修复的核心（第 5 节）。

@@ -1,0 +1,258 @@
+# formalization.yaml — Alaee 2018 Fig.2 复现 spec（gate② 停点）
+# 步骤: 02-formalization | case: fig2 | 对齐 SEPR 9 字段标准
+# 本文件是 step04 代码的唯一物理输入源：代码消费本 spec，不消费论文 prose。
+# 模板: formalization/alaee2018-fig1.yaml（第 1 轮已 gate② 放行）
+# 状态: gate④ PASS_WITH_LIMITATIONS — 方法 PASS；论文 fidelity UNRESOLVED；partial_physical_match
+# 与 Fig.1 差异：① 双面板 (a)介电球+(b)金球；② 仅表2 vs Mie（无表1）；③ 金球复 ε 色散（3 源核对）
+
+meta:
+  paper: "Alaee 2018 (Optics Communications 407, 17-21), Electromagnetic multipole expansion beyond the long-wavelength approximation"
+  case: "fig2"
+  target_figure: "Fig.2(a)(b) 双面板"
+  target_figure_source: "PDF 页4 caption 逐字（pdf-mcp）+ notes/fig2-parameters.md；vision-mcp 双通道核实轴（2026-08-07）"
+  target_figure_note: "本轮复现 Fig.2 全部两面板：介电球 (a) + 金球 (b)，2×1 上下排列。Fig.2 仅表2 精确 vs Mie 理论，表1 不参与。主 gate 为高信号区最大相对误差 <1%，同时要求 p95 <0.1% 与全点绝对误差限制。"
+  formula_primary_source: "Alaee 2018 Table 2 + Eq.(1)（notes/fig1-parameters.md 逐字提取 + notes/alaee2018-mie-coeff.md gate③ 核对）"
+  formula_cross_check_source: "讲义 vector-multipole-derivation §11（表2 推导）；Bohren & Huffman Ch.4（Mie 系数，gate③ 已核）；miepython 独立库交叉（step04 已过）"
+  result_class_ceiling: "partial_physical_match（gate④ 带限制关闭；不得晋级 physical_reproduction_success）"
+  gate4_decision: "PASS_WITH_LIMITATIONS"
+  method_claim_status: "PASS"
+  paper_fidelity_status: "UNRESOLVED"
+  result_class: "partial_physical_match"
+
+geometry:
+  description: >
+    两面板共用 Mie 球散射几何：单一均匀球，嵌入无限大均匀 host（air）。
+    面板 (a)：介电球（ε_r=6.25 无色散），横轴无量纲 2a/λ——物理内容由 ε_r 与 2a/λ 承载，无需具体 R/λ。
+    面板 (b)：金球（a=250nm 固定，复 ε(λ) 色散），横轴同为 2a/λ（⚠️ 与 Fig.1(b) 的 λ 轴不同）——
+    a 固定时 2a/λ 与 λ 一一对应（2a/λ=1.0 ↔ λ=500nm；0.2 ↔ 2500nm）。
+  parameters:
+    panel_a:
+      radius: "符号量，不取具体值（介电球用无量纲 2a/λ 作横轴，R 消去）"
+      size_param: { definition: "x_alaee = 2a/λ（Alaee 横轴）", range: "[0.2, 1.0]", points: 200, unit: "无量纲", source: "notes/fig2-parameters.md §4：vision-mcp 读 x 刻度 0.2,0.4,0.6,0.8,1.0（双面板）" }
+    panel_b:
+      radius: "a = 250 nm（金球固定）"
+      size_param: { definition: "x_alaee = 2a/λ = 500nm/λ", range: "[0.2, 1.0] ↔ λ∈[500, 2500]nm", points: 200, unit: "无量纲（横轴 2a/λ）", source: "Alaee Fig.2 caption: 'gold sphere with a fixed radius of a=250 nm'；x 轴 2a/λ 刻度 0.2-1.0（vision-mcp 核实）" }
+      sampling: { independent_variable: "x_alaee", spacing: "linear", points: 200, wavelength_mapping: "lambda_nm = 500/x_alaee（因此 lambda 网格非均匀）" }
+  mie_size_param_conversion: "⚠️ gate③ 硬性要求（与 Fig.1 相同）：Mie 系数用 B&H x_mie = ka，Alaee 横轴是 2a/λ。host=air 时 x_mie = ka = π·(2a/λ)。**不得直接拿 2a/λ 当 x_mie**。介电球锚点（第 1 轮实测）：ED@2a/λ=0.500、MD@0.385、EQ@0.647、MQ@0.543。金球锚点待 step04 用 miepython 独立交叉确定。"
+  coordinate: "球坐标 (r, θ, φ)，球心为原点；矢量球谐展开"
+
+materials:
+  inside:
+    panel_a_dielectric:
+      epsilon_r: 6.25                 # = 2.5²（n=2.5 高折射率），实标量、无色散、无吸收
+      source: "Alaee 2018 Fig.2 caption（PDF 文字层 '2.52' 为丢上标，finding-mie-1 已确认 2.5²=6.25）"
+    panel_b_gold:
+      epsilon: "复色散 ε(λ) = n²−k² + 2ink，λ∈[500,2500]nm"
+      refractive_index: "从数据表直接取 m(λ)=n(λ)+iκ(λ)，κ>0；如从 ε 重建，取 Im(m)>0 的主值"
+      interpolation: { domain: "wavelength_nm", variables: [n, kappa], method: "linear", extrapolation: "forbidden" }
+      source_manifest: "data/_gold_sources/manifest.yaml（原始 YAML 的 URL、DOI、覆盖范围、获取日期与 SHA256）"
+      data_table: "data/gold_epsilon.csv（400-2500nm @5nm；mean_n/mean_k 仅保留为 legacy 诊断列，不得用于主计算）"
+      usage_policy:
+        paper_fidelity:
+          source: "Johnson1972"
+          wavelength_nm: [500, 1935]
+          purpose: "与论文 Ref.[38] 的金球曲线形状对比"
+          extrapolation: "forbidden；x_alaee<500/1935≈0.2584 时不宣称 JC 论文材料保真"
+        full_range_method_validation:
+          source: "Olmon2012-EV"
+          wavelength_nm: [500, 2500]
+          purpose: "全区间 Table2 vs Mie 方法一致性验收"
+        material_sensitivity:
+          sources: ["Johnson1972", "Olmon2012-EV", "McPeak2015"]
+          wavelength_nm: [500, 1700]
+          aggregation: "三源分别计算，报告 min-max 包络；不取 n/k 或 ε 的均值作权威真值"
+      cross_source_check:
+        wavelength_nm: 550
+        epsilon_real: [-5.93, -6.18, -6.64]
+        epsilon_imag: [2.10, 1.63, 1.68]
+        metric: "max_pairwise_range / abs(arithmetic_mean)"
+        epsilon_real_spread_percent: 11.35
+        epsilon_imag_spread_percent: 25.75
+        interpretation: "三篇独立文献/样品的材料敏感性，不是同一无偏真值的重复测量"
+  outside:
+    epsilon_host: 1.0               # air
+  magnetic: "μ = μ₀ 处处成立（非磁性）"
+  dispersion: "介电球无色散；金球复色散，按 paper_fidelity/full_range_method_validation/material_sensitivity 三种用途选源，禁止静默切源"
+
+equations:
+  primary_BH_mie:
+    description: "Lorenz-Mie 散射系数，Bohren & Huffman Ch.4 标准记号（Mie 基准；gate③ 第 1 轮已对 B&H 原书核，跳过复核）"
+    notation_map: "x = ka = (2π/λ)√ε_d; m = √ε_r/√ε_d（相对折射率；金球为复值 m=n+ik）；BH a_n=电多极/TM ↔ a_E，b_n=磁多极/TE ↔ a_M"
+    a_n: "a_n = [m ψ_n(mx) ψ'_n(x) − ψ_n(x) ψ'_n(mx)] / [m ψ_n(mx) ξ'_n(x) − ξ_n(x) ψ'_n(mx)]"
+    b_n: "b_n = [ψ_n(mx) ψ'_n(x) − m ψ_n(x) ψ'_n(mx)] / [ψ_n(mx) ξ'_n(x) − m ξ_n(x) ψ'_n(mx)]"
+    c_n_internal: "c_n = [m ψ_n(x) ξ'_n(x) − m ξ_n(x) ψ'_n(x)] / [ψ_n(mx) ξ'_n(x) − m ξ_n(x) ψ'_n(mx)]  [B&H Eq.(4.52) 一般内部系数在 μ_p=μ 下化简；Eq.(4.53) 后的分母配对说明]"
+    d_n_internal: "d_n = [m ψ_n(x) ξ'_n(x) − m ξ_n(x) ψ'_n(x)] / [m ψ_n(mx) ξ'_n(x) − ξ_n(x) ψ'_n(mx)]  [同上；分子两项都带 m，已与 miepython 验证]"
+    riccati_bessel: "ψ_n(ρ) = ρ j_n(ρ); ξ_n(ρ) = ρ h_n^(1)(ρ) = ψ_n(ρ) − i χ_n(ρ); ' 为对宗量求导"
+    complex_refractive_index: "金球直接用 m=n+iκ（κ>0）；Mie a_n/b_n/c_n/d_n 的代数形式对复 m 不变，复宗量球 Bessel 由 scipy.special 处理，必须用 miepython 复数路径交叉验证"
+    implementation: "scipy.special.spherical_jn / spherical_yn（含 derivative=True）；不自实现特殊函数"
+  cross_sections:
+    C_sca: "C_sca = (2π/k²) Σ_n (2n+1)(|a_n|² + |b_n|²)"
+    C_ext: "C_ext = (2π/k²) Σ_n (2n+1) Re(a_n + b_n)"
+    C_abs: "C_abs = C_ext − C_sca"
+    normalization: "归一化 C_sca/(λ²/2π)（Alaee Fig.2 y 轴 LINEAR 1,3,5,7，vision-mcp 双通道确认）"
+    truncation: "谱求和截断 n_max = ceil(x + 4x^{1/3} + 2)（Wiscombe）；逐多极只需 l≤2（别混淆两个截断，gate② Fig.1 硬伤2 教训）"
+  table2_exact:
+    description: "Alaee Table 2 精确多极矩（球 Bessel 核；讲义 §11 完整推导；第 1 轮已实现并验证，直接复用 code/multipole_moments.py）"
+    ED: "p_α = −(1/iω){∫J_α j_0(kr) + (k²/2)∫[3(r·J)r_α − r²J_α] j_2(kr)/(kr)²}"
+    MD: "m_α = (3/2)∫(r×J)_α j_1(kr)/(kr)"
+    EQ: "Q^e_αβ = −(3/iω){∫[3(r_βJ_α+r_αJ_β)−2(r·J)δ_αβ] j_1(kr)/(kr) + 2k²∫[5r_αr_β(r·J)−(r_αJ_β+r_βJ_α)r²−r²(r·J)δ_αβ] j_3(kr)/(kr)³}"
+    MQ: "Q^m_αβ = 15∫{r_α(r×J)_β + r_β(r×J)_α} j_2(kr)/(kr)²"
+    constants_note: "Eq.1 解析常数（禁经验标定，lessons 10）：ED=x⁶/12π²、MD=x⁸/12π²、EQ=x⁸/1440π²、MQ=x¹⁰/1440π²（1/1440=1/(120·12)）"
+    coordinate_note: "⚠️ 坐标分量必须含径向 U：r_α/a = U·sinθcosφ 等（第 1 轮表2 大 x 失效 blocker 根因，lesson 10）"
+    radiation_kernel_wave_number: "k = k_host，因此 kr=x_mie·U；k_in=m·k_host 只进入 E_in/J 的空间结构"
+  eq1_C_sca_multipole:
+    description: "Alaee Eq.(1) 散射截面（从多极矩出发），量纲自洽版（讲义 §12 noteworthy 勘误）"
+    formula: "C_sca = k⁴/(6πε₀²|E_inc|²) [ Σ_α(|p_α|² + |m_α|²/c²) + (1/120)Σ_αβ(|kQ^e_αβ|² + |kQ^m_αβ|²/c²) + ... ]"
+    note: "原文印刷 |m|²/c 是量纲 typo，实际 |m|²/c²（讲义 §12）；四极系数 1/120 确认"
+  J_omega:
+    formula: "J_ω(r) = iω ε₀ (ε_r(λ) − 1) E_ω(r)   [Alaee 原文]"
+    convention: "复现统一 e^{−iωt}（与讲义/Grahn 一致）→ 取 J = −iω ε₀ (ε_r−1) E，与表2 前置 −1/(iω) 自洽"
+    panel_b_note: "金球 ε_r(λ) 复值随 λ 变化 → J 空间结构随 λ 变化（与介电球不同，无解析缩放）"
+    epsilon_from_m: "host=air 时 ε_r=m²，故去掉公共因子后 J_tilde=(m²−1)E；严禁使用 m·conj(m)=|m|²，后者会丢失金的复介电函数"
+  limit_identities:
+    small_x_degeneration: "x≪1 时表2 精确矩退化为表1 近似矩（<1%，Layer2 验证；复用第 1 轮测试）"
+    dark_mode: "球对称四极子电流对 C_sca 零贡献（构造性测试，Layer2，Y7；复用）"
+    optical_theorem: "C_ext = (4π/k) Im S(0)，S(0) 从角分辨散射振幅独立算（Layer1，Y8 防自我一致；复用）"
+
+boundary_conditions:
+  interface: "r = R 球面处切向 E、切向 H 连续（逐 (n, m, 偏振) 通道解出 a_n, b_n, c_n, d_n）"
+  radiation: "散射场取向外辐射边界条件（h_n^(1)，配合 e^{−iωt} 时谐约定）；内部场取原点正则解 j_n(k_i r)"
+  role_in_spec: "这是 a_n, b_n 表达式的推导来源（BH §4.3 与 Alaee 一致）；本复现直接使用闭式系数 + 内部场解析解，不重新数值解边值问题"
+
+sources:
+  incident: "x 偏振、沿 z 传播的单色 TEM 平面波 E^inc = x̂ E_0 e^{i(kz − ωt)}（Alaee 正文：linearly x-polarized, propagates in z-direction；与 Fig.1 相同）"
+  polarization: "linear x（polarization_axis: x, propagation_axis: z）"
+  intensity: "E_0 = 1（归一化；输出是归一化 C_sca）"
+  role_in_fig2: >
+    Fig.2 的 per-multipole C_sca 依赖入射球谐幅度分解（x 偏振平面波只激发 m=±1 分量，Y2）。
+    介电球内部场 = Mie 解析解（B&H 4.53-4.54）；金球内部场 = 同解析解但 m 复值（色散）。
+
+solver:
+  type: "解析 Mie 内部场 + 体积分（多极矩）——不是 FEM/FDTD，不是优化拟合"
+  problem_statement: >
+    双面板 per-multipole (ED/MD/EQ/MQ) 归一化 C_sca：
+    (a) 介电球（ε_r=6.25）vs 2a/λ∈[0.2,1.0]；(b) 金球（a=250nm，复 ε(λ)）vs 2a/λ∈[0.2,1.0]。
+    每组两曲线 = Mie 理论（基准，从 a_n/b_n 提取 per-multipole）/ 表2 精确（球 Bessel 核体积分）。
+    主验收：表2 vs Mie 双面板 indistinguishable <1%（论文原文 'indistinguishable up to a numerical noise level'）。
+  strategy: |
+    1. Mie 基准：scipy.special 直算 a_n/b_n（介电球实 m；金球复 m=√ε(λ)）→ per-multipole 分项 l=1,2：
+       ED=a_n(n=1), MD=b_n(n=1), EQ=a_n(n=2), MQ=b_n(n=2)（a_n=电多极/TM, b_n=磁多极/TE，勿写反）；
+    2. 内部场：B&H 4.53-4.54 c_n/d_n → 球内 E(r) → J = −iωε₀(ε_r−1)E（金球逐 λ 重算，ε_r 复值）；
+    3. 表2 精确矩：球坐标 (r,θ,φ) 三重积分（复用 multipole_moments.py；坐标含 U 因子；j_l/(kr)^l r→0 极限 1/(2l+1)!!）；
+    4. 面板 (a) 数据直接复用第 1 轮 `data/fig1a_multipole_{table2,mie}.csv`（同一物理）；
+    5. 面板 (b) 在 x_alaee∈[0.2,1.0] 上等距取 200 点，再用 λ_nm=500/x_alaee 反算非均匀波长；
+       - 全区间方法验收用 Olmon-EV（500-2500nm）；
+       - 论文形状对比用 JC（500-1935nm，不外推）；
+       - 材料敏感性在 500-1700nm 对 JC/Olmon/McPeak 分别计算 min-max 包络；
+    6. 每条曲线除 λ²/2π 归一化，叠加 (2j+1) 普适上限参考线（3/5）；
+    7. 相对误差 = |C_表2 − C_Mie|/C_Mie × 100%（每面板、每多极），主验收 <1%；
+    8. Layer1-3 验证（见 verification）。
+    ⚠️ 截断分界（gate② Fig.1 硬伤2 教训延续）：
+       - per-multipole 自洽（<1%）：只对逐多极分项比对 Mie(l) vs 表2(l)，不拿总和比；
+       - 总 C_sca 的 Wiscombe n_max 仅用于 Layer1 硬约束。
+  environment: "本地 Python（numpy + scipy + matplotlib）。金球 200 点体积分计算量：介电球同网格 (40,41,80) × 200 点第 1 轮约 300s；金球逐 λ 重算内部场（复 m）预计同量级，可接受。⚠️ 交叉验证依赖：miepython（tests 用，importorskip；换环境需 pip install）"
+  n_max_formula: "Wiscombe: x + 4x^{1/3} + 2"
+  n_max_variable: "x 在 Wiscombe 公式中指 x_mie=ka=πx_alaee，不是 x_alaee"
+
+observables:
+  description: "与 Fig.2 双面板对应的 per-multipole 散射截面曲线族（Mie 实线/表2 虚线两组）"
+  panel:
+    id: "a,b"
+    layout: "Fig.2 为 2×1 vertical：上 (a) 介电球、下 (b) 金球（PDF 页4视觉核实）"
+    x_axis: "双面板均 2a/λ, linear, ticks 0.2,0.4,0.6,0.8,1.0（vision-mcp 确认）"
+    y_axis: "C_sca/(λ²/2π), LINEAR, ticks 1,3,5,7（vision-mcp 双通道确认 2026-08-07；旧 log 判定作废）"
+  curves:
+    - { label: Mie_theory, style: solid, meaning: "analytic Mie per-multipole 基准" }
+    - { label: Table2_exact, style: dashed/marker, meaning: "Alaee 表2 精确多极矩（球 Bessel 核）" }
+  per_multipole:
+    - { multipole: ED, mie_source: "a_n(n=1)", note: "电偶极/TM" }
+    - { multipole: MD, mie_source: "b_n(n=1)", note: "磁偶极/TE" }
+    - { multipole: EQ, mie_source: "a_n(n=2)", note: "电四极/TM" }
+    - { multipole: MQ, mie_source: "b_n(n=2)", note: "磁四极/TE" }
+  universal_limit: "(2j+1)λ²/2π: ED/MD（偶极 j=1）→3、EQ/MQ（四极 j=2）→5（lessons 13：轴刻度 1,3,5,7 是显示范围非单曲线上限）"
+  legend_structure: "论文图例 8 项：4 色 × (C_sca^p/Mie 实线, C_sca^p/exact 表2 标记)（vision-mcp 核实）"
+  figure_style: "按 lessons 12：按多极着色（4 色）；实线=Mie、虚线/标记=表2；普适上限标一次；近零断线（Mie 零点处表2 相对误差无定义）；标题 'Fig.2(a,b) reproduction'"
+
+verification:
+  acceptance_contract:
+    sample_grid:
+      independent_variable: "x_alaee"
+      range: [0.2, 1.0]
+      points: 200
+      spacing: "linear"
+    relative_error:
+      formula: "abs(C_table2_norm-C_mie_norm)/C_mie_norm"
+      denominator_min: 1.0e-4
+      max_percent: 1.0
+      p95_percent: 0.1
+    absolute_error:
+      formula: "abs(C_table2_norm-C_mie_norm)"
+      max_all_points: 2.0e-3
+    near_zero:
+      condition: "C_mie_norm < 1.0e-4"
+      metric: "absolute_error_only"
+      report_masked_point_count: true
+    integration_grids:
+      baseline: [40, 41, 80]
+      refined: [60, 61, 120]
+      order: ["N_u", "N_theta", "N_phi"]
+      high_signal_relative_change_percent_max: 0.1
+    source_modes:
+      full_range_method_validation: "Olmon2012-EV"
+      paper_fidelity: "Johnson1972"
+      material_sensitivity: ["Johnson1972", "Olmon2012-EV", "McPeak2015"]
+  layer1_hard_constraints:
+    - energy_conservation: "C_abs=C_ext−C_sca 的代数恒等式仅作内部一致性检查，不得单独宣称为独立能量守恒验证"
+    - optical_theorem: "C_ext = (4π/k) Im S(0)（复用；金球含吸收更关键）"
+    - rayleigh_limit: "介电球或固定复 ε 的独立单元测试中 Q_sca∝x⁴；Fig.2(b) 固定 a 而随 λ 改变色散 ε(λ)，不得直接对该扫描断言纯 x⁴ 标度"
+    - large_size_limit: "x→∞：Q_ext → 2（介电球复用）"
+    - spherical_symmetry: "各向同性球散射与 φ 无关"
+    - gold_specific: "金球 C_abs > 0（复 ε 有吸收，与介电球零吸收不同——Layer1 新检查）"
+  layer2_limits:
+    - table2_to_table1: "x≪1 时表2 精确矩退化表1 近似矩（<1%，复用测试）"
+    - small_argument_jl: "j_l/(kr)^l → 1/(2l+1)!! 极限正确（复用）"
+    - dark_mode: "球对称四极子电流对 C_sca 零贡献（构造性测试，复用）"
+    - dipole_dominant: "小 x 时高阶多极贡献 → 0"
+    - quasi_static_LSPR: "Re(ε)≈−2ε_host 只用于另建的小半径/准静态极限测试；a=250nm 的 Fig.2(b) 不把它当峰位硬锚点"
+  layer3_paper_comparison:
+    - main_acceptance: "表2 vs Mie 对同一材料源、同一逐多极分项比对；C_Mie_norm≥1e-4 时 max relative error<1%、p95 relative error<0.1%；全点 max absolute error<2e-3"
+    - near_zero_policy: "C_Mie_norm<1e-4 时不计相对误差，只计绝对误差；报告需给出被 mask 点数"
+    - miepython_cross_check: "在 λ={550,1000,1700,1935,2500}nm 检查 Im(m)>0、C_abs≥0，并与 miepython 交叉 a_n/b_n/c_n/d_n 复数路径"
+    - grid_convergence: "网格 (40,41,80) → (60,61,120)，C_Mie_norm≥1e-4 的高信号区结果相对变化 <0.1%"
+    - source_consistency: "全区间验收用 Olmon-EV；500-1700nm 的 JC/Olmon/McPeak 各自分别跑 Table2/Mie，禁止将不同 ε 的两条曲线互比"
+    - strict_vector_fidelity_gate: "PDF vector 主路径：RMSE≤0.02、p95绝对误差≤0.05、峰位差≤0.01；预注册阈值保持不变，不事后放宽；raster fallback 的 RMSE≤0.08 仅 DESCRIPTIVE_ONLY"
+    - vector_extraction: "PDF 第4页 PyMuPDF get_drawings；Mie=彩色 l polyline，exact=同色 c marker；源 SHA256=c79e243e9b0d05e2800223dea8552df03bbbf0318c134839e9e7ebcc8dda973e"
+    - layer3_result: "panel(a) ED/MD/EQ Mie vector PASS，MQ RMSE=0.02556/p95=0.05695 → strict UNRESOLVED；panel(b) JC有效区四条 Mie vector PASS，x<500/1935 为 MATERIAL_DOMAIN_LIMITED"
+    - mq_evidence_correction: "MQ 共同域=212点、|error|>0.05 为14点；source max gap=0.23026 位于 x=0.13945→0.36971 断段而非峰区；第一/第二峰窗口 max gap=0.00225/0.00879，禁止继续声称 max gap 证明削峰根因"
+    - graphical_floor: "同一23个 MQ marker x 上：论文Mie vs论文exact RMSE/p95=0.02430/0.06187，本地Mie vs论文Mie=0.00933/0.02104 → CONSISTENT_WITH_PAPER_GRAPHICAL_FLOOR；不得覆盖 strict gate"
+    - exact_marker_policy: "marker中位间距≈0.0296>峰位gate 0.01；所有通道 peak_verdict=DESCRIPTIVE_ONLY，shape metrics单独报告且不参与主实线gate"
+    - q_factor_supplement: "仅左右半高交点都在共同域内时计算；relative Q error≤5%；介电四通道与金ED通过，金MD/EQ/MQ为NOT_EVALUABLE；后补指标不得用于追溯性晋级"
+    - gate4_contract: "gate4_decision=PASS_WITH_LIMITATIONS；method_claim_status=PASS；paper_fidelity_status=UNRESOLVED；coverage_status=MATERIAL_DOMAIN_LIMITED；result_class=partial_physical_match；promotion_to_physical_reproduction_success=DENIED"
+    - rel_error_denominator: "相对误差分母 = C_Mie（|C_表2 − C_Mie|/C_Mie × 100%）；Fig.2 无误差面板，此值用于验收报告而非画图"
+
+assumptions:
+  - "线性、各向同性、均匀介质；球内外 ε 均为常数标量（金球逐 λ 取常数 ε(λ)）"
+  - "非磁性：μ = μ₀ 处处成立"
+  - "时谐约定 e^{−iωt}（与讲义/Grahn 一致）；J = −iωε₀(ε_r−1)E，与表2 前置 −1/(iω) 自洽"
+  - "经典 Mie 框架（B&H Ch.4）；金球直接用 m=n+iκ（Im m>0），host=air 时 ε=m²"
+  - "金数据用途分离：JC=论文形状保真（仅覆盖区），Olmon-EV=全区间方法验收，三源分别计算=材料敏感性；mean 列不是权威真值"
+  - "x 偏振平面波只激发 m=±1 分量（Y2）"
+  - "介电球 (a) 与 Fig.1(a) 同物理 → 数据直接复用 fig1a CSV"
+
+missing_fields:
+  - field: "论文 Fig.2 曲线的数值生成方法"
+    detail: "论文正文说 COMSOL FEM（Ref[39]）；本工作用解析 Mie 内部场替代——不影响 per-multipole 精确性对比"
+  - field: "Fig.2 金球面板 ε 数据具体取值"
+    detail: "论文指定 JC 1972（Ref[38]）但未说明 1937nm 以外的处理；故 JC 仅在 500-1935nm 宣称论文材料保真，更长波段以 Olmon-EV 进行方法验收但不冒充论文 JC 曲线"
+  - field: "金球面板 (b) 具体峰位"
+    detail: "论文未给；step04 用 miepython 独立交叉确定锚点"
+  - field: "Layer3 量化阈值"
+    detail: "原 strict vector 阈值已在 gate④ 保留为 fidelity 警报；因 MQ 论文内部 line/marker 底噪也超过阈值，不把它作为物理失败的单一判据，但本轮不追溯性放宽或晋级"
+
+provenance:
+  source_artifact: "notes/fig2-parameters.md + data/alaee_fig2_axes.yaml + data/gold_epsilon.csv + data/_gold_sources/manifest.yaml + 讲义 sections/11_exact_multipoles.tex + sections/12_unified.tex"
+  evidence_type: "PDF 文字层 + 页4高清渲染视觉核实 + 原始光学常数 YAML 和 SHA256 + 550nm 明确定义的两两极差统计 + miepython 复数 Mie 交叉"
+  timestamp_version: "20260808-gate4-final-review"
+  source_version_manifest: "data/_gold_sources/manifest.yaml"
+  scope_applicability: "仅 Fig.2(a)(b) 2×1 双面板多极分解复现（介电球 ε_r=6.25 + 金球 a=250nm 复色散）；表1 不参与；不把三源均值宣称为权威金介电函数"
+  confidence_result_class: "高（表2/Mie方法验收全通、公式与复数路径已核）+中（介电MQ strict vector gate未决、JC超出1935nm不可核）/ partial_physical_match"

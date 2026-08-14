@@ -1,0 +1,28 @@
+\section{对抗审查记录}
+
+\subsection{09-14 审查链}
+
+\begin{table}[H]
+\centering\scriptsize
+\begin{tabularx}{\textwidth}{c l X l}
+\toprule
+编号 & 阶段 & 关键发现/修订 & 当前状态 \\
+\midrule
+09 & formalization 前审查 & 指出双路径混比、M2 不应先验对称、磁四极遗漏、host $\epsilon$ 与 gate 字段缺失。 & BLOCKED，形成必改清单 \\
+10 & v2 复审 & 修正 Eq.(13) 逐字形式、解析 bump 限定、低端 mask、相位和 Rayleigh 契约。 & BLOCKED，要求机器化 \\
+11 & v3 复审 & 发现 YAML/低端 gate/斜率/独立光学定理/miepython skip 等盲区。 & BLOCKED，补齐 v4 条款 \\
+12 & v4 对抗审查 & 逐式核对原文 Eq.(13)-(22),(27),(35)-(48)，要求全 $m$、远场和 16 目标交叉。 & 修订后进入实现 gate \\
+13 & 原计划实现审查 & 未单独使用；由 A2 v4 正式复验 + A1 独立复核等效替代。 & 主 agent 裁决放行 \\
+14/14b & D1 归一化 gate & 初审 BLOCKED（Qe/6 与 raw M2 数据流未闭合）；最小修复后独立复审 PASS。 & 当前 v4 收据覆盖 \\
+\bottomrule
+\end{tabularx}
+\caption{09-13 五轮形式化审查，加上 14/14b D1 初审与后缀复审的证据链。历史 BLOCKED 是修订过程，不代表当前 v4 gate 失败。}
+\end{table}
+
+\subsection{A2 v4 与 A1 独立复核}
+
+A2 当前复验绑定 spec SHA256、schema SHA256、源码/数据哈希，运行 validator、定向 38 项和完整 105 项回归；独立审查确认 Path A 43/150 gate 子域、Path B 200 点、逐 $m$ 加权 mask、六解析案例、Eq.(13)(14) 16 目标、远场、miepython 和光学定理逐位一致。A1 复核重新从冻结 CSV/JSON 计算主 gate 数字，并确认没有需要重开物理 gate 的错误。保留的 notes 是 mask 口径、旧 receipt 的时态漂移和 spec 中历史 \texttt{test\_status} 元数据，不改变当前裁决。
+
+\subsection{审查纪律}
+
+本报告不把测试通过数当作物理正确性的充分证据，不把 A-vs-Table 1 同阶相符写成 exact truth，也不把 gate 4 建议写成用户裁决。所有历史审查文件只作为过程证据，最终数字以当前 \texttt{data/} 和 v4 receipt 为准。

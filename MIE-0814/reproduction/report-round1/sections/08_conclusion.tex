@@ -1,0 +1,50 @@
+\section{结论与 gate④ 决策}
+
+\subsection{总评}
+
+Mie 基准、$x_{\mathrm{Mie}}=\pi(2a/\lambda)$ 换算、内部场和表2 体积分路径均可复现。
+按当前绘图同一近零掩码 $C_{\mathrm{Mie}}<10^{-3}\max(C_{\mathrm{Mie}})$，表2--Mie
+200 点四通道最大相对误差为 ED $0.1404\%$、MD $0.0383\%$、EQ $0.2020\%$、
+MQ $0.1252\%$，满足统一的 $<1\%$ 合同。
+
+\textbf{B1 范围受控重 gate 的关键结论}：在精确 $s=0.75$，复多极矩向量口径
+$\|M_{T1}-M_{T2}\|/\|M_{T2}\|$ 给出 ED $136.1669\%$、MD $277.7424\%$、
+EQ $42.5195\%$、MQ $24.7950\%$；派生散射分项 $C$ 口径给出 ED $86.9148\%$、
+MD $215.9110\%$、EQ $103.0775\%$、MQ $55.7510\%$。论文原话是
+“multipole moments”，所以两套指标必须分列，不能用 C 口径替代矩口径。
+
+\subsection{历史值作废标记}
+
+以下早期日志数字已由 A1 审计和 B1 直接重算判定作废：
+\textbf{169.7\%/167.7\%/2275\%/2453\%（旧 C 口径）}。
+它们保留在 \texttt{WORK\_LOG.md} 的历史记录中，并以“作废→B1 精确值”注释标记；
+当前可引用数字只来自 \texttt{codex-prompts/out/B1-fig1-s075-evidence.json}。
+
+\subsection{gate④ 收据与当前停点}
+
+用户在 2026-08-09 的历史裁决已记录在
+\texttt{GATE4-FIG1-CLOSURE-RECEIPT.md}（旁有 SHA-256 sidecar），其范围是
+\texttt{PASS\_WITH\_LIMITATIONS} 的 Fig.1 方法路径关闭。A1 随后发现论文“矩”
+与报告“C”指标混用，因此 B1 只重开指标口径条款；收据本身不可变，不被本次报告改写。
+新的候选合同与双口径表见 \texttt{codex-prompts/out/B1-regate-verdict.md}，
+等待用户决定论文 gate 采用复矩口径（推荐）还是仅保留 C 诊断口径。
+
+\subsection{成功标准对照}
+
+3 层物理验证、gate①--③ 和表2--Mie $<1\%$ 合同均通过；Fig.1 的 B1 指标裁决
+仍是人工 gate。故本报告的 result class 暂记为
+\texttt{PASS\_WITH\_LIMITATIONS / metric\_decision\_pending}，不宣称已完成新的
+论文指标关闭。
+
+\subsection{数据与代码位置}
+
+\begin{itemize}
+  \item 数据：\texttt{data/fig1a\_multipole\_\{mie,table2,table1\}.csv}（各 200 行）；
+  \item 代码：\texttt{code/\{baseline\_mie,mie\_theory,multipole\_moments,
+        multipole\_approx,multipole\_ppartial,run\_fig1\}.py}；
+  \item 测试：\texttt{tests/test\_multipole.py}（含 B1 s=0.75 双口径断言）；
+  \item B1 重算：\texttt{codex-prompts/out/B1-recompute\_fig1.py} 与
+        \texttt{B1-fig1-s075-evidence.json}；
+  \item 根因报告：\texttt{notes/table2-large-x-blocker-resolution.md}；
+  \item 本报告：\texttt{report-round1/}（LaTeX 工程）。
+\end{itemize}

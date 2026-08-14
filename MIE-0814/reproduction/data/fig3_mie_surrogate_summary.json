@@ -1,0 +1,53 @@
+{
+  "result_class": "surrogate_fallback",
+  "material_source": "data/gold_epsilon.csv: jc_n,jc_k; finite coverage 400-1935 nm",
+  "x_domain_requested": [
+    0.25,
+    1.0
+  ],
+  "n_points": 301,
+  "covered_points": 297,
+  "uncovered_points": 4,
+  "rayleigh_limit": {
+    "x": 0.02,
+    "max_relative_error_percent": 0.003809206359508184,
+    "ED": 0.0014106664271032329,
+    "MD": 0.0005932265114410082,
+    "EQ": 0.003809206359508184,
+    "MQ": 0.002653922526422151
+  },
+  "tribelsky_feature": {
+    "x_peak": 1.32,
+    "x_valley": 1.36,
+    "x0": 1.34,
+    "gamma": 0.04,
+    "q": -1.0
+  },
+  "fu2013_forward_backward_at_660nm_n3p5": 11.044339055451418,
+  "directional_cross_term_min": -24.925631404684008,
+  "directional_cross_term_max": 4.486825807965211,
+  "layer1_optical_theorem_residual": 0.0,
+  "nmax_convergence": {
+    "x_mie": 1.9634954084936205,
+    "values": [
+      5.778440293926948,
+      5.838637957137915,
+      5.8386383233256405,
+      5.8386383233257755,
+      5.8386383233257755
+    ],
+    "relative_last_vs_wiscombe": 0.0
+  },
+  "error_injection": {
+    "mutation": "replace transverse angle pi/2 by 0.7 rad (phase/cross-term path)",
+    "cross_term_control": -6.033481624151111,
+    "cross_term_mutated": 18.60018773729325,
+    "expected_failure_code": "INTERFERENCE_PHASE_FAIL"
+  },
+  "tribelsky_numeric_extrema": {
+    "peak_grid": 1.32002,
+    "valley_grid": 1.35998,
+    "peak_error": 1.999999999990898e-05,
+    "valley_error": 2.0000000000131024e-05
+  }
+}

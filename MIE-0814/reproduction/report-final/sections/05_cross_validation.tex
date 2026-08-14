@@ -1,0 +1,48 @@
+\section{交叉验证与证据独立性}
+
+\subsection{交叉验证矩阵}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\begin{tabularx}{\textwidth}{p{2.8cm}p{2.7cm}p{2.4cm}X}
+\toprule
+比较 & 证据性质 & 当前状态 & 能支持/不能支持 \\
+\midrule
+Table 2 $\leftrightarrow$ Mie & Cartesian 电流积分 vs Lorenz--Mie 系数 & Fig.1/Fig.2 均 PASS & 强方法真值；只适用于球体与同一材料/场 \\
+Table 2 $\to$ Table 1 & 有限核的长波退化 & PASS & 支持公式/原点极限；不能证明大 $x$ 的 Table 1 \\
+Grahn Path A $\leftrightarrow$ Table 1 & 两条同阶长波路径 & 总量 PASS，EQ rank-4 note & 代数一致性诊断，不是 exact truth \\
+Grahn Path B $\leftrightarrow$ Mie & 有限核投影 vs Mie $l\le2$ & PASS & 支持全域映射、通道和逐 $m$ 相位 \\
+Grahn Eq.(22) $\leftrightarrow$ Eq.(20) & extinction vs scattering & rel $5.963\times10^{-7}$ & 相位敏感的独立闭环 \\
+本地 Mie $\leftrightarrow$ 论文 vector & 本地解析曲线 vs PDF-vector & Fig.2 除 dielectric MQ 外 PASS & 支持图形保真；受 digitization/论文内部 floor 影响 \\
+Mie $\leftrightarrow$ COMSOL Fig.3 & 解析/代理 vs COMSOL 频域 FEM 真解 & 部分可用（9 点 + $x=0.36$ 网格收敛）& COMSOL 真解谱已得（ED 主导 + MD/EQ $x=0.36$ 磁共振），但 MD/EQ 网格残差 $\sim2\%$ 与高阶 $l>4$ 待补 \\
+Tribelsky/Fu comparator & 不同几何与 observable & strict-feature/sanity 可复算 & 仅验证 Fano/方向实现，不提升 Alaee Fig.3 class \\
+\bottomrule
+\end{tabularx}
+\caption{四轮交叉验证的独立性与声称边界。}
+\end{table}
+
+\subsection{Table 2--Mie 的闭环}
+
+Table 2 与 Mie 的一致性不只比较总截面，而是按 ED/MD/EQ/MQ 分通道。Fig.1 使用无损介电球锁定标签、归一化与共振区行为；Fig.2 使用有损、色散金球并引入真实材料插值，验证同一方法在复折射率与宽谱条件下仍稳定。两轮共同排除了“总截面碰巧相等但电/磁标签互换”的假阳性。
+
+需要强调：Table 2 对\textbf{给定局域电流}是 retained order 内的公式精确映射；它不保证电流场本身正确。球体可用 Mie 内部场建立独立真值，而 Fig.3 双盘只能依赖完整配置并收敛的 FEM/COMSOL 场。因此 Fig.1/2 的方法成功不能直接继承为 Fig.3 的场求解成功。
+
+\subsection{Grahn 双路径与独立 gate}
+
+Grahn Path A 和 Table 1 共享长波截断，故只用于同阶代数检查。Path B 保留有限核并逐 $m$ 比较 Mie；额外的 miepython fixture 相对差 $1.593\times10^{-15}$、独立远场投影 $7.744\times10^{-15}$、六个解析电流 fixture 与错误注入，使相位、归一化、raw/STF 数据流和 mask 规则分别被检验。D1 修复后公开 API 对未转换的 \rc{qe} fail-closed，避免 $Q^e=6\,\mathrm{STF}(M_2)$ 的接口歧义静默污染磁偶极/电四极分支。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{per_m_errors.png}
+\caption{Grahn 逐 $m$ 复系数误差与预注册 mask；相位错误不会被总功率模平方掩盖。}
+\end{figure}
+
+\subsection{论文 vector 与来源可移植性}
+
+Fig.2 的 PDF-vector 曲线已冻结为 CSV 并可从 CSV 重算全部指标；但 metadata 的 \texttt{source\_pdf} 指向本 reproduction 根外的原始 PDF 路径。因此当前 checkout 能复算“vector CSV $\to$ metric”，不能单独重建“PDF $\to$ vector CSV”。这是一项 provenance 可移植性限制，不影响现有冻结指标的内部一致性，但会限制第三方从零复核。
+
+\subsection{Fig.3 尚缺的真正 crosspath}
+
+一个有效的 Mie--COMSOL 交叉验证至少要求：相同 $x_{\rm A}$ 与 $\lambda_d$ 映射、材料插值、host/spacer、激励相位、分通道定义、归一化、近零 mask 和 common support。当前 COMSOL 频域 FEM 已得到非零 $\mathbf E,\mathbf H,\mathbf J$ 导出、9 点真解谱、$x=0.36$ 网格收敛与远场/功率闭环，但严格 crosspath 仍受 MD/EQ 网格残差（$\sim2\%$）、host/spacer 材料缺口与高阶 $l>4$ 未逐阶限制，故报告写 \rc{partial\_physical\_match} 而非 \rc{physical\_reproduction\_success}。BEM 边界元作为替代求解器已 128G 跑通并经原生 \texttt{FarFieldCalculation} 完成远场闭合（VSH $l\le2$ 未解析 $3.93\times10^{-4}$），但 PEC 近似丢失金的 MD/EQ 磁共振，须升级 IBC 加损耗。
+

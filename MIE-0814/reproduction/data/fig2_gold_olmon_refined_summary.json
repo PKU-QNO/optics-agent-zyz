@@ -1,0 +1,34 @@
+{
+  "points": 200,
+  "channels": {
+    "ED": {
+      "masked_points": 0,
+      "max_relative_percent": 0.0118555795420695,
+      "p95_relative_percent": 0.011364642096731095,
+      "max_absolute": 0.0001739189439058375,
+      "passes": true
+    },
+    "MD": {
+      "masked_points": 0,
+      "max_relative_percent": 0.016992274643698756,
+      "p95_relative_percent": 0.01654272274496165,
+      "max_absolute": 0.0001278711502283869,
+      "passes": true
+    },
+    "EQ": {
+      "masked_points": 4,
+      "max_relative_percent": 0.016103578258260653,
+      "p95_relative_percent": 0.016064660360566592,
+      "max_absolute": 0.00026336199387522186,
+      "passes": true
+    },
+    "MQ": {
+      "masked_points": 16,
+      "max_relative_percent": 0.02413922357755529,
+      "p95_relative_percent": 0.023988293623042944,
+      "max_absolute": 6.326225107611272e-05,
+      "passes": true
+    }
+  },
+  "passes_all_channels": true
+}

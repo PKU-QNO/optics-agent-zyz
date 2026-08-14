@@ -1,0 +1,60 @@
+% !TEX program = xelatex
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{mdframed}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{bm}
+\usepackage{caption}
+\usepackage{tabularx}
+\usepackage{float}
+
+\geometry{margin=2.2cm, top=2cm, bottom=2cm}
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!60!black}
+\setlength{\parindent}{2em}
+\setlist{nosep}
+
+\definecolor{annotblue}{RGB}{46,168,229}
+\definecolor{annotred}{RGB}{200,50,50}
+
+\newenvironment{qanda}[1]{%
+  \begin{mdframed}[linecolor=annotblue!70, backgroundcolor=annotblue!5, roundcorner=3pt]
+  \textcolor{annotblue}{\textbf{Q: #1}}
+  \par\smallskip
+}{\end{mdframed}}
+
+\title{\textbf{多极展开复现 · 技术手册与提问备查}\\
+  \large 理论推导、验证数字、代码数据与 Q\&A}
+
+\author{张元正}
+\date{2026-08-14}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{center}
+  \fcolorbox{annotblue!50}{annotblue!5}{\parbox{0.92\textwidth}{\centering\small
+  \textcolor{annotblue}{$\blacktriangleright$} \textbf{用途}：本手册是给教授汇报的详细备查材料，\\
+  覆盖理论推导全貌、物理验证的逐项数字与证据位置、代码数据清单，以及教授可能提问的预设回答。}}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\input{sections/01_theory_full}
+\input{sections/02_verification_detail}
+\input{sections/03_code_data}
+\input{sections/04_q_and_a}
+
+\end{document}

@@ -1,0 +1,59 @@
+schema_version: 1
+retrieved_on: "2026-08-07"
+repository: "https://github.com/polyanskiy/refractiveindex.info-database"
+license: "CC0-1.0"
+notes:
+  - "SHA256 针对本目录中未修改的原始 YAML 文件计算。"
+  - "Johnson/Olmon-EV/McPeak 是独立文献与样品，用于材料敏感性，不视为同一真值的重复测量。"
+
+sources:
+  Johnson1972:
+    file: "Johnson.yml"
+    source_url: "https://raw.githubusercontent.com/polyanskiy/refractiveindex.info-database/master/database/data/main/Au/nk/Johnson.yml"
+    doi: "10.1103/PhysRevB.6.4370"
+    sample: "room-temperature gold; paper source used by Alaee Ref.[38]"
+    raw_wavelength_um: [0.1879, 1.9370]
+    fig2_grid_available_nm: [500, 1935]
+    sha256: "555C84AF33678F5838BBCA7E7577FDB870C906F72D73B31DD9153D8A0B18A2D3"
+
+  Olmon2012-EV:
+    file: "Olmon-ev.yml"
+    source_url: "https://raw.githubusercontent.com/polyanskiy/refractiveindex.info-database/master/database/data/main/Au/nk/Olmon-ev.yml"
+    doi: "10.1103/PhysRevB.86.235147"
+    sample: "evaporated gold"
+    raw_wavelength_um: [0.3000, 24.93]
+    fig2_grid_available_nm: [500, 2500]
+    sha256: "1102156143D348CD4B223A56FCD2CEDF272E7461B2FEE4509D742C2C63B8D779"
+
+  Olmon2012-SC:
+    file: "Olmon-sc.yml"
+    source_url: "https://raw.githubusercontent.com/polyanskiy/refractiveindex.info-database/master/database/data/main/Au/nk/Olmon-sc.yml"
+    doi: "10.1103/PhysRevB.86.235147"
+    sample: "single-crystal gold"
+    role: "supplementary sample sensitivity; not a primary Fig.2 input"
+    sha256: "E56FACB8EE11B2480FC7108F4FD8A673E7CDFB5C028CBE9C289E6372452DEF0C"
+
+  Olmon2012-TS:
+    file: "Olmon-ts.yml"
+    source_url: "https://raw.githubusercontent.com/polyanskiy/refractiveindex.info-database/master/database/data/main/Au/nk/Olmon-ts.yml"
+    doi: "10.1103/PhysRevB.86.235147"
+    sample: "template-stripped gold"
+    role: "supplementary sample sensitivity; not a primary Fig.2 input"
+    sha256: "2703CCAF0E5315F7A244AF3F7BCC2798DBCC800B3E0A7A9C3058ED82CC5C9AD8"
+
+  McPeak2015:
+    file: "McPeak.yml"
+    source_url: "https://raw.githubusercontent.com/polyanskiy/refractiveindex.info-database/master/database/data/main/Au/nk/McPeak.yml"
+    doi: "10.1021/ph5004237"
+    sample: "thermally evaporated, template-stripped gold film"
+    raw_wavelength_um: [0.3000, 1.7000]
+    fig2_grid_available_nm: [500, 1700]
+    sha256: "E0506DD2B30387EA9BC15CD8DFBD43FF93131684C6417F3077CDB3EE2EEF20AA"
+
+  Rakic1998-LD:
+    file: "Rakic-LD.yml"
+    source_url: "https://raw.githubusercontent.com/polyanskiy/refractiveindex.info-database/master/database/data/main/Au/nk/Rakic-LD.yml"
+    doi: "10.1364/AO.37.005271"
+    sample: "Lorentz-Drude fit to several experimental sources"
+    role: "analytic reference only; excluded from the three experimental-source envelope"
+    sha256: "4BB9DEB8506D49B0E4C8BFBC71059AE482E8C3E92890DD3836A6AD32AAC8F74E"

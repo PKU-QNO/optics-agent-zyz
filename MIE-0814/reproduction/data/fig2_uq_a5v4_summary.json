@@ -1,0 +1,538 @@
+{
+  "schema_version": 2,
+  "task": "B38b",
+  "executed_at_utc": "2026-08-13T06:40:53.699120+00:00",
+  "contract_sha256": {
+    "expected": {
+      "SPEC.md": "8a344a6098c493e2fd0f3f386664297cee96a2248ee865c7ed93ae7bea1c67f5",
+      "THRESHOLD-ADDENDUM.md": "67a883f869ae395d501e7dcddf8f0d3f113f5c9d2c5730ca7d6b0140c4bc189d"
+    },
+    "observed": {
+      "SPEC.md": "8a344a6098c493e2fd0f3f386664297cee96a2248ee865c7ed93ae7bea1c67f5",
+      "THRESHOLD-ADDENDUM.md": "67a883f869ae395d501e7dcddf8f0d3f113f5c9d2c5730ca7d6b0140c4bc189d"
+    },
+    "integrity_match": true
+  },
+  "thresholds_frozen": {
+    "rmse": 0.02,
+    "p95": 0.05,
+    "peak_x": 0.01
+  },
+  "image_data_consumed": false,
+  "nominal_discrepancy_definition": "Table2 nominal implementation versus independent Mie electronic reference on fixed lane grid",
+  "panel_a": {
+    "points": 200,
+    "epsilon_r": 6.25,
+    "table2_path": "data/fig2_uq_a5v4_dielectric_table2.csv",
+    "mie_path": "data/fig2_uq_a5v4_dielectric_mie.csv",
+    "cross": {
+      "ED": {
+        "rmse": 3.447878202415191e-05,
+        "p95": 9.435365478966938e-05,
+        "peak_x": 0.0
+      },
+      "MD": {
+        "rmse": 4.413838831839731e-05,
+        "p95": 0.00010218741325009879,
+        "peak_x": 0.0
+      },
+      "EQ": {
+        "rmse": 6.139758342643352e-05,
+        "p95": 0.00014592893790984495,
+        "peak_x": 0.0
+      },
+      "MQ": {
+        "rmse": 2.624477426648745e-05,
+        "p95": 6.7726856901662e-05,
+        "peak_x": 0.0
+      }
+    }
+  },
+  "physics_receipt": {
+    "formal_available": true,
+    "path": "data/fig2_uq_a5v4_physics.csv",
+    "grid_coarse": [
+      40,
+      30,
+      60
+    ],
+    "grid_refined": [
+      60,
+      61,
+      120
+    ],
+    "per_lane": {
+      "a-ED": {
+        "u_physics": 0.021577072366602366,
+        "p95_relative_difference": 0.007171692308757293,
+        "peak_x_effect": 0.0,
+        "points": 200
+      },
+      "a-MD": {
+        "u_physics": 0.06389709441098908,
+        "p95_relative_difference": 0.005263930081459933,
+        "peak_x_effect": 0.0,
+        "points": 200
+      },
+      "a-EQ": {
+        "u_physics": 0.039723761089961916,
+        "p95_relative_difference": 0.007947915006471983,
+        "peak_x_effect": 0.0,
+        "points": 200
+      },
+      "a-MQ": {
+        "u_physics": 0.250101532907766,
+        "p95_relative_difference": 0.01097601524486423,
+        "peak_x_effect": 0.45829145728643206,
+        "points": 200
+      },
+      "b-ED": {
+        "u_physics": 0.000513740820755636,
+        "p95_relative_difference": 0.0004905532595547743,
+        "peak_x_effect": 0.0,
+        "points": 200
+      },
+      "b-MD": {
+        "u_physics": 0.0006671490442246086,
+        "p95_relative_difference": 0.0006491943174614016,
+        "peak_x_effect": 0.0,
+        "points": 200
+      },
+      "b-EQ": {
+        "u_physics": 0.0006078427722909585,
+        "p95_relative_difference": 0.0006052593196509846,
+        "peak_x_effect": 0.0,
+        "points": 200
+      },
+      "b-MQ": {
+        "u_physics": 0.0016261808266367494,
+        "p95_relative_difference": 0.0016103344078821336,
+        "peak_x_effect": 0.0,
+        "points": 200
+      }
+    }
+  },
+  "cross_receipt": {
+    "path": "data/third_party_cross_consistency_receipt.json",
+    "formal_gate_eligible": false
+  },
+  "lanes": [
+    {
+      "panel": "a",
+      "channel": "ED",
+      "electronic_points": 200,
+      "d_rmse": 3.447878202415191e-05,
+      "d_p95": 9.435365478966938e-05,
+      "d_peak_x": 0.0,
+      "u_interp": 0.0025508216468876003,
+      "u_interp_sensitivity": 0.010203286587550401,
+      "u_physics": 0.021577072366602366,
+      "u_cross_rmse": null,
+      "u_cross_p95": null,
+      "u_cross_peak_x": null,
+      "interval_L_rmse": null,
+      "interval_U_rmse": null,
+      "interval_L_p95": null,
+      "interval_U_p95": null,
+      "interval_L_peak_x": null,
+      "interval_U_peak_x": null,
+      "rmse_threshold": 0.02,
+      "p95_threshold": 0.05,
+      "peak_x_threshold": 0.01,
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "peak_x_status": "UNRESOLVED",
+      "pre_override_composite": "UNRESOLVED",
+      "composite_status": "UNRESOLVED",
+      "uq_model_validity": false,
+      "coverage_note": "electronic dense curve computed",
+      "cross_gate_note": "route3 not gate-eligible; formal u_cross unavailable",
+      "reference_note": "d is Table2-vs-independent-Mie on fixed electronic grid; no image data"
+    },
+    {
+      "panel": "a",
+      "channel": "MD",
+      "electronic_points": 200,
+      "d_rmse": 4.413838831839731e-05,
+      "d_p95": 0.00010218741325009879,
+      "d_peak_x": 0.0,
+      "u_interp": 0.00871875729022193,
+      "u_interp_sensitivity": 0.03487502916088772,
+      "u_physics": 0.06389709441098908,
+      "u_cross_rmse": null,
+      "u_cross_p95": null,
+      "u_cross_peak_x": null,
+      "interval_L_rmse": null,
+      "interval_U_rmse": null,
+      "interval_L_p95": null,
+      "interval_U_p95": null,
+      "interval_L_peak_x": null,
+      "interval_U_peak_x": null,
+      "rmse_threshold": 0.02,
+      "p95_threshold": 0.05,
+      "peak_x_threshold": 0.01,
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "peak_x_status": "UNRESOLVED",
+      "pre_override_composite": "UNRESOLVED",
+      "composite_status": "UNRESOLVED",
+      "uq_model_validity": false,
+      "coverage_note": "electronic dense curve computed",
+      "cross_gate_note": "route3 not gate-eligible; formal u_cross unavailable",
+      "reference_note": "d is Table2-vs-independent-Mie on fixed electronic grid; no image data"
+    },
+    {
+      "panel": "a",
+      "channel": "EQ",
+      "electronic_points": 200,
+      "d_rmse": 6.139758342643352e-05,
+      "d_p95": 0.00014592893790984495,
+      "d_peak_x": 0.0,
+      "u_interp": 0.005816423513195606,
+      "u_interp_sensitivity": 0.023265694052782424,
+      "u_physics": 0.039723761089961916,
+      "u_cross_rmse": null,
+      "u_cross_p95": null,
+      "u_cross_peak_x": null,
+      "interval_L_rmse": null,
+      "interval_U_rmse": null,
+      "interval_L_p95": null,
+      "interval_U_p95": null,
+      "interval_L_peak_x": null,
+      "interval_U_peak_x": null,
+      "rmse_threshold": 0.02,
+      "p95_threshold": 0.05,
+      "peak_x_threshold": 0.01,
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "peak_x_status": "UNRESOLVED",
+      "pre_override_composite": "UNRESOLVED",
+      "composite_status": "UNRESOLVED",
+      "uq_model_validity": false,
+      "coverage_note": "electronic dense curve computed",
+      "cross_gate_note": "route3 not gate-eligible; formal u_cross unavailable",
+      "reference_note": "d is Table2-vs-independent-Mie on fixed electronic grid; no image data"
+    },
+    {
+      "panel": "a",
+      "channel": "MQ",
+      "electronic_points": 200,
+      "d_rmse": 2.624477426648745e-05,
+      "d_p95": 6.7726856901662e-05,
+      "d_peak_x": 0.0,
+      "u_interp": 0.045032525384488056,
+      "u_interp_sensitivity": 0.18013010153795223,
+      "u_physics": 0.250101532907766,
+      "u_cross_rmse": null,
+      "u_cross_p95": null,
+      "u_cross_peak_x": null,
+      "interval_L_rmse": null,
+      "interval_U_rmse": null,
+      "interval_L_p95": null,
+      "interval_U_p95": null,
+      "interval_L_peak_x": null,
+      "interval_U_peak_x": null,
+      "rmse_threshold": 0.02,
+      "p95_threshold": 0.05,
+      "peak_x_threshold": 0.01,
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "peak_x_status": "UNRESOLVED",
+      "pre_override_composite": "UNRESOLVED",
+      "composite_status": "UNRESOLVED",
+      "uq_model_validity": false,
+      "coverage_note": "electronic dense curve computed",
+      "cross_gate_note": "route3 not gate-eligible; formal u_cross unavailable",
+      "reference_note": "d is Table2-vs-independent-Mie on fixed electronic grid; no image data"
+    },
+    {
+      "panel": "b",
+      "channel": "ED",
+      "electronic_points": 200,
+      "d_rmse": 8.876924397594173e-05,
+      "d_p95": 0.00017088085500860384,
+      "d_peak_x": 0.0,
+      "u_interp": 0.00024108858637984402,
+      "u_interp_sensitivity": 0.0009643543455193761,
+      "u_physics": 0.000513740820755636,
+      "u_cross_rmse": null,
+      "u_cross_p95": null,
+      "u_cross_peak_x": null,
+      "interval_L_rmse": null,
+      "interval_U_rmse": null,
+      "interval_L_p95": null,
+      "interval_U_p95": null,
+      "interval_L_peak_x": null,
+      "interval_U_peak_x": null,
+      "rmse_threshold": 0.02,
+      "p95_threshold": 0.05,
+      "peak_x_threshold": 0.01,
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "peak_x_status": "UNRESOLVED",
+      "pre_override_composite": "UNRESOLVED",
+      "composite_status": "UNRESOLVED",
+      "uq_model_validity": false,
+      "coverage_note": "electronic dense curve computed",
+      "cross_gate_note": "route3 not gate-eligible; formal u_cross unavailable",
+      "reference_note": "d is Table2-vs-independent-Mie on fixed electronic grid; no image data"
+    },
+    {
+      "panel": "b",
+      "channel": "MD",
+      "electronic_points": 200,
+      "d_rmse": 7.75953882256115e-05,
+      "d_p95": 0.0001269106637654338,
+      "d_peak_x": 0.0,
+      "u_interp": 0.00031867923073722646,
+      "u_interp_sensitivity": 0.0012747169229489058,
+      "u_physics": 0.0006671490442246086,
+      "u_cross_rmse": null,
+      "u_cross_p95": null,
+      "u_cross_peak_x": null,
+      "interval_L_rmse": null,
+      "interval_U_rmse": null,
+      "interval_L_p95": null,
+      "interval_U_p95": null,
+      "interval_L_peak_x": null,
+      "interval_U_peak_x": null,
+      "rmse_threshold": 0.02,
+      "p95_threshold": 0.05,
+      "peak_x_threshold": 0.01,
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "peak_x_status": "UNRESOLVED",
+      "pre_override_composite": "UNRESOLVED",
+      "composite_status": "UNRESOLVED",
+      "uq_model_validity": false,
+      "coverage_note": "electronic dense curve computed",
+      "cross_gate_note": "route3 not gate-eligible; formal u_cross unavailable",
+      "reference_note": "d is Table2-vs-independent-Mie on fixed electronic grid; no image data"
+    },
+    {
+      "panel": "b",
+      "channel": "EQ",
+      "electronic_points": 200,
+      "d_rmse": 0.00013072427905752763,
+      "d_p95": 0.00025909887257584695,
+      "d_peak_x": 0.0,
+      "u_interp": 0.0007189868617665636,
+      "u_interp_sensitivity": 0.0028759474470662545,
+      "u_physics": 0.0006078427722909585,
+      "u_cross_rmse": null,
+      "u_cross_p95": null,
+      "u_cross_peak_x": null,
+      "interval_L_rmse": null,
+      "interval_U_rmse": null,
+      "interval_L_p95": null,
+      "interval_U_p95": null,
+      "interval_L_peak_x": null,
+      "interval_U_peak_x": null,
+      "rmse_threshold": 0.02,
+      "p95_threshold": 0.05,
+      "peak_x_threshold": 0.01,
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "peak_x_status": "UNRESOLVED",
+      "pre_override_composite": "UNRESOLVED",
+      "composite_status": "UNRESOLVED",
+      "uq_model_validity": false,
+      "coverage_note": "electronic dense curve computed",
+      "cross_gate_note": "route3 not gate-eligible; formal u_cross unavailable",
+      "reference_note": "d is Table2-vs-independent-Mie on fixed electronic grid; no image data"
+    },
+    {
+      "panel": "b",
+      "channel": "MQ",
+      "electronic_points": 200,
+      "d_rmse": 3.398912543518823e-05,
+      "d_p95": 6.228897862536886e-05,
+      "d_peak_x": 0.0,
+      "u_interp": 0.00017590661412833738,
+      "u_interp_sensitivity": 0.0007036264565133495,
+      "u_physics": 0.0016261808266367494,
+      "u_cross_rmse": null,
+      "u_cross_p95": null,
+      "u_cross_peak_x": null,
+      "interval_L_rmse": null,
+      "interval_U_rmse": null,
+      "interval_L_p95": null,
+      "interval_U_p95": null,
+      "interval_L_peak_x": null,
+      "interval_U_peak_x": null,
+      "rmse_threshold": 0.02,
+      "p95_threshold": 0.05,
+      "peak_x_threshold": 0.01,
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "peak_x_status": "UNRESOLVED",
+      "pre_override_composite": "UNRESOLVED",
+      "composite_status": "UNRESOLVED",
+      "uq_model_validity": false,
+      "coverage_note": "electronic dense curve computed",
+      "cross_gate_note": "route3 not gate-eligible; formal u_cross unavailable",
+      "reference_note": "d is Table2-vs-independent-Mie on fixed electronic grid; no image data"
+    }
+  ],
+  "diagnostics": {
+    "a-ED": {
+      "electronic_points": 200,
+      "u_interp_primary": 0.0025508216468876003,
+      "u_interp_sensitivity_0_5": 0.010203286587550401,
+      "max_abs_y2": 1262.6886004798816,
+      "max_h": 0.004020100502512669,
+      "u_physics": {
+        "u_physics": 0.021577072366602366,
+        "p95_relative_difference": 0.007171692308757293,
+        "peak_x_effect": 0.0,
+        "points": 200
+      },
+      "u_cross_diagnostic_table2_vs_mie": {
+        "rmse": 3.447878202415191e-05,
+        "p95": 9.435365478966938e-05,
+        "peak_x": 0.0
+      }
+    },
+    "a-MD": {
+      "electronic_points": 200,
+      "u_interp_primary": 0.00871875729022193,
+      "u_interp_sensitivity_0_5": 0.03487502916088772,
+      "max_abs_y2": 4315.893843125755,
+      "max_h": 0.004020100502512669,
+      "u_physics": {
+        "u_physics": 0.06389709441098908,
+        "p95_relative_difference": 0.005263930081459933,
+        "peak_x_effect": 0.0,
+        "points": 200
+      },
+      "u_cross_diagnostic_table2_vs_mie": {
+        "rmse": 4.413838831839731e-05,
+        "p95": 0.00010218741325009879,
+        "peak_x": 0.0
+      }
+    },
+    "a-EQ": {
+      "electronic_points": 200,
+      "u_interp_primary": 0.005816423513195606,
+      "u_interp_sensitivity_0_5": 0.023265694052782424,
+      "max_abs_y2": 2879.202344325588,
+      "max_h": 0.004020100502512669,
+      "u_physics": {
+        "u_physics": 0.039723761089961916,
+        "p95_relative_difference": 0.007947915006471983,
+        "peak_x_effect": 0.0,
+        "points": 200
+      },
+      "u_cross_diagnostic_table2_vs_mie": {
+        "rmse": 6.139758342643352e-05,
+        "p95": 0.00014592893790984495,
+        "peak_x": 0.0
+      }
+    },
+    "a-MQ": {
+      "electronic_points": 200,
+      "u_interp_primary": 0.045032525384488056,
+      "u_interp_sensitivity_0_5": 0.18013010153795223,
+      "max_abs_y2": 22291.662971887716,
+      "max_h": 0.004020100502512669,
+      "u_physics": {
+        "u_physics": 0.250101532907766,
+        "p95_relative_difference": 0.01097601524486423,
+        "peak_x_effect": 0.45829145728643206,
+        "points": 200
+      },
+      "u_cross_diagnostic_table2_vs_mie": {
+        "rmse": 2.624477426648745e-05,
+        "p95": 6.7726856901662e-05,
+        "peak_x": 0.0
+      }
+    },
+    "b-ED": {
+      "electronic_points": 200,
+      "u_interp_primary": 0.00024108858637984402,
+      "u_interp_sensitivity_0_5": 0.0009643543455193761,
+      "max_abs_y2": 119.34186386534623,
+      "max_h": 0.004020100502512669,
+      "u_physics": {
+        "u_physics": 0.000513740820755636,
+        "p95_relative_difference": 0.0004905532595547743,
+        "peak_x_effect": 0.0,
+        "points": 200
+      },
+      "u_cross_diagnostic_table2_vs_mie": {
+        "rmse": 8.876924397594173e-05,
+        "p95": 0.00017088085500860384,
+        "peak_x": 0.0
+      }
+    },
+    "b-MD": {
+      "electronic_points": 200,
+      "u_interp_primary": 0.00031867923073722646,
+      "u_interp_sensitivity_0_5": 0.0012747169229489058,
+      "max_abs_y2": 157.75020270530297,
+      "max_h": 0.004020100502512669,
+      "u_physics": {
+        "u_physics": 0.0006671490442246086,
+        "p95_relative_difference": 0.0006491943174614016,
+        "peak_x_effect": 0.0,
+        "points": 200
+      },
+      "u_cross_diagnostic_table2_vs_mie": {
+        "rmse": 7.75953882256115e-05,
+        "p95": 0.0001269106637654338,
+        "peak_x": 0.0
+      }
+    },
+    "b-EQ": {
+      "electronic_points": 200,
+      "u_interp_primary": 0.0007189868617665636,
+      "u_interp_sensitivity_0_5": 0.0028759474470662545,
+      "max_abs_y2": 355.90748391020225,
+      "max_h": 0.004020100502512669,
+      "u_physics": {
+        "u_physics": 0.0006078427722909585,
+        "p95_relative_difference": 0.0006052593196509846,
+        "peak_x_effect": 0.0,
+        "points": 200
+      },
+      "u_cross_diagnostic_table2_vs_mie": {
+        "rmse": 0.00013072427905752763,
+        "p95": 0.00025909887257584695,
+        "peak_x": 0.0
+      }
+    },
+    "b-MQ": {
+      "electronic_points": 200,
+      "u_interp_primary": 0.00017590661412833738,
+      "u_interp_sensitivity_0_5": 0.0007036264565133495,
+      "max_abs_y2": 87.075972826199,
+      "max_h": 0.004020100502512669,
+      "u_physics": {
+        "u_physics": 0.0016261808266367494,
+        "p95_relative_difference": 0.0016103344078821336,
+        "peak_x_effect": 0.0,
+        "points": 200
+      },
+      "u_cross_diagnostic_table2_vs_mie": {
+        "rmse": 3.398912543518823e-05,
+        "p95": 6.228897862536886e-05,
+        "peak_x": 0.0
+      }
+    }
+  },
+  "global_composite_status": "UNRESOLVED",
+  "global_uq_model_validity": false,
+  "fail_closed_reasons": [
+    "third-party gold route not gate-eligible; formal u_cross unavailable"
+  ],
+  "input_sha256": {
+    "data/fig2_gold_olmon_refined.csv": "0a5c3299273354db1c0fba83e1dc5c6009fa2d533ad5371dfcde84af43205ccc",
+    "codex-prompts/out/A5-v4/preregister/SPEC.md": "8a344a6098c493e2fd0f3f386664297cee96a2248ee865c7ed93ae7bea1c67f5",
+    "codex-prompts/out/A5-v4/preregister/THRESHOLD-ADDENDUM.md": "67a883f869ae395d501e7dcddf8f0d3f113f5c9d2c5730ca7d6b0140c4bc189d"
+  },
+  "environment": {
+    "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:09:58) [MSC v.1929 64 bit (AMD64)]",
+    "numpy": "2.3.0",
+    "platform": "Windows-11-10.0.26200-SP0"
+  }
+}

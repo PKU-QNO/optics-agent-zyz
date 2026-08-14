@@ -1,0 +1,201 @@
+\section{验证结果}
+
+\subsection{Layer1：物理硬约束}
+
+独立 Mie 基准（\texttt{baseline\_mie.py}）通过全部 Layer1 硬约束：
+
+\begin{table}[H]
+\centering
+\caption{Layer1 物理硬约束（对 $\varepsilon_r=6.25$ 无吸收介电球）}
+\begin{tabular}{lcc}
+\toprule
+\textbf{约束} & \textbf{验证} & \textbf{容差} \\
+\midrule
+能量守恒 $C_{\mathrm{ext}}=C_{\mathrm{sca}}+C_{\mathrm{abs}}$ & $<1e{-}10$ & $1e{-}10$ \\
+无吸收零吸收 $C_{\mathrm{abs}}=0$ & $<1e{-}10$ & $1e{-}10$ \\
+瑞利极限 $Q_{\mathrm{sca}}\propto x^4$ & log-log 斜率 $4.00$ & $\pm0.05$ \\
+大尺寸极限 $Q_{\mathrm{ext}}\to2$ & $|Q_{\mathrm{ext}}(120)-2|<0.05$ & $0.05$ \\
+光学定理（无吸收等价式） & $<1e{-}10$ & $1e{-}10$ \\
+球对称（$\phi$ 无关） & 逐点验证 & --- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Mie 系数 $a_n/b_n$ 与独立库 miepython 交叉验证差 $\sim1e{-}16$（机器精度），
+Mie 基准本身可信。
+
+\subsection{Layer2：极限退化}
+
+\begin{table}[H]
+\centering
+\caption{Layer2 极限退化验证}
+\begin{tabular}{lc}
+\toprule
+\textbf{验证} & \textbf{结果} \\
+\midrule
+表2$\to$表1 退化（$x\ll1$） & 各多极矩相对差 $<1\%$（测试限 0.01） \\
+$j_l/(kr)^l\to1/(2l+1)!!$ 极限 & $1/3,\ 1/15,\ 1/105$ 全部正确 \\
+$r\to0$ 无除零 & 所有核有限（O($r^2$)$\times$常数） \\
+偶极主导（小 $x$） & 高阶多极贡献 $\to0$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Eq.1 解析常数推导（第一性原理）}
+
+将 $J=-i\omega\varepsilon_0\widetilde{J}$ 代回 Eq.~\eqref{eq:eq1}，再除以
+$\lambda^2/(2\pi)$，逐项推导：
+
+\textbf{矩的 $\varepsilon_0/c$ 尺度}（表2 定义带 $-1/i\omega$ 因子）：
+\begin{align}
+  p_{\mathrm{phys}} &= \varepsilon_0\,p_{\mathrm{tilde}}, &
+  m_{\mathrm{phys}} &= -i\omega\varepsilon_0\,m_{\mathrm{tilde}}, \notag\\
+  Q^e_{\mathrm{phys}} &= \varepsilon_0\,Q^e_{\mathrm{tilde}}, &
+  Q^m_{\mathrm{phys}} &= -i\omega\varepsilon_0\,Q^m_{\mathrm{tilde}}.
+  \label{eq:mom_scale}
+\end{align}
+
+逐项代入 + 归一化（$\lambda^2/(2\pi)=2\pi/k^2$）：
+
+\begin{align}
+  C_{\mathrm{ED}} &= \frac{k^6}{12\pi^2}|p_{\mathrm{tilde}}|^2
+     = \frac{x^6}{12\pi^2}|p|^2, \label{eq:der_ed}\\
+  C_{\mathrm{MD}} &= \frac{k^8}{12\pi^2}|m_{\mathrm{tilde}}|^2
+     = \frac{x^8}{12\pi^2}|m|^2, \label{eq:der_md}\\
+  C_{\mathrm{EQ}} &= \frac{k^8}{1440\pi^2}|Q^e_{\mathrm{tilde}}|^2
+     = \frac{x^8}{1440\pi^2}|Q^e|^2, \label{eq:der_eq}\\
+  C_{\mathrm{MQ}} &= \frac{k^{10}}{1440\pi^2}|Q^m_{\mathrm{tilde}}|^2
+     = \frac{x^{10}}{1440\pi^2}|Q^m|^2. \label{eq:der_mq}
+\end{align}
+
+\textbf{关键点}：
+
+\begin{enumerate}
+  \item \textbf{$1/1440 = 1/(120\times 12)$}：其中 120 来自 Eq.~\eqref{eq:eq1}
+        的四极系数 $1/120$；12 来自前因子 $k^4/(6\pi\varepsilon_0^2)$ 的 $6$
+        与 $\lambda^2/(2\pi)=2\pi/k^2$ 归一化的 $2$ 的组合（$6\times2=12$）。
+  \item \textbf{MQ 是 $x^{10}$ 而非 $x^8$}：磁四极在 Eq.~\eqref{eq:eq1} 带 $1/c^2$，
+        该 $c^2$ 引入额外的 $k^2=x^2$ 因子（因 $m_{\mathrm{phys}},Q^m_{\mathrm{phys}}$
+        含 $i\omega\propto k$，而 $p,Q^e$ 的 $-1/i\omega$ 与 $-i\omega\varepsilon_0$ 抵消）。
+        这是最容易出错的地方。
+  \item \textbf{MD 是 $x^8$ 而非 $x^6$}：同理，$|m|^2/c^2$ 的 $1/c^2$ 带来 $k^2$。
+  \item ED 与 MD 偶极常数同为 $1/12\pi^2$；EQ 与 MQ 四极常数同为 $1/1440\pi^2$。
+\end{enumerate}
+
+\textbf{数值联合验证}：准静态点 $s=0.2,0.3$ 四通道表2/Mie 全部 $\approx1.0000$
+（ED 1.0000、MD 1.0000、EQ 1.00003、MQ 0.99997）。EQ/MQ 在小 $x$ 是纯四极项，
+直接锁定 $1/1440$ 常数正确。
+
+\subsection{表2 vs Mie：九点与全区间}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{fig1a_reproduction.png}
+\caption{Fig.1(a,c) 复现（与当前 \texttt{plot\_fig1.py} 和 PNG 一致）。
+\textbf{左}：按通道着色（ED/MD/EQ/MQ），线型区分来源：Mie 实线、表2 精确虚线、
+表1 长波近似点线；灰色水平线为偶极/四极普适上限 $3/5$。
+\textbf{右}：表1 派生散射分项相对 Mie 的百分比误差
+$|C_{T1}{-}C_{Mie}|/|C_{Mie}|\times100\%$，每通道使用
+$C_{Mie}<10^{-3}\max(C_{Mie})$ 的近零掩码（掩码处断线），超过 $100\%$ 的值裁剪到
+$100\%$；图中没有绝对误差副轴。该 C 口径是绘图诊断，不替代论文的复多极矩口径。}
+\label{fig:fig1a}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{fig1a_compare_paper.png}
+\caption{人工核验用：论文原图 Fig.1(a)（左，COMSOL 计算）与本复现（右，Python 体积分）
+并排对比。目视检查共振峰位（ED@0.5、MD@0.385、EQ@0.647、MQ@0.543）、
+曲线形状与各自普适上限（ED/MD$\to3$、EQ/MQ$\to5$）是否一致。}
+\label{fig:fig1a_compare}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{fig1a_table2_error.png}
+\caption{表2 精确公式 vs Mie 的相对误差（200 点，应用与图相同的
+$10^{-3}\max(C_{Mie})$ 近零掩码）。掩码后最大误差均满足统一的 $<1\%$ 合同：
+ED 0.1404\%、MD 0.0383\%、EQ 0.2020\%、MQ 0.1252\%。}
+\label{fig:fig1a_t2err}
+\end{figure}
+
+九点指定位置表2/Mie 比值（修复后，40/41/80 网格）：
+
+\begin{table}[H]
+\centering
+\caption{九点表2/Mie 比值}
+\begin{tabular}{c|cccc}
+\toprule
+$2a/\lambda$ & ED & MD & EQ & MQ \\
+\midrule
+0.200 & 1.0000 & 1.0000 & 1.0000 & 1.0000 \\
+0.300 & 1.0000 & 1.0000 & 1.0000 & 1.0000 \\
+0.385 & 1.0000 & 1.0000 & 1.0000 & 1.0000 \\
+0.500 & 1.0000 & 1.0000 & 1.0000 & 1.0000 \\
+0.600 & 0.9999 & 1.0000 & 1.0000 & 1.0000 \\
+0.650 & 0.9991 & 1.0001 & 1.0000 & 1.0000 \\
+0.700 & 1.0005 & 1.0000 & 0.9999 & 1.0000 \\
+0.800 & 1.0004 & 1.0000 & 1.0020 & 1.0002 \\
+1.000 & 0.9998 & 1.0004 & 1.0004 & 1.0000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+200 点均匀扫描最大相对误差：
+
+\begin{table}[H]
+\centering
+\caption{200 点最大相对误差（表2 vs Mie）}
+\begin{tabular}{lcc}
+\toprule
+\textbf{通道} & \textbf{最大误差} & \textbf{位置 $2a/\lambda$} \\
+\midrule
+ED & 0.1404\% & 0.67035 \\
+MD & 0.0383\% & 1.00000 \\
+EQ & 0.2020\% & 0.79900 \\
+MQ & 0.1252\% & 0.86734 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{网格收敛}（$x=2.042$ 共振点）：网格 24/25/48 $\to$ 40/41/80 $\to$ 60/61/120，
+ED 从 0.007579 收敛到 0.007630（相对变化 $<0.7\%$）。
+
+\subsection{表1 长波长失效复现与 B1 双口径重 gate}
+
+下面的数值由 \texttt{codex-prompts/out/B1-recompute\_fig1.py} 直接重算，
+表2 使用生产网格 $(40,41,80)$；冻结 CSV 的最近点为 $s=0.750754$，
+并另给出线性插值与精确 $s=0.75$ 结果。论文原话是“multipole moments”，
+因此复多极矩向量误差是候选主口径；散射分项 $C$ 误差保留为图示诊断。
+
+\begin{table}[H]
+\centering
+\caption{精确 $s=0.75$ 的双口径误差（表1相对表2/Mie；百分比）}
+\begin{tabular}{lrrrr}
+\toprule
+通道 & ED & MD & EQ & MQ \\
+\midrule
+$C$ 分项 $|C_{T1}-C_{Mie}|/|C_{Mie}|$ & 86.9148 & 215.9110 & 103.0775 & 55.7510 \\
+复矩范数 $\|M_{T1}-M_{T2}\|/\|M_{T2}\|$ & 136.1669 & 277.7424 & 42.5195 & 24.7950 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+复矩口径下 ED、MD 均超过 $100\%$，直接支持论文定性承诺；C 口径下 ED 为
+$86.9148\%$，不能单独支持“双偶极均 $>100\%$”。因此两口径不能互换，最终采用哪一个
+作为 gate④ 的论文承诺仍由用户裁决。近零掩码只用于全区间图/表2--Mie 合同：
+$C_{Mie}<10^{-3}\max(C_{Mie})$ 的点不进入最大误差或 RMSE；$s=0.75$ 点本身不近零，
+不应用掩码。
+
+\paragraph{关键说明（非程序错误）}
+\textbf{表1 在大尺寸/共振区发散是论文预期的物理行为，不是程序错误。}
+表1 是长波长近似（$kr\to0$ 极限），在大尺寸/共振区粒子内部相位不再一致，
+近似必然失效。相反，表2 精确公式与 Mie 在应用近零掩码后 200 点最大误差均低于 $1\%$
+（ED 0.1404\%、MD 0.0383\%、EQ 0.2020\%、MQ 0.1252\%）——图~\ref{fig:fig1a}
+中表1 点线在大尺寸/共振区的发散正是论文 Fig.1(c) 想展示的近似失效边界。
+
+\subsection{测试套件}
+
+全套 \texttt{pytest tests/}：\textbf{33 passed, 1 skipped}
+（skip 是 200 点慢测，默认跳过）。200 点全区间慢测
+\texttt{RUN\_TABLE2\_SLOW=1}：1 passed。CSV 复核与慢测结果一致。

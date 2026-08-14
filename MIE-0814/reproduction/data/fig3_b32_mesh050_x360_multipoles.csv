@@ -1,0 +1,6 @@
+% Model,Untitled.mph
+% Version,COMSOL 6.3.0.290
+% Date,"Aug 12 2026, 15:40"
+% Table,表格 - 
+% freq (THz),comp1.C_ED (m^2),comp1.C_MD (m^2),comp1.C_EQ (m^2),comp1.C_MQ (m^2)
+215.85056975999996,7.756169404958636E-13,1.6351891415363113E-12,9.342836492279537E-13,1.2468452518550439E-15

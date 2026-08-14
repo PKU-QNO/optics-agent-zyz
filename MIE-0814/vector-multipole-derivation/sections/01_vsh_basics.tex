@@ -1,0 +1,427 @@
+\section{矢量球谐函数基础}
+%=============================================================================
+
+在着手推导多极展开之前，我们需要一组适合展开横波条件 $\nabla\cdot\mathbf{E}=0$ 的基函数。
+标量球谐函数 $Y_{lm}(\theta,\phi)$ 不足以描述矢量场的三个独立分量——因为标量球谐
+产生的梯度场是有旋无散的，而辐射场需要横波基。\textbf{矢量球谐函数} $\mathbf{X}_{lm}$
+正是为此构造的。
+
+本节的顺序是：先回顾标量球谐 $Y_{lm}$ 与角动量算符 $\mathbf{L}$ 的性质（你很可能会需要），
+再从 $Y_{lm}$ 构造 $\mathbf{X}_{lm}$，最后详细证明 $\mathbf{X}_{lm}$ 的正交归一性。
+
+% -----------------------------------------------------------------------------
+\subsection{$Y_{lm}$ 与角动量算符 $\mathbf{L}$}
+% -----------------------------------------------------------------------------
+
+\subsubsection{标量球谐函数的定义与基本性质}
+
+标量球谐函数的定义为：
+\begin{equation}
+Y_{lm}(\theta,\phi)
+= \sqrt{\frac{2l+1}{4\pi}\frac{(l-m)!}{(l+m)!}}\;
+  P_l^m(\cos\theta)\;e^{im\phi}
+\tag{1.1}
+\end{equation}
+其中：
+\begin{itemize}
+  \item $l = 0,1,2,\ldots$ 称为\textbf{阶数}（degree），
+  \item $m = -l,\,-l+1,\ldots,l$ 称为\textbf{磁量子数}（order），
+  \item $P_l^m$ 是连带 Legendre 函数，满足 $P_l^{-m}(x) = (-1)^m\frac{(l-m)!}{(l+m)!}P_l^m(x)$
+    （由此可得 $Y_{l,-m} = (-1)^m Y_{lm}^*$），
+  \item $d\Omega = \sin\theta\,d\theta\,d\phi$ 是立体角微元。
+\end{itemize}
+
+最重要的性质是\textbf{正交归一性}（$Y_{lm}$ 构成 $L^2(S^2)$ 的一组完备正交基）：
+\begin{equation}
+\int Y_{lm}^*(\theta,\phi)\,Y_{l'm'}(\theta,\phi)\,d\Omega = \delta_{ll'}\delta_{mm'}
+\tag{1.2}
+\end{equation}
+
+\subsubsection{角动量算符 $\mathbf{L}$}
+
+在经典力学中，角动量 $\mathbf{L} = \mathbf{r}\times\mathbf{p}$。
+在量子力学（或本推导的语境）中，定义\textbf{无量纲角动量算符}：
+$$
+\boxed{\;\mathbf{L} \equiv -i\,\mathbf{r}\times\nabla\;}
+$$
+它的三个分量在球坐标系下的形式为：
+\begin{align}
+L_x &= i\Bigl(\sin\phi\,\frac{\partial}{\partial\theta}
+       + \cot\theta\cos\phi\,\frac{\partial}{\partial\phi}\Bigr) \notag\\
+L_y &= i\Bigl(-\cos\phi\,\frac{\partial}{\partial\theta}
+       + \cot\theta\sin\phi\,\frac{\partial}{\partial\phi}\Bigr) \notag\\
+L_z &= -i\frac{\partial}{\partial\phi} \label{eq:Lz_form}
+\end{align}
+而 \textbf{Laplace--Beltrami 算符}（即 $L^2$）为：
+\begin{equation}
+\mathbf{L}^2 = L_x^2 + L_y^2 + L_z^2
+= -\Bigl[\frac{1}{\sin\theta}\frac{\partial}{\partial\theta}\Bigl(\sin\theta\frac{\partial}{\partial\theta}\Bigr)
+        + \frac{1}{\sin^2\theta}\frac{\partial^2}{\partial\phi^2}\Bigr]
+\label{eq:L2_form}
+\end{equation}
+
+\subsubsection{$Y_{lm}$ 是 $\mathbf{L}^2$ 和 $L_z$ 的共同本征态}
+
+这是量子力学角动量理论的核心结果，也是后续一切推算的出发点：
+\begin{align}
+\mathbf{L}^2\,Y_{lm} &= l(l+1)\,Y_{lm} \label{eq:L2_eigen} \\
+L_z\,Y_{lm} &= m\,Y_{lm} \label{eq:Lz_eigen}
+\end{align}
+即 $Y_{lm}$ 是 $(\mathbf{L}^2, L_z)$ 的同时本征态，本征值分别为 $l(l+1)$ 和 $m$。
+
+\subsubsection{$\mathbf{L}$ 在球面上的 Hermiticity（自伴性）}
+
+稍后我们需要一个关键性质：$\mathbf{L}$ 及其每个分量在 $L^2(S^2)$ 上是 Hermitian 的。
+这意味着\textbf{分部积分无边界项}：
+\begin{equation}
+\int (L_i f)^*\,(L_i g)\,d\Omega = \int f^*\,L_i^2\,g\,d\Omega \quad (i=x,y,z)
+\label{eq:L_Hermitian}
+\end{equation}
+
+\textbf{验证 $L_z$}：$L_z = -i\partial_\phi$，在 $\phi$ 方向作分部积分：
+\begin{align*}
+\int_0^{2\pi} (L_z f)^* (L_z g)\,d\phi
+&= \int_0^{2\pi} (i\partial_\phi f^*) (-i\partial_\phi g)\,d\phi
+= \int_0^{2\pi} (\partial_\phi f^*)(\partial_\phi g)\,d\phi \\
+&= \bigl[f^*\partial_\phi g\bigr]_0^{2\pi}
+   - \int_0^{2\pi} f^*\,\partial_\phi^2 g\,d\phi
+= -\int_0^{2\pi} f^*\,\partial_\phi^2 g\,d\phi
+= \int_0^{2\pi} f^*\,L_z^2 g\,d\phi
+\end{align*}
+其中边界项因 $\phi$ 从 $0$ 到 $2\pi$ 的周期性而消失。$\sin\theta\,d\theta$ 积分不受影响。
+$L_x,L_y$ 的证明类似（同样靠球面上的无边界条件）。
+
+将式~(\ref{eq:L_Hermitian}) 的三个方向求和，即得\textbf{矢量 Hermiticity 关系}：
+\begin{equation}
+\int (\mathbf{L}f)^* \cdot (\mathbf{L}g)\,d\Omega = \int f^*\,\mathbf{L}^2 g\,d\Omega
+\label{eq:vec_L_Hermitian}
+\end{equation}
+这是下一步推导 $\mathbf{X}_{lm}$ 正交性的关键工具。
+
+% -----------------------------------------------------------------------------
+\subsection{矢量球谐函数的定义与等价形式}
+% -----------------------------------------------------------------------------
+
+现在从 $Y_{lm}$ 出发构造\textbf{矢量球谐函数} $\mathbf{X}_{lm}$。
+
+\textbf{定义}：
+\begin{equation}
+  \boxed{\;
+    \mathbf{X}_{lm}(\theta,\phi) \equiv \frac{1}{\sqrt{l(l+1)}}\,
+    \nabla\times\bigl(\mathbf{r}\,Y_{lm}(\theta,\phi)\bigr)
+    \;}
+  \label{eq:Xlm_def}
+\end{equation}
+
+\begin{stepbox}{为什么这样定义？}
+因为：
+\begin{itemize}
+  \item $\nabla\times(\mathbf{r}Y_{lm})$ 保证 $\mathbf{X}_{lm}$ 是\textbf{横场}：
+    $\nabla\cdot\mathbf{X}_{lm}=0$（任意旋度的散度恒为零），
+    天然适合展开辐射电场（$\nabla\cdot\mathbf{E}=0$）。
+  \item $\sqrt{l(l+1)}$ 因子保证正交归一性（见下节）。
+\end{itemize}
+\end{stepbox}
+
+\textbf{等价形式（角动量算符形式）}：
+
+利用恒等式 $\nabla\times(\mathbf{r}\psi) = (\nabla\psi)\times\mathbf{r} + \psi(\nabla\times\mathbf{r})$，
+其中 $\nabla\times\mathbf{r}=0$，得：
+\begin{align}
+\nabla\times(\mathbf{r}Y_{lm}) &= (\nabla Y_{lm})\times\mathbf{r} \notag\\
+&= -\mathbf{r}\times\nabla Y_{lm} \qquad (\text{叉乘反交换律：}\mathbf{A}\times\mathbf{B}=-\mathbf{B}\times\mathbf{A})
+\end{align}
+
+回忆 $\mathbf{L} = -i\mathbf{r}\times\nabla$，所以 $\mathbf{r}\times\nabla = i\mathbf{L}$：
+$$
+\nabla\times(\mathbf{r}Y_{lm}) = -i\,\mathbf{L}Y_{lm}
+$$
+
+代入定义~(\ref{eq:Xlm_def})，$\sqrt{l(l+1)}$ 将归一化因子吸收：
+\begin{equation}
+  \boxed{\;
+    \mathbf{X}_{lm} = -\frac{i}{\sqrt{l(l+1)}}\,\mathbf{L}Y_{lm}
+    \;}
+  \label{eq:Xlm_L}
+\end{equation}
+
+\begin{stepbox}{为什么 $\mathbf{X}_{lm}\propto\mathbf{L}Y_{lm}$ 中必须有个负号？}
+这是由 $\nabla\times(\mathbf{r}Y_{lm}) = (\nabla Y_{lm})\times\mathbf{r}$ 与 $\mathbf{r}\times\nabla$ 的反交换关系决定的：
+$$
+\nabla\times(\mathbf{r}Y_{lm}) = (\nabla Y_{lm})\times\mathbf{r} = -\mathbf{r}\times\nabla Y_{lm} \neq \mathbf{r}\times\nabla Y_{lm}
+$$
+所以 $\nabla\times(\mathbf{r}Y_{lm}) = -\mathbf{r}\times\nabla Y_{lm} = -i\mathbf{L}Y_{lm}$，负号来自叉乘的反对称性。
+在电磁学文献中，有的作者把 $\mathbf{L}$ 定义为 $+i\mathbf{r}\times\nabla$（相差一个全局符号），
+那时 $\mathbf{X}_{lm}\propto\mathbf{L}Y_{lm}$ 就不再有负号。\textbf{但这只是约定，不影响任何物理结论}。
+\end{stepbox}
+
+% -----------------------------------------------------------------------------
+\subsection{矢量球谐函数的正交归一性（详细推导）}
+% -----------------------------------------------------------------------------
+
+这是本节最重要的结论——对理解 \S4 的投影提取系数的思路至关重要。
+之前我们直接给出结果，现在\textbf{一步一步推导}。
+
+\textbf{目标}：证明
+\begin{equation}
+  \boxed{\;
+    \int \mathbf{X}_{lm}^*(\theta,\phi)\cdot\mathbf{X}_{l'm'}(\theta,\phi)\,d\Omega = \delta_{ll'}\delta_{mm'}
+    \;}
+  \label{eq:Xlm_ortho}
+\end{equation}
+
+\textbf{证明}：
+
+$\blacktriangleright$ \textbf{第 1 步}：将 $\mathbf{X}$ 写成 $\mathbf{L}$ 形式~(\ref{eq:Xlm_L})。
+\begin{align*}
+I &\equiv \int \mathbf{X}_{lm}^* \cdot \mathbf{X}_{l'm'}\,d\Omega \\
+  &= \frac{1}{\sqrt{l(l+1)l'(l'+1)}}\;
+     \int (\mathbf{L}Y_{lm})^* \cdot (\mathbf{L}Y_{l'm'})\,d\Omega
+\end{align*}
+
+$\blacktriangleright$ \textbf{第 2 步}：利用 $\mathbf{L}$ 的矢量 Hermiticity~(\ref{eq:vec_L_Hermitian})，
+将 $(\mathbf{L}Y_{lm})^*\cdot(\mathbf{L}Y_{l'm'})$ 的积分转化为 $Y_{lm}^*\,\mathbf{L}^2 Y_{l'm'}$ 的积分：
+\begin{align*}
+\int (\mathbf{L}Y_{lm})^* \cdot (\mathbf{L}Y_{l'm'})\,d\Omega
+&= \int Y_{lm}^*\; \mathbf{L}^2 Y_{l'm'}\; d\Omega
+\end{align*}
+这里的本质是：对每个分量 $L_i$ 做分部积分（$\phi$ 方向用周期边界、$\theta$ 方向用球面的自然边界），
+三个分量求和后正好等于 $\mathbf{L}^2$。
+
+$\blacktriangleright$ \textbf{第 3 步}：利用 $Y_{lm}$ 是 $\mathbf{L}^2$ 的本征态~(\ref{eq:L2_eigen})：
+$$
+\mathbf{L}^2 Y_{l'm'} = l'(l'+1)\,Y_{l'm'}
+$$
+因此：
+\begin{align*}
+\int (\mathbf{L}Y_{lm})^* \cdot (\mathbf{L}Y_{l'm'})\,d\Omega
+&= l'(l'+1) \int Y_{lm}^*\,Y_{l'm'}\,d\Omega
+\end{align*}
+
+$\blacktriangleright$ \textbf{第 4 步}：利用 $Y_{lm}$ 的正交归一性~(\ref{eq:Xlm_ortho} 之上的 (1.2))：
+$$
+\int Y_{lm}^*\,Y_{l'm'}\,d\Omega = \delta_{ll'}\delta_{mm'}
+$$
+所以：
+$$
+\int (\mathbf{L}Y_{lm})^* \cdot (\mathbf{L}Y_{l'm'})\,d\Omega
+= l'(l'+1)\,\delta_{ll'}\delta_{mm'}
+$$
+
+$\blacktriangleright$ \textbf{第 5 步}：代回 $I$：
+\begin{align*}
+I &= \frac{l'(l'+1)}{\sqrt{l(l+1)l'(l'+1)}}\;\delta_{ll'}\delta_{mm'} \\
+  &= \sqrt{\frac{l'(l'+1)}{l(l+1)}}\;\delta_{ll'}\delta_{mm'}
+\end{align*}
+
+当 $l = l'$ 时，系数 $\sqrt{l'(l'+1)/l(l+1)} = 1$；
+当 $l \neq l'$ 时，$\delta_{ll'} = 0$。因此：
+$$
+I = \delta_{ll'}\delta_{mm'}
+$$
+
+$\blacksquare$
+
+\begin{stepbox}{这个推导告诉了我们什么？}
+\begin{itemize}
+  \item $\mathbf{X}_{lm}$ 的正交性\textbf{不是从天而降的}——它来自
+    $Y_{lm}$ 的正交性 + $\mathbf{L}$ 的 Hermiticity + $\mathbf{L}^2$ 的本征值。
+    三者缺一不可。
+  \item 用 $\mathbf{L}$ 形式最关键：它将一个矢量函数的球面积分
+    转化为标量 $Y_{lm}$ 的积分，后者的正交性是已知的。
+  \item 这正是你问的「$Y_{lm}$、导数和立体角的关系如何处理」的答案：
+    \textbf{用 $\mathbf{L}$ 算符将角向导数转化为代数运算（本征值）}。
+\end{itemize}
+\end{stepbox}
+
+\subsection{与 $\hat{\mathbf{r}}\times\mathbf{X}_{lm}$ 的关系}
+
+另一个重要的恒等式是 $\hat{\mathbf{r}}\times\mathbf{X}_{lm}$ 与角向梯度 $\nabla_\perp Y_{lm}$ 之间的联系。
+它在 \S4 提取电多极系数时发挥作用。下面用\textbf{纯角动量算符法}推导，并详解 BAC-CAB 在算子情形下的顺序问题。
+
+推导的基本思路是：将 $\mathbf{X}_{lm}$ 写成 $\mathbf{L}Y_{lm}$ 形式，先算 $\hat{\mathbf{r}}\times\mathbf{L}$（一个算符），
+再作用到 $Y_{lm}$ 上。
+
+\subsubsection{预备公式}
+
+回顾 §1.2 中的核心关系：
+\begin{align}
+  \mathbf{X}_{lm} &= -\frac{i}{\sqrt{l(l+1)}}\,\mathbf{L}Y_{lm} \tag{2}\\
+  \mathbf{L} &= -i\,\mathbf{r}\times\nabla \tag{1}
+\end{align}
+其中 $\mathbf{L}$ 是（无量纲）角动量算符。
+\textbf{本文固定采用标准约定（\S1.2 框出式~\ref{eq:Xlm_L}）}：
+$$
+\mathbf{X}_{lm} = -\frac{i}{\sqrt{l(l+1)}}\mathbf{L}Y_{lm}
+$$
+即式 (2)。部分文献写作 $\mathbf{X}_{lm} = \frac{i}{\sqrt{l(l+1)}}\mathbf{L}Y_{lm}$ 或 $\frac{1}{\sqrt{l(l+1)}}\mathbf{L}Y_{lm}$，
+与本文差一整体 $i$ 相位；该相位不影响任何物理结论，但\textbf{为保持全篇一致，本文统一使用标准约定}。
+
+$Y_{lm}$ 无径向依赖：
+$$
+\partial_r Y_{lm} = 0,\qquad \nabla Y_{lm} = \nabla_\perp Y_{lm}
+$$
+
+\subsubsection{推导过程}
+
+\textbf{第一步}：将定义式代入 $\hat{\mathbf{r}}\times\mathbf{X}_{lm}$。
+$$
+\hat{\mathbf{r}}\times\mathbf{X}_{lm}
+= -\frac{i}{\sqrt{l(l+1)}}\,\hat{\mathbf{r}}\times(\mathbf{L}Y_{lm})
+= -\frac{i}{\sqrt{l(l+1)}}\,(\hat{\mathbf{r}}\times\mathbf{L})\,Y_{lm}
+$$
+关键：$\hat{\mathbf{r}}\times\mathbf{L}$ 是算符，作用在 $Y_{lm}$ 上。
+
+\textbf{第二步}：将 $\mathbf{L} = -i\mathbf{r}\times\nabla$ 代入 $\hat{\mathbf{r}}\times\mathbf{L}$：
+$$
+\hat{\mathbf{r}}\times\mathbf{L} = \hat{\mathbf{r}}\times(-i\,\mathbf{r}\times\nabla)
+= -i\;\hat{\mathbf{r}}\times(\mathbf{r}\times\nabla)
+$$
+
+现在需要计算 $\hat{\mathbf{r}}\times(\mathbf{r}\times\nabla)Y_{lm}$。
+
+\textbf{第三步}：关于 BAC-CAB 与算子顺序的讨论。
+
+\textbf{先谈难点}：三重积恒等式
+\begin{equation}
+\mathbf{a}\times(\mathbf{b}\times\mathbf{c}) = \mathbf{b}(\mathbf{a}\cdot\mathbf{c}) - \mathbf{c}(\mathbf{a}\cdot\mathbf{b})
+\tag{BAC-CAB}
+\end{equation}
+是\textbf{向量恒等式}。当 $\mathbf{c}$ 是微分算子 $\nabla$ 时，直接将恒等式套用到算子上
+$\hat{\mathbf{r}}\times(\mathbf{r}\times\nabla)$ 会产生\textbf{作用顺序歧义}。
+
+\textbf{正确做法}——先让 $\nabla$ 作用到目标函数 $Y_{lm}$ 上，使其变成一个\textbf{普通向量场} $\nabla Y_{lm}$，
+再套用 BAC-CAB。此时没有顺序问题：
+\begin{align}
+\hat{\mathbf{r}}\times\bigl(\mathbf{r}\times\nabla Y_{lm}\bigr)
+&= \mathbf{r}\bigl(\hat{\mathbf{r}}\cdot\nabla Y_{lm}\bigr) - (\nabla Y_{lm})\,(\hat{\mathbf{r}}\cdot\mathbf{r}) \notag\\
+&= \mathbf{r}\,\partial_r Y_{lm} - (\nabla Y_{lm})\,r \notag\\
+&= 0 - r\,\nabla Y_{lm} = -\,r\,\nabla Y_{lm}
+\end{align}
+其中 $\hat{\mathbf{r}}\cdot\nabla Y_{lm} = \partial_r Y_{lm} = 0$，$\hat{\mathbf{r}}\cdot\mathbf{r} = r$。
+
+\textbf{若直接当作算子套用 BAC-CAB}：
+$$
+\hat{\mathbf{r}}\times(\mathbf{r}\times\nabla) \xrightarrow{\text{(?)}}
+\mathbf{r}(\hat{\mathbf{r}}\cdot\nabla) - \nabla(\hat{\mathbf{r}}\cdot\mathbf{r})
+$$
+右边的第二项 $\nabla(\hat{\mathbf{r}}\cdot\mathbf{r})$ 作为算子作用在 $Y_{lm}$ 上时，
+必须理解为 $\nabla$ 只作用于括号内的 $(\hat{\mathbf{r}}\cdot\mathbf{r})$，结果再乘 $Y_{lm}$（即 $(\nabla r)Y_{lm} = \hat{\mathbf{r}}Y_{lm}$），
+\textbf{而不是} $\nabla(r Y_{lm}) = \hat{\mathbf{r}}Y_{lm} + r\nabla Y_{lm}$。
+两种解释的差别正是 $r\nabla Y_{lm}$ 项，它是算子非对易的根源。
+——这就是 BAC-CAB 在算子情形下必须小心的原因。
+\textbf{安全的做法始终是：先让 $\nabla$ 作用到函数上再套恒等式。}
+
+\textbf{第四步}：完成 $\hat{\mathbf{r}}\times\mathbf{L}$ 的计算。
+\begin{align}
+(\hat{\mathbf{r}}\times\mathbf{L})\,Y_{lm}
+&= -i\,\hat{\mathbf{r}}\times(\mathbf{r}\times\nabla Y_{lm}) \notag\\
+&= -i\,(-r\,\nabla Y_{lm}) \notag\\
+&= i r\,\nabla Y_{lm}
+\end{align}
+
+\textbf{第五步}：代回第一步：
+$$
+\hat{\mathbf{r}}\times\mathbf{X}_{lm}
+= -\frac{i}{\sqrt{l(l+1)}}\,(\hat{\mathbf{r}}\times\mathbf{L})\,Y_{lm}
+= -\frac{i}{\sqrt{l(l+1)}}\,(i r\,\nabla Y_{lm})
+= \frac{r}{\sqrt{l(l+1)}}\,\nabla Y_{lm}
+$$
+
+\textbf{第六步}：利用 $\nabla Y_{lm} = \nabla_\perp Y_{lm}$（因为 $\partial_r Y_{lm}=0$）：
+\begin{equation}
+  \boxed{\;
+    \hat{\mathbf{r}}\times\mathbf{X}_{lm}
+    = \frac{r}{\sqrt{l(l+1)}}\,\nabla_\perp Y_{lm}
+    \;}
+  \label{eq:r_cross_X_L}
+\end{equation}
+
+这是标准电磁学文献（如 Jackson）中的形式，与 \S1.2 的标准约定自洽。
+$\hat{\mathbf{r}}\times\mathbf{X}_{lm}$ 是纯角向的实矢量。
+
+\subsubsection{展开为 $\theta,\phi$ 分量}
+
+展开角向梯度 $\nabla_\perp$：
+$$
+\nabla_\perp = \hat{\boldsymbol{\theta}}\frac{1}{r}\frac{\partial}{\partial\theta}
++ \hat{\boldsymbol{\phi}}\frac{1}{r\sin\theta}\frac{\partial}{\partial\phi}
+$$
+代入式~(\ref{eq:r_cross_X_L})：
+\begin{equation}
+\hat{\mathbf{r}}\times\mathbf{X}_{lm}
+= \frac{1}{\sqrt{l(l+1)}}\Bigl(
+  \hat{\boldsymbol{\theta}}\,\frac{\partial Y_{lm}}{\partial\theta}
+  + \hat{\boldsymbol{\phi}}\,\frac{1}{\sin\theta}\frac{\partial Y_{lm}}{\partial\phi}
+\Bigr)
+\label{eq:r_cross_X_components}
+\end{equation}
+
+这一形式在 \S4 提取电多极系数时与 $Y_{lm}$ 的梯度展开配合使用。
+$\hat{\mathbf{r}}\times\mathbf{X}_{lm}$ 是纯角向矢量，无径向分量
+（因为 $\nabla_\perp$ 只有 $\hat{\boldsymbol{\theta}},\hat{\boldsymbol{\phi}}$ 方向）。
+这是 \S4 中用它从散射场分离电多极系数的几何基础。
+
+\subsection{为什么需要这组基？}
+
+\begin{noteworthy}
+辐射场的横波条件 $\nabla\cdot\mathbf{E}=0$ 使标量球谐 $Y_{lm}$ 不足以完备地展开矢量电场。
+如果用标量球谐展开 $\mathbf{E}$ 的三个笛卡尔分量，则横波条件变成一个非局域的约束方程。
+矢量球谐 $\mathbf{X}_{lm}$ 自动满足横波条件，是\textbf{横波子空间的正交完备基}。
+\end{noteworthy}
+
+更具体地说，任何满足 $\nabla\cdot\mathbf{V}=0$ 的矢量场都可以展开为：
+$$
+\mathbf{V} = \sum_{lm}\bigl[A_{lm}\,\nabla\times(f_l(r)\mathbf{X}_{lm}) + B_{lm}\,g_l(r)\mathbf{X}_{lm}\bigr]
+$$
+这两项分别对应\textbf{电多极（TM 模）}和\textbf{磁多极（TE 模）}——这就是下一节的主题。
+
+\begin{chaptersummary}
+
+\textbf{§1 章节总结}
+
+本章建立了后续一切推导所需的数学基础。
+
+\textbf{标量球谐函数 $Y_{lm}$} 定义为：
+$$
+Y_{lm}(\theta,\phi) \propto P_l^m(\cos\theta)\,e^{im\phi}
+$$
+它是 $\mathbf{L}^2$ 和 $L_z$ 的本征态：
+$$
+\mathbf{L}^2 Y_{lm} = l(l+1)Y_{lm},\qquad L_z Y_{lm} = mY_{lm}
+$$
+\textbf{正交归一性}：$\displaystyle\int Y_{lm}^* Y_{l'm'}\,d\Omega = \delta_{ll'}\delta_{mm'}$。
+
+\textbf{矢量球谐函数 $\mathbf{X}_{lm}$} 的定义：
+$$
+\mathbf{X}_{lm} \equiv \frac{1}{\sqrt{l(l+1)}}\nabla\times(\mathbf{r}Y_{lm})
+\quad\Longleftrightarrow\quad
+\mathbf{X}_{lm} = -\frac{i}{\sqrt{l(l+1)}}\mathbf{L}Y_{lm}
+$$
+$\mathbf{X}_{lm}$ 是纯角向的（$\mathbf{X}_{lm}\cdot\hat{\mathbf{r}}=0$）且自动满足横波条件 $\nabla\cdot\mathbf{X}_{lm}=0$。
+
+\textbf{正交归一性}（§1.3 完整推导）：
+$$
+\int \mathbf{X}_{lm}^*\cdot\mathbf{X}_{l'm'}\,d\Omega = \delta_{ll'}\delta_{mm'}
+$$
+核心技巧：用 $\mathbf{L}$ 形式 + Hermiticity + $L^2$ 本征值，避免 $\theta,\phi$ 分量展开。
+
+\textbf{两大辅助恒等式}（后续关键）：
+\begin{align*}
+\hat{\mathbf{r}}\times\mathbf{X}_{lm} &= \frac{r}{\sqrt{l(l+1)}}\nabla_\perp Y_{lm} \quad\text{（§1.4 BAC-CAB+$\mathbf{L}$ 推导）} \\
+\nabla\times\bigl(f(r)\mathbf{X}_{lm}\bigr) &=
+\frac{\sqrt{l(l+1)}}{r}f(r)Y_{lm}\hat{\mathbf{r}} + \Bigl(f'(r)+\frac{f(r)}{r}\Bigr)\hat{\mathbf{r}}\times\mathbf{X}_{lm}
+\quad\text{（§4.1 双旋度推导）}
+\end{align*}
+
+\textbf{横波场展开：} 任何 $\nabla\cdot\mathbf{V}=0$ 的场可以写为
+$$
+\mathbf{V} = \sum_{lm}\bigl[A_{lm}\,\nabla\times(f_l\mathbf{X}_{lm}) + B_{lm}\,g_l\mathbf{X}_{lm}\bigr]
+$$
+第一项对应\textbf{电多极（TM）模}，第二项对应\textbf{磁多极（TE）模}。
+
+\end{chaptersummary}
+
+\newpage
+
+%=============================================================================

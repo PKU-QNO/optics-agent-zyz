@@ -1,0 +1,47 @@
+\section{重要矢量恒等式与数学工具}
+%=============================================================================
+
+推导过程中使用的主要矢量恒等式汇总如下，方便自查：
+
+\begin{align}
+  \nabla\times(\psi\mathbf{A}) &= \psi(\nabla\times\mathbf{A}) + \nabla\psi\times\mathbf{A} \label{eq:vec1}\\
+  \nabla\times\nabla\times\mathbf{A} &= \nabla(\nabla\cdot\mathbf{A}) - \nabla^2\mathbf{A} \label{eq:vec2}\\
+  \nabla\times(\mathbf{r}\psi) &= \nabla\psi\times\mathbf{r} = -\mathbf{r}\times\nabla\psi \quad (\text{因 }\nabla\times\mathbf{r}=0) \label{eq:vec3}\\
+  \mathbf{r}\cdot\nabla^2\mathbf{E} &= \nabla^2(\mathbf{r}\cdot\mathbf{E}) - 2\nabla\cdot\mathbf{E} \label{eq:vec4}\\
+  \int \mathbf{A}\cdot(\nabla\times\mathbf{B})\,d^3r &= \int (\nabla\times\mathbf{A})\cdot\mathbf{B}\,d^3r
+    \quad (\text{边界项为零}) \label{eq:vec5}
+\end{align}
+
+以及球谐函数的梯度关系：
+\begin{align}
+  \nabla Y_{lm} &= \frac{1}{r}\Bigl(\hat{\boldsymbol{\theta}}\,\partial_\theta Y_{lm}
+    + \hat{\boldsymbol{\phi}}\,\frac{1}{\sin\theta}\,\partial_\phi Y_{lm}\Bigr) \label{eq:gradY}
+\end{align}
+
+和矢量球谐函数 $\mathbf{X}_{lm}$ 的分量形式：
+$$
+\mathbf{X}_{lm}(\theta,\phi) = \frac{1}{\sqrt{l(l+1)}}\Bigl(
+  i\hat{\boldsymbol{\theta}}\,\frac{m}{\sin\theta}P_l^m(\cos\theta)
+  - \hat{\boldsymbol{\phi}}\,\frac{d}{d\theta}P_l^m(\cos\theta)
+\Bigr)e^{im\phi}
+$$
+
+球 Bessel 函数满足的微分方程：
+$$
+\Bigl[\frac{d^2}{dr^2} + \frac{2}{r}\frac{d}{dr} + \Bigl(k^2 - \frac{l(l+1)}{r^2}\Bigr)\Bigr] j_l(kr) = 0
+$$
+
+由此可推导 Riccati--Bessel 函数 $\mathfrak{g}_l(kr)=kr\,j_l(kr)$ 满足的方程：
+$$
+\Bigl(\frac{d^2}{dr^2} + k^2\Bigr)\mathfrak{g}_l(kr) = \frac{l(l+1)}{r^2}\,\mathfrak{g}_l(kr)
+$$
+
+\vspace{1em}
+\begin{center}
+  \fcolorbox{annotblue!50}{annotblue!5}{\parbox{0.85\textwidth}{\centering
+  \textcolor{annotblue}{$\blacktriangleright$} \textbf{结论}：Eqs.(15)--(16) 是 Grahn 2012 框架的\textbf{核心实用公式}，\\
+  将 $a_E/a_M$ 的计算转化为散射体体积内的 $\mathbf{J}_S$ 积分，\\
+  避免了球面积分和数值求导，适合阵列中的逐个粒子分析。}}
+\end{center}
+
+%=============================================================================

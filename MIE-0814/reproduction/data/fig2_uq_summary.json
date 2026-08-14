@@ -1,0 +1,3080 @@
+{
+  "schema_version": 1,
+  "task": "B3",
+  "executed_at_utc": "2026-08-10T16:51:48.398058+00:00",
+  "authoritative_spec": "codex-prompts/out/A5-v2/preregister/SPEC.md",
+  "named_original_spec": "codex-prompts/out/A5-recompute/preregister/MQ-uncertainty-preregistration.md",
+  "spec_resolution": "A5-v2 governs formal status; original named method is retained as diagnostic only",
+  "grid": {
+    "uq_points": 4000,
+    "axis_points_per_axis": 401,
+    "inclusive": true
+  },
+  "historical_thresholds": {
+    "rmse": 0.02,
+    "p95_abs": 0.05,
+    "peak_x": 0.01
+  },
+  "strict_vertex_212_thresholds_from_latest_receipt": {
+    "rmse": 0.02,
+    "p95_abs": 0.05,
+    "peak_x": 0.01
+  },
+  "dense_thresholds": {
+    "rmse": null,
+    "p95_abs": null,
+    "peak_x": null
+  },
+  "global_model_validity": false,
+  "latest_uq_receipt_input_hashes_verified": true,
+  "layer3_uq_status": "UNRESOLVED",
+  "promotion": {
+    "method_claim_status": "PASS",
+    "strict_vector_fidelity_status": "UNRESOLVED",
+    "coverage_status": "MATERIAL_DOMAIN_LIMITED",
+    "mq_uq_composite": "UNRESOLVED",
+    "other_channels_have_unresolved": true,
+    "promotion_to_physical_reproduction_success": "DENIED",
+    "result_class": "partial_physical_match"
+  },
+  "channels": [
+    {
+      "panel": "a",
+      "channel": "ED",
+      "curve": "mie",
+      "paper_vertices": 326,
+      "uq_points": 4000,
+      "domain": [
+        0.2008389,
+        0.9969761
+      ],
+      "axis_shift_bounds": {
+        "delta_x": 0.00044298097784123414,
+        "delta_y": 0.006570147109485447
+      },
+      "axis_grid": {
+        "points_per_axis": 401,
+        "inclusive": true
+      },
+      "spacing": {
+        "median_dx": 0.002174599999999971,
+        "max_dx": 0.04059730000000006,
+        "h_definition": "max(previous_segment_dx, current_segment_dx); first segment uses its own dx"
+      },
+      "nominal_dense": {
+        "rmse": 0.007727865786942001,
+        "p95_abs": 0.014815003433836835,
+        "peak_x_delta": 0.0001373257098362668,
+        "paper_peak": [
+          0.4996474499999998,
+          3.0239047586732966
+        ],
+        "local_peak": [
+          0.4997847757098361,
+          2.9999995034366194
+        ]
+      },
+      "historical_strict": {
+        "rmse": 0.01000554730226905,
+        "p95_abs": 0.019316010136255668,
+        "peak_x_delta": 0.00013780938594915026,
+        "status": "PASS_VECTOR_CONSISTENT"
+      },
+      "axis_only_interval": {
+        "rmse": [
+          0.00665678740753032,
+          0.014026438903113635
+        ],
+        "p95_abs": [
+          0.012081038370855262,
+          0.02962354638806514
+        ]
+      },
+      "interpolation": {
+        "conservative_0_5": {
+          "rmse": 0.022424648009887773,
+          "p95": 0.046026470836340455,
+          "max": 0.1765917869645426
+        },
+        "theorem_0_125": {
+          "rmse": 0.010212984131770459,
+          "p95": 0.044422808432859465,
+          "max": 0.044422808432859465
+        },
+        "direct_proxy": {
+          "rmse": 0.003508210699395094,
+          "p95": 0.007776758148508152,
+          "max": 0.02024726130616212
+        }
+      },
+      "legacy_named_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "superseded by A5-v2 statistical semantics",
+        "rmse_interval": [
+          0.0058829861422429516,
+          0.028228127845499308
+        ],
+        "p95_abs_interval": [
+          0.011186586811861455,
+          0.05617841658757429
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.007704556687677527
+        ],
+        "status": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "UNRESOLVED",
+          "peak_x": "PASS",
+          "composite": "UNRESOLVED"
+        }
+      },
+      "latest_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "axis and interpolation components are proxy/conditional and the independent physics uncertainty bound is absent",
+        "theorem_rmse_interval": [
+          0.006346329543604869,
+          0.018428479033682166
+        ],
+        "theorem_p95_abs_interval": [
+          0.011822274238016186,
+          0.04643827870421258
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.007704556687677527
+        ]
+      },
+      "weighting_sensitivity": [
+        {
+          "scheme": "dense_212",
+          "effective_count": 212,
+          "rmse": 0.009754579084370845,
+          "p95_abs": 0.017935855193647765,
+          "max_abs": 0.02926858865303683,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_1000",
+          "effective_count": 1000,
+          "rmse": 0.009742156344983316,
+          "p95_abs": 0.019416709673625077,
+          "max_abs": 0.03528944545985646,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_4000",
+          "effective_count": 4000,
+          "rmse": 0.009757890962877745,
+          "p95_abs": 0.019499187061423395,
+          "max_abs": 0.03567590840460655,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_16000",
+          "effective_count": 16000,
+          "rmse": 0.009755779203170672,
+          "p95_abs": 0.019482666448612296,
+          "max_abs": 0.03595776453281441,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "equal_segment",
+          "effective_count": 325,
+          "rmse": 0.006996786324275509,
+          "p95_abs": 0.013338887012382289,
+          "max_abs": 0.02754824238522735,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "source_segment_midpoints_equal_weight"
+        }
+      ],
+      "coverage": {
+        "coverage_warning": false,
+        "shifted_x_clipped_point_evaluations": 0,
+        "sx_values_with_clipping": 0,
+        "shift_combinations_with_clipping": 0,
+        "total_shift_combinations": 160801
+      },
+      "extrema_receipt": {
+        "axis_only": {
+          "rmse_min": {
+            "value": 0.00665678740753032,
+            "delta_x": 0.000245854442701885,
+            "delta_y": 0.0022995514883199057
+          },
+          "rmse_max": {
+            "value": 0.014026438903113635,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          },
+          "p95_min": {
+            "value": 0.012081038370855262,
+            "delta_x": 0.00023477991825585412,
+            "delta_y": 0.0026280588437941777
+          },
+          "p95_max": {
+            "value": 0.02962354638806514,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          }
+        },
+        "conservative_0_5": {
+          "rmse_lower_min": {
+            "value": 0.0058829861422429516,
+            "delta_x": 0.0002480693475910912,
+            "delta_y": 0.0024638051660570426
+          },
+          "rmse_upper_max": {
+            "value": 0.028228127845499308,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.011186586811861455,
+            "delta_x": 0.00025028425248029733,
+            "delta_y": 0.0029894169348158774
+          },
+          "p95_upper_max": {
+            "value": 0.05617841658757429,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          }
+        },
+        "theorem_0_125": {
+          "rmse_lower_min": {
+            "value": 0.006346329543604869,
+            "delta_x": 0.0002480693475910912,
+            "delta_y": 0.002398103694962187
+          },
+          "rmse_upper_max": {
+            "value": 0.018428479033682166,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.011822274238016186,
+            "delta_x": 0.00023920972803426644,
+            "delta_y": 0.0024638051660570426
+          },
+          "p95_upper_max": {
+            "value": 0.04643827870421258,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006537296373938019
+          }
+        }
+      },
+      "latest_spec_decision": {
+        "mode": "dense_curve_uq",
+        "thresholds": {
+          "rmse": null,
+          "p95_abs": null,
+          "peak_x": null
+        },
+        "threshold_provenance": "none_by_A5_v2_spec",
+        "model_validity": false,
+        "coverage_valid": true,
+        "finite_data": true,
+        "validity_reasons": [
+          "axis evidence is labelled sensitivity proxy rather than calibrated nuisance coverage",
+          "interpolation coverage for the unknown paper curve is not established",
+          "independent physics uncertainty bound is absent",
+          "dense-mode thresholds are absent and may not inherit historical strict thresholds",
+          "A5-v2 receipts are MQ-specific and do not validate the scope extension to every channel"
+        ],
+        "status": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "UNRESOLVED",
+          "peak_x": "UNRESOLVED",
+          "composite": "UNRESOLVED"
+        },
+        "pre_override_diagnostic_if_historical_thresholds_were_applied": {
+          "rmse": "PASS",
+          "p95_abs": "PASS",
+          "peak_x": "PASS",
+          "composite": "PASS",
+          "promotion_eligible": false
+        }
+      }
+    },
+    {
+      "panel": "a",
+      "channel": "MD",
+      "curve": "mie",
+      "paper_vertices": 253,
+      "uq_points": 4000,
+      "domain": [
+        0.2699203,
+        0.9486995
+      ],
+      "axis_shift_bounds": {
+        "delta_x": 0.00044298097784123414,
+        "delta_y": 0.006570147109485447
+      },
+      "axis_grid": {
+        "points_per_axis": 401,
+        "inclusive": true
+      },
+      "spacing": {
+        "median_dx": 0.0021745999999999988,
+        "max_dx": 0.07012620000000003,
+        "h_definition": "max(previous_segment_dx, current_segment_dx); first segment uses its own dx"
+      },
+      "nominal_dense": {
+        "rmse": 0.0075671860538180135,
+        "p95_abs": 0.014543069126805731,
+        "peak_x_delta": 0.00028219175671290175,
+        "paper_peak": [
+          0.3845226500000024,
+          3.0129461797299086
+        ],
+        "local_peak": [
+          0.3848048417567153,
+          2.9999956240969254
+        ]
+      },
+      "historical_strict": {
+        "rmse": 0.010699882343840627,
+        "p95_abs": 0.020513466896546522,
+        "peak_x_delta": 0.00028558038764775473,
+        "status": "PASS_VECTOR_CONSISTENT"
+      },
+      "axis_only_interval": {
+        "rmse": [
+          0.0071199090628251615,
+          0.015768212518795975
+        ],
+        "p95_abs": [
+          0.012739748701056373,
+          0.03618056465229908
+        ]
+      },
+      "interpolation": {
+        "conservative_0_5": {
+          "rmse": 0.019481084896494753,
+          "p95": 0.04521224342612392,
+          "max": 0.1150806122064935
+        },
+        "theorem_0_125": {
+          "rmse": 0.00957071611445544,
+          "p95": 0.028887125790360745,
+          "max": 0.028887125790360745
+        },
+        "direct_proxy": {
+          "rmse": 0.0024624052317503775,
+          "p95": 0.007342614592312119,
+          "max": 0.014097157508663916
+        }
+      },
+      "legacy_named_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "superseded by A5-v2 statistical semantics",
+        "rmse_interval": [
+          0.005240843621854331,
+          0.027907249970191412
+        ],
+        "p95_abs_interval": [
+          0.010703016176969067,
+          0.06039527167276603
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.0034612227345541535
+        ],
+        "status": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "UNRESOLVED",
+          "peak_x": "PASS",
+          "composite": "UNRESOLVED"
+        }
+      },
+      "latest_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "axis and interpolation components are proxy/conditional and the independent physics uncertainty bound is absent",
+        "theorem_rmse_interval": [
+          0.00620603549792635,
+          0.020578774630685283
+        ],
+        "theorem_p95_abs_interval": [
+          0.012170842187451916,
+          0.04278835538583675
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.0034612227345541535
+        ]
+      },
+      "weighting_sensitivity": [
+        {
+          "scheme": "dense_212",
+          "effective_count": 212,
+          "rmse": 0.010660549891725553,
+          "p95_abs": 0.02168478055021561,
+          "max_abs": 0.035236491708140916,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_1000",
+          "effective_count": 1000,
+          "rmse": 0.010686496082253237,
+          "p95_abs": 0.022937834605980756,
+          "max_abs": 0.03901144916080046,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_4000",
+          "effective_count": 4000,
+          "rmse": 0.01070115561536217,
+          "p95_abs": 0.02287735353509146,
+          "max_abs": 0.03956748598567805,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_16000",
+          "effective_count": 16000,
+          "rmse": 0.010701904095615541,
+          "p95_abs": 0.0229017845321986,
+          "max_abs": 0.03991983067782123,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "equal_segment",
+          "effective_count": 252,
+          "rmse": 0.006624090665171077,
+          "p95_abs": 0.012204635205241385,
+          "max_abs": 0.021848346590095824,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "source_segment_midpoints_equal_weight"
+        }
+      ],
+      "coverage": {
+        "coverage_warning": false,
+        "shifted_x_clipped_point_evaluations": 0,
+        "sx_values_with_clipping": 0,
+        "shift_combinations_with_clipping": 0,
+        "total_shift_combinations": 160801
+      },
+      "extrema_receipt": {
+        "axis_only": {
+          "rmse_min": {
+            "value": 0.0071199090628251615,
+            "delta_x": 0.00012624957868475175,
+            "delta_y": 0.0007884176531382531
+          },
+          "rmse_max": {
+            "value": 0.015768212518795975,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          },
+          "p95_min": {
+            "value": 0.012739748701056373,
+            "delta_x": 0.00014396881779840112,
+            "delta_y": 0.0011169250086125251
+          },
+          "p95_max": {
+            "value": 0.03618056465229908,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          }
+        },
+        "conservative_0_5": {
+          "rmse_lower_min": {
+            "value": 0.005240843621854331,
+            "delta_x": 0.00013732410313078264,
+            "delta_y": 0.001281178686349662
+          },
+          "rmse_upper_max": {
+            "value": 0.027907249970191412,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.010703016176969067,
+            "delta_x": 0.00015725824713363817,
+            "delta_y": 0.0018724919262033523
+          },
+          "p95_upper_max": {
+            "value": 0.06039527167276603,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          }
+        },
+        "theorem_0_125": {
+          "rmse_lower_min": {
+            "value": 0.00620603549792635,
+            "delta_x": 0.00013289429335237022,
+            "delta_y": 0.0013468801574445157
+          },
+          "rmse_upper_max": {
+            "value": 0.020578774630685283,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.012170842187451916,
+            "delta_x": 0.00014396881779840112,
+            "delta_y": 0.0009526713308753891
+          },
+          "p95_upper_max": {
+            "value": 0.04278835538583675,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          }
+        }
+      },
+      "latest_spec_decision": {
+        "mode": "dense_curve_uq",
+        "thresholds": {
+          "rmse": null,
+          "p95_abs": null,
+          "peak_x": null
+        },
+        "threshold_provenance": "none_by_A5_v2_spec",
+        "model_validity": false,
+        "coverage_valid": true,
+        "finite_data": true,
+        "validity_reasons": [
+          "axis evidence is labelled sensitivity proxy rather than calibrated nuisance coverage",
+          "interpolation coverage for the unknown paper curve is not established",
+          "independent physics uncertainty bound is absent",
+          "dense-mode thresholds are absent and may not inherit historical strict thresholds",
+          "A5-v2 receipts are MQ-specific and do not validate the scope extension to every channel"
+        ],
+        "status": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "UNRESOLVED",
+          "peak_x": "UNRESOLVED",
+          "composite": "UNRESOLVED"
+        },
+        "pre_override_diagnostic_if_historical_thresholds_were_applied": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "PASS",
+          "peak_x": "PASS",
+          "composite": "UNRESOLVED",
+          "promotion_eligible": false
+        }
+      }
+    },
+    {
+      "panel": "a",
+      "channel": "EQ",
+      "curve": "mie",
+      "paper_vertices": 292,
+      "uq_points": 4000,
+      "domain": [
+        0.3697125,
+        0.9991572
+      ],
+      "axis_shift_bounds": {
+        "delta_x": 0.00044298097784123414,
+        "delta_y": 0.006570147109485447
+      },
+      "axis_grid": {
+        "points_per_axis": 401,
+        "inclusive": true
+      },
+      "spacing": {
+        "median_dx": 0.002174500000000079,
+        "max_dx": 0.02525820000000001,
+        "h_definition": "max(previous_segment_dx, current_segment_dx); first segment uses its own dx"
+      },
+      "nominal_dense": {
+        "rmse": 0.010027134493526595,
+        "p95_abs": 0.020517069568034337,
+        "peak_x_delta": 8.804702083065052e-05,
+        "paper_peak": [
+          0.6471515500000312,
+          5.00911905245971
+        ],
+        "local_peak": [
+          0.6472395970208619,
+          4.999985525089869
+        ]
+      },
+      "historical_strict": {
+        "rmse": 0.01282398934673462,
+        "p95_abs": 0.026062209337914994,
+        "peak_x_delta": 8.527568616634174e-05,
+        "status": "PASS_VECTOR_CONSISTENT"
+      },
+      "axis_only_interval": {
+        "rmse": [
+          0.00848101109311562,
+          0.020189547354743625
+        ],
+        "p95_abs": [
+          0.016513286037008794,
+          0.04558966890048455
+        ]
+      },
+      "interpolation": {
+        "conservative_0_5": {
+          "rmse": 0.01439541295847642,
+          "p95": 0.0072073116553775015,
+          "max": 0.09155182411079196
+        },
+        "theorem_0_125": {
+          "rmse": 0.004319057967908181,
+          "p95": 0.0019996186919587935,
+          "max": 0.02292915736273176
+        },
+        "direct_proxy": {
+          "rmse": 0.002561208351070686,
+          "p95": 0.0014656978073126358,
+          "max": 0.018568418050261378
+        }
+      },
+      "legacy_named_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "superseded by A5-v2 statistical semantics",
+        "rmse_interval": [
+          0.00731836036249511,
+          0.026631462693338184
+        ],
+        "p95_abs_interval": [
+          0.014774577729587008,
+          0.06110505485420764
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.0016182779986718687
+        ],
+        "status": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "UNRESOLVED",
+          "peak_x": "PASS",
+          "composite": "UNRESOLVED"
+        }
+      },
+      "latest_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "axis and interpolation components are proxy/conditional and the independent physics uncertainty bound is absent",
+        "theorem_rmse_interval": [
+          0.008122160177338815,
+          0.021214302171999162
+        ],
+        "theorem_p95_abs_interval": [
+          0.016129143549832362,
+          0.04606612406546374
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.0016182779986718687
+        ]
+      },
+      "weighting_sensitivity": [
+        {
+          "scheme": "dense_212",
+          "effective_count": 212,
+          "rmse": 0.01377700090345831,
+          "p95_abs": 0.030537695710133095,
+          "max_abs": 0.04376191716777633,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_1000",
+          "effective_count": 1000,
+          "rmse": 0.013690550692445295,
+          "p95_abs": 0.029295593250479257,
+          "max_abs": 0.046459144926279006,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_4000",
+          "effective_count": 4000,
+          "rmse": 0.01371243100477054,
+          "p95_abs": 0.029128618739917567,
+          "max_abs": 0.04800711319128892,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_16000",
+          "effective_count": 16000,
+          "rmse": 0.013711751671114748,
+          "p95_abs": 0.029191827679693194,
+          "max_abs": 0.048065142138275174,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "equal_segment",
+          "effective_count": 291,
+          "rmse": 0.009019052069524946,
+          "p95_abs": 0.018774140082414403,
+          "max_abs": 0.033555255286504604,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "source_segment_midpoints_equal_weight"
+        }
+      ],
+      "coverage": {
+        "coverage_warning": false,
+        "shifted_x_clipped_point_evaluations": 0,
+        "sx_values_with_clipping": 0,
+        "shift_combinations_with_clipping": 0,
+        "total_shift_combinations": 160801
+      },
+      "extrema_receipt": {
+        "axis_only": {
+          "rmse_min": {
+            "value": 0.00848101109311562,
+            "delta_x": 0.00018383710580411217,
+            "delta_y": 0.0025952081082467517
+          },
+          "rmse_max": {
+            "value": 0.020189547354743625,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          },
+          "p95_min": {
+            "value": 0.016513286037008794,
+            "delta_x": 0.00017497748624728754,
+            "delta_y": 0.0019053426617507783
+          },
+          "p95_max": {
+            "value": 0.04558966890048455,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          }
+        },
+        "conservative_0_5": {
+          "rmse_lower_min": {
+            "value": 0.00731836036249511,
+            "delta_x": 0.00018605201069331833,
+            "delta_y": 0.0026280588437941777
+          },
+          "rmse_upper_max": {
+            "value": 0.026631462693338184,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.014774577729587008,
+            "delta_x": 0.00016833277157966896,
+            "delta_y": 0.0018067904551084969
+          },
+          "p95_upper_max": {
+            "value": 0.06110505485420764,
+            "delta_x": -0.000440766072952028,
+            "delta_y": -0.006570147109485447
+          }
+        },
+        "theorem_0_125": {
+          "rmse_lower_min": {
+            "value": 0.008122160177338815,
+            "delta_x": 0.00018383710580411217,
+            "delta_y": 0.0026609095793416054
+          },
+          "rmse_upper_max": {
+            "value": 0.021214302171999162,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.016129143549832362,
+            "delta_x": 0.00017497748624728754,
+            "delta_y": 0.0018724919262033523
+          },
+          "p95_upper_max": {
+            "value": 0.04606612406546374,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": -0.006438744167295738
+          }
+        }
+      },
+      "latest_spec_decision": {
+        "mode": "dense_curve_uq",
+        "thresholds": {
+          "rmse": null,
+          "p95_abs": null,
+          "peak_x": null
+        },
+        "threshold_provenance": "none_by_A5_v2_spec",
+        "model_validity": false,
+        "coverage_valid": true,
+        "finite_data": true,
+        "validity_reasons": [
+          "axis evidence is labelled sensitivity proxy rather than calibrated nuisance coverage",
+          "interpolation coverage for the unknown paper curve is not established",
+          "independent physics uncertainty bound is absent",
+          "dense-mode thresholds are absent and may not inherit historical strict thresholds",
+          "A5-v2 receipts are MQ-specific and do not validate the scope extension to every channel"
+        ],
+        "status": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "UNRESOLVED",
+          "peak_x": "UNRESOLVED",
+          "composite": "UNRESOLVED"
+        },
+        "pre_override_diagnostic_if_historical_thresholds_were_applied": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "PASS",
+          "peak_x": "PASS",
+          "composite": "UNRESOLVED",
+          "promotion_eligible": false
+        }
+      }
+    },
+    {
+      "panel": "a",
+      "channel": "MQ",
+      "curve": "mie",
+      "paper_vertices": 212,
+      "uq_points": 4000,
+      "domain": [
+        0.3697125,
+        0.9991572
+      ],
+      "axis_shift_bounds": {
+        "delta_x": 0.00044298097784123414,
+        "delta_y": 0.006570147109485447
+      },
+      "axis_grid": {
+        "points_per_axis": 401,
+        "inclusive": true
+      },
+      "spacing": {
+        "median_dx": 0.0021746000000000265,
+        "max_dx": 0.08881519999999998,
+        "h_definition": "max(previous_segment_dx, current_segment_dx); first segment uses its own dx"
+      },
+      "nominal_dense": {
+        "rmse": 0.016974173349896374,
+        "p95_abs": 0.03515462968894832,
+        "peak_x_delta": 3.285157218968493e-05,
+        "paper_peak": [
+          0.5429710500000006,
+          5.006570429580279
+        ],
+        "local_peak": [
+          0.5429381984278109,
+          4.999897868870448
+        ]
+      },
+      "historical_strict": {
+        "rmse": 0.025559729654967944,
+        "p95_abs": 0.05695000626278197,
+        "peak_x_delta": 2.0893638444485774e-05,
+        "status": "UNRESOLVED"
+      },
+      "axis_only_interval": {
+        "rmse": [
+          0.013738615167089858,
+          0.03521214418940679
+        ],
+        "p95_abs": [
+          0.028938925822040676,
+          0.08478158187774237
+        ]
+      },
+      "interpolation": {
+        "conservative_0_5": {
+          "rmse": 0.03338517303087263,
+          "p95": 0.08765217708164068,
+          "max": 0.1424842345578452
+        },
+        "theorem_0_125": {
+          "rmse": 0.01665425705077834,
+          "p95": 0.03467029508345079,
+          "max": 0.03467029508345079
+        },
+        "direct_proxy": {
+          "rmse": 0.002771102499298817,
+          "p95": 0.006501725983601378,
+          "max": 0.015374103262470129
+        }
+      },
+      "legacy_named_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "superseded by A5-v2 statistical semantics",
+        "rmse_interval": [
+          0.009977283489748058,
+          0.053615108302096766
+        ],
+        "p95_abs_interval": [
+          0.016635575215258436,
+          0.11904346296138368
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.0015662825500309396
+        ],
+        "status": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "UNRESOLVED",
+          "peak_x": "PASS",
+          "composite": "UNRESOLVED"
+        }
+      },
+      "latest_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "axis and interpolation components are proxy/conditional and the independent physics uncertainty bound is absent",
+        "theorem_rmse_interval": [
+          0.012396219285696931,
+          0.04100574149932087
+        ],
+        "theorem_p95_abs_interval": [
+          0.02546232800241595,
+          0.08734679556757485
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.0015662825500309396
+        ]
+      },
+      "weighting_sensitivity": [
+        {
+          "scheme": "strict_vertex_212",
+          "effective_count": 212,
+          "rmse": 0.025559729654967944,
+          "p95_abs": 0.05695000626278197,
+          "max_abs": 0.10895481215918945,
+          "threshold_rmse": 0.02,
+          "threshold_p95_abs": 0.05,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "historical strict only",
+          "model_validity": false,
+          "resampling": "historical_212_vertex_receipt"
+        },
+        {
+          "scheme": "dense_1000",
+          "effective_count": 1000,
+          "rmse": 0.03620921439063494,
+          "p95_abs": 0.08458175376195154,
+          "max_abs": 0.10767212227326572,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_4000",
+          "effective_count": 4000,
+          "rmse": 0.036209876805681364,
+          "p95_abs": 0.08420392254417397,
+          "max_abs": 0.108663054729504,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_16000",
+          "effective_count": 16000,
+          "rmse": 0.03621056624319846,
+          "p95_abs": 0.08402419383705695,
+          "max_abs": 0.10891055557925444,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "equal_segment",
+          "effective_count": 211,
+          "rmse": 0.01863488729738652,
+          "p95_abs": 0.04182202661445822,
+          "max_abs": 0.08278726530791403,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "source_segment_midpoints_equal_weight"
+        }
+      ],
+      "coverage": {
+        "coverage_warning": false,
+        "shifted_x_clipped_point_evaluations": 0,
+        "sx_values_with_clipping": 0,
+        "shift_combinations_with_clipping": 0,
+        "total_shift_combinations": 160801
+      },
+      "extrema_receipt": {
+        "axis_only": {
+          "rmse_min": {
+            "value": 0.013738615167089858,
+            "delta_x": 0.00021263086936379244,
+            "delta_y": 0.0010512235375176714
+          },
+          "rmse_max": {
+            "value": 0.03521214418940679,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          },
+          "p95_min": {
+            "value": 0.028938925822040676,
+            "delta_x": 0.000181622200914906,
+            "delta_y": -0.0020038948683930614
+          },
+          "p95_max": {
+            "value": 0.08478158187774237,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          }
+        },
+        "conservative_0_5": {
+          "rmse_lower_min": {
+            "value": 0.009977283489748058,
+            "delta_x": 0.0002259202986990295,
+            "delta_y": 0.00013140294218970828
+          },
+          "rmse_upper_max": {
+            "value": 0.053615108302096766,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.016635575215258436,
+            "delta_x": 0.00018605201069331833,
+            "delta_y": -0.0009855220664228177
+          },
+          "p95_upper_max": {
+            "value": 0.11904346296138368,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": -0.006208789018463747
+          }
+        },
+        "theorem_0_125": {
+          "rmse_lower_min": {
+            "value": 0.012396219285696931,
+            "delta_x": 0.0002148457742529986,
+            "delta_y": 0.0002956566199268443
+          },
+          "rmse_upper_max": {
+            "value": 0.04100574149932087,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.02546232800241595,
+            "delta_x": 0.00014618372268760727,
+            "delta_y": -0.004139192678975832
+          },
+          "p95_upper_max": {
+            "value": 0.08734679556757485,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006471594902843164
+          }
+        }
+      },
+      "latest_spec_decision": {
+        "mode": "dense_curve_uq",
+        "thresholds": {
+          "rmse": null,
+          "p95_abs": null,
+          "peak_x": null
+        },
+        "threshold_provenance": "none_by_A5_v2_spec",
+        "model_validity": false,
+        "coverage_valid": true,
+        "finite_data": true,
+        "validity_reasons": [
+          "axis evidence is labelled sensitivity proxy rather than calibrated nuisance coverage",
+          "interpolation coverage for the unknown paper curve is not established",
+          "independent physics uncertainty bound is absent",
+          "dense-mode thresholds are absent and may not inherit historical strict thresholds",
+          "A5-v2 receipts are MQ-specific and do not validate the scope extension to every channel"
+        ],
+        "status": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "UNRESOLVED",
+          "peak_x": "UNRESOLVED",
+          "composite": "UNRESOLVED"
+        },
+        "pre_override_diagnostic_if_historical_thresholds_were_applied": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "UNRESOLVED",
+          "peak_x": "PASS",
+          "composite": "UNRESOLVED",
+          "promotion_eligible": false
+        }
+      }
+    },
+    {
+      "panel": "b",
+      "channel": "ED",
+      "curve": "mie",
+      "paper_vertices": 71,
+      "uq_points": 4000,
+      "domain": [
+        0.2677387,
+        0.9980418
+      ],
+      "axis_shift_bounds": {
+        "delta_x": 0.00044298097784123414,
+        "delta_y": 0.006570147109485447
+      },
+      "axis_grid": {
+        "points_per_axis": 401,
+        "inclusive": true
+      },
+      "spacing": {
+        "median_dx": 0.009893400000000024,
+        "max_dx": 0.019714800000000032,
+        "h_definition": "max(previous_segment_dx, current_segment_dx); first segment uses its own dx"
+      },
+      "nominal_dense": {
+        "rmse": 0.007047036625340169,
+        "p95_abs": 0.01314140730005797,
+        "peak_x_delta": 0.00010239742561246601,
+        "paper_peak": [
+          0.4733531500000028,
+          2.018175224022009
+        ],
+        "local_peak": [
+          0.4732507525743903,
+          2.0117291270692492
+        ]
+      },
+      "historical_strict": {
+        "rmse": 0.008009758010147033,
+        "p95_abs": 0.014383699579574916,
+        "peak_x_delta": 0.00010342080484082583,
+        "status": "PASS_VECTOR_CONSISTENT"
+      },
+      "axis_only_interval": {
+        "rmse": [
+          0.0052753134447910905,
+          0.012781775852889638
+        ],
+        "p95_abs": [
+          0.009885650497273666,
+          0.020889435522774953
+        ]
+      },
+      "interpolation": {
+        "conservative_0_5": {
+          "rmse": 0.0034553012729897936,
+          "p95": 0.0059434971936772165,
+          "max": 0.07464311927476773
+        },
+        "theorem_0_125": {
+          "rmse": 0.002192361816869081,
+          "p95": 0.0026211269200237604,
+          "max": 0.015815549328895468
+        },
+        "direct_proxy": {
+          "rmse": 0.0004857078182750515,
+          "p95": 0.0010818723671802471,
+          "max": 0.001969948422501311
+        }
+      },
+      "legacy_named_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "superseded by A5-v2 statistical semantics",
+        "rmse_interval": [
+          0.0037200561873055745,
+          0.01490352771630998
+        ],
+        "p95_abs_interval": [
+          0.007968394603486714,
+          0.02425392683405608
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.006027528403453691
+        ],
+        "status": {
+          "rmse": "PASS",
+          "p95_abs": "PASS",
+          "peak_x": "PASS",
+          "composite": "PASS"
+        }
+      },
+      "latest_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "axis and interpolation components are proxy/conditional and the independent physics uncertainty bound is absent",
+        "theorem_rmse_interval": [
+          0.004669086644014007,
+          0.013903405392931367
+        ],
+        "theorem_p95_abs_interval": [
+          0.009181377585745764,
+          0.023168921550040657
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.006027528403453691
+        ]
+      },
+      "weighting_sensitivity": [
+        {
+          "scheme": "dense_212",
+          "effective_count": 212,
+          "rmse": 0.007362952151914741,
+          "p95_abs": 0.013606141110738323,
+          "max_abs": 0.015485297809270326,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_1000",
+          "effective_count": 1000,
+          "rmse": 0.007338597350340483,
+          "p95_abs": 0.013560707281883744,
+          "max_abs": 0.01572001192192629,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_4000",
+          "effective_count": 4000,
+          "rmse": 0.007338768532285849,
+          "p95_abs": 0.01360287800434179,
+          "max_abs": 0.015780047718366386,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_16000",
+          "effective_count": 16000,
+          "rmse": 0.007338710096093851,
+          "p95_abs": 0.013589306796365108,
+          "max_abs": 0.015770021151372937,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "equal_segment",
+          "effective_count": 70,
+          "rmse": 0.006609941200388257,
+          "p95_abs": 0.012529244894175217,
+          "max_abs": 0.014756679738047174,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "source_segment_midpoints_equal_weight"
+        }
+      ],
+      "coverage": {
+        "coverage_warning": false,
+        "shifted_x_clipped_point_evaluations": 0,
+        "sx_values_with_clipping": 0,
+        "shift_combinations_with_clipping": 0,
+        "total_shift_combinations": 160801
+      },
+      "extrema_receipt": {
+        "axis_only": {
+          "rmse_min": {
+            "value": 0.0052753134447910905,
+            "delta_x": -8.638129067904064e-05,
+            "delta_y": 0.004697655183282095
+          },
+          "rmse_max": {
+            "value": 0.012781775852889638,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          },
+          "p95_min": {
+            "value": 0.009885650497273666,
+            "delta_x": -5.980243200856658e-05,
+            "delta_y": 0.005190416216493502
+          },
+          "p95_max": {
+            "value": 0.020889435522774953,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          }
+        },
+        "conservative_0_5": {
+          "rmse_lower_min": {
+            "value": 0.0037200561873055745,
+            "delta_x": -8.416638578983448e-05,
+            "delta_y": 0.004763356654376948
+          },
+          "rmse_upper_max": {
+            "value": 0.01490352771630998,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.007968394603486714,
+            "delta_x": 0.0001506135324660196,
+            "delta_y": 0.004434849298902676
+          },
+          "p95_upper_max": {
+            "value": 0.02425392683405608,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          }
+        },
+        "theorem_0_125": {
+          "rmse_lower_min": {
+            "value": 0.004669086644014007,
+            "delta_x": -9.967072001427764e-05,
+            "delta_y": 0.004533401505544958
+          },
+          "rmse_upper_max": {
+            "value": 0.013903405392931367,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.009181377585745764,
+            "delta_x": 1.993414400285558e-05,
+            "delta_y": 0.0038106853235015583
+          },
+          "p95_upper_max": {
+            "value": 0.023168921550040657,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          }
+        }
+      },
+      "latest_spec_decision": {
+        "mode": "dense_curve_uq",
+        "thresholds": {
+          "rmse": null,
+          "p95_abs": null,
+          "peak_x": null
+        },
+        "threshold_provenance": "none_by_A5_v2_spec",
+        "model_validity": false,
+        "coverage_valid": true,
+        "finite_data": true,
+        "validity_reasons": [
+          "axis evidence is labelled sensitivity proxy rather than calibrated nuisance coverage",
+          "interpolation coverage for the unknown paper curve is not established",
+          "independent physics uncertainty bound is absent",
+          "dense-mode thresholds are absent and may not inherit historical strict thresholds",
+          "A5-v2 receipts are MQ-specific and do not validate the scope extension to every channel"
+        ],
+        "status": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "UNRESOLVED",
+          "peak_x": "UNRESOLVED",
+          "composite": "UNRESOLVED"
+        },
+        "pre_override_diagnostic_if_historical_thresholds_were_applied": {
+          "rmse": "PASS",
+          "p95_abs": "PASS",
+          "peak_x": "PASS",
+          "composite": "PASS",
+          "promotion_eligible": false
+        }
+      }
+    },
+    {
+      "panel": "b",
+      "channel": "MD",
+      "curve": "mie",
+      "paper_vertices": 68,
+      "uq_points": 4000,
+      "domain": [
+        0.2677387,
+        0.9980418
+      ],
+      "axis_shift_bounds": {
+        "delta_x": 0.00044298097784123414,
+        "delta_y": 0.006570147109485447
+      },
+      "axis_grid": {
+        "points_per_axis": 401,
+        "inclusive": true
+      },
+      "spacing": {
+        "median_dx": 0.009893399999999997,
+        "max_dx": 0.04055940000000002,
+        "h_definition": "max(previous_segment_dx, current_segment_dx); first segment uses its own dx"
+      },
+      "nominal_dense": {
+        "rmse": 0.005175856518892916,
+        "p95_abs": 0.009382340594869752,
+        "peak_x_delta": 0.0036657762991275655,
+        "paper_peak": [
+          0.9053807999999988,
+          2.5308798943620197
+        ],
+        "local_peak": [
+          0.9090465762991263,
+          2.525060264228159
+        ]
+      },
+      "historical_strict": {
+        "rmse": 0.0063260049695870535,
+        "p95_abs": 0.011683867092257131,
+        "peak_x_delta": 0.003652240675272256,
+        "status": "PASS_VECTOR_CONSISTENT"
+      },
+      "axis_only_interval": {
+        "rmse": [
+          0.0050829574129615165,
+          0.01024246039578856
+        ],
+        "p95_abs": [
+          0.00889532912695922,
+          0.01672094611329022
+        ]
+      },
+      "interpolation": {
+        "conservative_0_5": {
+          "rmse": 0.03419963971164485,
+          "p95": 0.029219816139349628,
+          "max": 1.4445506054689012
+        },
+        "theorem_0_125": {
+          "rmse": 0.08915237150993328,
+          "p95": 0.37759062478618544,
+          "max": 0.37759062478618544
+        },
+        "direct_proxy": {
+          "rmse": 0.002577881599277252,
+          "p95": 0.0035219745522705364,
+          "max": 0.01615983069889637
+        }
+      },
+      "legacy_named_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "superseded by A5-v2 statistical semantics",
+        "rmse_interval": [
+          0.004125645481968985,
+          0.03687370565631539
+        ],
+        "p95_abs_interval": [
+          0.008314549681338114,
+          0.03660743728498501
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.02438845727696881
+        ],
+        "status": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "PASS",
+          "peak_x": "UNRESOLVED",
+          "composite": "UNRESOLVED"
+        }
+      },
+      "latest_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "axis and interpolation components are proxy/conditional and the independent physics uncertainty bound is absent",
+        "theorem_rmse_interval": [
+          0.0042737097885283855,
+          0.0920079094178445
+        ],
+        "theorem_p95_abs_interval": [
+          0.008191674704235076,
+          0.3794423377479369
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.02438845727696881
+        ]
+      },
+      "weighting_sensitivity": [
+        {
+          "scheme": "dense_212",
+          "effective_count": 212,
+          "rmse": 0.005284865335006528,
+          "p95_abs": 0.009513692615559233,
+          "max_abs": 0.012823873936162578,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_1000",
+          "effective_count": 1000,
+          "rmse": 0.005280394048721787,
+          "p95_abs": 0.00935538133342928,
+          "max_abs": 0.013044503188310408,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_4000",
+          "effective_count": 4000,
+          "rmse": 0.005278552588511724,
+          "p95_abs": 0.009360157322540363,
+          "max_abs": 0.013233213330789972,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_16000",
+          "effective_count": 16000,
+          "rmse": 0.005278540835157289,
+          "p95_abs": 0.009365707457512862,
+          "max_abs": 0.01324921501739107,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "equal_segment",
+          "effective_count": 67,
+          "rmse": 0.004676609896022965,
+          "p95_abs": 0.009264051860562204,
+          "max_abs": 0.009856070548194484,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "source_segment_midpoints_equal_weight"
+        }
+      ],
+      "coverage": {
+        "coverage_warning": false,
+        "shifted_x_clipped_point_evaluations": 0,
+        "sx_values_with_clipping": 0,
+        "shift_combinations_with_clipping": 0,
+        "total_shift_combinations": 160801
+      },
+      "extrema_receipt": {
+        "axis_only": {
+          "rmse_min": {
+            "value": 0.0050829574129615165,
+            "delta_x": 9.745581512507159e-05,
+            "delta_y": 0.0012154772152548074
+          },
+          "rmse_max": {
+            "value": 0.01024246039578856,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          },
+          "p95_min": {
+            "value": 0.00889532912695922,
+            "delta_x": 0.00028129292092918376,
+            "delta_y": 0.0010840742730650983
+          },
+          "p95_max": {
+            "value": 0.01672094611329022,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          }
+        },
+        "conservative_0_5": {
+          "rmse_lower_min": {
+            "value": 0.004125645481968985,
+            "delta_x": 0.00013289429335237022,
+            "delta_y": 0.0015439845707290803
+          },
+          "rmse_upper_max": {
+            "value": 0.03687370565631539,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.008314549681338114,
+            "delta_x": 0.0004385511680628218,
+            "delta_y": 0.0025295066371518963
+          },
+          "p95_upper_max": {
+            "value": 0.03660743728498501,
+            "delta_x": 0.00043633626317361566,
+            "delta_y": -0.0031208198770055874
+          }
+        },
+        "theorem_0_125": {
+          "rmse_lower_min": {
+            "value": 0.0042737097885283855,
+            "delta_x": -3.100866844888637e-05,
+            "delta_y": 0.00082126838868568
+          },
+          "rmse_upper_max": {
+            "value": 0.0920079094178445,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.008191674704235076,
+            "delta_x": 0.00021041596447458628,
+            "delta_y": 0.0013468801574445157
+          },
+          "p95_upper_max": {
+            "value": 0.3794423377479369,
+            "delta_x": 0.0001771923911364937,
+            "delta_y": -0.006570147109485447
+          }
+        }
+      },
+      "latest_spec_decision": {
+        "mode": "dense_curve_uq",
+        "thresholds": {
+          "rmse": null,
+          "p95_abs": null,
+          "peak_x": null
+        },
+        "threshold_provenance": "none_by_A5_v2_spec",
+        "model_validity": false,
+        "coverage_valid": true,
+        "finite_data": true,
+        "validity_reasons": [
+          "axis evidence is labelled sensitivity proxy rather than calibrated nuisance coverage",
+          "interpolation coverage for the unknown paper curve is not established",
+          "independent physics uncertainty bound is absent",
+          "dense-mode thresholds are absent and may not inherit historical strict thresholds",
+          "A5-v2 receipts are MQ-specific and do not validate the scope extension to every channel"
+        ],
+        "status": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "UNRESOLVED",
+          "peak_x": "UNRESOLVED",
+          "composite": "UNRESOLVED"
+        },
+        "pre_override_diagnostic_if_historical_thresholds_were_applied": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "UNRESOLVED",
+          "peak_x": "UNRESOLVED",
+          "composite": "UNRESOLVED",
+          "promotion_eligible": false
+        }
+      }
+    },
+    {
+      "panel": "b",
+      "channel": "EQ",
+      "curve": "mie",
+      "paper_vertices": 62,
+      "uq_points": 4000,
+      "domain": [
+        0.3598412,
+        0.9980418
+      ],
+      "axis_shift_bounds": {
+        "delta_x": 0.00044298097784123414,
+        "delta_y": 0.006570147109485447
+      },
+      "axis_grid": {
+        "points_per_axis": 401,
+        "inclusive": true
+      },
+      "spacing": {
+        "median_dx": 0.0098935,
+        "max_dx": 0.01971490000000009,
+        "h_definition": "max(previous_segment_dx, current_segment_dx); first segment uses its own dx"
+      },
+      "nominal_dense": {
+        "rmse": 0.007010895257485824,
+        "p95_abs": 0.013366656040874456,
+        "peak_x_delta": 0.0004981375219610396,
+        "paper_peak": [
+          0.7820311499999996,
+          4.099634355782989
+        ],
+        "local_peak": [
+          0.7815330124780385,
+          4.085632572770832
+        ]
+      },
+      "historical_strict": {
+        "rmse": 0.008362549026556343,
+        "p95_abs": 0.01590386578075919,
+        "peak_x_delta": 0.0004951830029892301,
+        "status": "PASS_VECTOR_CONSISTENT"
+      },
+      "axis_only_interval": {
+        "rmse": [
+          0.00613625158577307,
+          0.011872298770818062
+        ],
+        "p95_abs": [
+          0.011249763349150493,
+          0.023742387146324588
+        ]
+      },
+      "interpolation": {
+        "conservative_0_5": {
+          "rmse": 0.02361520790533,
+          "p95": 0.00992878785901978,
+          "max": 0.8491094921655532
+        },
+        "theorem_0_125": {
+          "rmse": 0.025924634864040664,
+          "p95": 0.033637026014034774,
+          "max": 0.18274277334953723
+        },
+        "direct_proxy": {
+          "rmse": 0.001576375672727352,
+          "p95": 0.0023421074667316732,
+          "max": 0.01563002096016408
+        }
+      },
+      "legacy_named_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "superseded by A5-v2 statistical semantics",
+        "rmse_interval": [
+          0.0037653302293949387,
+          0.02857775958085405
+        ],
+        "p95_abs_interval": [
+          0.008345085317094037,
+          0.028297772036731634
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.010798568499802319
+        ],
+        "status": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "PASS",
+          "peak_x": "UNRESOLVED",
+          "composite": "UNRESOLVED"
+        }
+      },
+      "latest_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "axis and interpolation components are proxy/conditional and the independent physics uncertainty bound is absent",
+        "theorem_rmse_interval": [
+          0.004972201787072125,
+          0.03256117059288431
+        ],
+        "theorem_p95_abs_interval": [
+          0.010416209245904964,
+          0.04864291784379923
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.010798568499802319
+        ]
+      },
+      "weighting_sensitivity": [
+        {
+          "scheme": "dense_212",
+          "effective_count": 212,
+          "rmse": 0.006887497470809908,
+          "p95_abs": 0.013549387209093933,
+          "max_abs": 0.015971616897034746,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_1000",
+          "effective_count": 1000,
+          "rmse": 0.006865725747201349,
+          "p95_abs": 0.013562429729210734,
+          "max_abs": 0.016404012791136235,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_4000",
+          "effective_count": 4000,
+          "rmse": 0.00686364227128033,
+          "p95_abs": 0.013501880612895256,
+          "max_abs": 0.01669201537884124,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_16000",
+          "effective_count": 16000,
+          "rmse": 0.0068634858078791255,
+          "p95_abs": 0.013472449973155776,
+          "max_abs": 0.016733457354136227,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "equal_segment",
+          "effective_count": 61,
+          "rmse": 0.006242322592532781,
+          "p95_abs": 0.012213983924819427,
+          "max_abs": 0.015826278906087232,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "source_segment_midpoints_equal_weight"
+        }
+      ],
+      "coverage": {
+        "coverage_warning": false,
+        "shifted_x_clipped_point_evaluations": 0,
+        "sx_values_with_clipping": 0,
+        "shift_combinations_with_clipping": 0,
+        "total_shift_combinations": 160801
+      },
+      "extrema_receipt": {
+        "axis_only": {
+          "rmse_min": {
+            "value": 0.00613625158577307,
+            "delta_x": -0.00027686311115077133,
+            "delta_y": -0.0028251632570787423
+          },
+          "rmse_max": {
+            "value": 0.011872298770818062,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          },
+          "p95_min": {
+            "value": 0.011249763349150493,
+            "delta_x": -0.00026800349159394665,
+            "delta_y": -0.002200999281677625
+          },
+          "p95_max": {
+            "value": 0.023742387146324588,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          }
+        },
+        "conservative_0_5": {
+          "rmse_lower_min": {
+            "value": 0.0037653302293949387,
+            "delta_x": -0.0003455251627161626,
+            "delta_y": -0.003022267670363306
+          },
+          "rmse_upper_max": {
+            "value": 0.02857775958085405,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.008345085317094037,
+            "delta_x": -0.0004031126898355231,
+            "delta_y": -0.002726611050436461
+          },
+          "p95_upper_max": {
+            "value": 0.028297772036731634,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          }
+        },
+        "theorem_0_125": {
+          "rmse_lower_min": {
+            "value": 0.004972201787072125,
+            "delta_x": -0.00025471406225870965,
+            "delta_y": -0.002233850017225052
+          },
+          "rmse_upper_max": {
+            "value": 0.03256117059288431,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.010416209245904964,
+            "delta_x": -0.0002502842524802973,
+            "delta_y": -0.002792312521531315
+          },
+          "p95_upper_max": {
+            "value": 0.04864291784379923,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          }
+        }
+      },
+      "latest_spec_decision": {
+        "mode": "dense_curve_uq",
+        "thresholds": {
+          "rmse": null,
+          "p95_abs": null,
+          "peak_x": null
+        },
+        "threshold_provenance": "none_by_A5_v2_spec",
+        "model_validity": false,
+        "coverage_valid": true,
+        "finite_data": true,
+        "validity_reasons": [
+          "axis evidence is labelled sensitivity proxy rather than calibrated nuisance coverage",
+          "interpolation coverage for the unknown paper curve is not established",
+          "independent physics uncertainty bound is absent",
+          "dense-mode thresholds are absent and may not inherit historical strict thresholds",
+          "A5-v2 receipts are MQ-specific and do not validate the scope extension to every channel"
+        ],
+        "status": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "UNRESOLVED",
+          "peak_x": "UNRESOLVED",
+          "composite": "UNRESOLVED"
+        },
+        "pre_override_diagnostic_if_historical_thresholds_were_applied": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "PASS",
+          "peak_x": "UNRESOLVED",
+          "composite": "UNRESOLVED",
+          "promotion_eligible": false
+        }
+      }
+    },
+    {
+      "panel": "b",
+      "channel": "MQ",
+      "curve": "mie",
+      "paper_vertices": 49,
+      "uq_points": 4000,
+      "domain": [
+        0.4728079,
+        0.9980418
+      ],
+      "axis_shift_bounds": {
+        "delta_x": 0.00044298097784123414,
+        "delta_y": 0.006570147109485447
+      },
+      "axis_grid": {
+        "points_per_axis": 401,
+        "inclusive": true
+      },
+      "spacing": {
+        "median_dx": 0.00989975000000004,
+        "max_dx": 0.030724799999999997,
+        "h_definition": "max(previous_segment_dx, current_segment_dx); first segment uses its own dx"
+      },
+      "nominal_dense": {
+        "rmse": 0.004847402926871451,
+        "p95_abs": 0.009371874733092313,
+        "peak_x_delta": 0.0,
+        "paper_peak": [
+          0.9980418,
+          1.540964269285741
+        ],
+        "local_peak": [
+          0.9980418,
+          1.537272944517833
+        ]
+      },
+      "historical_strict": {
+        "rmse": 0.006257067123984778,
+        "p95_abs": 0.01126832375929062,
+        "peak_x_delta": 0.0,
+        "status": "PASS_VECTOR_CONSISTENT"
+      },
+      "axis_only_interval": {
+        "rmse": [
+          0.00479976747434689,
+          0.009780315802716438
+        ],
+        "p95_abs": [
+          0.008496137910844682,
+          0.017378251245208375
+        ]
+      },
+      "interpolation": {
+        "conservative_0_5": {
+          "rmse": 0.0024272391606935746,
+          "p95": 0.002754112993898863,
+          "max": 0.06756020196713808
+        },
+        "theorem_0_125": {
+          "rmse": 0.00248674066986141,
+          "p95": 0.0038738007652138785,
+          "max": 0.014264547843045
+        },
+        "direct_proxy": {
+          "rmse": 0.00021450970992778481,
+          "p95": 0.00046118801491973707,
+          "max": 0.0013807972997663676
+        }
+      },
+      "legacy_named_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "superseded by A5-v2 statistical semantics",
+        "rmse_interval": [
+          0.004084071407084549,
+          0.010953763015435235
+        ],
+        "p95_abs_interval": [
+          0.007835981404905858,
+          0.018753720999901607
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.0053668309778412415
+        ],
+        "status": {
+          "rmse": "PASS",
+          "p95_abs": "PASS",
+          "peak_x": "PASS",
+          "composite": "PASS"
+        }
+      },
+      "latest_spec_diagnostic": {
+        "promotion_eligible": false,
+        "reason": "axis and interpolation components are proxy/conditional and the independent physics uncertainty bound is absent",
+        "theorem_rmse_interval": [
+          0.004336103204050346,
+          0.010855232108367318
+        ],
+        "theorem_p95_abs_interval": [
+          0.008111335155848602,
+          0.01898949388441139
+        ],
+        "peak_x_interval": [
+          0.0,
+          0.0053668309778412415
+        ]
+      },
+      "weighting_sensitivity": [
+        {
+          "scheme": "dense_212",
+          "effective_count": 212,
+          "rmse": 0.005039237865856925,
+          "p95_abs": 0.010131067998784604,
+          "max_abs": 0.012834019775611473,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_1000",
+          "effective_count": 1000,
+          "rmse": 0.0050359223026754905,
+          "p95_abs": 0.010079937782620507,
+          "max_abs": 0.012834019775611473,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_4000",
+          "effective_count": 4000,
+          "rmse": 0.005036344008035395,
+          "p95_abs": 0.010083153626652908,
+          "max_abs": 0.012834019775611473,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "dense_16000",
+          "effective_count": 16000,
+          "rmse": 0.005036297183333119,
+          "p95_abs": 0.010086660559307292,
+          "max_abs": 0.012834019775611473,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "cumulative_polyline_arc_length_trapezoidal"
+        },
+        {
+          "scheme": "equal_segment",
+          "effective_count": 48,
+          "rmse": 0.004076708119512777,
+          "p95_abs": 0.00850078148945573,
+          "max_abs": 0.010702829180281426,
+          "threshold_rmse": null,
+          "threshold_p95_abs": null,
+          "status": "UNRESOLVED",
+          "rmse_status": "UNRESOLVED",
+          "p95_status": "UNRESOLVED",
+          "threshold_provenance": "none_by_A5_v2_spec",
+          "model_validity": false,
+          "resampling": "source_segment_midpoints_equal_weight"
+        }
+      ],
+      "coverage": {
+        "coverage_warning": false,
+        "shifted_x_clipped_point_evaluations": 0,
+        "sx_values_with_clipping": 0,
+        "shift_combinations_with_clipping": 0,
+        "total_shift_combinations": 160801
+      },
+      "extrema_receipt": {
+        "axis_only": {
+          "rmse_min": {
+            "value": 0.00479976747434689,
+            "delta_x": 0.00011517505423872096,
+            "delta_y": 0.0009855220664228169
+          },
+          "rmse_max": {
+            "value": 0.009780315802716438,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          },
+          "p95_min": {
+            "value": 0.008496137910844682,
+            "delta_x": 0.00013732410313078264,
+            "delta_y": 0.0019710441328456337
+          },
+          "p95_max": {
+            "value": 0.017378251245208375,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          }
+        },
+        "conservative_0_5": {
+          "rmse_lower_min": {
+            "value": 0.004084071407084549,
+            "delta_x": 0.00010631543468189622,
+            "delta_y": 0.0009526713308753891
+          },
+          "rmse_upper_max": {
+            "value": 0.010953763015435235,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.007835981404905858,
+            "delta_x": 0.0002303501084774418,
+            "delta_y": 0.0022995514883199057
+          },
+          "p95_upper_max": {
+            "value": 0.018753720999901607,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          }
+        },
+        "theorem_0_125": {
+          "rmse_lower_min": {
+            "value": 0.004336103204050346,
+            "delta_x": 8.859619556824685e-06,
+            "delta_y": 0.0008869698597805346
+          },
+          "rmse_upper_max": {
+            "value": 0.010855232108367318,
+            "delta_x": 0.00044298097784123414,
+            "delta_y": -0.006570147109485447
+          },
+          "p95_lower_min": {
+            "value": 0.008111335155848602,
+            "delta_x": -0.0004274766436167909,
+            "delta_y": 0.0006241639754011171
+          },
+          "p95_upper_max": {
+            "value": 0.01898949388441139,
+            "delta_x": -0.00044298097784123414,
+            "delta_y": 0.006570147109485447
+          }
+        }
+      },
+      "latest_spec_decision": {
+        "mode": "dense_curve_uq",
+        "thresholds": {
+          "rmse": null,
+          "p95_abs": null,
+          "peak_x": null
+        },
+        "threshold_provenance": "none_by_A5_v2_spec",
+        "model_validity": false,
+        "coverage_valid": true,
+        "finite_data": true,
+        "validity_reasons": [
+          "axis evidence is labelled sensitivity proxy rather than calibrated nuisance coverage",
+          "interpolation coverage for the unknown paper curve is not established",
+          "independent physics uncertainty bound is absent",
+          "dense-mode thresholds are absent and may not inherit historical strict thresholds",
+          "A5-v2 receipts are MQ-specific and do not validate the scope extension to every channel"
+        ],
+        "status": {
+          "rmse": "UNRESOLVED",
+          "p95_abs": "UNRESOLVED",
+          "peak_x": "UNRESOLVED",
+          "composite": "UNRESOLVED"
+        },
+        "pre_override_diagnostic_if_historical_thresholds_were_applied": {
+          "rmse": "PASS",
+          "p95_abs": "PASS",
+          "peak_x": "PASS",
+          "composite": "PASS",
+          "promotion_eligible": false
+        }
+      }
+    }
+  ],
+  "weighting_sensitivity": [
+    {
+      "panel": "a",
+      "channel": "ED",
+      "scheme": "dense_212",
+      "effective_count": 212,
+      "rmse": 0.009754579084370845,
+      "p95_abs": 0.017935855193647765,
+      "max_abs": 0.02926858865303683,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "a",
+      "channel": "ED",
+      "scheme": "dense_1000",
+      "effective_count": 1000,
+      "rmse": 0.009742156344983316,
+      "p95_abs": 0.019416709673625077,
+      "max_abs": 0.03528944545985646,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "a",
+      "channel": "ED",
+      "scheme": "dense_4000",
+      "effective_count": 4000,
+      "rmse": 0.009757890962877745,
+      "p95_abs": 0.019499187061423395,
+      "max_abs": 0.03567590840460655,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "a",
+      "channel": "ED",
+      "scheme": "dense_16000",
+      "effective_count": 16000,
+      "rmse": 0.009755779203170672,
+      "p95_abs": 0.019482666448612296,
+      "max_abs": 0.03595776453281441,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "a",
+      "channel": "ED",
+      "scheme": "equal_segment",
+      "effective_count": 325,
+      "rmse": 0.006996786324275509,
+      "p95_abs": 0.013338887012382289,
+      "max_abs": 0.02754824238522735,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "source_segment_midpoints_equal_weight"
+    },
+    {
+      "panel": "a",
+      "channel": "MD",
+      "scheme": "dense_212",
+      "effective_count": 212,
+      "rmse": 0.010660549891725553,
+      "p95_abs": 0.02168478055021561,
+      "max_abs": 0.035236491708140916,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "a",
+      "channel": "MD",
+      "scheme": "dense_1000",
+      "effective_count": 1000,
+      "rmse": 0.010686496082253237,
+      "p95_abs": 0.022937834605980756,
+      "max_abs": 0.03901144916080046,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "a",
+      "channel": "MD",
+      "scheme": "dense_4000",
+      "effective_count": 4000,
+      "rmse": 0.01070115561536217,
+      "p95_abs": 0.02287735353509146,
+      "max_abs": 0.03956748598567805,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "a",
+      "channel": "MD",
+      "scheme": "dense_16000",
+      "effective_count": 16000,
+      "rmse": 0.010701904095615541,
+      "p95_abs": 0.0229017845321986,
+      "max_abs": 0.03991983067782123,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "a",
+      "channel": "MD",
+      "scheme": "equal_segment",
+      "effective_count": 252,
+      "rmse": 0.006624090665171077,
+      "p95_abs": 0.012204635205241385,
+      "max_abs": 0.021848346590095824,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "source_segment_midpoints_equal_weight"
+    },
+    {
+      "panel": "a",
+      "channel": "EQ",
+      "scheme": "dense_212",
+      "effective_count": 212,
+      "rmse": 0.01377700090345831,
+      "p95_abs": 0.030537695710133095,
+      "max_abs": 0.04376191716777633,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "a",
+      "channel": "EQ",
+      "scheme": "dense_1000",
+      "effective_count": 1000,
+      "rmse": 0.013690550692445295,
+      "p95_abs": 0.029295593250479257,
+      "max_abs": 0.046459144926279006,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "a",
+      "channel": "EQ",
+      "scheme": "dense_4000",
+      "effective_count": 4000,
+      "rmse": 0.01371243100477054,
+      "p95_abs": 0.029128618739917567,
+      "max_abs": 0.04800711319128892,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "a",
+      "channel": "EQ",
+      "scheme": "dense_16000",
+      "effective_count": 16000,
+      "rmse": 0.013711751671114748,
+      "p95_abs": 0.029191827679693194,
+      "max_abs": 0.048065142138275174,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "a",
+      "channel": "EQ",
+      "scheme": "equal_segment",
+      "effective_count": 291,
+      "rmse": 0.009019052069524946,
+      "p95_abs": 0.018774140082414403,
+      "max_abs": 0.033555255286504604,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "source_segment_midpoints_equal_weight"
+    },
+    {
+      "panel": "a",
+      "channel": "MQ",
+      "scheme": "strict_vertex_212",
+      "effective_count": 212,
+      "rmse": 0.025559729654967944,
+      "p95_abs": 0.05695000626278197,
+      "max_abs": 0.10895481215918945,
+      "threshold_rmse": 0.02,
+      "threshold_p95_abs": 0.05,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "historical strict only",
+      "model_validity": false,
+      "resampling": "historical_212_vertex_receipt"
+    },
+    {
+      "panel": "a",
+      "channel": "MQ",
+      "scheme": "dense_1000",
+      "effective_count": 1000,
+      "rmse": 0.03620921439063494,
+      "p95_abs": 0.08458175376195154,
+      "max_abs": 0.10767212227326572,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "a",
+      "channel": "MQ",
+      "scheme": "dense_4000",
+      "effective_count": 4000,
+      "rmse": 0.036209876805681364,
+      "p95_abs": 0.08420392254417397,
+      "max_abs": 0.108663054729504,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "a",
+      "channel": "MQ",
+      "scheme": "dense_16000",
+      "effective_count": 16000,
+      "rmse": 0.03621056624319846,
+      "p95_abs": 0.08402419383705695,
+      "max_abs": 0.10891055557925444,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "a",
+      "channel": "MQ",
+      "scheme": "equal_segment",
+      "effective_count": 211,
+      "rmse": 0.01863488729738652,
+      "p95_abs": 0.04182202661445822,
+      "max_abs": 0.08278726530791403,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "source_segment_midpoints_equal_weight"
+    },
+    {
+      "panel": "b",
+      "channel": "ED",
+      "scheme": "dense_212",
+      "effective_count": 212,
+      "rmse": 0.007362952151914741,
+      "p95_abs": 0.013606141110738323,
+      "max_abs": 0.015485297809270326,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "ED",
+      "scheme": "dense_1000",
+      "effective_count": 1000,
+      "rmse": 0.007338597350340483,
+      "p95_abs": 0.013560707281883744,
+      "max_abs": 0.01572001192192629,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "ED",
+      "scheme": "dense_4000",
+      "effective_count": 4000,
+      "rmse": 0.007338768532285849,
+      "p95_abs": 0.01360287800434179,
+      "max_abs": 0.015780047718366386,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "ED",
+      "scheme": "dense_16000",
+      "effective_count": 16000,
+      "rmse": 0.007338710096093851,
+      "p95_abs": 0.013589306796365108,
+      "max_abs": 0.015770021151372937,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "ED",
+      "scheme": "equal_segment",
+      "effective_count": 70,
+      "rmse": 0.006609941200388257,
+      "p95_abs": 0.012529244894175217,
+      "max_abs": 0.014756679738047174,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "source_segment_midpoints_equal_weight"
+    },
+    {
+      "panel": "b",
+      "channel": "MD",
+      "scheme": "dense_212",
+      "effective_count": 212,
+      "rmse": 0.005284865335006528,
+      "p95_abs": 0.009513692615559233,
+      "max_abs": 0.012823873936162578,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "MD",
+      "scheme": "dense_1000",
+      "effective_count": 1000,
+      "rmse": 0.005280394048721787,
+      "p95_abs": 0.00935538133342928,
+      "max_abs": 0.013044503188310408,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "MD",
+      "scheme": "dense_4000",
+      "effective_count": 4000,
+      "rmse": 0.005278552588511724,
+      "p95_abs": 0.009360157322540363,
+      "max_abs": 0.013233213330789972,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "MD",
+      "scheme": "dense_16000",
+      "effective_count": 16000,
+      "rmse": 0.005278540835157289,
+      "p95_abs": 0.009365707457512862,
+      "max_abs": 0.01324921501739107,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "MD",
+      "scheme": "equal_segment",
+      "effective_count": 67,
+      "rmse": 0.004676609896022965,
+      "p95_abs": 0.009264051860562204,
+      "max_abs": 0.009856070548194484,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "source_segment_midpoints_equal_weight"
+    },
+    {
+      "panel": "b",
+      "channel": "EQ",
+      "scheme": "dense_212",
+      "effective_count": 212,
+      "rmse": 0.006887497470809908,
+      "p95_abs": 0.013549387209093933,
+      "max_abs": 0.015971616897034746,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "EQ",
+      "scheme": "dense_1000",
+      "effective_count": 1000,
+      "rmse": 0.006865725747201349,
+      "p95_abs": 0.013562429729210734,
+      "max_abs": 0.016404012791136235,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "EQ",
+      "scheme": "dense_4000",
+      "effective_count": 4000,
+      "rmse": 0.00686364227128033,
+      "p95_abs": 0.013501880612895256,
+      "max_abs": 0.01669201537884124,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "EQ",
+      "scheme": "dense_16000",
+      "effective_count": 16000,
+      "rmse": 0.0068634858078791255,
+      "p95_abs": 0.013472449973155776,
+      "max_abs": 0.016733457354136227,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "EQ",
+      "scheme": "equal_segment",
+      "effective_count": 61,
+      "rmse": 0.006242322592532781,
+      "p95_abs": 0.012213983924819427,
+      "max_abs": 0.015826278906087232,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "source_segment_midpoints_equal_weight"
+    },
+    {
+      "panel": "b",
+      "channel": "MQ",
+      "scheme": "dense_212",
+      "effective_count": 212,
+      "rmse": 0.005039237865856925,
+      "p95_abs": 0.010131067998784604,
+      "max_abs": 0.012834019775611473,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "MQ",
+      "scheme": "dense_1000",
+      "effective_count": 1000,
+      "rmse": 0.0050359223026754905,
+      "p95_abs": 0.010079937782620507,
+      "max_abs": 0.012834019775611473,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "MQ",
+      "scheme": "dense_4000",
+      "effective_count": 4000,
+      "rmse": 0.005036344008035395,
+      "p95_abs": 0.010083153626652908,
+      "max_abs": 0.012834019775611473,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "MQ",
+      "scheme": "dense_16000",
+      "effective_count": 16000,
+      "rmse": 0.005036297183333119,
+      "p95_abs": 0.010086660559307292,
+      "max_abs": 0.012834019775611473,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "cumulative_polyline_arc_length_trapezoidal"
+    },
+    {
+      "panel": "b",
+      "channel": "MQ",
+      "scheme": "equal_segment",
+      "effective_count": 48,
+      "rmse": 0.004076708119512777,
+      "p95_abs": 0.00850078148945573,
+      "max_abs": 0.010702829180281426,
+      "threshold_rmse": null,
+      "threshold_p95_abs": null,
+      "status": "UNRESOLVED",
+      "rmse_status": "UNRESOLVED",
+      "p95_status": "UNRESOLVED",
+      "threshold_provenance": "none_by_A5_v2_spec",
+      "model_validity": false,
+      "resampling": "source_segment_midpoints_equal_weight"
+    }
+  ],
+  "input_sha256": {
+    "codex-prompts/out/A5-recompute/preregister/MQ-uncertainty-preregistration.md": "a6fcecefa66dd4d864a8da3f813e30b29387402b8dceb02d687a82b7b04a526a",
+    "codex-prompts/out/A5-v2/preregister/SPEC.md": "34b13c6f4ac0e14f2d76a8cc9d5747bd216406c49f5b481b051988d42b41e372",
+    "codex-prompts/out/A5-v2/extraction/receipt.json": "afa63029218711435e1f67b38e765b5e54b1db302272bc3afae58279735cbe38",
+    "codex-prompts/out/A5-v2/physics/receipt.json": "1b6168ce3a1509b29dd828eda914577f71ad9f7e8014b164d76eac60f4412b68",
+    "codex-prompts/out/A5-v2/preregister/uq_receipt.json": "68612f2bb3ff0aa4c4f2665987636f58716851e2c7dfcdff0b6b611b9fa9501f",
+    "codex-prompts/out/A5-v2/preregister/weighting_sensitivity.csv": "f69897099a844c5984f88d002f00719c66295f315dfe559e50a76b6740727bb8",
+    "data/fig2_paper_vector_curves.csv": "d800087d92a79ca8514ef0d916f2e6e670f43ad43407db0ecc7148a7afe21217",
+    "data/fig2_paper_vector_metadata.json": "6c377448f1505c51c36f0128f541af2a48abc0c8ef9768964971b38f467cf9c8",
+    "data/fig2_layer3_summary.json": "a0119d70f88a4e1b97c3785be87f724d652e56362c44962da720a334ca01f8d8",
+    "data/fig1a_multipole_mie.csv": "761d5593e6528a96f5f67067cef6ee2b5d4764fd55bf224b0c9cbe392d2b9559",
+    "data/fig1a_multipole_table2.csv": "ce8faa422abb2c1873b0079ff7793a52e5598682d4b9170ca3d62376e5336eb2",
+    "data/fig2_gold_jc_sensitivity.csv": "a4a6877e670902287f71ff4d954e9f3df0ec1431ea5aa84ae4616c5466f5a2ea",
+    "code/run_fig2_uq.py": "30a5f1c497a1830174d94eb7101ff179e380cdc2a7c051d4680e39d6ea2ddc3d"
+  },
+  "environment": {
+    "python": "3.13.9 | packaged by Anaconda, Inc. | (main, Oct 21 2025, 19:09:58) [MSC v.1929 64 bit (AMD64)]",
+    "numpy": "2.3.5",
+    "platform": "Windows-11-10.0.26200-SP0"
+  }
+}

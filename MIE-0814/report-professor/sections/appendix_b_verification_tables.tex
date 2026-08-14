@@ -1,0 +1,88 @@
+\section{物理验证完整数字}
+
+本附录给出三条物理判据在四个复现对象上的完整数字。证据位置以复现工程内的文件路径标注。
+
+\subsection{① 多近似方法对比}
+
+\begin{longtable}{p{4.6cm}p{5.4cm}p{3.2cm}}
+\caption{多近似方法对比的完整数字。}\label{tab:multi_method}\\
+\toprule
+验证项 & 关键数字 & 状态 \\
+\midrule
+\endfirsthead
+\toprule
+验证项 & 关键数字 & 状态 \\
+\midrule
+\endhead
+Table 2 vs Mie（Fig.~1 介电球，200 点） & ED $0.1404\%$ / MD $0.0383\%$ / EQ $0.2020\%$ / MQ $0.1252\%$ & PASS \\
+Table 2 vs Mie（Fig.~2 金球，加密网格） & ED $0.0119\%$ / MD $0.0170\%$ / EQ $0.0161\%$ / MQ $0.0241\%$ & PASS \\
+miepython 交叉（Fig.~1） & 相对差 $\sim10^{-16}$ & PASS \\
+miepython 交叉（Grahn $x=0.5,m=2.5$） & 相对差 $1.59\times10^{-15}$ & PASS \\
+Grahn Path A vs Table 1 & 总截面 max $5.71\times10^{-7}$ & PASS \\
+Grahn Path B vs Mie & 总截面 max $2.94\times10^{-4}$（200 点） & PASS \\
+Grahn 逐 $m$ 复系数 & max $1.52\times10^{-3}$（1298 行） & PASS \\
+独立远场投影（scipy VSH + Hankel） & max complex rel $7.74\times10^{-15}$ & PASS \\
+FEM vs BEM（Fig.~3 双盘，PEC） & ED $73\%$ / MQ $95\%$ 一致；MD/EQ 被 PEC 抑制 & 部分（诊断） \\
+第三方 Tidy3D/MENP & c-Si 球，不同对象，strict FAIL & 不适用（对象不同） \\
+\bottomrule
+\end{longtable}
+
+\subsection{② 极限退化}
+
+\begin{longtable}{p{4.6cm}p{5.4cm}p{3.2cm}}
+\caption{极限退化的完整数字。}\label{tab:limit}\\
+\toprule
+验证项 & 关键数字 & 状态 \\
+\midrule
+\endfirsthead
+\toprule
+验证项 & 关键数字 & 状态 \\
+\midrule
+\endhead
+Table 2 $\to$ Table 1（长波退化） & ED/MD/EQ/MQ 四条相对差 $<1\%$；$j_l/(kr)^l\to1/(2l+1)!!$（$1/3,1/15,1/105$） & PASS \\
+Table 1 大尺寸失效（预期行为） & $s=0.75$ 复矩 ED $136.17\%$、MD $277.74\%$（$>100\%$） & PASS \\
+Mie $\to$ Rayleigh 散射 & log--log 斜率 $4.00$（目标 $4\pm0.05$） & PASS \\
+大尺寸极限 $Q_{\rm ext}\to2$ & $\|Q_{\rm ext}(120)-2\|<0.05$ & PASS \\
+Grahn Rayleigh canonical slope & $6.098$（目标 $[6.0,6.3]$） & PASS \\
+Fig.~3 双盘长波退化 & 无解析长波目标（非球形） & 待补 \\
+\bottomrule
+\end{longtable}
+
+\subsection{③ 能量守恒与光学定理}
+
+\begin{longtable}{p{4.6cm}p{5.4cm}p{3.2cm}}
+\caption{能量守恒与光学定理的完整数字。}\label{tab:energy}\\
+\toprule
+验证项 & 关键数字 & 状态 \\
+\midrule
+\endfirsthead
+\toprule
+验证项 & 关键数字 & 状态 \\
+\midrule
+\endhead
+Fig.~1 能量守恒 $C_{\rm ext}=C_{\rm sca}+C_{\rm abs}$ & $<10^{-10}$（多 $x$，无吸收 $C_{\rm abs}=0$） & PASS \\
+Fig.~1 光学定理 $S(0)$ & $<10^{-10}$ & PASS \\
+Fig.~2 光学定理 $S(0)$（双路独立） & 复 $S(0)$ 差 $1.2\times10^{-14}$；series$\to C_{\rm ext}$ 差 $2.2\times10^{-16}$ & PASS \\
+Grahn Eq.~(22) vs Eq.~(20) & rel $5.96\times10^{-7}$（$C_{\rm ext}=5.127424$ vs $C_{\rm sca}=5.127421$） & PASS \\
+Fig.~3 远场/功率闭合 & power balance $=1.0$（所有网格）；unresolved $4.7\times10^{-5}$（0.5 网格） & PASS \\
+Fig.~3 BEM 远场闭合 & $l>2$ 未解析 $3.93\times10^{-4}$；径向能量 $6.6\times10^{-30}$ & PASS \\
+\bottomrule
+\end{longtable}
+
+\subsection{物理验证矩阵汇总}
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{lcccc}
+\toprule
+& Fig.~1 介电球 & Fig.~2 金球 & Grahn 映射 & Fig.~3 双盘 \\
+\midrule
+① 多近似互验 & $\checkmark$ & $\checkmark$ & $\checkmark$ & 部分（FEM/BEM） \\
+② 极限退化 & $\checkmark$ & $\checkmark$（复用） & $\checkmark$ & 待补 \\
+③ 能量守恒/光学定理 & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ \\
+\bottomrule
+\end{tabular}
+\caption{三条物理判据 × 四个复现对象。}
+\label{tab:verification_matrix}
+\end{table}

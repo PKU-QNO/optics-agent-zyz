@@ -1,0 +1,46 @@
+\section{晋级路径与最终结论}
+
+\subsection{各轮 promotion 条件}
+
+\begin{table}[H]
+\centering
+\footnotesize
+\begin{tabularx}{\textwidth}{p{1.4cm}p{3.0cm}X}
+\toprule
+轮次 & 当前 ceiling/状态 & 合法晋级所需新增证据 \\
+\midrule
+Fig.1 & 治理层 pending & 用户明确批准复矩范数为论文主 gate，签发 hash-bound superseding receipt，并给出规范 SEPR class；若追求全图 physical success，还需预注册全域 paper-vector/误差目标，而非从单点外推 \\
+Fig.2 & partial physical match & 预注册并执行 uncertainty-aware dense/physics UQ 与 Q 规则；补齐来源绑定的全域材料/论文 trace；介电 MQ strict gate 闭合后重新过 gate 4 \\
+Grahn & 固有 method consistency & 先由用户关闭本轮 gate 4；若追求更高物理等级，应另开新轮，冻结论文 observable、独立物理真值、Layer 3 数据和人工 gate，不能回改本轮阈值 \\
+Fig.3 & partial physical match（COMSOL 真解谱）& 已完成频域 FEM 真解（9 点谱 + $x=0.36$ 网格收敛 + 远场/功率闭合）与 BEM 128G 方法论验证；剩余 MD/EQ 网格残差（p-refinement 或 Richardson 收敛）、高阶 $l>4$ 逐阶、BEM farfield 后处理与 G0/G2/G3/G6 人工 gate \\
+\bottomrule
+\end{tabularx}
+\caption{晋级必须增加证据，不能仅修改叙述或放宽阈值。}
+\end{table}
+
+\subsection{推荐的 Fig.3 最短执行序列}
+
+\begin{enumerate}
+  \item 人工批准主 observable、arXiv-v2 Eq.(1)、relative-error floor/mask 与 B7 surrogate 边界；
+  \item 冻结 host、spacer、激励、JC 缺口处理、current domains 与 $x_{\rm A}$ 采样；
+  \item 建立可编译且可求解的 COMSOL frequency-domain scattering template，记录模型 hash、runtime/job receipt 和来源绑定；
+  \item 完成 mesh、PML/开放边界、材料插值、求解器与能量闭环；导出复数 $\mathbf E,\mathbf H,\mathbf J$ 和积分权重；
+  \item 对同一 $\mathbf J$ 计算 Table 1/Table 2 四通道，完成 panel (a)/(b) trace、UQ 与人工审查；
+  \item 仅在有复振幅 observable 且另行预注册时启用 Fano fit；Fano 不作为默认 promotion gate。
+\end{enumerate}
+
+\subsection{最终结论}
+
+本项目已经完成一条可审计的多极复现方法链，并通过球体 Mie、材料分层、Grahn 双路径、逐 $m$、解析 fixture、光学定理与远场投影等多重证据检验。关键方法数字为：
+\begin{itemize}
+  \item Fig.1 Table 2--Mie 四通道最大误差为 0.0383\% 到 0.2020\%。在 exact $s=0.75$，复矩 ED 为 136.1669\%，MD 为 277.7424\%；
+  \item Fig.2 refined 方法误差 0.01186\%--0.02414\%，网格变化最大 0.09069\%；介电 MQ strict RMSE/p95=0.02556/0.05695，仍 \rc{UNRESOLVED}；
+  \item Grahn Path A total max $5.706\times10^{-7}$，Path B total max $2.935\times10^{-4}$，逐 $m$ max $1.517\times10^{-3}$；
+  \item Fig.3 COMSOL 频域 FEM 真解谱 9 点（$x=0.26$--$0.42$）ED 主导 + MD/EQ $x=0.36$ 磁共振（MD $1.60\times10^{-12}$ m$^2$）；$x=0.36$ 网格收敛 MD/EQ 步进 $2.26\%/1.95\%$（Richardson 外推 $p\approx1.3$）；远场闭合 unresolved $<0.08\%$；BEM 边界元 128G 跑通（对比 FEM 900G）。
+\end{itemize}
+
+因此，最终总评不是单一“成功/失败”，而是分级结论：Fig.1 方法与选定 metric 的单点声明有 PASS 证据但治理层待重签；Fig.2 为 \rc{partial\_physical\_match}（方法自洽确凿，UQ 八 lane 因读图数据退役而 \rc{UNRESOLVED}）；Grahn 为 \rc{method\_consistency}；Fig.3 为 \rc{partial\_physical\_match}（COMSOL 真解谱 + BEM 方法论，MD/EQ 网格残差与高阶多极待补）。后续 promotion 的正确路径是补齐来源、UQ、高阶多极逐阶与人工 receipt，而不是改阈值或美化 class。
+
+\subsection{交付与审计索引}
+
+LaTeX 工程位于 \path{report-final/}，最终 PDF 为 \path{report-final/main_aux/main.pdf}。B10 的数字重算台账与 gate/过度声称审查分别位于 \path{codex-prompts/out/B10-audit-numbers.md} 和 \path{codex-prompts/out/B10-audit-gates.md}。这些台账是本报告关键数字和边界判断的直接审计入口；轮次原始数据与收据仍保留在各自目录，不因本报告生成而改写。

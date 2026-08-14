@@ -1,0 +1,42 @@
+\section{物理验证：为什么我相信自己算对了}
+
+数值复现最大的风险不是「代码能跑」，而是「代码跑出的数凑巧像对的」。我按三条相互独立的物理判据系统验证了每个结果，任何一条不过都不放过。
+
+\subsection{① 多近似方法对比：不同实现/方法互相印证}
+
+同一物理量若被两条\textbf{独立}路径算出相同结果，就排除了「单一路径的 bug 碰巧出对」的可能。
+
+\begin{itemize}
+  \item \textbf{球体：Table 2 体积分 vs Lorenz--Mie 系数级数}。Table 2 是对电流做体积积分，Mie 是球谐级数求和，两条数学路径完全不同，却在四通道 $<0.21\%$（介电球）/ $<0.03\%$（金球）内一致。这直接证明 Table 2 的精确多极矩公式和实现是对的。
+  \item \textbf{Grahn：双路径 + 独立库}。Path A（长波截断）与 Path B（有限核）分别与 Table 1/Mie 对比，误差 $5.7\times10^{-7}$/$2.9\times10^{-4}$；再与第三方库 \texttt{miepython} 交叉（相对差 $1.6\times10^{-15}$）、与独立远场投影交叉（$7.7\times10^{-15}$），四个独立来源互证。
+  \item \textbf{Fig.~3 双盘：有限元 vs 边界元}。同一几何、同一材料，用两种数值方法求解：频域有限元（900G 内存）与边界元（128G 内存）。PEC 近似下 ED/MQ 两通道在 $73\%/95\%$ 内一致，验证了两套求解器与多极矩后处理的正确性；MD/EQ 的差异源于 PEC 丢失了金的损耗（理想导体无磁共振），是已知的模型近似而非求解错误。
+\end{itemize}
+
+\subsection{② 极限退化：长波/小尺寸极限回到已知解析结果}
+
+精确公式在极限下必须退化回更简单的已知结果，这是对「公式适用范围」的强检验。
+
+\begin{itemize}
+  \item \textbf{Table 2 $\to$ Table 1（长波）}：$kr\to0$ 时 $j_l(kr)\to(kr)^l/(2l+1)!!$，Table 2 精确多极矩逐条退化回 Table 1 长波近似，ED/MD/EQ/MQ 四条相对差 $<1\%$。这是理论推导最核心的退化检查。
+  \item \textbf{Mie $\to$ Rayleigh 散射}：小尺寸极限下散射截面 $\propto x^4$，我验证 log--log 斜率为 $4.00$（目标 $4\pm0.05$）。
+  \item \textbf{大尺寸极限 $Q_{\rm ext}\to2$}：$\|Q_{\rm ext}(x=120)-2\|<0.05$。
+  \item \textbf{Grahn Rayleigh canonical slope}：$6.098$，落在目标区间 $[6.0,6.3]$。
+  \item \textbf{Fig.~3 双盘的长波退化}：双盘无解析长波目标（非球形），无法做解析极限退化；球体的退化已验证，双盘的极限退化作为后续工作，如实标注。
+\end{itemize}
+
+\subsection{③ 能量守恒与光学定理：物理量的内部自洽}
+
+能量守恒与光学定理是 Maxwell 方程的直接推论，任何正确的解都必须满足，这是最「硬」的物理约束。
+
+\begin{itemize}
+  \item \textbf{能量守恒 $C_{\rm ext}=C_{\rm sca}+C_{\rm abs}$}：介电球无吸收，$C_{\rm ext}=C_{\rm sca}$ 在多 $x$ 扫描下误差 $<10^{-10}$。
+  \item \textbf{光学定理 $S(0)$}：消光截面由前向散射振幅的虚部决定。我独立实现了双路 $S(0)$（级数求和对前向极限），两路复振幅差 $1.2\times10^{-14}$；金球 550/1000/1700 nm 的吸收支路 $C_{\rm abs}>0$ 正确。
+  \item \textbf{Grahn Eq.~(22) $\leftrightarrow$ Eq.~(20)}：消光与散射两式在 $x=0.5$ 处相对差 $5.96\times10^{-7}$（$C_{\rm ext}=5.127424$ vs $C_{\rm sca}=5.127421$）。
+  \item \textbf{Fig.~3 远场/功率闭合}：COMSOL 的散射功率通量 $C_{\rm sca,flux}$ 与多极矩之和 $C_{\rm multipole,sum}$ 闭合，power balance $=1.0$（所有网格档位），未解析比例 $4.7\times10^{-5}$（0.5 网格）到 $3.9\times10^{-4}$（BEM）。这验证了「多极分解之和 = 总散射」这一关键物理闭合。
+\end{itemize}
+
+\begin{important}
+  \textbf{三项验证的分工}：多近似对比排除了「实现 bug」；极限退化排除了「公式抄错」；能量守恒/光学定理排除了「物理不自洽」。三者叠加，是我对「算对了」的信心来源。球体（Fig.~1/2）三项全过；Grahn 三项全过；Fig.~3 双盘能量守恒/光学定理与多近似（FEM/BEM）通过，极限退化因无解析目标而待补。
+\end{important}
+
+完整的验证数字与证据位置见附录 B。

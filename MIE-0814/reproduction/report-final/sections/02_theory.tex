@@ -1,0 +1,81 @@
+\section{统一理论框架}
+
+\subsection{坐标、时谐约定与散射电流}
+
+采用 $e^{-i\omega t}$ 时谐约定。背景波数 $k=2\pi n_d/\lambda_0=2\pi/\lambda_d$，Alaee 图轴与 Mie 宗量分别为
+\begin{equation}
+  x_{\rm A}=\frac{2a}{\lambda_d},\qquad x_{\rm Mie}=ka=\pi x_{\rm A}.
+\end{equation}
+局域散射电流为
+\begin{equation}
+  \mathbf J(\mathbf r)=-i\omega\varepsilon_0\bigl[\varepsilon_r(\mathbf r)-\varepsilon_{r,d}\bigr]\mathbf E(\mathbf r),
+  \label{eq:current}
+\end{equation}
+它是四轮的共同输入：球体由解析 Mie 内部场给出；耦合非球形结构则必须由配置完整的数值求解器给出。
+
+\subsection{Alaee Table 1 与 Table 2}
+
+Table 1 是 $kr\to0$ 的长波近似；Table 2 保留球 Bessel 核，来自精确辐射多极矩理论\cite{Alaee2018,FernandezCorbaton2015}。以电偶极为例，Table 2 写为
+\begin{equation}
+\begin{aligned}
+p_\alpha=-\frac{1}{i\omega}\Bigg\{&\int J_\alpha j_0(kr)\,d^3r\\
+&+\frac{k^2}{2}\int\left[3(\mathbf r\cdot\mathbf J)r_\alpha-r^2J_\alpha\right]
+\frac{j_2(kr)}{(kr)^2}\,d^3r\Bigg\}.
+\end{aligned}
+\label{eq:exact-ed}
+\end{equation}
+MD、EQ、MQ 分别使用 $j_1/(kr)$、$j_1/(kr)$ 与 $j_3/(kr)^3$ 的组合、以及 $j_2/(kr)^2$。原点极限是 $j_0\to1$、$j_1/\rho\to1/3$、$j_2/\rho^2\to1/15$、$j_3/\rho^3\to1/105$。实现中的关键修复是位置分量必须保留径向因子 $u=r/a$；若把 $r/a$ 误写成纯方向余弦，$\mathbf r\cdot\mathbf J$、$\mathbf r\times\mathbf J$ 与四极张量都会少一阶径向权重。
+
+\subsection{Alaee Eq.(1) 与 Mie 通道}
+
+本实现 authority 冻结为 arXiv:1701.00755v2 的量纲自洽版本：
+\begin{equation}
+\begin{aligned}
+C_{\rm sca}=\frac{k^4}{6\pi\varepsilon_0^2|E_0|^2}\Bigg[&\sum_\alpha\left(|p_\alpha|^2+\frac{|m_\alpha|^2}{c^2}\right)\\
+&+\frac{1}{120}\sum_{\alpha\beta}\left(|kQ^e_{\alpha\beta}|^2+\frac{|kQ^m_{\alpha\beta}|^2}{c^2}\right)\Bigg].
+\end{aligned}
+\label{eq:alaee1}
+\end{equation}
+归一化到 $\lambda_d^2/(2\pi)$ 后，代码使用
+\begin{align}
+C_{\rm ED}&=\frac{x^6}{12\pi^2}\sum_\alpha|p_\alpha|^2,&
+C_{\rm MD}&=\frac{x^8}{12\pi^2}\sum_\alpha|m_\alpha|^2,\\
+C_{\rm EQ}&=\frac{x^8}{1440\pi^2}\sum_{\alpha\beta}|Q^e_{\alpha\beta}|^2,&
+C_{\rm MQ}&=\frac{x^{10}}{1440\pi^2}\sum_{\alpha\beta}|Q^m_{\alpha\beta}|^2.
+\end{align}
+对球体，Bohren--Huffman 约定下\cite{Bohren1983}
+\begin{equation}
+C_{\rm ED}=3|a_1|^2,\quad C_{\rm MD}=3|b_1|^2,\quad
+C_{\rm EQ}=5|a_2|^2,\quad C_{\rm MQ}=5|b_2|^2.
+\label{eq:miechannels}
+\end{equation}
+这给出 Table 2 的独立闭式真值。期刊最终排版中的磁项 glyph 尚未单独核定，因此本报告不把期刊字形状态写成 resolved。
+
+\subsection{Grahn 电流到球多极系数的桥接}
+
+Grahn 体系直接把 $\mathbf J$ 投影为 $a_E(l,m)$、$a_M(l,m)$\cite{Grahn2012}，任意入射的全 $m$ 截面为
+\begin{equation}
+C_{\rm sca}=\frac{\pi}{k^2}\sum_{l,m}(2l+1)\left(|a_E(l,m)|^2+|a_M(l,m)|^2\right).
+\end{equation}
+Path A 对 raw $M^{(1)}$、$M^{(2)}$、$M^{(3)}$ 做无核长波映射；其中
+\begin{equation}
+M_{\rm STF}=\frac12(M+M^T)-\frac13I\,\mathrm{tr}M,\quad
+M_A=\frac12(M-M^T),\quad M=M_{\rm STF}+M_A+M_{\rm tr}.
+\end{equation}
+Alaee 的 $Q^e=6\,\mathrm{STF}(M_2)$ 只在该长波限定下成立。Path B 使用 Grahn Eq.(15)(16) 的有限 Bessel/Riccati 核，避免把长波截断当成全域真值。逐 $m$ 复系数与 Eq.(22) 光学定理进一步锁定相位，防止仅靠模平方掩盖 $a/b$ 互换或符号错误。
+
+\subsection{Fano 与多极干涉边界}
+
+标准无损 Fano feature 可写为\cite{Miroshnichenko2010}
+\begin{equation}
+F(\epsilon)=\frac{(\epsilon+q)^2}{1+\epsilon^2},\qquad
+\epsilon=\frac{2(x-x_0)}{\Gamma}.
+\label{eq:fano}
+\end{equation}
+其物理核心是同一观测通道的复振幅相干叠加：
+\begin{equation}
+I\propto|A_{\rm bg}+A_{\rm res}|^2
+=|A_{\rm bg}|^2+|A_{\rm res}|^2+2\operatorname{Re}(A_{\rm bg}A_{\rm res}^*).
+\end{equation}
+不同正交多极通道在均匀无界背景、全立体角与完整偏振积分后没有显式跨通道功率交叉项；方向分辨、有限数值孔径、界面或同一通道内部的背景--共振分解则可保留交叉项\cite{Tribelsky2016,Fu2013}。因此 Alaee Fig.3 的主 observable 是 ED/MD/EQ/MQ 的 Table 1/Table 2 分通道功率，而 Fano 只作为诊断，不能反向提升 Fig.3 result class。
+

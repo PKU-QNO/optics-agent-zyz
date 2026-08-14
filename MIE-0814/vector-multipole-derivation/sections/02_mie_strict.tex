@@ -1,0 +1,359 @@
+\section{Mie 理论严格解}
+%=============================================================================
+
+\textbf{Mie 理论}（Gustav Mie, 1908）给出了均匀球体对平面波散射的\textbf{严格解析解}。
+\S0 已给出结论（Mie 系数与散射截面），本章用 \S1 建立的矢量球谐工具\textbf{完整推导}它们：
+从 Debye 势分离变量，到边界条件确定 Mie 系数，再到散射截面的推导。
+它是整个多极展开方法最经典的应用，也是验证一切数值代码的标准基准。
+
+\subsection{问题描述}
+
+\begin{stepbox}{物理图像}
+\begin{center}
+\begin{tikzpicture}[scale=0.8]
+  \shade[ball color=gray!30] (0,0) circle (1.2);
+  \draw[->, thick] (-3,1.5) -- (-0.5,0.5) node[midway,above] {$\mathbf{E}_i$};
+  \draw[->, dashed] (-3,0.8) -- (-1.2,0.8);
+  \draw[->, thick] (0.8,0.8) -- (2.5,2.0) node[midway,above right] {$\mathbf{E}_s$};
+  \draw[->, thick] (0.8,-0.5) -- (2.5,-1.2) node[midway,below right] {$\mathbf{E}_s$};
+  \node at (0,-1.5) {半径 $a$, $\epsilon_r = n^2$};
+  \node at (0,1.8) {$\epsilon_{r,d}$};
+\end{tikzpicture}
+\end{center}
+
+\begin{itemize}
+  \item 球体半径 $a$，相对介电常数 $\epsilon_r = n^2$（$\mu_r = 1$）
+  \item 背景介质介电常数 $\epsilon_{r,d}$，波数 $k = \omega\sqrt{\mu_0\epsilon_0\epsilon_{r,d}}$
+  \item 波阻抗 $\eta = \sqrt{\mu_0/\epsilon_0\epsilon_{r,d}}$
+  \item 入射平面波 $\mathbf{E}_i = E_0\,e^{ikz}\,\hat{\mathbf{x}}$（沿 $z$ 传播，$x$ 偏振）
+  \item 折射率对比 $m = n/n_d$（相对折射率），尺度参数 $x = ka$
+\end{itemize}
+\end{stepbox}
+
+核心思想很简单：在球坐标中分离变量，将三个区域（入射场、内部场、散射场）都用球 Bessel 函数和球谐函数的组合展开，
+然后在球面 $r=a$ 上匹配切向边界条件。
+
+\subsection{经典求解路径（Debye 势法）}
+
+在球对称问题中，最简洁的路径是使用\textbf{Debye 势}（也称 Mie 势）。
+对于无源区域的时谐 Maxwell 方程（$\rho=0,\mathbf{J}=0$），
+电场和磁场可以完全由两个标量势函数生成，分别对应\textbf{横电模（TE）}和\textbf{横磁模（TM）}。
+
+定义：
+
+\begin{itemize}
+  \item \textbf{TM（电多极）模}：$\mathbf{H}$ 纯切向，$\mathbf{E}$ 有径向分量
+    \begin{equation}
+      \mathbf{H}^{\text{(TM)}} = \nabla\times(\mathbf{r}\Pi_{\text{TM}}),\qquad
+      \mathbf{E}^{\text{(TM)}} = \frac{1}{i\omega\epsilon_0\epsilon_{r,d}}\nabla\times\nabla\times(\mathbf{r}\Pi_{\text{TM}})
+    \end{equation}
+    （$\nabla\times(\mathbf{r}\Pi)$ 是纯切向的 M 型波函数，$\nabla\times\nabla\times(\mathbf{r}\Pi)$
+    是有径向分量的 N 型波函数——与 \S2.3.3 的 $\mathbf{M}_{o1l}$（磁/TE）、$\mathbf{N}_{e1l}$（电/TM）配对一致。）
+  \item \textbf{TE（磁多极）模}：$\mathbf{E}$ 纯切向，$\mathbf{H}$ 有径向分量
+    \begin{equation}
+      \mathbf{E}^{\text{(TE)}} = \nabla\times(\mathbf{r}\Pi_{\text{TE}}),\qquad
+      \mathbf{H}^{\text{(TE)}} = -\frac{1}{i\omega\mu_0}\nabla\times\nabla\times(\mathbf{r}\Pi_{\text{TE}})
+    \end{equation}
+\end{itemize}
+
+两种势都满足\textbf{标量 Helmholtz 方程}：
+
+\begin{equation}
+  (\nabla^2 + k^2)\Pi = 0
+\end{equation}
+
+在球坐标中分离变量 $\Pi(r,\theta,\phi) = R(r)Y_{lm}(\theta,\phi)$，径向方程为球 Bessel 方程：
+
+\begin{equation}
+  \Bigl[\frac{d^2}{dr^2} + \frac{2}{r}\frac{d}{dr} + \Bigl(k^2 - \frac{l(l+1)}{r^2}\Bigr)\Bigr]R(r) = 0
+\end{equation}
+
+三种径向函数分别对应不同区域：
+\begin{itemize}
+  \item $j_l(kr)$：在 $r=0$ 有限$\quad\to\quad$ 入射场和内部场
+  \item $h_l^{(1)}(kr)$：$r\to\infty$ 为出射波$\quad\to\quad$ 散射场
+  \item $n_l(kr)$：$r=0$ 发散$\quad\to\quad$ 在球问题中不用
+\end{itemize}
+
+\subsection{各区域的展开形式}
+
+三个区域分别展开如下。为简洁，记 $\psi_l(z) = z\,j_l(z)$（Riccati--Bessel），$\xi_l(z) = z\,h_l^{(1)}(z)$。
+
+\subsubsection{入射平面波（已知）}
+
+入射平面波 $\mathbf{E}_i = E_0 e^{ikz}\hat{\mathbf{x}}$ 在 VSH 中有标准展开。我们在此直接给出结果：
+
+\begin{align}
+  \mathbf{E}_i &= E_0\sum_{l=1}^\infty i^l\frac{2l+1}{l(l+1)}\Bigl[
+    \nabla\times\bigl(j_l(kr)\mathbf{X}_{l1}\bigr)
+    - \nabla\times\bigl(j_l(kr)\mathbf{X}_{l,-1}\bigr) \notag\\
+    &\qquad\qquad - i\,j_l(kr)(\mathbf{X}_{l1} + \mathbf{X}_{l,-1})
+  \Bigr] \times \frac{1}{\sqrt{2}} \label{eq:Mie_planewave}
+\end{align}
+
+或者更常见的形式（Bohren \& Huffman 之 M/N 矢量展开）：
+
+\begin{align}
+  \mathbf{E}_i &= E_0\sum_{l=1}^\infty i^l\frac{2l+1}{l(l+1)}\Bigl(
+    \mathbf{M}_{o1l}^{(1)} - i\mathbf{N}_{e1l}^{(1)}\Bigr) \label{eq:mie_pw_MN}
+\end{align}
+
+其中 $\mathbf{M}_{o1l}^{(1)}$ 和 $\mathbf{N}_{e1l}^{(1)}$ 分别是 TE 模和 TM 模的矢量波函数，与本 VSH 体系的对应为 $\mathbf{M}_{o1l} \propto j_l\mathbf{X}_{l1}$ 和 $\mathbf{N}_{e1l} \propto \nabla\times(j_l\mathbf{X}_{l1})$。
+
+\subsubsection{散射场（待定系数）}
+
+出射波边条件强制使用 $h_l^{(1)}(kr)$：
+
+\begin{align}
+  \mathbf{E}_s &= E_0\sum_{l=1}^\infty i^l\frac{2l+1}{l(l+1)}\Bigl(
+    i\tilde{a}_l\,\mathbf{N}_{e1l}^{(3)} - \tilde{b}_l\,\mathbf{M}_{o1l}^{(3)}\Bigr) \label{eq:mie_Es}\\[0.3em]
+  \mathbf{H}_s &= \frac{E_0}{\eta}\sum_{l=1}^\infty i^l\frac{2l+1}{l(l+1)}\Bigl(
+    \tilde{b}_l\,\mathbf{M}_{o1l}^{(3)} + i\tilde{a}_l\,\mathbf{N}_{e1l}^{(3)}\Bigr) \label{eq:mie_Hs}
+\end{align}
+
+上标 (3) 表示径向函数为 $h_l^{(1)}$。
+$\mathbf{M}_{o1l}$ 是\textbf{磁多极}（TE）矢量波函数，$\mathbf{N}_{e1l}$ 是\textbf{电多极}（TM）矢量波函数——
+即 $a_l$（电）与 $\mathbf{N}$ 配对、$b_l$（磁）与 $\mathbf{M}$ 配对（Bohren--Huffman 标准约定）。
+
+\subsubsection{内部场（待定系数）}
+
+粒子内部波数为 $k_{\text{in}} = n k$（更一般地 $k_{\text{in}} = \sqrt{\epsilon_r\mu_r}\,k$），径向函数使用 $j_l$ 以保证在球心有限：
+
+\begin{align}
+  \mathbf{E}_{\text{in}} &= E_0\sum_{l=1}^\infty i^l\frac{2l+1}{l(l+1)}\Bigl(
+    \tilde{c}_l\,\mathbf{M}_{o1l}^{(1)}(k_{\text{in}}) - i\tilde{d}_l\,\mathbf{N}_{e1l}^{(1)}(k_{\text{in}})\Bigr) \label{eq:mie_Ein}\\[0.3em]
+  \mathbf{H}_{\text{in}} &= \frac{E_0 n}{\eta_{\text{in}}}\sum_{l=1}^\infty i^l\frac{2l+1}{l(l+1)}\Bigl(
+    \tilde{d}_l\,\mathbf{N}_{o1l}^{(1)}(k_{\text{in}}) + i\tilde{c}_l\,\mathbf{M}_{e1l}^{(1)}(k_{\text{in}})\Bigr) \label{eq:mie_Hin}
+\end{align}
+
+其中 $\eta_{\text{in}} = \sqrt{\mu_0/\epsilon_0\epsilon_r}$ 是粒子内部波阻抗。
+
+\subsection{边界条件确定系数}
+
+在球面 $r=a$ 处，切向电场和磁场连续：
+
+\begin{align}
+  \hat{\mathbf{r}}\times(\mathbf{E}_i + \mathbf{E}_s) &= \hat{\mathbf{r}}\times\mathbf{E}_{\text{in}} \quad\text{at } r=a \\
+  \hat{\mathbf{r}}\times(\mathbf{H}_i + \mathbf{H}_s) &= \hat{\mathbf{r}}\times\mathbf{H}_{\text{in}} \quad\text{at } r=a
+\end{align}
+
+由于所有场已按角动量 $l$ 分离（不同 $l$ 之间正交不耦合），边界条件对每个 $l$ 分别给出两个代数方程。
+解出 $\tilde{a}_l,\tilde{b}_l$ 后，得经典 Mie 系数 $a_l,b_l$：
+
+\subsubsection{经典 Mie 系数}
+
+\begin{equation}
+  \boxed{\;
+  a_l = \frac{m\psi_l(mx)\psi'_l(x) - \psi_l(x)\psi'_l(mx)}
+            {m\psi_l(mx)\xi'_l(x) - \xi_l(x)\psi'_l(mx)}
+  \;}
+  \label{eq:mie_al}
+\end{equation}
+
+\begin{equation}
+  \boxed{\;
+  b_l = \frac{\psi_l(mx)\psi'_l(x) - m\psi_l(x)\psi'_l(mx)}
+            {\psi_l(mx)\xi'_l(x) - m\xi_l(x)\psi'_l(mx)}
+  \;}
+  \label{eq:mie_bl}
+\end{equation}
+
+其中：
+
+\begin{align}
+  x &= ka = \frac{2\pi n_d a}{\lambda_0} \qquad\text{(尺度参数)} \\
+  m &= \frac{n}{n_d} = \sqrt{\frac{\epsilon_r}{\epsilon_{r,d}}} \qquad\text{(相对折射率)} \\
+  \psi_l(z) &= z\,j_l(z) \qquad\text{(Riccati--Bessel 函数)} \\
+  \xi_l(z) &= z\,h_l^{(1)}(z) \qquad\text{(出射 Riccati--Bessel)} \\
+  \psi'_l(z) &= \frac{d}{dz}\psi_l(z),\quad \xi'_l(z) = \frac{d}{dz}\xi_l(z)
+\end{align}
+
+\begin{stepbox}{$a_l$ 和 $b_l$ 的物理含义}
+\begin{itemize}
+  \item $a_l$：电多极系数（TM 模，径向 $\mathbf{E}$）。对应 Grahn/Jackson 的 $a_E$。
+    瑞利极限 $a_1 \propto x^3$ 是电偶极。
+  \item $b_l$：磁多极系数（TE 模，径向 $\mathbf{H}$）。对应 Grahn/Jackson 的 $a_M$。
+    瑞利极限 $b_1 \propto x^5$ 是磁偶极。
+\end{itemize}
+\begin{important}
+\textbf{注意符号冲突}：传统 Lorenz--Mie 文献中的 $a_l$、$b_l$ 与 Grahn 框架中的 $a_E$、$a_M$ \textbf{名称不同但物理对应}：
+\begin{center}
+\begin{tabular}{ccl}
+\toprule
+Mie 系数 & 对应 Grahn 系数 & 物理意义 \\
+\midrule
+$a_l$ & $a_E(l,m)$ & 电多极散射系数（TM 模，径向 $\mathbf{E}$） \\
+$b_l$ & $a_M(l,m)$ & 磁多极散射系数（TE 模，径向 $\mathbf{H}$） \\
+\bottomrule
+\end{tabular}
+\end{center}
+这里采用 Bohren \& Huffman 的标准约定：$a_l$=电多极、$b_l$=磁多极。注意某些文献（如 Stratton 的早期约定）使用相反的记号，使用时务必确认所在文献的约定。
+\end{important}
+\end{stepbox}
+
+\subsection{散射截面与消光截面}
+
+散射截面的物理含义：散射功率与入射能流密度之比。用 Mie 系数可简洁表达：
+
+\begin{stepbox}{经典 Mie 散射截面}
+\begin{align}
+  C_{\text{sca}} &= \frac{2\pi}{k^2}\sum_{l=1}^\infty (2l+1)\bigl(|a_l|^2 + |b_l|^2\bigr) \label{eq:mie_Csca}\\[0.3em]
+  C_{\text{ext}} &= \frac{2\pi}{k^2}\sum_{l=1}^\infty (2l+1)\,\Re(a_l + b_l) \label{eq:mie_Cext}\\[0.3em]
+  C_{\text{abs}} &= C_{\text{ext}} - C_{\text{sca}} \label{eq:mie_Cabs}
+\end{align}
+
+其中 $C_{\text{ext}}$ 来自\textbf{光学定理}：前向散射振幅的虚部决定了消光。
+\end{stepbox}
+
+\subsubsection{截面的物理定义}
+
+\begin{stepbox}{Poynting 矢量与截面定义}
+考虑平面波 $\mathbf{E}_i = E_0 e^{ikz}\hat{\mathbf{x}}$ 入射到散射体。
+
+\textbf{入射能流密度}（时间平均）：
+\begin{equation}
+  S_{\text{inc}} = \frac{1}{2\eta}|\mathbf{E}_0|^2
+\end{equation}
+
+\textbf{散射功率}：穿过包围散射体的大球面 $S_R$（半径 $R\to\infty$）的向外能流：
+\begin{equation}
+  W_{\text{sca}} = \oint_{S_R} \frac{1}{2\eta}|\mathbf{E}_s|^2 R^2\,d\Omega
+\end{equation}
+
+\textbf{散射截面}（散射功率/入射能流密度）：
+\begin{equation}
+  \boxed{\;C_{\text{sca}} = \frac{W_{\text{sca}}}{S_{\text{inc}}}
+  = \lim_{R\to\infty}R^2\oint\frac{|\mathbf{E}_s(R,\theta,\phi)|^2}{|\mathbf{E}_0|^2}\,d\Omega\;}
+  \label{eq:Csca_def}
+\end{equation}
+
+\textbf{消光截面}（光学定理）：$C_{\text{ext}}$ 由前向散射振幅的虚部决定：
+\begin{equation}
+  C_{\text{ext}} = \frac{4\pi}{k}\,\Im\bigl[\hat{\mathbf{e}}\cdot\mathbf{f}(\hat{\mathbf{k}}_i)\bigr]
+  \label{eq:optical_theorem}
+\end{equation}
+其中 $\mathbf{f}(\hat{k}_i)$ 是散射振幅。\textbf{吸收截面}：$C_{\text{abs}} = C_{\text{ext}} - C_{\text{sca}}$。
+\end{stepbox}
+
+\subsubsection{散射截面的完整推导}
+
+\textbf{散射场远场渐近}：从本章的散射场展开~(\ref{eq:mie_Es}) 出发。
+远场极限 $kr\to\infty$ 用：
+\begin{equation}
+  h_l^{(1)}(kr) \xrightarrow{kr\to\infty} (-i)^{l+1}\frac{e^{ikr}}{kr},\qquad
+  \frac{d}{dr}h_l^{(1)}(kr) \approx ik\,h_l^{(1)}(kr)
+\end{equation}
+
+代入 $\mathbf{E}_s$ 并保留 $1/r$ 主导项，散射场化为：
+\begin{align}
+  \mathbf{E}_s(\mathbf{r}) \xrightarrow{r\to\infty}
+  E_0\,\frac{e^{ikr}}{-ikr}\sum_{l=1}^\infty
+  \frac{2l+1}{l(l+1)}\Bigl[
+    a_l\,\tau_l(\theta)\hat{\boldsymbol{\theta}}\cos\phi
+    - a_l\,\pi_l(\theta)\hat{\boldsymbol{\phi}}\sin\phi \notag\\
+    + b_l\,\pi_l(\theta)\hat{\boldsymbol{\theta}}\sin\phi
+    - b_l\,\tau_l(\theta)\hat{\boldsymbol{\phi}}\cos\phi
+  \Bigr]
+  \label{eq:mie_Es_far}
+\end{align}
+其中 $\pi_l(\theta) = \dfrac{P_l^1(\cos\theta)}{\sin\theta}$、$\tau_l(\theta) = \dfrac{d}{d\theta}P_l^1(\cos\theta)$。
+
+\textbf{微分散射截面}：
+\begin{equation}
+  \frac{d\sigma}{d\Omega} = \lim_{R\to\infty}R^2\frac{|\mathbf{E}_s|^2}{|\mathbf{E}_0|^2}
+\end{equation}
+代入~(\ref{eq:mie_Es_far})，交叉项（不同 $l$ 之间）在角度积分后消失
+（角函数 $\pi_l,\tau_l$ 的正交性）。
+
+\begin{stepbox}{角函数的正交性}
+$\pi_l,\tau_l$ 满足：
+\begin{equation}
+  \int_0^\pi\bigl(\pi_l\pi_{l'} + \tau_l\tau_{l'}\bigr)\sin\theta\,d\theta
+  = \frac{2l^2(l+1)^2}{2l+1}\,\delta_{ll'}
+\end{equation}
+交叉项 $\int\pi_l\tau_{l'}\sin\theta d\theta = 0$（奇偶性）。
+\end{stepbox}
+
+\textbf{对立体角积分——得到 $C_{\text{sca}}$}：
+\begin{equation}
+  C_{\text{sca}} = \frac{2\pi}{k^2}\sum_{l=1}^{\infty}(2l+1)\bigl(|a_l|^2 + |b_l|^2\bigr)
+  \label{eq:Csca_mie}
+\end{equation}
+
+\begin{stepbox}{积分细节}
+每一项贡献 $4\pi|E_0|^2/k^2 \times \frac{(2l+1)^2}{l^2(l+1)^2}\cdot\frac{l^2(l+1)^2}{2l+1}
+\times(|a_l|^2+|b_l|^2)$（$\phi$ 积分为 $\pi$，$\theta$ 积分含正交因子），
+合并即得 $\frac{2\pi}{k^2}(2l+1)$。$a_l$ 项与 $b_l$ 项角因子互补，贡献相加。
+\end{stepbox}
+
+\textbf{消光截面（光学定理）}：由~(\ref{eq:optical_theorem})，前向（$\theta=0$）散射振幅的虚部给出：
+\begin{equation}
+  C_{\text{ext}} = \frac{2\pi}{k^2}\sum_{l=1}^{\infty}(2l+1)\,\Re\bigl(a_l + b_l\bigr)
+  \label{eq:Cext_mie}
+\end{equation}
+验证：$\pi_l(0)=\tau_l(0)=\frac{l(l+1)}{2}$，代入远场取 $\Im$ 并应用光学定理即得。
+
+\textbf{吸收截面}：$C_{\text{abs}} = C_{\text{ext}} - C_{\text{sca}} \ge 0$（无增益介质）。
+
+\begin{noteworthy}
+\textbf{瑞利极限验证}：小粒子时只有电偶极 $a_1$ 显著（见 \S0），$C_{\text{sca}} \approx
+\frac{6\pi}{k^2}|a_1|^2 \propto k^4a^6$——经典瑞利 $\lambda^{-4}$ 散射律。$\checkmark$
+\end{noteworthy}
+
+\subsubsection{与 Grahn 框架的截面公式对比}
+
+Grahn Eq.(20) 给出的散射截面为：
+$$
+C_s = \frac{\pi}{k^2}\sum_{lm}(2l+1)\bigl(|a_E(l,m)|^2 + |a_M(l,m)|^2\bigr)
+$$
+
+对于球体，$|m|\le l$ 中只有 $m=\pm1$ 非零，且 $|a_E(l,\pm1)|^2$ 和 $|a_M(l,\pm1)|^2$ 与 $|b_l|^2$、$|a_l|^2$ 成正比，
+可验证两者等价。这正是 Grahn 选择 $i^l[\pi(2l+1)]^{1/2}$ 归一化的原因——使得截面公式变得尤为简单。
+
+\subsection{小粒子极限：瑞利散射}
+
+当 $x = ka \ll 1$（粒子远小于波长），Mie 系数可展开为首项：
+
+\begin{align}
+  a_1 &\approx -\frac{2i}{3}x^3\frac{m^2-1}{m^2+2} \quad\text{(电偶极)} \\
+  b_1 &\approx -\frac{i}{45}x^5(m^2-1) \quad\text{(磁偶极)} \\
+  a_2 &\approx -\frac{i}{15}x^5\frac{m^2-1}{2m^2+3} \quad\text{(电四极)}
+\end{align}
+
+\begin{stepbox}{小粒子极限的物理意义}
+\begin{itemize}
+  \item \textbf{电偶极} $a_1 \propto x^3$ 是主导项——小粒子表现得像一个电偶极子。
+    极化率 $\alpha \propto (m^2-1)/(m^2+2)$（Clausius--Mossotti 形式）。
+  \item \textbf{磁偶极} $b_1 \propto x^5$ 被压到 5 次方——小粒子几乎没有磁响应。
+    只有当粒子尺寸可与波长比拟时（$x\sim 1$），高极模才显著。
+  \item \textbf{电四极} $a_2 \propto x^5$ 同样被压制。
+\end{itemize}
+这就是为什么在纳米光学中，散射截面经常用偶极近似就足够准确——非偶极贡献在 $x\ll1$ 时自动消失，
+而 Mie 系数精确地给出了每阶的贡献量。
+\end{stepbox}
+
+\subsection{Mie 理论与多极展开的本质联系}
+
+回顾整篇推导，现在我们可以看清 Mie 理论在 Grahn 框架中的位置：
+
+\begin{center}
+\begin{tabular}{p{3.5cm}p{5cm}p{5cm}}
+\toprule
+& \textbf{Mie 理论} & \textbf{Grahn 框架} \\
+\midrule
+散射体 & 均匀球体（特殊解） & 任意形状（一般框架） \\
+方法 & 边界条件→线性方程组 & 电流积分→数值计算 \\
+$a_E/a_M$ 表达式 & Mie $b_l,a_l$ 的闭式 & 体积分 Eq.(15)--(16) \\
+适用范围 & 球形、层状球 & 任意粒子、阵列 \\
+输出 & 严格解析解 & 数值可计算的积分形式 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{noteworthy}
+\textbf{核心理解}：Mie 理论不是多极展开的替代，而是多极展开在球对称条件下的\textbf{具体实现}。
+当散射体具有球对称性时，各阶多极解耦，Mie 系数给出了解析的闭式。
+对于非球形粒子，多极仍可以展开，但各阶之间会耦合——此时必须用 Grahn 的积分方法或数值手段求解。
+\end{noteworthy}
+
+默认使用 $\mu_r=1$（非磁性材料）。对于磁性材料（$\mu_r\neq1$），Mie 系数需作相应修正。\bigskip
