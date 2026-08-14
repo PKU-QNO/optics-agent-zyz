@@ -1,0 +1,71 @@
+% !TEX program = xelatex
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[UTF8]{ctex}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{mdframed}
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{bm}
+\usepackage{caption}
+\usepackage{tabularx}
+\usepackage{float}
+
+\geometry{margin=2.2cm, top=2cm, bottom=2cm}
+\hypersetup{colorlinks=true, linkcolor=blue!60!black, urlcolor=blue!60!black}
+\setlength{\parindent}{2em}
+\setlist{nosep}
+
+\definecolor{annotblue}{RGB}{46,168,229}
+\definecolor{annotpink}{RGB}{220,50,180}
+
+\newenvironment{important}{%
+  \begin{mdframed}[linecolor=annotblue!70, backgroundcolor=annotblue!5, roundcorner=3pt]
+  \textcolor{annotblue}{$\blacktriangleright$ \textbf{要点}}
+  \medskip\par
+}{\end{mdframed}}
+
+\newenvironment{lesson}{%
+  \begin{mdframed}[linecolor=annotpink!70, backgroundcolor=annotpink!5, roundcorner=3pt]
+  \textcolor{annotpink}{$\blacktriangleright$ \textbf{教训}}
+  \medskip\par
+}{\end{mdframed}}
+
+\title{\textbf{LLM Agent 驱动的论文数值复现}\\
+  \large 以电磁多极展开（mie-f）四轮复现为例}
+
+\author{张元正}
+\date{2026-08-14}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\begin{center}
+  \fcolorbox{annotblue!50}{annotblue!5}{\parbox{0.92\textwidth}{\centering\small
+  \textcolor{annotblue}{$\blacktriangleright$} \textbf{报告定位}：本文面向 LLM / agent 方向读者，总结我如何用多 agent 编排\\
+  完成四篇电磁多极展开经典论文的数值复现。侧重 \textbf{agent 架构、工作流、记忆治理、验证方法论与经验沉淀}，\\
+  不展开电磁学物理本身（物理推导与验证数字见另两份给光学组的报告）。}}
+\end{center}
+
+\tableofcontents
+\newpage
+
+\input{sections/01_overview}
+\input{sections/02_agent_architecture}
+\input{sections/03_workflow}
+\input{sections/04_memory_knowledge}
+\input{sections/05_verification}
+\input{sections/06_figure_reading}
+\input{sections/07_challenges_skills}
+\input{sections/08_conclusion}
+
+\end{document}

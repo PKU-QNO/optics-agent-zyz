@@ -1,0 +1,59 @@
+\section{复现工作流}
+
+\subsection{多轮 × 7 步循环}
+
+每轮复现一张图/一个结论，轮内 7 步：
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+步 & 名 & 产出 \\
+\midrule
+01 & PDF 预处理 & 从论文提取参数/公式/图数据 \\
+02 & formalization & 参数确认 + 机器可判 spec（YAML） \\
+03 & theory notes & 公式来源、推导、与教材对标 \\
+04 & implementation & 代码 + 测试（TDD，物理约束先硬编码） \\
+05 & run \& monitor & 运行 + 收集数据 \\
+06 & physical verification & 3 层验证（硬约束→极限→论文图量化） \\
+07 & analysis \& report & 归因 + 双报告 + 记忆 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+轮间共享公共模块（特殊函数、基准解、多极矩），每轮开头先读上一轮 worklog 决定复用 vs 新建。
+
+\subsection{4 个人工 gate（agent 自由跑，gate 必须停）}
+
+agent 可以自动推进，但四个节点必须停下来问用户，不代替人工裁决：
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+gate & 触发点 & 用户核对什么 \\
+\midrule
+① 参数 gate & formalization 末 & 参数、单位、范围 \\
+② spec gate & formalization 末 & 物理形式化与论文一致 \\
+③ 公式 gate & 实现/运行末 & 核心公式对权威教材核 \\
+④ 误差 gate & 报告末 & 量化误差数字，不接受「看起来一致」 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{复述纪律（防转述漂移）}
+
+主 agent 向用户汇报任何「gate 裁决 / verifier 输出 / 已归档结论」的量化数值时，\textbf{必须现场重开原始文件核对}，不得凭对话历史记忆转述。数字、方向词、范围必须与原文逐字一致。这一条专门防「模型在长对话里凭印象转述已裁决数字，结果越传越偏」。
+
+\subsection{人工复核硬化}
+
+凡从论文图/位图提取的参数（坐标轴类型、刻度值、峰位、曲线数据），模型读数一律视为「未核实线索」：
+
+\begin{enumerate}
+  \item 下一步开工前必须人工复核——formalization 定稿前用户亲自核对；
+  \item workflow 结束前整体复核一次——gate④ 前把所有「从图提取的参数」列清单，用户逐项复核再定稿 REPORT。
+\end{enumerate}
+
+\subsection{关键节点必须停}
+
+以下节点默认停（除非用户说全自动）：进 REPORT 前、改 skill/蓝图前、物理验证失败要换方案时、遇到缺失信息时、\textbf{偏离既定 workflow 步骤时}。最后一条尤其重要——不得自主偏离后在报告里事后声明代价，偏离前必须问用户。

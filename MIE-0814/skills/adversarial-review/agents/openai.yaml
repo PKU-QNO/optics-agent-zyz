@@ -1,0 +1,7 @@
+interface:
+  display_name: "Adversarial Review"
+  short_description: "独立视角对抗性审查计划/设计/代码diff，抓主agent自证盲区"
+  default_prompt: "请对[审查对象]做对抗性审查，按 $adversarial-review 编排：选通道、写审查prompt、划文件边界、汇总gate后展示给我拍板。"
+
+policy:
+  allow_implicit_invocation: false

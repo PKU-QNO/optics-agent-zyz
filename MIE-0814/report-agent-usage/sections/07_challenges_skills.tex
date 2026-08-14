@@ -1,0 +1,58 @@
+\section{挑战、教训与 skill 沉淀}
+
+\subsection{踩过的主要坑}
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}p{4.2cm}p{9.0cm}@{}}
+\toprule
+坑 & 教训 \\
+\midrule
+codex 反复被杀 & 服务端过载时后台任务被中断；resume 对多 agent 子会话不可用，只能 fork 重发；单任务连断多次 = 停发等窗口 \\
+长任务硬超时 & 委托接近完成时被超时 kill；改为不设超时，靠结束唤醒 + 落盘产物判活 \\
+读图误判 & log/linear 误判毁掉整轮；必须 vision-mcp 多通道收敛 + 人工复核 \\
+BEM 调试 15 轮 & 接口不熟导致反复试错；核心坑：色散金属域 BEM 不支持、表面网格 selection 维度、远场需 FarFieldCalculation \\
+内存估算 & FEM 直接求解器 $O(\mathrm{DOF}^{1.5})$，0.3 网格需 900G；先估 DOF 再申请资源 \\
+上下文膨胀 & 主 agent 亲读大文件撑爆 context；判断密度路由，读文件不进主 context 的派子 agent \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{从经验到 skill：10 个可复用 skill}
+
+复现结束后，把反复用到的经验提炼为 skill。共沉淀 \textbf{10 个}——其中 6 个从本项目直接提炼，4 个是过程中用到的通用能力：
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}p{4.6cm}p{7.6cm}@{}}
+\toprule
+skill & 内容 \\
+\midrule
+\textbf{paper-reproduction} & 复现编排：多轮×7步 + 4 gate + 复述纪律 + 人工复核 \\
+\textbf{figure-reading} & 读图提取：刻度铁律 + 多通道收敛 + 数字化 \\
+\textbf{comsol-scattering} & COMSOL FEM/BEM 建模 + 多极矩后处理 + 网格收敛 \\
+\textbf{magnus-submit} & 集群 blueprint 提交 + 资源声明 + 红线 \\
+\textbf{numeric-verification} & 物理验证三元组 + Richardson + result\_class \\
+\textbf{third-party-cross-validation} & 第三方交叉验证 + 诚实区分同/异对象 \\
+\midrule
+adversarial-review & 对抗性审查（独立视角审代码/结论） \\
+transition-wrapup & 会话收尾（整理 memento/MEMORY/rules） \\
+doc-sync & 设计文档同步（面向用户的现状+待决策） \\
+grill-me & 追问（对 agent 结论追问拍板） \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{skill 提炼原则：泛化而非复制}
+
+把一个项目专属的经验变成 skill，关键动作是\textbf{剥离专属细节、保留可复用骨架}：
+
+\begin{itemize}
+  \item 项目内的 \texttt{agent-workflow}（写死「4 轮、Alaee Fig.1/2/3」）$\to$ 泛化为 \texttt{paper-reproduction}（「多轮、任意论文」）；
+  \item 散在多个 skill 里的「刻度铁律」$\to$ 收口成独立的 \texttt{figure-reading}（单一权威来源）；
+  \item 物理细节（Mie 公式、具体参数）不进 skill，留在各轮自己的 \texttt{formalization/}。
+\end{itemize}
+
+\begin{important}
+skill 的边界判断：\textbf{「脱离本项目，这件事能否独立成立为一个可复用任务？」}能 → 独立 skill；不能（只是某项目的局部步骤）→ 留在项目内。避免把「我们做过 X」都堆成 skill——碎片化的 skill 比没有更糟。
+\end{important}

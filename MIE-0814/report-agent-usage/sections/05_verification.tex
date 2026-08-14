@@ -1,0 +1,45 @@
+\section{验证方法论}
+
+复现的落脚点不是「公式算对了」，而是「凭什么相信自己算对了」。这需要一套机器可判的验证方法。
+
+\subsection{formalization：把论文声明规格化}
+
+第一步把论文的图/表/结论翻译成机器可判的 YAML spec——参数、单位、范围、验证判据全部显式写死。这是后续所有验证的契约：agent 对着 spec 跑，而不是对着「看起来像不像」跑。
+
+\subsection{物理验证三元组}
+
+三条\textbf{相互独立}的判据，任何一条不过都不放过：
+
+\begin{enumerate}
+  \item \textbf{多近似方法对比}（排除实现 bug）——同一物理对象用两条独立数学路径算，交叉比对。球体：Table 2 体积积分 vs Mie 级数求和；非球形无解析解：两种数值求解器互验（FEM vs BEM）。
+  \item \textbf{极限退化}（排除公式抄错）——每个公式要求它在已知极限退化回已知结果。精确 Table 2 在 $kr\to0$ 退化回长波 Table 1；Mie 退化回 Rayleigh $x^4$；$Q_{\rm ext}\to2$。多极矩系数由退化固定，不是照抄论文。
+  \item \textbf{能量守恒 / 光学定理}（排除物理不自洽）——$C_{\rm ext}=C_{\rm sca}+C_{\rm abs}$ 到 $10^{-10}$；光学定理 $S(0)$ 双路差 $10^{-14}$；功率闭合 balance $=1.0$。
+\end{enumerate}
+
+三条叠加排除「实现 bug」「公式抄错」「物理不自洽」三类错误。
+
+\subsection{预注册：先冻结 spec 再跑}
+
+验证阈值（如 RMSE 0.020、p95 0.050）\textbf{必须在看到结果前冻结}，防「看到结果后调阈值抹平差异」这种事后发明。这是典型的科学诚信失败模式，agent 尤其容易踩——所以要显式预注册。
+
+\subsection{result\_class 诚实标注}
+
+结果用 7 级枚举标注，\textbf{禁把「跑通了管道」当「复现成功」}：
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+等级 & 含义 \\
+\midrule
+\texttt{physical\_reproduction\_success} & 物理复现成功 \\
+\texttt{partial\_physical\_match} & 部分物理吻合（缺网格收敛/远场闭合等） \\
+\texttt{surrogate\_fallback} & 替代方案（如读图数据） \\
+\texttt{diagnostic\_only} & 仅诊断性结果 \\
+\texttt{pipeline\_completed} & 管道跑通，但物理未验证 \\
+\texttt{not\_run} / \texttt{failed} & 未运行 / 失败 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+读图数据永远是 \texttt{surrogate\_fallback}，不是物理复现。「跑通了管道」（\texttt{pipeline\_completed}）≠ 物理结论成立。

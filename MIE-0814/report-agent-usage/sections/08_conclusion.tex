@@ -1,0 +1,46 @@
+\section{结论与可复用性}
+
+\subsection{这套方法沉淀了什么}
+
+四轮复现沉淀了一套\textbf{agent 驱动的科研计算方法论}，核心是五个可复用组件：
+
+\begin{enumerate}
+  \item \textbf{三层 agent 分工}——判断与执行分离，主 context 只装结论；
+  \item \textbf{gate + 复述纪律 + 人工复核}——把「可信」交给机器可判的契约 + 人工停点，不交给模型自觉；
+  \item \textbf{四层记忆载体}——memento / MEMORY.md / doc-sync / skill 各司其职；
+  \item \textbf{物理验证三元组 + result\_class}——回答「凭什么相信算对了」并诚实标注完成度；
+  \item \textbf{skill 沉淀}——10 个可复用 skill，经验不随会话消失。
+\end{enumerate}
+
+\subsection{关键数字一览}
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+指标 & 值 \\
+\midrule
+复现论文 & 4 篇，4 轮 \\
+球体双实现交叉 & $<0.21\%$（介电）/ $<0.03\%$（金） \\
+Grahn 映射相对差 & $5.7\times10^{-7}\sim2.9\times10^{-4}$ \\
+能量守恒 & 到 $10^{-10}$ \\
+光学定理双路差 & $10^{-14}$ \\
+BEM vs FEM 内存 & $128$G vs $900$G（省 7 倍） \\
+沉淀 skill & 10 个 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{迁移价值}
+
+这套方法不限于电磁散射，对任何「有解析基准可校验、有数值可交叉」的科研计算复现都成立：
+
+\begin{itemize}
+  \item \textbf{有解析解的}（球体/Mie 类）→ 双实现交叉 + 极限退化，解析解就是验金石；
+  \item \textbf{无解析解的}（非球形/数值类）→ 先球体校验求解器，再两数值方法互验 + 网格收敛；
+  \item 无论哪类，\textbf{formalization 规格化 + 三元组 + result\_class 诚实}都是通用底座。
+\end{itemize}
+
+\begin{important}
+一句话总结：\textbf{复现的可信度不是「看起来像」，而是「机器可判的契约 + 相互独立的物理判据 + 诚实标注的完成度」。} agent 的价值在于把这三件事制度化、可复用，而不是替人「画一张像的图」。
+\end{important}

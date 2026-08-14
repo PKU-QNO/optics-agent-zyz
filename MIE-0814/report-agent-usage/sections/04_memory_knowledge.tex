@@ -1,0 +1,44 @@
+\section{记忆与知识管理}
+
+复现跨多轮、多会话，agent 需要四层记忆载体，各司其职、不混用：
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}p{3.2cm}p{3.4cm}p{3.4cm}p{2.6cm}@{}}
+\toprule
+载体 & 职责 & 时效 & 写入时机 \\
+\midrule
+\textbf{memento} & 跨会话长期：事实/决策/坑，语义检索 & 永久，按 importance 分层 & 有实质产出/踩坑/决策时 \\
+\textbf{MEMORY.md} & 恢复上下文：「我现在在哪、要做什么」 & 短时态，覆盖式更新 & 每工作单元结束 / compact 前 \\
+\textbf{doc-sync} & 面向用户的设计现状 + 待决策 & 长期 & 新 agent 完成 / 新决策时 \\
+\textbf{skill} & 可复用指令：经验沉淀为 SKILL.md & 永久，跨场景 & 经验反复复现、用户拍板后 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{memento：语义检索的长期记忆}
+
+用「关键词 + 向量」融合排序，支持跨会话召回「三年前踩过的坑」。关键做法：
+
+\begin{itemize}
+  \item \textbf{存完整句子而非碎片}：内容越完整向量语义越准；
+  \item \textbf{importance 分层}：决策 0.7+、日常 0.3--0.5，避免低价值记忆淹没搜索；
+  \item \textbf{存前查重}：用向量余弦相似度检查是否已有相似记忆；
+  \item \textbf{结构化三工具}：事实/决策走 \texttt{memory\_store}，架构决策走 \texttt{decisions\_log}，踩坑走 \texttt{pitfalls\_log}。
+\end{itemize}
+
+\subsection{MEMORY.md：恢复上下文的索引头}
+
+一个纯索引头文件（$\le200$ 行），会话启动注入，回答「我现在在哪、当前在做什么」。\textbf{只放索引，不放正文}——发现、行为规范、任务细节全部下沉到 \texttt{memory/} 目录的 topic 文件，头部只留指针。每次 compact 前覆盖式更新，不累积瞬时状态。
+
+\subsection{doc-sync：面向用户的设计同步}
+
+一套「主文档 + 副文档 + 待决策清单」系统，作为唯一 human 入口。用户只看 \texttt{00-待决策清单} 就能拍板，其余读完即可。主文档多用 ASCII 图表示流程 + 状态表 + 跳转链接，副文档放每个设计 flow 的详细设计。
+
+\subsection{skill：从经验到可复用指令}
+
+复现结束后，把反复用到的经验提炼为 skill（本报告 §7 详述 10 个 skill）。核心原则是\textbf{「泛化而非复制」}——把项目专属的细节剥离，只保留可跨任务复用的编排/方法/铁律。
+
+\begin{important}
+四层载体的边界判据：\textbf{需要语义召回 + 结构化} → memento；\textbf{恢复「我在哪」} → MEMORY.md；\textbf{给用户看现状与待决策} → doc-sync；\textbf{跨场景稳定复用} → skill。混用会各自失效——例如把「当前在做什么」塞进 memento，下次召回时反而找不到「长期结论」。
+\end{important}

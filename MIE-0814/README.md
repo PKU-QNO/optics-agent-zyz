@@ -15,8 +15,9 @@
 
 ```
 MIE-0814/
-├── reports/                           # 四个 PDF（可直接阅读）
+├── reports/                           # 五个 PDF（可直接阅读）
 │   ├── professor-report.pdf           #   给教授的汇报（正文 7 页 + 附录 4 页）
+│   ├── agent-usage-report.pdf         #   给 LLM 学长的 agent 使用报告（10 页）
 │   ├── technical-manual.pdf           #   备查技术手册（含 Q&A）
 │   ├── vector-multipole-derivation.pdf #  理论推导笔记（66 页）
 │   └── reproduction-report.pdf        #   完整复现报告（20 页）
@@ -30,6 +31,8 @@ MIE-0814/
 │   └── sub-report/                    #   Grahn 子报告
 ├── report-professor/                  # 给教授报告的 LaTeX 源码
 ├── report-technical-manual/           # 备查手册的 LaTeX 源码
+├── report-agent-usage/                # agent 使用报告的 LaTeX 源码
+├── skills/                            # 10 个可复用 skill（6 自建 + 4 通用）
 └── vector-multipole-derivation/       # 理论推导笔记的 LaTeX 源码
 ```
 
@@ -62,3 +65,12 @@ python -m pytest tests -q -p no:cacheprovider
 ```
 
 COMSOL 构建器（双金盘 FEM/BEM）在 `comsol/runtime/cases/alaee2018_fig3/`（本仓库根，非本目录）。
+
+## Skill 沉淀（10 个）
+
+复现结束后把经验提炼为可复用 skill，`skills/` 目录含 10 个（6 自建 + 4 通用），也已上传 Magnus（gustation.phybench.cn 的 skill 库）：
+
+- **paper-reproduction** / **figure-reading** / **comsol-scattering** / **magnus-submit** / **numeric-verification** / **third-party-cross-validation**（自建）
+- **adversarial-review** / **transition-wrapup** / **doc-sync** / **grill-me**（通用）
+
+详见 `reports/agent-usage-report.pdf`（给 LLM 学长的 agent 使用报告）。

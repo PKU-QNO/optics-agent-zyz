@@ -1,0 +1,45 @@
+\section{项目概览}
+
+\subsection{复现对象}
+
+本项目复现四篇电磁多极展开（multipole expansion）方向的经典论文，形成一条从「多极映射」到「精确多极矩」的理论链：
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}lll@{}}
+\toprule
+论文 & 内容 & 复现目标 \\
+\midrule
+Grahn 2012 (NJP 14 093033) & 电磁多极理论映射 & 电流矩 $\to$ 电/磁多极系数的映射关系 \\
+FC2015 (Opt. Express 23 33044) & 精确偶极矩 & 精确电偶极矩定义与退化 \\
+FC2017 (Sci. Rep. 7 7527) & toroidal 多极非独立 & toroidal 不是独立自由度的严格证明 \\
+Alaee 2018 (Opt. Commun. 407 17) & 超越长波近似 & Table 1（长波）vs Table 2（精确）多极矩 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{四轮复现与结果}
+
+按「一轮复现一张图 / 一个结论」组织为四轮，每轮独立验收：
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}llll@{}}
+\toprule
+轮 & 对象 & 方法 & 结果 \\
+\midrule
+1 & Fig.1 介电球散射截面 & Mie 解析 + Table 2 积分 & 双实现交叉 $<0.21\%$ \\
+2 & Fig.2 金球多极分解 & 同上（加密网格） & 双实现交叉 $<0.03\%$ \\
+3 & Grahn 映射 & 双路径 + 独立远场 & 相对差 $5.7\times10^{-7}\sim2.9\times10^{-4}$ \\
+4 & Fig.3 双金盘 Fano & COMSOL FEM + BEM & 两求解器交叉，网格收敛评估 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{important}
+一个关键数字：双金盘（非球形、无解析解）用边界元法（BEM）$128$ GB 就跑通了同一几何，而有限元（FEM）频域直接求解器需要 $900$ GB——省约 $7$ 倍。这说明**选对数值方法比堆算力更重要**。
+\end{important}
+
+\subsection{本报告关注的维度}
+
+给光学组的报告讲「物理为什么对」（三条物理判据），本报告讲「agent 怎么把这件事做对」——即复现过程中 \textbf{agent 编排、记忆治理、验证方法论、读图处理、经验沉淀}这一整套工程方法。二者互补，物理报告回答「算对了吗」，本报告回答「这套 agent 工作流能不能复用」。

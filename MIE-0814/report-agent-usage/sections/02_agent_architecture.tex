@@ -1,0 +1,47 @@
+\section{Agent 架构与分工}
+
+复现不是单模型从头做到尾，而是**三层 agent 分工**——每层有不同的职责、模型档位与上下文边界。
+
+\subsection{三层分工}
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{@{}p{2.6cm}p{4.6cm}p{2.2cm}p{2.2cm}@{}}
+\toprule
+层 & 职责 & 模型档位 & 上下文边界 \\
+\midrule
+\textbf{主 agent} & 编排：读路线图、spawn 子 agent、汇总报告、在 gate 停顿问用户 & 主循环 & 保留判断层，不亲自做隔离活 \\
+\textbf{子 agent} & 执行单步（formalization / 实现 / 验证…） & 常规档 & 只读/写限定目录，报告回传结论 \\
+\textbf{codex 后台委托} & 多模态读图、并发批量、长任务 & 难活用强模型 & 后台 bash 并发，产物落盘不占主 context \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{核心纪律：判断密度路由}
+
+一条贯穿始终的规则——\textbf{读文件内容不进主 context 的，都派子 agent}。主 agent 亲读大段文件/多文件会把原文灌进主 context，压缩信噪比。所以：
+
+\begin{itemize}
+  \item 单事实查询（已知文件/符号）→ 直接 Grep/Read，不派 agent；
+  \item 跨多文件调查、架构梳理 → 派只读子 agent，只收结论不收文件转储；
+  \item 裁决必需的读（gate 停机点）→ 主 agent 亲读，不转述。
+\end{itemize}
+
+\subsection{子 agent 并发（fan-out）}
+
+两张独立图 / 两个独立子任务可并发 spawn 多个子 agent，主 agent 是唯一汇聚点。\textbf{并发前提是真独立}——无数据/文件/逻辑依赖；有依赖就串行。
+
+\subsection{codex 后台委托（并发 + 长任务）}
+
+多模态读图、大批量、深推理的任务交给 codex 后台执行，特点是：
+
+\begin{itemize}
+  \item \textbf{并发 = 多条后台 bash}，每条 \texttt{run\_in\_background}，互不阻塞，各自落盘；
+  \item \textbf{长任务不设硬超时}——委托可能跑很久，硬超时会误杀接近完成的任务（踩过：codex 渲染完大部分产物却在收尾落盘时被超时 kill）；
+  \item \textbf{判活看落盘产物}是否在增长（事件流尾部时间戳、result 文件是否出现），而非猜；
+  \item \textbf{产物落盘传路径}，不靠 stdout（会截断），主 agent 亲读落盘产物做验收。
+\end{itemize}
+
+\begin{important}
+这套三层分工的关键不是「用多个模型」，而是**把「判断」和「执行」分离**：判断（gate 裁决、物理归因、方法选型）留在主循环，执行（写码、跑脚本、读图、批量）下沉到子 agent / 后台。这样主 context 始终只装「结论 + 关键定位」，而不是执行细节。
+\end{important}

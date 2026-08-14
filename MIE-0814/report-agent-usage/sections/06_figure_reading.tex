@@ -1,0 +1,28 @@
+\section{读图处理与人工复核}
+
+\subsection{为什么读图是最大隐性错误源}
+
+复现论文离不开从图里读参数（坐标轴类型、刻度值、峰位、曲线数据）。但模型读图极不可靠——\textbf{模型看同一张图两次可能给不同答案}。
+
+\begin{lesson}
+最典型的一次：Fig.1 的 y 轴被模型判为 log 坐标，实际是 linear（刻度 1,3,5,7）。这个误判让整轮结论报废，最后被 vision-mcp 4 个通道交叉（2 个裁剪图 + 整图独立读）推翻。教训：\textbf{任何单通道读数（包括主 agent 亲看原图）都可能错}。
+\end{lesson}
+
+\subsection{刻度/坐标轴铁律}
+
+从论文图提取任何参数时，必须遵守：
+
+\begin{enumerate}
+  \item 用权威最高分辨率原图，不用低清 OCR 渲染、不用缩略图；
+  \item \textbf{vision-mcp 多通道收敛}：$\ge2$ 裁剪图 + 整图独立读，全一致才可信；
+  \item \textbf{轴标题 vs 刻度分离}：竖排英文轴标题（如 \texttt{(C\_sca/(}$\lambda^2$\texttt{/2}$\pi$\texttt{))}）是文字不是刻度，先剥离标题区域，否则竖排笔画混入被误判为刻度线；
+  \item 读到的值标 confidence + 提取方法 + 「未核实线索，待人工复核」。
+\end{enumerate}
+
+\subsection{log / linear 判定}
+
+不凭直觉判 log/linear。判定信号：刻度间距是否等距（linear 等距，log 每十倍等距）、轴标签是否含 10 的幂、网格线分布。多通道读同一根轴全一致才算定论，不一致就标「未核实，待复核」，\textbf{不硬选一个继续算}。
+
+\subsection{读图数据 vs 解析解的取舍}
+
+纯理论论文（曲线 = 标准解析解，如 Alaee 2018 的曲线就是标准 Mie）\textbf{没有作者原始数据可对齐}，直接自己算解析解，读图数据放弃，人工目视相似即可。读图数据只用于峰位/形态定性比对，不用于精确数值标定——它永远是 \texttt{surrogate\_fallback}。
