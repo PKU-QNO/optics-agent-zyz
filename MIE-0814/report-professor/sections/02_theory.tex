@@ -1,5 +1,23 @@
 \section{理论推导}
 
+\subsection{复现的物理模型}
+
+复现围绕两个物理场景：\textbf{单球散射}（Fig.~1/2，有 Lorenz--Mie 解析真值可做独立基准）与\textbf{耦合双金盘}（Fig.~3，无解析解，需数值求解）。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.74\textwidth]{figs/schematic_sphere.png}
+\caption{物理场景一：平面波 $E_0\,e^{-ik_0 z}$（$x$ 偏振）入射到半径为 $a$ 的单球，散射出辐射场。Fig.~1 用介电球 $\varepsilon_r=6.25$，Fig.~2 用金球（Johnson--Christy 色散）。}
+\label{fig:schematic_sphere}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.64\textwidth]{figs/schematic_double_disk.png}
+\caption{物理场景二：两个耦合金纳米盘，半径 $a=250$ nm、高 $t=80$ nm、间隙 $g=120$ nm。Fig.~3 无解析解，用 COMSOL 频域有限元（FEM）与边界元（BEM）两种求解器交叉验证。}
+\label{fig:schematic_double_disk}
+\end{figure}
+
 \subsection{四篇论文的理论链}
 
 按「从 Maxwell 到精确多极展开」的顺序，四篇论文构成一条理论链：
@@ -11,9 +29,27 @@
   \item \textbf{Alaee 2018}：推广到全部多极阶。Table 1 是长波近似（$kr\to0$ 截断），Table 2 是保留球 Bessel 函数 $j_l(kr)$ 的精确表达式；Table 1 是 Table 2 的 $kr\to0$ 极限。
 \end{enumerate}
 
+这条理论链的关键公式如下。\textbf{Table 1（长波近似）}给出熟知的偶极/磁偶极矩：
+\[
+p_\alpha = \int P_\alpha\,dV,\qquad
+m_\alpha = \frac{i\omega}{2}\int (\mathbf r\times\mathbf P)_\alpha\,dV,
+\]
+其中 $\mathbf P$ 是极化场，电偶极散射贡献里还有 toroidal 项（$k^2/10$ 修正）。\textbf{Table 2（精确）}保留球 Bessel 核，例如精确电偶极矩的积分核为 $j_1(kr)/(kr)$；退化检查的关键是 $j_l(kr)/(kr)^l\to1/(2l+1)!!$，使 Table 2 在 $kr\to0$ 退化回 Table 1。\textbf{Grahn 2012} 的电流多极矩到散射系数的映射常数为
+\[
+C_1=-\frac{ik^3}{6\pi E_0},\qquad
+C_2=-\frac{k^4}{60\pi E_0},\qquad
+C_3=-\frac{ik^5}{210\pi E_0}
+\]
+（对应正文 Eq.~(35)--(48)）。
+
 \subsection{矢量球谐的推导}
 
-我手推了从 Maxwell 到 Grahn Eqs.~(1)--(16) 的矢量球谐（VSH）展开链，约 66 页笔记，逐步不跳步。核心路径：
+我手推了从 Maxwell 到 Grahn Eqs.~(1)--(16) 的矢量球谐（VSH）展开链，约 66 页笔记，逐步不跳步。矢量球谐的定义是
+\[
+\mathbf M_{lm} = \frac{1}{\sqrt{l(l+1)}}\nabla\times(\mathbf r\,Y_{lm}),\qquad
+\mathbf N_{lm} = \frac{1}{k}\nabla\times\mathbf M_{lm},
+\]
+它们满足正交完备性，是任意场/电流投影到多极分量的基。核心路径：
 
 \[
 \text{Maxwell 方程} \;\longrightarrow\; \text{矢量球谐 } \mathbf M_{lm},\mathbf N_{lm} \;\longrightarrow\; \text{Mie 严格解} \;\longrightarrow\; \text{多极投影} \;\longrightarrow\; \text{电流多极矩映射}

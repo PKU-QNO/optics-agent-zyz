@@ -16,6 +16,13 @@ $0.1404\%$ & $0.0383\%$ & $0.2020\%$ & $0.1252\%$ \\
 \end{tabular}
 \end{center}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{figs/visual_compare_fig1.png}
+\caption{Fig.~1 复现对比：左为复现的散射截面谱（按多极 ED/MD/EQ/MQ 着色），右为 Alaee 2018 Fig.~1 原文（adapted）。两者谱形与峰位一致，误差表是逐通道量化这一致性的结果。}
+\label{fig:compare_fig1}
+\end{figure}
+
 \textbf{Fig.~2（金球 $a=250$ nm，Johnson--Christy 色散）}：同一方法推广到有损色散材料，加密积分网格（$60\times61\times120$）后：
 
 \begin{center}
@@ -27,6 +34,13 @@ $0.0119\%$ & $0.0170\%$ & $0.0161\%$ & $0.0241\%$ \\
 \bottomrule
 \end{tabular}
 \end{center}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{figs/visual_compare_fig2.png}
+\caption{Fig.~2 复现对比：金球多极分解的复现谱（左）与 Alaee 2018 Fig.~2 原文（右，adapted），形态一致，误差 $<0.03\%$。}
+\label{fig:compare_fig2}
+\end{figure}
 
 验证了 Table 2 精确多极矩在复折射率、宽谱、有损条件下与解析 Mie 解一致。
 
@@ -45,6 +59,15 @@ $0.0119\%$ & $0.0170\%$ & $0.0161\%$ & $0.0241\%$ \\
 
 \subsection{Alaee 2018 Fig.~3：耦合金纳米盘的频域真解}
 
-双金盘（$a=250$ nm、$t=80$ nm、$g=120$ nm）无解析解，用 COMSOL 频域有限元求解。9 点谱（$x=0.26$--$0.42$）显示 ED 主导、MD/EQ 在 $x=0.36$ 磁共振（MD $1.60\times10^{-12}$ m$^2$ 主导、EQ 伴生、MQ $\approx0$），与论文共振形态一致。$x=0.36$ 四档网格收敛（$1.0\to0.7\to0.5\to0.3$，292,687 至 10,735,163 单元）给出 ED/MQ 已收敛（步进 $<0.26\%$），MD/EQ 步进 $2.26\%/1.95\%$，Richardson 外推收敛阶 $p\approx1.3$（表面场奇异性主导，见 §4.2）。
+双金盘（$a=250$ nm、$t=80$ nm、$g=120$ nm）无解析解，用 COMSOL 频域有限元求解。9 点谱（$x=0.26$--$0.42$）显示 ED 主导、MD/EQ 在 $x=0.36$ 磁共振（MD $1.60\times10^{-12}$ m$^2$ 主导、EQ 伴生、MQ $\approx0$），与论文共振形态一致。
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{figs/fig3_comsol_vs_surrogate_paper.png}
+\caption{Fig.~3 复现对比：COMSOL 频域 FEM 真解谱（实点）与论文共振形态对照。ED 主导 + MD/EQ 在 $x=0.36$ 磁共振的定性形态一致，峰位偏移 $\sim0.02$--$0.04$、采样 9 点较粗糙（见 §4 与附录 D 的限制说明）。}
+\label{fig:compare_fig3}
+\end{figure}
+
+$x=0.36$ 四档网格收敛（$1.0\to0.7\to0.5\to0.3$，292,687 至 10,735,163 单元）给出 ED/MQ 已收敛（步进 $<0.26\%$），MD/EQ 步进 $2.26\%/1.95\%$，Richardson 外推收敛阶 $p\approx1.3$（表面场奇异性主导，见 §4.2）。
 
 另以边界元法（RF 模块）同一几何求解，128G 内存跑通（对比有限元 0.3 网格 900G，省约 7 倍），验证边界元作为更省内存的替代路径（PEC 近似下的对比见 §4.1）。

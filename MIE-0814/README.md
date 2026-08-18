@@ -15,8 +15,9 @@
 
 ```
 MIE-0814/
-├── reports/                           # 五个 PDF（可直接阅读）
-│   ├── professor-report.pdf           #   给教授的汇报（正文 7 页 + 附录 4 页）
+├── reports/                           # 六个 PDF（可直接阅读）
+│   ├── professor-report.pdf           #   给教授的汇报 v1（正文 7 页 + 附录 4 页）
+│   ├── professor-report-v2.pdf        #   给教授的汇报 v2（补公式+示意图+复现图对比，14 页）
 │   ├── agent-usage-report.pdf         #   给 LLM 学长的 agent 使用报告（10 页）
 │   ├── technical-manual.pdf           #   备查技术手册（含 Q&A）
 │   ├── vector-multipole-derivation.pdf #  理论推导笔记（66 页）
