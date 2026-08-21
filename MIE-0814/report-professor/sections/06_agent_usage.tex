@@ -1,0 +1,68 @@
+\section{复现中的 agent 辅助}
+
+本节记录这套复现如何以「人主导、agent 辅助」的方式完成。核心立场：物理判断、公式推导与最终裁决由人完成；agent 是执行与验证的辅助工具。
+
+\subsection{复现工作流：人定方向，agent 执行}
+
+四轮复现的每个结论都遵循「人定方向 → agent 执行 → 人验收」的循环。\textbf{人（我）承担}：
+
+\begin{itemize}
+  \item 确定每轮复现哪张图/哪个结论（Fig.~1/2/3、Grahn 映射）；
+  \item 拍板物理问题是否形式化正确（\textcolor{annotblue}{gate 2}）；
+  \item 核对从论文图读出的参数（人工复核）；
+  \item 裁决量化误差是否达标（\textcolor{annotblue}{gate 4}）。
+\end{itemize}
+
+\textbf{agent 辅助执行}：
+
+\begin{itemize}
+  \item 把论文 PDF 转成机器可判的 spec（参数/单位/范围/验证判据）；
+  \item 写实现代码与回归测试（TDD，物理约束先硬编码）；
+  \item 读论文图（多通道收敛）与提取参数；
+  \item 跑数值求解（COMSOL FEM/BEM 在集群）与批量扫描；
+  \item 汇总验证数字，供人裁决。
+\end{itemize}
+
+关键：agent 不替人做物理判断，每个 gate 都停下来由人拍板。
+
+\subsection{如何验证 agent 结果的正确性}
+
+agent 执行的结果不能「看起来像」就信。除正文 §4 的三条物理判据外，还有三道工程防线：
+
+\begin{enumerate}
+  \item \textbf{formalization 规格化}：先把论文声明翻译成机器可判的 YAML spec，agent 对着 spec 跑，不凭感觉；
+  \item \textbf{复述纪律}：agent 汇报量化数字时必须重开原始文件核对原文，防长对话里凭印象转述漂移；
+  \item \textbf{人工 gate + 人工复核}：4 个 gate 由人停点裁决；从图读出的参数在开工前与结束前各整体复核一次。
+\end{enumerate}
+
+agent 的执行结果最终由三条物理判据（多近似对比 / 极限退化 / 能量守恒与光学定理）独立检验，任何一条不过都不放行。
+
+\subsection{沉淀的 10 个可复用 skill}
+
+四轮复现结束后，把反复使用的经验提炼为 10 个 skill（可随项目迁移复用）：
+
+\begin{itemize}
+  \item \textbf{本项目直接沉淀（6 个）}：paper-reproduction（复现编排）、figure-reading（读图提取）、comsol-scattering（COMSOL FEM/BEM 建模）、magnus-submit（集群作业提交）、numeric-verification（物理验证）、third-party-cross-validation（第三方交叉验证）；
+  \item \textbf{通用能力（4 个）}：adversarial-review（对抗性审查）、transition-wrapup（会话收尾）、doc-sync（设计同步）、grill-me（追问）。
+\end{itemize}
+
+这些 skill 已随本复现公开（\texttt{MIE-0814/skills/}）。
+
+\subsection{agent 简化了什么}
+
+\begin{itemize}
+  \item \textbf{省去重复机械劳动}：代码实现、回归测试、批量扫描、读图提取；
+  \item \textbf{让验证更彻底}：agent 可高密度扫描、跑独立库交叉、做多档网格收敛，覆盖面远超手工；
+  \item \textbf{保留判断层}：agent 把验证数字汇总成清单，人把精力集中在「为什么信」的物理判断。
+\end{itemize}
+
+\subsection{agent 在发现新物理时的帮助与不足}
+
+\textbf{帮助}：高密度参数扫描让人更快看到异常点（如 $x=0.36$ 的磁共振峰）；多方法交叉让人对「这个峰是真的」更有信心。
+
+\textbf{不足}：
+\begin{itemize}
+  \item agent 不会主动提出「这个峰可能有新物理」，发现依赖人的物理直觉；
+  \item agent 可能把「管道跑通」误报为「物理复现成功」，需 result\_class 诚实标注兜底；
+  \item 读图等感知任务仍是 agent 的薄弱环节，需多通道收敛 + 人工复核。
+\end{itemize}
